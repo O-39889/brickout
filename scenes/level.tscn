@@ -1,6 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://cljyfysqemsgw"]
+[gd_scene load_steps=3 format=3 uid="uid://cljyfysqemsgw"]
 
 [ext_resource type="Script" path="res://scripts/Level.gd" id="1_uhvnp"]
+[ext_resource type="PackedScene" uid="uid://doylk4sp6cg5q" path="res://scenes/Wall.tscn" id="2_sn5ow"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_uhvnp")
+
+[node name="WallLeft" parent="." instance=ExtResource("2_sn5ow")]
+rotation = 1.5708
+
+[node name="WallRight" parent="." instance=ExtResource("2_sn5ow")]
+position = Vector2(1152, 0)
+rotation = 4.71239
+
+[node name="WallTop" parent="." instance=ExtResource("2_sn5ow")]
+rotation = 3.14159

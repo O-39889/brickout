@@ -7,3 +7,4 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("WorldBoundaryShape2D_irqos")
+metadata/_edit_lock_ = true
