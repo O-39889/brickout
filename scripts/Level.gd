@@ -27,10 +27,6 @@ func launch_ball(ball: CharacterBody2D, dir: Vector2 = Vector2(1,1).normalized()
 
 
 func _input(event):
-	if not mouse_captured:
-		if event is InputEventMouseButton:
-			if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-				add_and_launch_ball(event.position);
 	if event.is_action_pressed("debug_exit"):
 		get_tree().quit();
 	if event.is_action_pressed("debug_restart"):

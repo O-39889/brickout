@@ -19,10 +19,10 @@ const PADDLE_SIZES = [
 ]
 
 
-var counter = PaddleSize.PADDLE_SIZE_NORMAL;
 var balls : Array[Ball] = [];
 # whether a paddle should spawn a ball on itself or not when created
 var spawn_ball;
+var sticky : bool = false;
 
 @onready var collision_shape : CollisionShape2D = find_child("CollisionShape2D");
 @onready var width := PADDLE_SIZES[PaddleSize.PADDLE_SIZE_NORMAL];
@@ -40,7 +40,11 @@ func _ready():
 		b.position.y = -b.BALL_RADIUS;
 		add_child(b);
 		balls.append(b);
-	
+
+
+func add_bawl(b: Ball):
+	b.reparent(self);
+	balls.append(b);
 
 
 func set_width(idx: PaddleSize):
