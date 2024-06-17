@@ -8,4 +8,4 @@ func _ready():
 
 
 func hit(b: Ball):
-	print("Fat chance!");
+	super(b);

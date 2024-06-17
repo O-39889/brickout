@@ -16,6 +16,8 @@ func _ready():
 	set_mouse_capture(true);
 	for b in get_tree().get_nodes_in_group("balls"):
 		b.lost.connect(_on_ball_lost);
+	for b in get_tree().get_nodes_in_group("bricks"):
+		b.hitted.connect(_on_brick_hit);
 
 
 func set_mouse_capture(captured: bool):
@@ -34,6 +36,16 @@ func _on_ball_lost(ball: Ball):
 	await get_tree().physics_frame;
 	if get_tree().get_nodes_in_group("balls").size() == 0:
 		get_tree().reload_current_scene();
+
+
+func _on_brick_hit(brick: Brick, ball: Ball):
+	if brick is RegularBrick:
+		if brick.durability == 1:
+			print("Goodbye, cruel world!");
+		else:
+			print("Ow!");
+	if brick is UnbreakableBrick:
+		print("Fat chance!");
 
 
 func _input(event):

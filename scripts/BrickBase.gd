@@ -1,5 +1,8 @@
 class_name Brick extends StaticBody2D
 
+# sorry i had to do this shite
+signal hitted(brick, ball);
+
 
 @export var durability : int = 1;
 
@@ -18,4 +21,4 @@ func _ready():
 
 
 func hit(b: Ball):
-	pass
+	hitted.emit(self, b);

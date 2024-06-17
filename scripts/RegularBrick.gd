@@ -12,6 +12,7 @@ func _process(delta):
 
 
 func hit(b: Ball):
+	super(b);
 	durability -= 1;
 	if durability <= 0:
 		queue_free();
