@@ -9,9 +9,9 @@ enum BallSpeed {
 
 # random data fur now
 const BALL_SPEEDS = [
-	380,
 	500,
-	700,	
+	600,
+	750,	
 ];
 
 const BALL_RADIUS = 20;
@@ -34,32 +34,39 @@ func _ready():
 func launch():
 	process_mode = Node.PROCESS_MODE_INHERIT;
 	stuck = false;
-	direction = Vector2(1, -1);
+	direction = Vector2(1, -1).normalized();
 	velocity = direction * speed;
 
 
 func handle_collision(collision: KinematicCollision2D):
-	var new_vel := velocity.bounce(collision.get_normal());
 	var collider := collision.get_collider();
 	if collider is Ball:
 		# and here we would somehow alter another guy's velocity
 		print("Not implemented!!!");
 		pass
 	if collider is Paddle:
-		if collider.sticky or true:
+		if collider.sticky:
 			stuck = true;
 			process_mode = Node.PROCESS_MODE_DISABLED;
 			velocity = Vector2.ZERO;
 			collider.add_bawl(self);
-			return;
-		new_vel = paddle_bounce(collider);
-		new_vel = velocity.bounce(collision.get_normal());
-	velocity = new_vel;
-	direction = velocity.normalized();		
+		else:
+			direction = paddle_bounce(collider, collision.get_position());
+			velocity = speed * direction;
+	else:
+		if collider.has_method("hit"):
+			collider.hit(self);
+		velocity = velocity.bounce(collision.get_normal());
+		direction = velocity.normalized();
 
 
-func paddle_bounce(paddle: Paddle) -> Vector2:
-	return Vector2.ZERO;
+func paddle_bounce(paddle: Paddle, collision_point: Vector2) -> Vector2:
+	print(collision_point);
+	var left : float = paddle.position.x;
+	var right : float = paddle.position.x + paddle.width;
+	var clamped : float = clampf(collision_point.x, left, right);
+	var remapped : float = remap(clamped, left, right, -70.0, 70.0);
+	return Vector2.UP.rotated(deg_to_rad(remapped));
 
 
 func _physics_process(delta):
