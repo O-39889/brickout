@@ -1,6 +1,9 @@
 class_name Ball extends CharacterBody2D
 
 
+signal lost(ball);
+
+
 enum BallSpeed {
 	BALL_SPEED_SLOW,
 	BALL_SPEED_NORMAL,
@@ -74,5 +77,4 @@ func _physics_process(delta):
 	if collision:
 		handle_collision(collision);
 	if position.y > get_viewport_rect().size.y + BALL_RADIUS * 4:
-		print("Lost ball!");
-		queue_free();
+		lost.emit(self);

@@ -14,16 +14,26 @@ func _ready():
 	paddle.position.x = (get_viewport_rect().size.x - paddle.width) / 2;
 	paddle.position.y = get_viewport_rect().size.y - Globals.PADDLE_OFFSET;
 	set_mouse_capture(true);
+	for b in get_tree().get_nodes_in_group("balls"):
+		b.lost.connect(_on_ball_lost);
 
 
-func add_and_launch_ball(pos: Vector2, dir: Vector2 = Vector2(1,-1).normalized()):
-	var ball = ball_packed.instantiate();
-	ball.position = pos;
-	add_child(ball);
+func set_mouse_capture(captured: bool):
+	if captured:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED;
+	else:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE;
+	mouse_captured = captured;
 
 
-func launch_ball(ball: CharacterBody2D, dir: Vector2 = Vector2(1,1).normalized()):
-	pass
+func _on_ball_lost(ball: Ball):
+	print(ball);
+	ball.queue_free();
+	# because the ball is queue'd free on the next frame so for now
+	# we still have it in the tree so will have to wait fur the next frame
+	await get_tree().physics_frame;
+	if get_tree().get_nodes_in_group("balls").size() == 0:
+		get_tree().reload_current_scene();
 
 
 func _input(event):
@@ -33,11 +43,3 @@ func _input(event):
 		set_mouse_capture(not mouse_captured);
 	if event.is_action_pressed("debug_do"):
 		pass
-
-
-func set_mouse_capture(captured: bool):
-	if captured:
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED;
-	else:
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE;
-	mouse_captured = captured;
