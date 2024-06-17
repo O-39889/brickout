@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cljyfysqemsgw"]
+[gd_scene load_steps=6 format=3 uid="uid://cljyfysqemsgw"]
 
 [ext_resource type="Script" path="res://scripts/Level.gd" id="1_uhvnp"]
 [ext_resource type="PackedScene" uid="uid://doylk4sp6cg5q" path="res://scenes/Wall.tscn" id="2_sn5ow"]
 [ext_resource type="PackedScene" uid="uid://vmrccf7ghuu3" path="res://scenes/Paddle.tscn" id="3_yqer5"]
 [ext_resource type="PackedScene" uid="uid://blofikyc7x7vn" path="res://scenes/RegularBrick.tscn" id="4_vgqhg"]
+[ext_resource type="PackedScene" uid="uid://blefa03mpdv8b" path="res://scenes/IndestructibleBrick.tscn" id="5_qmehk"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_uhvnp")
@@ -104,3 +105,27 @@ position = Vector2(810, 330)
 
 [node name="Brick22" parent="Bricks" instance=ExtResource("4_vgqhg")]
 position = Vector2(660, 330)
+
+[node name="IndestructibleBrick" parent="Bricks" instance=ExtResource("5_qmehk")]
+position = Vector2(510, 210)
+
+[node name="IndestructibleBrick2" parent="Bricks" instance=ExtResource("5_qmehk")]
+position = Vector2(435, 150)
+
+[node name="IndestructibleBrick3" parent="Bricks" instance=ExtResource("5_qmehk")]
+position = Vector2(435, 90)
+
+[node name="IndestructibleBrick4" parent="Bricks" instance=ExtResource("5_qmehk")]
+position = Vector2(435, 30)
+
+[node name="IndestructibleBrick5" parent="Bricks" instance=ExtResource("5_qmehk")]
+position = Vector2(1410, 210)
+
+[node name="IndestructibleBrick6" parent="Bricks" instance=ExtResource("5_qmehk")]
+position = Vector2(1485, 150)
+
+[node name="IndestructibleBrick7" parent="Bricks" instance=ExtResource("5_qmehk")]
+position = Vector2(1485, 90)
+
+[node name="IndestructibleBrick8" parent="Bricks" instance=ExtResource("5_qmehk")]
+position = Vector2(1485, 30)
