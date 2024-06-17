@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/Ball.gd" id="1_6mlqy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vbfvk"]
-radius = 60.0
+radius = 20.0
 
 [node name="Ball" type="CharacterBody2D" groups=["balls"]]
 collision_layer = 4
