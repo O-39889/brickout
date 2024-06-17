@@ -10,8 +10,10 @@ var mouse_captured := false;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	paddle.spawn_ball = true;
 	paddle.position.x = (get_viewport_rect().size.x - paddle.width) / 2;
 	paddle.position.y = get_viewport_rect().size.y - Globals.PADDLE_OFFSET;
+	set_mouse_capture(true);
 
 
 func add_and_launch_ball(pos: Vector2, dir: Vector2 = Vector2(1,-1).normalized()):

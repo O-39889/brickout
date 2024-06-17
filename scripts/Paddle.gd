@@ -1,4 +1,4 @@
-extends StaticBody2D
+class_name Paddle extends StaticBody2D
 
 
 enum PaddleSize {
@@ -20,7 +20,9 @@ const PADDLE_SIZES = [
 
 
 var counter = PaddleSize.PADDLE_SIZE_NORMAL;
-var balls : Array[CharacterBody2D] = [];
+var balls : Array[Ball] = [];
+# whether a paddle should spawn a ball on itself or not when created
+var spawn_ball;
 
 @onready var collision_shape : CollisionShape2D = find_child("CollisionShape2D");
 @onready var width := PADDLE_SIZES[PaddleSize.PADDLE_SIZE_NORMAL];
@@ -29,7 +31,16 @@ var balls : Array[CharacterBody2D] = [];
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	collision_shape.shape.b.x = width;
-	pass # Replace with function body.
+	if spawn_ball == null:
+		spawn_ball = true;
+	if spawn_ball == true:
+		var b : Ball = load("res://scenes/Ball.tscn").instantiate();
+		b.stuck = true;
+		b.position.x = width / 2;
+		b.position.y = -b.BALL_RADIUS;
+		add_child(b);
+		balls.append(b);
+	
 
 
 func set_width(idx: PaddleSize):
@@ -42,3 +53,10 @@ func _input(event: InputEvent):
 		if event is InputEventMouseMotion:
 			position.x += event.relative.x * Globals.MOUSE_SENSITIVITY;
 			position.x = clamp(position.x, 0, get_viewport_rect().size.x - width);
+		if event is InputEventMouseButton and balls.size() > 0:
+			if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+				# release the bawl
+				var first_bawl : Ball = balls.pop_front();
+				first_bawl.reparent(get_parent());
+				first_bawl.launch();
+				pass
