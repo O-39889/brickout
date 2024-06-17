@@ -20,6 +20,7 @@ const PADDLE_SIZES = [
 
 
 var counter = PaddleSize.PADDLE_SIZE_NORMAL;
+var balls : Array[CharacterBody2D] = [];
 
 @onready var collision_shape : CollisionShape2D = find_child("CollisionShape2D");
 @onready var width := PADDLE_SIZES[PaddleSize.PADDLE_SIZE_NORMAL];
