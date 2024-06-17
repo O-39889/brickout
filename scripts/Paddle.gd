@@ -1,10 +1,28 @@
 extends StaticBody2D
 
 
-const PADDLE_SIZE = 250;
+enum PaddleSize {
+	PADDLE_SIZE_TINY,
+	PADDLE_SIZE_SMALL,
+	PADDLE_SIZE_NORMAL,
+	PADDLE_SIZE_LARGE,
+	PADDLE_SIZE_HUMONGOUS,
+}
+
+
+const PADDLE_SIZES = [
+	100,
+	150,
+	240,
+	300,
+	400,
+]
+
+
+var counter = PaddleSize.PADDLE_SIZE_NORMAL;
 
 @onready var collision_shape : CollisionShape2D = find_child("CollisionShape2D");
-@onready var width = PADDLE_SIZE;
+@onready var width := PADDLE_SIZES[PaddleSize.PADDLE_SIZE_NORMAL];
 
 
 # Called when the node enters the scene tree for the first time.
@@ -13,9 +31,9 @@ func _ready():
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func set_width(idx: PaddleSize):
+	width = PADDLE_SIZES[idx];
+	collision_shape.shape.b.x = width;
 
 
 func _input(event: InputEvent):
