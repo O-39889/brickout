@@ -34,7 +34,11 @@ func launch():
 
 func handle_collision(collision: KinematicCollision2D):
 	velocity = velocity.bounce(collision.get_normal());
-
+	var collider := collision.get_collider();
+	if collider is CharacterBody2D:
+		if collider in get_tree().get_nodes_in_group("balls"):
+			# and here we would somehow alter another guy's velocity
+			pass
 
 func _physics_process(delta):
 	var collision: KinematicCollision2D = move_and_collide(velocity * delta);
