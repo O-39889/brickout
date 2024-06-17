@@ -6,6 +6,7 @@ var mouse_captured := false;
 @onready var wall_right = find_child("WallRight");
 @onready var paddle = find_child("Paddle");
 @onready var ball_packed = preload("res://scenes/Ball.tscn");
+@onready var powerup_packed = preload("res://scenes/Powerup.tscn");
 
 
 # Called when the node enters the scene tree for the first time.
@@ -42,6 +43,10 @@ func _on_brick_hit(brick: Brick, ball: Ball):
 	if brick is RegularBrick:
 		if brick.durability == 1:
 			print("Goodbye, cruel world!");
+			if randf() < 0.33333:
+				var powerup := powerup_packed.instantiate();
+				powerup.position = brick.position;
+				add_child(powerup);
 		else:
 			print("Ow!");
 	if brick is UnbreakableBrick:
