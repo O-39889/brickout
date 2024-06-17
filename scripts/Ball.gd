@@ -73,5 +73,6 @@ func _physics_process(delta):
 	var collision: KinematicCollision2D = move_and_collide(velocity * delta);
 	if collision:
 		handle_collision(collision);
-	else:
-		pass;
+	if position.y > get_viewport_rect().size.y + BALL_RADIUS * 4:
+		print("Lost ball!");
+		queue_free();
