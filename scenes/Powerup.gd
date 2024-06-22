@@ -35,6 +35,9 @@ const INITIAL_SPEED = 200;
 
 var powerup : Dictionary;
 
+# level pool, passed when instantiating a node
+var pool: Dictionary;
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -66,6 +69,10 @@ func _physics_process(delta):
 		if collision.get_collider() is Paddle:
 			collected.emit(self, powerup);
 			queue_free();
+
+
+static func get_default_weight_pool() -> Dictionary:	
+	return {};
 
 
 func get_launch_vector() -> Vector2:
