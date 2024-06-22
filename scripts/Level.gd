@@ -4,7 +4,7 @@ extends Node2D
 var mouse_captured := false;
 
 @onready var wall_right = find_child("WallRight");
-@onready var paddle = find_child("Paddle");
+@onready var paddle : Paddle = find_child("Paddle");
 @onready var ball_packed = preload("res://scenes/Ball.tscn");
 @onready var powerup_packed = preload("res://scenes/Powerup.tscn");
 
@@ -29,6 +29,10 @@ func set_mouse_capture(captured: bool):
 	mouse_captured = captured;
 
 
+func life_lost():
+	get_tree().reload_current_scene();
+
+
 func _on_ball_lost(ball: Ball):
 	print(ball);
 	ball.queue_free();
@@ -36,7 +40,7 @@ func _on_ball_lost(ball: Ball):
 	# we still have it in the tree so will have to wait fur the next frame
 	await get_tree().physics_frame;
 	if get_tree().get_nodes_in_group("balls").size() == 0:
-		get_tree().reload_current_scene();
+		life_lost();
 
 
 func _on_brick_hit(brick: Brick, ball: Ball):
@@ -46,11 +50,20 @@ func _on_brick_hit(brick: Brick, ball: Ball):
 			if randf() < 0.33333 or true:
 				var powerup := powerup_packed.instantiate();
 				powerup.position = brick.position;
+				powerup.collected.connect(_on_powerup_collected);
 				add_child(powerup);
 		else:
 			print("Ow!");
 	if brick is UnbreakableBrick:
 		print("Fat chance!");
+
+
+func _on_powerup_collected(node: Powerup, powerup: Dictionary):
+	match powerup.id:
+		'paddle_enlarge':
+			paddle.change_size(true);
+		'paddle_shrink':
+			paddle.change_size(false);
 
 
 func _input(event):

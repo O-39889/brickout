@@ -1,6 +1,9 @@
 class_name Powerup extends CharacterBody2D
 
 
+signal collected(node, powerup);
+
+
 const POWERUP_POOL = {
 	'good': [
 		'paddle_enlarge',
@@ -37,7 +40,23 @@ var powerup : Dictionary;
 func _ready():
 	velocity = get_launch_vector();
 	powerup = choose_powerup();
-	print(powerup);
+	match powerup.type:
+		'good':
+			pass;
+		'neutral':
+			$CollisionShape2D.debug_color.h = 60.0 / 360.0;
+		'bad':
+			$CollisionShape2D.debug_color.h = 0.0;
+	match powerup.id:
+		'paddle_enlarge':
+			$DebugLbl.text = 'P+';
+		'paddle_shrink':
+			$DebugLbl.text = 'P-';
+		'add_ball':
+			$DebugLbl.text = '+B';
+		'triple_ball':
+			$DebugLbl.text = '3';
+	$DebugLbl.text = powerup.id;
 
 
 func _physics_process(delta):
@@ -45,7 +64,7 @@ func _physics_process(delta):
 	var collision := move_and_collide(velocity * delta);
 	if collision:
 		if collision.get_collider() is Paddle:
-			print(self);
+			collected.emit(self, powerup);
 			queue_free();
 
 
@@ -88,13 +107,13 @@ func choose_powerup(weights: Dictionary = {}) -> Dictionary:
 			pool.append({
 				'type': 'neutral',
 				'id': np,
-				'weight': 1.0,
+				'weight': 1.25,
 			});
 		for bp in POWERUP_POOL['bad']:
 			pool.append({
 				'type': 'bad',
 				'id': bp,
-				'weight': float(POWERUP_POOL['good'].size()) / float(POWERUP_POOL['bad'].size()) / 2,
+				'weight': float(POWERUP_POOL['good'].size()) / float(POWERUP_POOL['bad'].size()) * 0.6667,
 			});
 	var pool_size := 0.0;
 	for p in pool:

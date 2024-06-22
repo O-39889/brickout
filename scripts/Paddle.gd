@@ -7,6 +7,7 @@ enum PaddleSize {
 	PADDLE_SIZE_NORMAL,
 	PADDLE_SIZE_LARGE,
 	PADDLE_SIZE_HUMONGOUS,
+	PADDLE_SIZE_MAX, # max enum size, not paddle size
 }
 
 
@@ -25,7 +26,8 @@ var spawn_ball;
 var sticky : bool = false;
 
 @onready var collision_shape : CollisionShape2D = find_child("CollisionShape2D");
-@onready var width := PADDLE_SIZES[PaddleSize.PADDLE_SIZE_NORMAL];
+@onready var width_idx := PaddleSize.PADDLE_SIZE_NORMAL;
+@onready var width : float = PADDLE_SIZES[width_idx];
 
 
 # Called when the node enters the scene tree for the first time.
@@ -48,8 +50,20 @@ func add_bawl(b: Ball):
 
 
 func set_width(idx: PaddleSize):
+	var old_center := position.x + width / 2;
 	width = PADDLE_SIZES[idx];
 	collision_shape.shape.b.x = width;
+	position.x = clamp(old_center - width / 2, 0, get_viewport_rect().size.x - width);
+
+
+func change_size(enlarge: bool):
+	var delta: int;
+	if enlarge:
+		delta = 1;
+	else:
+		delta = -1;
+	width_idx = clampi(width_idx + delta, PaddleSize.PADDLE_SIZE_TINY, PaddleSize.PADDLE_SIZE_MAX - 1);
+	set_width(width_idx);
 
 
 func _input(event: InputEvent):

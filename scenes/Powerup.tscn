@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/Powerup.gd" id="1_mvwl0"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_wt0mg"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_x4xxw"]
 radius = 30.0
 
 [node name="Powerup" type="CharacterBody2D"]
@@ -11,4 +11,13 @@ collision_mask = 2
 script = ExtResource("1_mvwl0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_wt0mg")
+shape = SubResource("CircleShape2D_x4xxw")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="DebugLbl" type="Label" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
