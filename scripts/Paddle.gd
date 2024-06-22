@@ -36,7 +36,7 @@ func _ready():
 	if spawn_ball == true:
 		var b : Ball = load("res://scenes/Ball.tscn").instantiate();
 		b.stuck = true;
-		b.position.x = width / 2;
+		b.position.x = width / 2.0;
 		b.position.y = -b.BALL_RADIUS;
 		add_child(b);
 		balls.append(b);

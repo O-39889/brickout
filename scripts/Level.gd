@@ -43,7 +43,7 @@ func _on_brick_hit(brick: Brick, ball: Ball):
 	if brick is RegularBrick:
 		if brick.durability == 1:
 			print("Goodbye, cruel world!");
-			if randf() < 0.33333:
+			if randf() < 0.33333 or true:
 				var powerup := powerup_packed.instantiate();
 				powerup.position = brick.position;
 				add_child(powerup);
