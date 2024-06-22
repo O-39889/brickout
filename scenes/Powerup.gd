@@ -76,24 +76,42 @@ func get_launch_vector() -> Vector2:
 
 
 func choose_powerup(weights: Dictionary = {}) -> Dictionary:
-	var pool := {};
+	var pool := [];
 	if weights.is_empty():
-		pool["good"] = POWERUP_POOL["good"].duplicate();
-		pool["neutral"] = POWERUP_POOL['neutral'].duplicate();
-		pool['bad'] = POWERUP_POOL['bad'].duplicate();
-	var pool_sum : int = pool['good'].size() + pool['neutral'].size() + pool['bad'].size();
-	var choice := randi_range(0, pool_sum - 1);
-	var cum_weight := 0; # haha
-	var picked_key: String;
+		for gp in POWERUP_POOL['good']:
+			pool.append({
+				'type': 'good',
+				'id': gp,
+				'weight': 1.0,
+			});
+		for np in POWERUP_POOL['neutral']:
+			pool.append({
+				'type': 'neutral',
+				'id': np,
+				'weight': 1.0,
+			});
+		for bp in POWERUP_POOL['bad']:
+			pool.append({
+				'type': 'bad',
+				'id': bp,
+				'weight': float(POWERUP_POOL['good'].size()) / float(POWERUP_POOL['bad'].size()) / 2,
+			});
+	var pool_size := 0.0;
 	for p in pool:
-		cum_weight += pool[p].size();
+		pool_size += p['weight'];
+	var choice := randf_range(0.0, pool_size);
+	var cum_weight := 0.0; # haha
+	var picked_powerup : Dictionary;
+	for p in pool:
+		cum_weight += p['weight'];
 		if choice < cum_weight:
-			picked_key = p;
-			break;
-	return {
-		'type': picked_key,
-		'id': POWERUP_POOL[picked_key][randi_range(0, POWERUP_POOL[picked_key].size() - 1)],
-	};
+			var ret_powerup : Dictionary = p.duplicate();
+			ret_powerup.erase('weight');
+			return ret_powerup;
+	# i don't think we would ever reach that point but Godot doesn't like it still
+	# over 10k generated powerups and this shit has never been triggered
+	print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+	return pool[0];
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -8,6 +8,8 @@ var mouse_captured := false;
 @onready var ball_packed = preload("res://scenes/Ball.tscn");
 @onready var powerup_packed = preload("res://scenes/Powerup.tscn");
 
+var powerups := [];
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
