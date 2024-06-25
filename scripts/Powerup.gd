@@ -4,6 +4,25 @@ class_name Powerup extends CharacterBody2D
 signal collected(node, powerup);
 
 
+enum PowerupName {
+	PADDLE_ENLARGE,
+	ADD_BALL,
+	TRIPLE_BALL,
+	DOUBLE_BALLS,
+	STICKY_PADDLE,
+	BARRIER,
+	FIRE_BALL,
+	ACID_BALL,
+	BALL_SPEED_UP,
+	BALL_SLOW_DOWN,
+	PADDLE_SHRINK,
+	POP_BALL,
+	POP_ALL_BALLS,
+	GHOST_PADDLE,
+	PADDLE_FREEZE,	
+};
+
+
 const POWERUP_POOL = {
 	'good': [
 		'paddle_enlarge',
