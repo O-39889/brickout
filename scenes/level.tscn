@@ -25,71 +25,54 @@ rotation = 3.14159
 
 [node name="Brick" parent="Bricks" instance=ExtResource("4_vgqhg")]
 position = Vector2(585, 150)
-durability = 4
 
 [node name="Brick2" parent="Bricks" instance=ExtResource("4_vgqhg")]
 position = Vector2(735, 150)
-durability = 4
 
 [node name="Brick3" parent="Bricks" instance=ExtResource("4_vgqhg")]
 position = Vector2(885, 150)
-durability = 4
 
 [node name="Brick4" parent="Bricks" instance=ExtResource("4_vgqhg")]
 position = Vector2(1035, 150)
-durability = 4
 
 [node name="Brick5" parent="Bricks" instance=ExtResource("4_vgqhg")]
 position = Vector2(1185, 150)
-durability = 4
 
 [node name="Brick6" parent="Bricks" instance=ExtResource("4_vgqhg")]
 position = Vector2(1335, 150)
-durability = 666
 
 [node name="Brick7" parent="Bricks" instance=ExtResource("4_vgqhg")]
 position = Vector2(1260, 210)
-durability = 3
 
 [node name="Brick8" parent="Bricks" instance=ExtResource("4_vgqhg")]
 position = Vector2(1110, 210)
-durability = 3
 
 [node name="Brick9" parent="Bricks" instance=ExtResource("4_vgqhg")]
 position = Vector2(960, 210)
-durability = 3
 
 [node name="Brick10" parent="Bricks" instance=ExtResource("4_vgqhg")]
 position = Vector2(810, 210)
-durability = 3
 
 [node name="Brick11" parent="Bricks" instance=ExtResource("4_vgqhg")]
 position = Vector2(660, 210)
-durability = 3
 
 [node name="Brick12" parent="Bricks" instance=ExtResource("4_vgqhg")]
 position = Vector2(585, 270)
-durability = 2
 
 [node name="Brick13" parent="Bricks" instance=ExtResource("4_vgqhg")]
 position = Vector2(735, 270)
-durability = 2
 
 [node name="Brick14" parent="Bricks" instance=ExtResource("4_vgqhg")]
 position = Vector2(885, 270)
-durability = 2
 
 [node name="Brick15" parent="Bricks" instance=ExtResource("4_vgqhg")]
 position = Vector2(1035, 270)
-durability = 2
 
 [node name="Brick16" parent="Bricks" instance=ExtResource("4_vgqhg")]
 position = Vector2(1185, 270)
-durability = 2
 
 [node name="Brick17" parent="Bricks" instance=ExtResource("4_vgqhg")]
 position = Vector2(1335, 270)
-durability = 2
 
 [node name="Brick18" parent="Bricks" instance=ExtResource("4_vgqhg")]
 position = Vector2(1260, 330)

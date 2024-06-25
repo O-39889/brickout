@@ -60,7 +60,15 @@ func set_width(idx: PaddleSize):
 	position.x = clamp(old_center - width / 2, 0, get_viewport_rect().size.x - width);
 
 
-func change_size(enlarge: bool):
+func enlarge():
+	_change_size(true);
+
+
+func shrink():
+	_change_size(false);
+
+
+func _change_size(enlarge: bool):
 	var delta: int;
 	if enlarge:
 		delta = 1;

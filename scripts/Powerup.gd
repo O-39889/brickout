@@ -50,15 +50,6 @@ func _ready():
 			$CollisionShape2D.debug_color.h = 60.0 / 360.0;
 		'bad':
 			$CollisionShape2D.debug_color.h = 0.0;
-	match powerup.id:
-		'paddle_enlarge':
-			$DebugLbl.text = 'P+';
-		'paddle_shrink':
-			$DebugLbl.text = 'P-';
-		'add_ball':
-			$DebugLbl.text = '+B';
-		'triple_ball':
-			$DebugLbl.text = '3';
 	$DebugLbl.text = powerup.id;
 
 
