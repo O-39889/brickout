@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://jw8sg6b35if4"]
 
-[ext_resource type="Script" path="res://scenes/Powerup.gd" id="1_mvwl0"]
+[ext_resource type="Script" path="res://scripts/Powerup.gd" id="1_yjq1q"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x4xxw"]
 radius = 30.0
@@ -8,7 +8,7 @@ radius = 30.0
 [node name="Powerup" type="CharacterBody2D"]
 collision_layer = 8
 collision_mask = 2
-script = ExtResource("1_mvwl0")
+script = ExtResource("1_yjq1q")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_x4xxw")
@@ -21,3 +21,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 horizontal_alignment = 1
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+rect = Rect2(-40, -40, 80, 80)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -6,11 +6,6 @@ func _ready():
 	find_child("Sprite2D").queue_free();
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
 func hit(b: Ball):
 	super(b);
 	durability -= 1;

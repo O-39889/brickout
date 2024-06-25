@@ -45,8 +45,12 @@ func _ready():
 
 
 func add_bawl(b: Ball):
-	b.reparent(self);
+	if b.get_parent() == null:
+		add_child(b);
+	else:
+		b.reparent(self);
 	balls.append(b);
+	print('Added ball pos ' + str(b.global_position));
 
 
 func set_width(idx: PaddleSize):

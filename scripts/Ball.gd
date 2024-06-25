@@ -29,15 +29,14 @@ var stuck : bool = false;
 
 
 func _ready():
+	collision_shape.shape.radius = BALL_RADIUS;
 	if stuck:
 		process_mode = Node.PROCESS_MODE_DISABLED;
-	collision_shape.shape.radius = BALL_RADIUS;
 
 
 func launch():
 	process_mode = Node.PROCESS_MODE_INHERIT;
 	stuck = false;
-	direction = Vector2(1, -1).normalized();
 	velocity = direction * speed;
 
 
@@ -52,6 +51,7 @@ func handle_collision(collision: KinematicCollision2D):
 			stuck = true;
 			process_mode = Node.PROCESS_MODE_DISABLED;
 			velocity = Vector2.ZERO;
+			direction = paddle_bounce(collider, collision.get_position());
 			collider.add_bawl(self);
 		else:
 			direction = paddle_bounce(collider, collision.get_position());
@@ -64,11 +64,10 @@ func handle_collision(collision: KinematicCollision2D):
 
 
 func paddle_bounce(paddle: Paddle, collision_point: Vector2) -> Vector2:
-	print(collision_point);
 	var left : float = paddle.position.x;
 	var right : float = paddle.position.x + paddle.width;
 	var clamped : float = clampf(collision_point.x, left, right);
-	var remapped : float = remap(clamped, left, right, -70.0, 70.0);
+	var remapped : float = remap(clamped, left, right, -69.69, 69.69);
 	return Vector2.UP.rotated(deg_to_rad(remapped));
 
 
