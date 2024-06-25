@@ -100,12 +100,14 @@ func _on_brick_hit(brick: Brick, ball: Ball):
 				powerup.position = brick.position;
 				powerup.collected.connect(_on_powerup_collected);
 				add_child(powerup);
-				powerup.powerup.id = [
+				var pool := [
 				'add_ball',
 				'triple_ball',
 				'double_balls',
 				'pop_ball',
-				][randi_range(0, 3)];
+				'pop_all_balls',
+				];
+				powerup.powerup.id = pool[randi_range(0, pool.size() - 1)];
 				powerup.find_child('DebugLbl').text = powerup.powerup.id;
 		else:
 			pass
@@ -164,7 +166,21 @@ func _on_powerup_collected(node: Powerup, powerup: Dictionary):
 				balls_arr.append(get_tree().get_first_node_in_group('balls'));
 			balls_arr.sort_custom(y_sort_balls_asc);
 			murder_ball(balls_arr[0]);
-			
+		'pop_all_balls':
+			var balls_arr : Array = get_tree().get_nodes_in_group('balls');
+			if balls_arr.size() == 1:
+				return;
+			var safe_ball : Ball = null;
+			for b in balls_arr:
+				if b.stuck:
+					safe_ball = b;
+					break;
+			if safe_ball == null:
+				balls_arr.sort_custom(y_sort_balls_asc);
+				safe_ball = balls_arr[0];
+			balls_arr.erase(safe_ball);
+			for b in balls_arr:
+				murder_ball(b);
 
 
 func _input(event):
