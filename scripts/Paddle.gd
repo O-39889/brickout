@@ -87,6 +87,7 @@ func _input(event: InputEvent):
 			if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 				# release the bawl
 				var first_bawl : Ball = balls.pop_front();
+				first_bawl.direction = Vector2.UP;
 				first_bawl.reparent(get_parent());
 				first_bawl.launch();
 				pass
