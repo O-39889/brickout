@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://cljyfysqemsgw"]
+[gd_scene load_steps=7 format=3 uid="uid://cljyfysqemsgw"]
 
 [ext_resource type="Script" path="res://scripts/Level.gd" id="1_uhvnp"]
 [ext_resource type="PackedScene" uid="uid://doylk4sp6cg5q" path="res://scenes/Wall.tscn" id="2_sn5ow"]
 [ext_resource type="PackedScene" uid="uid://vmrccf7ghuu3" path="res://scenes/Paddle.tscn" id="3_yqer5"]
 [ext_resource type="PackedScene" uid="uid://blofikyc7x7vn" path="res://scenes/RegularBrick.tscn" id="4_vgqhg"]
 [ext_resource type="PackedScene" uid="uid://blefa03mpdv8b" path="res://scenes/IndestructibleBrick.tscn" id="5_qmehk"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tg6ai"]
+font_size = 32
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_uhvnp")
@@ -112,3 +115,40 @@ position = Vector2(1485, 90)
 
 [node name="IndestructibleBrick8" parent="Bricks" instance=ExtResource("5_qmehk")]
 position = Vector2(1485, 30)
+
+[node name="GUI" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="DebugTimerSticky" type="Label" parent="GUI/VBoxContainer"]
+layout_mode = 2
+text = "sticky 0.0"
+label_settings = SubResource("LabelSettings_tg6ai")
+
+[node name="DebugTimerAcid" type="Label" parent="GUI/VBoxContainer"]
+layout_mode = 2
+text = "acid 0.0"
+label_settings = SubResource("LabelSettings_tg6ai")
+
+[node name="DebugTimerFire" type="Label" parent="GUI/VBoxContainer"]
+layout_mode = 2
+text = "fire 0.0"
+label_settings = SubResource("LabelSettings_tg6ai")
+
+[node name="DebugTimerGhost" type="Label" parent="GUI/VBoxContainer"]
+layout_mode = 2
+text = "ghost 0.0"
+label_settings = SubResource("LabelSettings_tg6ai")
+
+[node name="DebugTimerFreeze" type="Label" parent="GUI/VBoxContainer"]
+layout_mode = 2
+text = "freeze 0.0"
+label_settings = SubResource("LabelSettings_tg6ai")
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="StickyTimer" type="Timer" parent="Timers"]
+process_callback = 0
+one_shot = true

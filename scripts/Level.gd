@@ -2,12 +2,21 @@ extends Node2D
 
 
 const BALL_LIMIT : int = 20;
+'''
+basically initially the timer is set to 30 seconds
+but you can stuck it up to 50 if you collect another sticky powerup
+while the first one is active
+'''
+const STICKY_TIME: float = 30.0;
+const STICKY_TIME_MAX: float = 50.001;
 
 
 var mouse_captured := false;
 
 @onready var wall_right = find_child("WallRight");
 @onready var paddle : Paddle = find_child("Paddle");
+@onready var timer_sticky : Timer = find_child("StickyTimer");
+
 @onready var ball_packed = preload("res://scenes/Ball.tscn");
 @onready var powerup_packed = preload("res://scenes/Powerup.tscn");
 
@@ -32,6 +41,7 @@ func _ready():
 		b.lost.connect(_on_ball_lost);
 	for b in get_tree().get_nodes_in_group("bricks"):
 		b.hitted.connect(_on_brick_hit);
+	timer_sticky.wait_time = STICKY_TIME;
 
 
 func set_mouse_capture(captured: bool):
@@ -100,15 +110,9 @@ func _on_brick_hit(brick: Brick, ball: Ball):
 				powerup.position = brick.position;
 				powerup.collected.connect(_on_powerup_collected);
 				add_child(powerup);
-				#var pool := [
-				#'add_ball',
-				#'triple_ball',
-				#'double_balls',
-				#'pop_ball',
-				#'pop_all_balls',
-				#];
-				#powerup.powerup.id = pool[randi_range(0, pool.size() - 1)];
-				#powerup.find_child('DebugLbl').text = powerup.powerup.id;
+				if randf() < 0.5:
+					powerup.powerup.id = 'sticky_paddle';
+					powerup.find_child("DebugLbl").text = powerup.powerup.id
 		else:
 			pass
 	if brick is UnbreakableBrick:
@@ -149,6 +153,11 @@ func _on_powerup_collected(powerup: Powerup):
 		'double_balls':
 			for b in get_tree().get_nodes_in_group('balls'):
 				clone_balls(b, 1);
+		'sticky_paddle':
+			if timer_sticky.is_stopped():
+				timer_sticky.start(STICKY_TIME);
+			else:
+				timer_sticky.start(minf(timer_sticky.time_left + STICKY_TIME, STICKY_TIME_MAX));
 		# NEUTRAL
 		'ball_speed_up':
 			for b in get_tree().get_nodes_in_group('balls'):
@@ -187,6 +196,20 @@ func _on_powerup_collected(powerup: Powerup):
 			balls_arr.erase(safe_ball);
 			for b in balls_arr:
 				murder_ball(b);
+
+
+func start_or_extend_timer(t: Timer, set_val: float, max_val: float = set_val):
+	if t.is_stopped():
+		print('Stopped! Starting...');
+		t.start(set_val);
+
+
+func _physics_process(delta):
+	pass
+
+
+func _process(delta):
+	$GUI/VBoxContainer/DebugTimerSticky.text = 'sticky ' + String.num(timer_sticky.time_left, 2);
 
 
 func _input(event):
