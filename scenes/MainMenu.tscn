@@ -1,6 +1,9 @@
-[gd_scene format=3 uid="uid://c42uau2bh2d6l"]
+[gd_scene load_steps=2 format=3 uid="uid://c42uau2bh2d6l"]
+
+[ext_resource type="Script" path="res://scripts/MainMenu.gd" id="1_ncyg4"]
 
 [node name="MainMenu" type="Node2D"]
+script = ExtResource("1_ncyg4")
 
 [node name="GUI" type="CanvasLayer" parent="."]
 
@@ -37,3 +40,18 @@ text = "Stats"
 [node name="QuitBtn" type="Button" parent="GUI/Buttons"]
 layout_mode = 2
 text = "Quit"
+
+[node name="MeLbl" type="Label" parent="GUI"]
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "BrickOut
+Made by OLP Solutions
+© "
+horizontal_alignment = 2
