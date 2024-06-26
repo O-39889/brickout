@@ -107,8 +107,9 @@ func _input(event: InputEvent):
 		if event is InputEventMouseMotion:
 			position.x += event.relative.x * Globals.MOUSE_SENSITIVITY;
 			position.x = clamp(position.x, 0, get_viewport_rect().size.x - width);
-		if event is InputEventMouseButton and balls.size() > 0:
-			if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		if event is InputEventMouseButton:
+			if (event.button_index == MOUSE_BUTTON_LEFT
+			and event.pressed and balls.size() > 0):
 				# release the bawl
 				var first_bawl : Ball = balls.pop_front();
 				first_bawl.reparent(get_parent());
