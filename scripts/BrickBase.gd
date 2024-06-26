@@ -20,5 +20,5 @@ func _ready():
 	find_child("Sprite2D").texture.size.y = height;
 
 
-func hit(b: Ball):
+func hit(b: Ball, damage: int):
 	hitted.emit(self, b);

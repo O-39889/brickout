@@ -7,5 +7,5 @@ func _ready():
 	durability = -1;
 
 
-func hit(b: Ball):
-	super(b);
+func hit(b: Ball, _damage: int):
+	super(b, _damage);

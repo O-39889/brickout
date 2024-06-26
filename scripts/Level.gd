@@ -9,6 +9,7 @@ while the first one is active
 '''
 const STICKY_TIME: float = 15.0;
 const STICKY_TIME_MAX: float = 35.003;
+const ACID_TIME : float = 20.0;
 
 
 var mouse_captured := false;
@@ -18,6 +19,7 @@ var barrier;
 @onready var wall_right = find_child("WallRight");
 @onready var paddle : Paddle = find_child("Paddle");
 @onready var timer_sticky : Timer = find_child("StickyTimer");
+@onready var timer_acid : Timer = find_child("AcidTimer");
 
 @onready var ball_packed = preload("res://scenes/Ball.tscn");
 @onready var powerup_packed = preload("res://scenes/Powerup.tscn");
@@ -167,6 +169,10 @@ func _on_powerup_collected(powerup: Powerup):
 			start_or_extend_timer(timer_sticky, STICKY_TIME, STICKY_TIME_MAX);
 		'barrier':
 			add_barrier();
+		'acid_ball':
+			for b in get_tree().get_nodes_in_group('balls'):
+				b.acid = true;
+			start_or_extend_timer(timer_acid, ACID_TIME);
 		# NEUTRAL
 		'ball_speed_up':
 			current_ball_speed_idx = mini(current_ball_speed_idx, Ball.BallSpeed.BALL_SPEED_FAST);
@@ -236,6 +242,7 @@ func _physics_process(delta):
 
 func _process(delta):
 	$GUI/VBoxContainer/DebugTimerSticky.text = 'sticky ' + String.num(timer_sticky.time_left, 2);
+	$GUI/VBoxContainer/DebugTimerAcid.text = 'acid ' + String.num(timer_acid.time_left, 2);
 
 
 func _input(event):
@@ -260,7 +267,12 @@ func _input(event):
 	if event.is_action_pressed('debug_4'):
 		add_powerup.call('triple_ball', 'good');
 	if event.is_action_pressed('debug_5'):
-		add_powerup.call('barrier', 'good');
+		add_powerup.call('acid_ball', 'good');
 
 func _on_sticky_timer_timeout():
 	paddle.sticky = false;
+
+
+func _on_acid_timer_timeout():
+	for b in get_tree().get_nodes_in_group('balls'):
+		b.acid = false;

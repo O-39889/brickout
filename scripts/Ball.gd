@@ -26,9 +26,19 @@ var speed_idx : BallSpeed = BallSpeed.BALL_SPEED_NORMAL:
 	set(value):
 		speed_idx = value;
 		speed = BALL_SPEEDS[speed_idx];
+
 var speed : float = BALL_SPEEDS[speed_idx];
 var direction : Vector2 = Vector2(1, -1).normalized();
 var stuck : bool = false;
+var acid: bool = false:
+	get:
+		return acid;
+	set(value):
+		acid = value;
+		if value:
+			collision_shape.debug_color.h = (100.0 / 360.0);
+		else:
+			collision_shape.debug_color.h =(180.0 / 360.0);
 
 
 @onready var collision_shape : CollisionShape2D = find_child("CollisionShape2D");
@@ -76,9 +86,10 @@ func handle_collision(collision: KinematicCollision2D):
 			velocity = speed * direction;
 	else:
 		if collider.has_method("hit"):
-			collider.hit(self);
-		velocity = velocity.bounce(collision.get_normal());
-		direction = velocity.normalized();
+			collider.hit(self, 999 if acid else 1);
+		if not (collider is RegularBrick and acid):
+			velocity = velocity.bounce(collision.get_normal());
+			direction = velocity.normalized();
 
 
 func _physics_process(delta):

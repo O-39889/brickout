@@ -153,4 +153,9 @@ label_settings = SubResource("LabelSettings_tg6ai")
 process_callback = 0
 one_shot = true
 
+[node name="AcidTimer" type="Timer" parent="Timers"]
+process_callback = 0
+one_shot = true
+
 [connection signal="timeout" from="Timers/StickyTimer" to="." method="_on_sticky_timer_timeout"]
+[connection signal="timeout" from="Timers/AcidTimer" to="." method="_on_acid_timer_timeout"]
