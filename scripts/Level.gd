@@ -3,12 +3,12 @@ extends Node2D
 
 const BALL_LIMIT : int = 20;
 '''
-basically initially the timer is set to 30 seconds
-but you can stuck it up to 50 if you collect another sticky powerup
+basically initially the timer is set to 15 seconds
+but you can stuck it up to 35 if you collect another sticky powerup
 while the first one is active
 '''
-const STICKY_TIME: float = 30.0;
-const STICKY_TIME_MAX: float = 50.001;
+const STICKY_TIME: float = 15.0;
+const STICKY_TIME_MAX: float = 35.003;
 
 
 var mouse_captured := false;
