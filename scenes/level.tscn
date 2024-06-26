@@ -132,11 +132,6 @@ layout_mode = 2
 text = "acid 0.0"
 label_settings = SubResource("LabelSettings_tg6ai")
 
-[node name="DebugTimerFire" type="Label" parent="GUI/VBoxContainer"]
-layout_mode = 2
-text = "fire 0.0"
-label_settings = SubResource("LabelSettings_tg6ai")
-
 [node name="DebugTimerGhost" type="Label" parent="GUI/VBoxContainer"]
 layout_mode = 2
 text = "ghost 0.0"
