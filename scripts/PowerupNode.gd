@@ -87,11 +87,6 @@ func choice_weighted(arr: Array[Powerup]):
 			return p;
 	# i don't think that would happen
 	return null;
-	
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _draw():
-	pass
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
