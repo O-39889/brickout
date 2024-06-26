@@ -45,10 +45,8 @@ var fire_ball : bool = false:
 	get:
 		return fire_ball;
 	set(value):
-		print('Hello!');
 		fire_ball = value;
 		if value:
-			print('Fiery red!');
 			collision_shape.debug_color.h = (20.0 / 360.0);
 			acid = false;
 		elif not acid:

@@ -62,6 +62,27 @@ position = Vector2(660, 210)
 [node name="Brick12" parent="Bricks" instance=ExtResource("4_vgqhg")]
 position = Vector2(585, 270)
 
+[node name="Brick23" parent="Bricks" instance=ExtResource("4_vgqhg")]
+position = Vector2(510, 330)
+
+[node name="Brick24" parent="Bricks" instance=ExtResource("4_vgqhg")]
+position = Vector2(360, 330)
+
+[node name="Brick25" parent="Bricks" instance=ExtResource("4_vgqhg")]
+position = Vector2(210, 330)
+
+[node name="Brick26" parent="Bricks" instance=ExtResource("4_vgqhg")]
+position = Vector2(435, 270)
+
+[node name="Brick36" parent="Bricks" instance=ExtResource("4_vgqhg")]
+position = Vector2(360, 210)
+
+[node name="Brick27" parent="Bricks" instance=ExtResource("4_vgqhg")]
+position = Vector2(285, 270)
+
+[node name="Brick28" parent="Bricks" instance=ExtResource("4_vgqhg")]
+position = Vector2(135, 270)
+
 [node name="Brick13" parent="Bricks" instance=ExtResource("4_vgqhg")]
 position = Vector2(735, 270)
 
@@ -77,11 +98,32 @@ position = Vector2(1185, 270)
 [node name="Brick17" parent="Bricks" instance=ExtResource("4_vgqhg")]
 position = Vector2(1335, 270)
 
+[node name="Brick29" parent="Bricks" instance=ExtResource("4_vgqhg")]
+position = Vector2(1485, 270)
+
+[node name="Brick35" parent="Bricks" instance=ExtResource("4_vgqhg")]
+position = Vector2(1560, 210)
+
+[node name="Brick30" parent="Bricks" instance=ExtResource("4_vgqhg")]
+position = Vector2(1635, 270)
+
+[node name="Brick31" parent="Bricks" instance=ExtResource("4_vgqhg")]
+position = Vector2(1785, 270)
+
 [node name="Brick18" parent="Bricks" instance=ExtResource("4_vgqhg")]
 position = Vector2(1260, 330)
 
 [node name="Brick19" parent="Bricks" instance=ExtResource("4_vgqhg")]
 position = Vector2(1110, 330)
+
+[node name="Brick32" parent="Bricks" instance=ExtResource("4_vgqhg")]
+position = Vector2(1560, 330)
+
+[node name="Brick34" parent="Bricks" instance=ExtResource("4_vgqhg")]
+position = Vector2(1710, 330)
+
+[node name="Brick33" parent="Bricks" instance=ExtResource("4_vgqhg")]
+position = Vector2(1410, 330)
 
 [node name="Brick20" parent="Bricks" instance=ExtResource("4_vgqhg")]
 position = Vector2(960, 330)
@@ -94,6 +136,12 @@ position = Vector2(660, 330)
 
 [node name="IndestructibleBrick" parent="Bricks" instance=ExtResource("5_qmehk")]
 position = Vector2(510, 210)
+
+[node name="IndestructibleBrick9" parent="Bricks" instance=ExtResource("5_qmehk")]
+position = Vector2(210, 210)
+
+[node name="IndestructibleBrick10" parent="Bricks" instance=ExtResource("5_qmehk")]
+position = Vector2(1710, 210)
 
 [node name="IndestructibleBrick2" parent="Bricks" instance=ExtResource("5_qmehk")]
 position = Vector2(435, 150)
