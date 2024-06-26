@@ -184,7 +184,6 @@ func _on_powerup_collected(powerup: Powerup):
 				b.decrease_speed();
 		# BAD
 		'pop_ball':
-			# actually why tf am i duplicating this array lol
 			var balls_arr : Array[Ball];
 			if get_tree().get_nodes_in_group('balls').size() == 1:
 				return;
