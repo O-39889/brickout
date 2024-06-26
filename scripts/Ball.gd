@@ -30,6 +30,8 @@ var stuck : bool = false;
 
 
 func _ready():
+	print(speed_idx);
+	print(speed);
 	collision_shape.shape.radius = BALL_RADIUS;
 	if stuck:
 		process_mode = Node.PROCESS_MODE_DISABLED;
