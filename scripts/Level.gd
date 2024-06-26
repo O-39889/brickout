@@ -12,6 +12,8 @@ const STICKY_TIME_MAX: float = 35.003;
 
 
 var mouse_captured := false;
+var barrier;
+
 
 @onready var wall_right = find_child("WallRight");
 @onready var paddle : Paddle = find_child("Paddle");
@@ -21,7 +23,7 @@ var mouse_captured := false;
 @onready var powerup_packed = preload("res://scenes/Powerup.tscn");
 @onready var barrier_packed = preload("res://scenes/Barrier.tscn");
 
-var barrier;
+@onready var current_ball_speed_idx : Ball.BallSpeed = Ball.BallSpeed.BALL_SPEED_NORMAL;
 
 
 ## careful! this will place the topmost ball first!! probably...
@@ -60,6 +62,7 @@ func life_lost():
 
 
 func add_ball(b: Ball):
+	b.speed_idx = current_ball_speed_idx;
 	if get_tree().get_nodes_in_group('balls').size() >= BALL_LIMIT:
 		return;
 	b.lost.connect(_on_ball_lost);
@@ -67,6 +70,7 @@ func add_ball(b: Ball):
 
 
 func add_ball_to_paddle(b: Ball):
+	b.speed_idx = current_ball_speed_idx;
 	if get_tree().get_nodes_in_group('balls').size() >= BALL_LIMIT:
 		return;
 	b.lost.connect(_on_ball_lost);
@@ -96,7 +100,6 @@ func murder_ball(b: Ball):
 
 
 func _on_ball_lost(ball: Ball):
-	print('Lost ball ' + str(ball));
 	murder_ball(ball);
 	# because the ball is queue'd free on the next frame so for now
 	# we still have it in the tree so will have to wait fur the next frame
@@ -164,9 +167,11 @@ func _on_powerup_collected(powerup: Powerup):
 			add_barrier();
 		# NEUTRAL
 		'ball_speed_up':
+			current_ball_speed_idx = mini(current_ball_speed_idx, Ball.BallSpeed.BALL_SPEED_FAST);
 			for b in get_tree().get_nodes_in_group('balls'):
-					b.increase_speed();
+				b.increase_speed();
 		'ball_slow_down':
+			current_ball_speed_idx = maxi(current_ball_speed_idx, Ball.BallSpeed.BALL_SPEED_SLOW);
 			for b in get_tree().get_nodes_in_group('balls'):
 				b.decrease_speed();
 		# BAD
