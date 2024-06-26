@@ -37,11 +37,26 @@ var acid: bool = false:
 		acid = value;
 		if value:
 			collision_shape.debug_color.h = (100.0 / 360.0);
+			fire_ball = false;
 		else:
-			collision_shape.debug_color.h =(180.0 / 360.0);
+			collision_shape.debug_color.h = (189.0 / 360.0);
+
+var fire_ball : bool = false:
+	get:
+		return fire_ball;
+	set(value):
+		print('Hello!');
+		fire_ball = value;
+		if value:
+			print('Fiery red!');
+			collision_shape.debug_color.h = (15.0 / 360.0);
+			acid = false;
+		else:
+			collision_shape.debug_color.h = (189.0 / 360.0);
 
 
 @onready var collision_shape : CollisionShape2D = find_child("CollisionShape2D");
+@onready var explosion_packed := preload("res://scenes/Explosion.tscn");
 
 
 func _ready():
@@ -86,7 +101,17 @@ func handle_collision(collision: KinematicCollision2D):
 			velocity = speed * direction;
 	else:
 		if collider.has_method("hit"):
-			collider.hit(self, 999 if acid else 1);
+			if collider is Brick and fire_ball:
+				var explosion : Explosion = explosion_packed.instantiate();
+				add_child(explosion);
+				explosion.exclude_parent = true;
+				explosion.force_shapecast_update();
+				for c in explosion.collision_result:
+					c.collider.hit(self, 999);
+				explosion.queue_free();
+				fire_ball = false;
+			else:
+				collider.hit(self, 999 if acid else 1);
 		if not (collider is RegularBrick and acid):
 			velocity = velocity.bounce(collision.get_normal());
 			direction = velocity.normalized();

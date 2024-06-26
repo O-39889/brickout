@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://ym30y4y5w67q"]
+
+[ext_resource type="Script" path="res://scripts/Explosion.gd" id="1_skv64"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u5f00"]
+radius = 69.7
+
+[node name="Explosion" type="ShapeCast2D"]
+shape = SubResource("CircleShape2D_u5f00")
+target_position = Vector2(0, 0)
+margin = 100.0
+collision_mask = 16
+script = ExtResource("1_skv64")

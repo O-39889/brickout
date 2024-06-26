@@ -169,6 +169,9 @@ func _on_powerup_collected(powerup: Powerup):
 			start_or_extend_timer(timer_sticky, STICKY_TIME, STICKY_TIME_MAX);
 		'barrier':
 			add_barrier();
+		'fire_ball':
+			for b in get_tree().get_nodes_in_group('balls'):
+				b.fire_ball = true;
 		'acid_ball':
 			for b in get_tree().get_nodes_in_group('balls'):
 				b.acid = true;
@@ -253,14 +256,14 @@ func _input(event):
 		pass
 	var add_powerup : Callable = func(id: String, type: String):
 		var p : PowerupNode = powerup_packed.instantiate();
-		p.position = paddle.position - Vector2(0, 1) * 100 + Vector2(1, 0) * paddle.width / 2;
+		p.position = paddle.position - Vector2(0, 1) * 50 + Vector2(1, 0) * paddle.width / 2;
 		p.pool = [Powerup.new(id, type)];
 		p.collected.connect(_on_powerup_collected);
 		add_child(p);
 	if event.is_action_pressed('debug_1'):
-		add_powerup.call('ball_speed_up', 'neutral');
+		add_powerup.call('fire_ball', 'good');
 	if event.is_action_pressed('debug_2'):
-		add_powerup.call('ball_slow_down', 'neutral');
+		add_powerup.call('acid_ball', 'good');
 	if event.is_action_pressed('debug_3'):
 		add_powerup.call('double_balls', 'good');
 	if event.is_action_pressed('debug_4'):

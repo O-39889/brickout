@@ -1,0 +1,1 @@
+class_name Explosion extends ShapeCast2D
