@@ -64,7 +64,6 @@ func binary_search_min_angle(max_x: float):
 	var max: float = PI / 2;
 	var mid: float;
 	var max_iters: int = ceili(log(rad_to_deg(max - min)) / log(2));
-	print('Max iterations: ' + str(max_iters));
 	if compute_x(min, compute_t(min)) <= max_x:
 		return min;
 	for i in range(max_iters):
