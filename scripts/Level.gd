@@ -154,10 +154,7 @@ func _on_powerup_collected(powerup: Powerup):
 			for b in get_tree().get_nodes_in_group('balls'):
 				clone_balls(b, 1);
 		'sticky_paddle':
-			if timer_sticky.is_stopped():
-				timer_sticky.start(STICKY_TIME);
-			else:
-				timer_sticky.start(minf(timer_sticky.time_left + STICKY_TIME, STICKY_TIME_MAX));
+			start_or_extend_timer(timer_sticky, STICKY_TIME, STICKY_TIME_MAX);
 		# NEUTRAL
 		'ball_speed_up':
 			for b in get_tree().get_nodes_in_group('balls'):
@@ -200,8 +197,9 @@ func _on_powerup_collected(powerup: Powerup):
 
 func start_or_extend_timer(t: Timer, set_val: float, max_val: float = set_val):
 	if t.is_stopped():
-		print('Stopped! Starting...');
 		t.start(set_val);
+	else:
+		t.start(minf(t.time_left + set_val, max_val));
 
 
 func _physics_process(delta):
