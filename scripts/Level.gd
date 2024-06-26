@@ -154,6 +154,7 @@ func _on_powerup_collected(powerup: Powerup):
 			for b in get_tree().get_nodes_in_group('balls'):
 				clone_balls(b, 1);
 		'sticky_paddle':
+			paddle.sticky = true;
 			start_or_extend_timer(timer_sticky, STICKY_TIME, STICKY_TIME_MAX);
 		# NEUTRAL
 		'ball_speed_up':
@@ -217,3 +218,7 @@ func _input(event):
 		get_tree().reload_current_scene();
 	if event.is_action_pressed("debug_do"):
 		pass
+
+
+func _on_sticky_timer_timeout():
+	paddle.sticky = false;
