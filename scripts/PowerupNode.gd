@@ -50,22 +50,12 @@ func get_launch_vector() -> Vector2:
 	# of le powerup, is at x = 0
 	var right_x : float = get_viewport_rect().size.x - position.x - width;
 	var left_x : float = position.x - width;
+	
 	var left_angle : float = binary_search_min_angle(left_x);
 	left_angle = left_angle - PI / 2;
 	var right_angle : float = binary_search_min_angle(right_x);
 	right_angle = PI / 2 - right_angle;
-	var left_line : Line2D = Line2D.new();
-	left_line.clear_points();
-	left_line.add_point(global_position);
-	left_line.add_point(global_position + Vector2.UP.rotated(left_angle) * 100);
-	var right_line : Line2D = Line2D.new();
-	right_line.clear_points();
-	right_line.add_point(global_position);
-	right_line.add_point(global_position + Vector2.UP.rotated(right_angle) * 100);
-	left_line.default_color = Color.LIGHT_SEA_GREEN;
-	right_line.default_color = Color.WEB_MAROON;
-	get_parent().add_child(left_line);
-	get_parent().add_child(right_line);
+	
 	return Vector2.UP.rotated(randf_range(left_angle, right_angle));
 
 
