@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://c42uau2bh2d6l"]
+
+[node name="MainMenu" type="Node2D"]
+
+[node name="GUI" type="CanvasLayer" parent="."]
+
+[node name="Buttons" type="VBoxContainer" parent="GUI"]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.557
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="NewGameBtn" type="Button" parent="GUI/Buttons"]
+layout_mode = 2
+text = "New game"
+
+[node name="ContinueBtn" type="Button" parent="GUI/Buttons"]
+layout_mode = 2
+disabled = true
+text = "Continue"
+
+[node name="SettingsBtn" type="Button" parent="GUI/Buttons"]
+layout_mode = 2
+text = "Settings"
+
+[node name="HelpBtn" type="Button" parent="GUI/Buttons"]
+layout_mode = 2
+text = "Help"
+
+[node name="StatsBtn" type="Button" parent="GUI/Buttons"]
+layout_mode = 2
+text = "Stats"
+
+[node name="QuitBtn" type="Button" parent="GUI/Buttons"]
+layout_mode = 2
+text = "Quit"
