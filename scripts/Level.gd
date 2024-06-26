@@ -110,7 +110,7 @@ func _on_brick_hit(brick: Brick, ball: Ball):
 				powerup.position = brick.position;
 				powerup.collected.connect(_on_powerup_collected);
 				add_child(powerup);
-				if randf() < 0.5:
+				if randf() < 0.5 and false:
 					powerup.powerup.id = 'sticky_paddle';
 					powerup.find_child("DebugLbl").text = powerup.powerup.id
 		else:
@@ -132,6 +132,7 @@ func _on_powerup_collected(powerup: Powerup):
 			var new_ball : Ball = ball_packed.instantiate();
 			new_ball.position.y = -Ball.BALL_RADIUS;
 			new_ball.position.x = paddle.width / 2;
+			new_ball.direction = Vector2.UP;
 			new_ball.stuck = true;
 			add_ball_to_paddle(new_ball);
 		'triple_ball':

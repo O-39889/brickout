@@ -64,25 +64,16 @@ func handle_collision(collision: KinematicCollision2D):
 			stuck = true;
 			process_mode = Node.PROCESS_MODE_DISABLED;
 			velocity = Vector2.ZERO;
-			direction = paddle_bounce(collider, collision.get_position());
+			direction = collider.calculate_bounce_dir(collision.get_position());;
 			collider.add_bawl(self);
 		else:
-			direction = paddle_bounce(collider, collision.get_position());
+			direction = collider.calculate_bounce_dir(collision.get_position());;
 			velocity = speed * direction;
 	else:
 		if collider.has_method("hit"):
 			collider.hit(self);
 		velocity = velocity.bounce(collision.get_normal());
 		direction = velocity.normalized();
-
-
-func paddle_bounce(paddle: Paddle, collision_point: Vector2) -> Vector2:
-	var left : float = paddle.position.x;
-	var right : float = paddle.position.x + paddle.width;
-	var clamped : float = clampf(collision_point.x, left, right);
-	var max_angle : float = paddle.MAX_ANGLES[paddle.width_idx];
-	var remapped : float = remap(clamped, left, right, -max_angle, max_angle);
-	return Vector2.UP.rotated(deg_to_rad(remapped));
 
 
 func _physics_process(delta):

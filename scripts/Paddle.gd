@@ -48,8 +48,8 @@ func _ready():
 		b.stuck = true;
 		b.position.x = width / 2.0;
 		b.position.y = -b.BALL_RADIUS;
-		add_child(b);
-		balls.append(b);
+		b.direction = Vector2.UP;
+		add_bawl(b);
 
 
 func add_bawl(b: Ball):
@@ -58,7 +58,6 @@ func add_bawl(b: Ball):
 	else:
 		b.reparent(self);
 	balls.append(b);
-	print('Added ball pos ' + str(b.global_position));
 
 
 func set_width(idx: PaddleSize):
@@ -74,6 +73,15 @@ func enlarge():
 
 func shrink():
 	_change_size(false);
+
+
+func calculate_bounce_dir(collision_point: Vector2) -> Vector2:
+	var left: float = position.x;
+	var right: float = position.x + width;
+	var clamped: float = clampf(collision_point.x, left, right);
+	var max_angle : float = MAX_ANGLES[width_idx];
+	var remapped: float = remap(clamped, left, right, -max_angle, max_angle);
+	return Vector2.UP.rotated(deg_to_rad(remapped));
 
 
 func _change_size(enlarge: bool):
@@ -95,7 +103,6 @@ func _input(event: InputEvent):
 			if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 				# release the bawl
 				var first_bawl : Ball = balls.pop_front();
-				first_bawl.direction = Vector2.UP;
 				first_bawl.reparent(get_parent());
 				first_bawl.launch();
 				pass
