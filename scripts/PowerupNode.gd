@@ -1,66 +1,24 @@
-class_name Powerup extends CharacterBody2D
+class_name PowerupNode extends CharacterBody2D
 
 
-signal collected(node, powerup);
-
-
-enum PowerupName {
-	PADDLE_ENLARGE,
-	ADD_BALL,
-	TRIPLE_BALL,
-	DOUBLE_BALLS,
-	STICKY_PADDLE,
-	BARRIER,
-	FIRE_BALL,
-	ACID_BALL,
-	BALL_SPEED_UP,
-	BALL_SLOW_DOWN,
-	PADDLE_SHRINK,
-	POP_BALL,
-	POP_ALL_BALLS,
-	GHOST_PADDLE,
-	PADDLE_FREEZE,	
-};
-
-
-const POWERUP_POOL = {
-	'good': [
-		'paddle_enlarge',
-		'add_ball',
-		'triple_ball',
-		'double_balls',
-		'sticky_paddle',
-		'barrier',
-		'fire_ball',
-		'acid_ball',
-	],
-	'neutral': [
-		'ball_speed_up',
-		'ball_slow_down',
-	],
-	'bad': [
-		'paddle_shrink',
-		'pop_ball',
-		'pop_all_balls',
-		'ghost_paddle',
-		'paddle_freeze',
-	],
-};
+signal collected(powerup);
 
 
 const POWERUP_GRAVITY = 150;
 const INITIAL_SPEED = 200;
 
 
-var powerup : Dictionary;
+var powerup : Powerup;
 
 # level pool, passed when instantiating a node
-var pool: Dictionary;
+var pool : Array[Powerup];
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	velocity = get_launch_vector();
+	if pool.is_empty():
+		pool = Powerup.get_default_weight_pool();
 	powerup = choose_powerup();
 	match powerup.type:
 		'good':
@@ -77,12 +35,8 @@ func _physics_process(delta):
 	var collision := move_and_collide(velocity * delta);
 	if collision:
 		if collision.get_collider() is Paddle:
-			collected.emit(self, powerup);
+			collected.emit(powerup);
 			queue_free();
-
-
-static func get_default_weight_pool() -> Dictionary:	
-	return {};
 
 
 func get_launch_vector() -> Vector2:
@@ -111,44 +65,29 @@ func get_launch_vector() -> Vector2:
 	return Vector2.UP * INITIAL_SPEED;
 
 
-func choose_powerup(weights: Dictionary = {}) -> Dictionary:
-	var pool := [];
-	if weights.is_empty():
-		for gp in POWERUP_POOL['good']:
-			pool.append({
-				'type': 'good',
-				'id': gp,
-				'weight': 1.0,
-			});
-		for np in POWERUP_POOL['neutral']:
-			pool.append({
-				'type': 'neutral',
-				'id': np,
-				'weight': 1.25,
-			});
-		for bp in POWERUP_POOL['bad']:
-			pool.append({
-				'type': 'bad',
-				'id': bp,
-				'weight': float(POWERUP_POOL['good'].size()) / float(POWERUP_POOL['bad'].size()) * 0.6667,
-			});
-	var pool_size := 0.0;
-	for p in pool:
-		pool_size += p['weight'];
-	var choice := randf_range(0.0, pool_size);
-	var cum_weight := 0.0; # haha
-	var picked_powerup : Dictionary;
-	for p in pool:
-		cum_weight += p['weight'];
-		if choice < cum_weight:
-			var ret_powerup : Dictionary = p.duplicate();
-			ret_powerup.erase('weight');
-			return ret_powerup;
-	# i don't think we would ever reach that point but Godot doesn't like it still
-	# over 10k generated powerups and this shit has never been triggered
-	print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
-	return pool[0];
+# TODO
+'''
+MAKE THIS SHIT CHECK WHETHER THE POOL VARIABLE IS NOT SET OR EMPTY
+THEN IF THAT IS SO FILL IT WITH THE DEFAULT WEIGHT POOL
+ACTUALLY MIGHT EVEN DO THAT IN _ready() INSTEAD
+IN HERE JUST IMPLEMENT A WEIGHTED RANDOM CHOICE ALGORITHM
+'''
+func choose_powerup() -> Powerup:
+	return choice_weighted(pool);
 
+
+func choice_weighted(arr: Array[Powerup]):
+	# hope this works
+	var pool_size : float = arr.reduce(func(accum: float, p: Powerup): return accum + p.weight, 0.0);
+	var choice : float = randf_range(0.0, pool_size);
+	var cum_weight : float = 0.0; # haha
+	for p in arr:
+		cum_weight += p.weight;
+		if choice < cum_weight:
+			return p;
+	# i don't think that would happen
+	return null;
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _draw():

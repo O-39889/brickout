@@ -8,7 +8,7 @@ enum PaddleSize {
 	PADDLE_SIZE_LARGE,
 	PADDLE_SIZE_HUMONGOUS,
 	PADDLE_SIZE_MAX, # max enum size, not paddle size
-}
+};
 
 
 const PADDLE_SIZES = [
@@ -17,7 +17,15 @@ const PADDLE_SIZES = [
 	240,
 	300,
 	400,
-]
+];
+
+const MAX_ANGLES = [
+	55.0,
+	60.0,
+	69.69696969,
+	72.00001,
+	75.17411852982168,
+];
 
 
 var balls : Array[Ball] = [];

@@ -100,22 +100,22 @@ func _on_brick_hit(brick: Brick, ball: Ball):
 				powerup.position = brick.position;
 				powerup.collected.connect(_on_powerup_collected);
 				add_child(powerup);
-				var pool := [
-				'add_ball',
-				'triple_ball',
-				'double_balls',
-				'pop_ball',
-				'pop_all_balls',
-				];
-				powerup.powerup.id = pool[randi_range(0, pool.size() - 1)];
-				powerup.find_child('DebugLbl').text = powerup.powerup.id;
+				#var pool := [
+				#'add_ball',
+				#'triple_ball',
+				#'double_balls',
+				#'pop_ball',
+				#'pop_all_balls',
+				#];
+				#powerup.powerup.id = pool[randi_range(0, pool.size() - 1)];
+				#powerup.find_child('DebugLbl').text = powerup.powerup.id;
 		else:
 			pass
 	if brick is UnbreakableBrick:
 		pass
 
 
-func _on_powerup_collected(node: Powerup, powerup: Dictionary):
+func _on_powerup_collected(powerup: Powerup):
 	match powerup.id:
 		# GOOD
 		'paddle_enlarge':
@@ -150,6 +150,12 @@ func _on_powerup_collected(node: Powerup, powerup: Dictionary):
 			for b in get_tree().get_nodes_in_group('balls'):
 				clone_balls(b, 1);
 		# NEUTRAL
+		'ball_speed_up':
+			for b in get_tree().get_nodes_in_group('balls'):
+					b.increase_speed();
+		'ball_slow_down':
+			for b in get_tree().get_nodes_in_group('balls'):
+				b.decrease_speed();
 		# BAD
 		'pop_ball':
 			# actually why tf am i duplicating this array lol

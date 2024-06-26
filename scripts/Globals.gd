@@ -1,5 +1,31 @@
-extends Node
+class_name Global extends Node
+
+
+enum PowerupName {
+	PADDLE_ENLARGE,
+	ADD_BALL,
+	TRIPLE_BALL,
+	DOUBLE_BALLS,
+	STICKY_PADDLE,
+	BARRIER,
+	FIRE_BALL,
+	ACID_BALL,
+	BALL_SPEED_UP,
+	BALL_SLOW_DOWN,
+	PADDLE_SHRINK,
+	POP_BALL,
+	POP_ALL_BALLS,
+	GHOST_PADDLE,
+	PADDLE_FREEZE,	
+};
+
+enum PowerupType {
+	GOOD,
+	NEUTRAL,
+	BAD,
+};
 
 
 const MOUSE_SENSITIVITY = 2.718281828459045;
 const PADDLE_OFFSET = 50;
+

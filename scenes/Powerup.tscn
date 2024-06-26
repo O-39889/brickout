@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://jw8sg6b35if4"]
 
-[ext_resource type="Script" path="res://scripts/Powerup.gd" id="1_yjq1q"]
+[ext_resource type="Script" path="res://scripts/PowerupNode.gd" id="1_i8ina"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x4xxw"]
 radius = 30.0
@@ -8,7 +8,7 @@ radius = 30.0
 [node name="Powerup" type="CharacterBody2D"]
 collision_layer = 8
 collision_mask = 2
-script = ExtResource("1_yjq1q")
+script = ExtResource("1_i8ina")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_x4xxw")

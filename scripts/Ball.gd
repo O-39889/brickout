@@ -12,15 +12,16 @@ enum BallSpeed {
 
 # random data fur now
 const BALL_SPEEDS = [
-	500,
+	400,
 	600,
-	750,	
+	800,
 ];
 
 const BALL_RADIUS = 20;
 
 
-var speed := BALL_SPEEDS[BallSpeed.BALL_SPEED_NORMAL];
+var speed_idx : BallSpeed = BallSpeed.BALL_SPEED_NORMAL;
+var speed : float = BALL_SPEEDS[speed_idx];
 var direction : Vector2 = Vector2(1, -1).normalized();
 var stuck : bool = false;
 
@@ -37,6 +38,18 @@ func _ready():
 func launch():
 	process_mode = Node.PROCESS_MODE_INHERIT;
 	stuck = false;
+	velocity = direction * speed;
+
+
+func increase_speed():
+	speed_idx = maxi(speed_idx + 1, BallSpeed.BALL_SPEED_SLOW);
+	speed = BALL_SPEEDS[speed_idx];
+	velocity = direction * speed;
+
+
+func decrease_speed():
+	speed_idx = mini(speed_idx - 1, BallSpeed.BALL_SPEED_FAST);
+	speed = BALL_SPEEDS[speed_idx];
 	velocity = direction * speed;
 
 
@@ -67,7 +80,8 @@ func paddle_bounce(paddle: Paddle, collision_point: Vector2) -> Vector2:
 	var left : float = paddle.position.x;
 	var right : float = paddle.position.x + paddle.width;
 	var clamped : float = clampf(collision_point.x, left, right);
-	var remapped : float = remap(clamped, left, right, -69.69, 69.69);
+	var max_angle : float = paddle.MAX_ANGLES[paddle.width_idx];
+	var remapped : float = remap(clamped, left, right, -max_angle, max_angle);
 	return Vector2.UP.rotated(deg_to_rad(remapped));
 
 
