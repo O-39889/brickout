@@ -20,7 +20,12 @@ const BALL_SPEEDS = [
 const BALL_RADIUS = 20;
 
 
-var speed_idx : BallSpeed = BallSpeed.BALL_SPEED_NORMAL;
+var speed_idx : BallSpeed = BallSpeed.BALL_SPEED_NORMAL:
+	get:
+		return speed_idx;
+	set(value):
+		speed_idx = value;
+		speed = BALL_SPEEDS[speed_idx];
 var speed : float = BALL_SPEEDS[speed_idx];
 var direction : Vector2 = Vector2(1, -1).normalized();
 var stuck : bool = false;
