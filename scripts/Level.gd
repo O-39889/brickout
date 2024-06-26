@@ -175,11 +175,11 @@ func _on_powerup_collected(powerup: Powerup):
 			start_or_extend_timer(timer_acid, ACID_TIME);
 		# NEUTRAL
 		'ball_speed_up':
-			current_ball_speed_idx = mini(current_ball_speed_idx, Ball.BallSpeed.BALL_SPEED_FAST);
+			current_ball_speed_idx = mini(current_ball_speed_idx + 1, Ball.BallSpeed.BALL_SPEED_FAST);
 			for b in get_tree().get_nodes_in_group('balls'):
 				b.increase_speed();
 		'ball_slow_down':
-			current_ball_speed_idx = maxi(current_ball_speed_idx, Ball.BallSpeed.BALL_SPEED_SLOW);
+			current_ball_speed_idx = maxi(current_ball_speed_idx - 1, Ball.BallSpeed.BALL_SPEED_SLOW);
 			for b in get_tree().get_nodes_in_group('balls'):
 				b.decrease_speed();
 		# BAD
@@ -258,11 +258,11 @@ func _input(event):
 		p.collected.connect(_on_powerup_collected);
 		add_child(p);
 	if event.is_action_pressed('debug_1'):
-		add_powerup.call('paddle_enlarge', 'good');
+		add_powerup.call('ball_speed_up', 'neutral');
 	if event.is_action_pressed('debug_2'):
-		add_powerup.call('paddle_shrink', 'bad');
+		add_powerup.call('ball_slow_down', 'neutral');
 	if event.is_action_pressed('debug_3'):
-		add_powerup.call('sticky_paddle', 'good');
+		add_powerup.call('double_balls', 'good');
 	if event.is_action_pressed('debug_4'):
 		add_powerup.call('triple_ball', 'good');
 	if event.is_action_pressed('debug_5'):
