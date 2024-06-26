@@ -19,6 +19,9 @@ var mouse_captured := false;
 
 @onready var ball_packed = preload("res://scenes/Ball.tscn");
 @onready var powerup_packed = preload("res://scenes/Powerup.tscn");
+@onready var barrier_packed = preload("res://scenes/Barrier.tscn");
+
+var barrier;
 
 
 ## careful! this will place the topmost ball first!! probably...
@@ -157,6 +160,8 @@ func _on_powerup_collected(powerup: Powerup):
 		'sticky_paddle':
 			paddle.sticky = true;
 			start_or_extend_timer(timer_sticky, STICKY_TIME, STICKY_TIME_MAX);
+		'barrier':
+			add_barrier();
 		# NEUTRAL
 		'ball_speed_up':
 			for b in get_tree().get_nodes_in_group('balls'):
@@ -197,11 +202,25 @@ func _on_powerup_collected(powerup: Powerup):
 				murder_ball(b);
 
 
+func _on_barrier_hit(b: Barrier):
+	barrier = null;
+	b.queue_free();
+
+
 func start_or_extend_timer(t: Timer, set_val: float, max_val: float = set_val):
 	if t.is_stopped():
 		t.start(set_val);
 	else:
 		t.start(minf(t.time_left + set_val, max_val));
+
+
+func add_barrier():
+	if barrier:
+		return;
+	barrier = barrier_packed.instantiate();
+	barrier.position.y = get_viewport_rect().size.y - (Globals.PADDLE_OFFSET / 2.0);
+	barrier.hitted.connect(_on_barrier_hit);
+	add_child(barrier);
 
 
 func _physics_process(delta):
@@ -233,6 +252,8 @@ func _input(event):
 		add_powerup.call('sticky_paddle', 'good');
 	if event.is_action_pressed('debug_4'):
 		add_powerup.call('triple_ball', 'good');
+	if event.is_action_pressed('debug_5'):
+		add_powerup.call('barrier', 'good');
 
 func _on_sticky_timer_timeout():
 	paddle.sticky = false;
