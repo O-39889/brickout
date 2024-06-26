@@ -38,7 +38,7 @@ var acid: bool = false:
 		if value:
 			collision_shape.debug_color.h = (100.0 / 360.0);
 			fire_ball = false;
-		else:
+		elif not fire_ball:
 			collision_shape.debug_color.h = (189.0 / 360.0);
 
 var fire_ball : bool = false:
@@ -49,9 +49,9 @@ var fire_ball : bool = false:
 		fire_ball = value;
 		if value:
 			print('Fiery red!');
-			collision_shape.debug_color.h = (15.0 / 360.0);
+			collision_shape.debug_color.h = (20.0 / 360.0);
 			acid = false;
-		else:
+		elif not acid:
 			collision_shape.debug_color.h = (189.0 / 360.0);
 
 
