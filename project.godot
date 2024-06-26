@@ -81,6 +81,7 @@ debug_5={
 2d_physics/layer_4="powerups"
 2d_physics/layer_5="bricks"
 2d_physics/layer_6="projectiles"
+2d_physics/layer_7="paddle_powerup_hitbox"
 
 [rendering]
 

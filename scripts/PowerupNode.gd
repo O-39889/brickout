@@ -34,7 +34,8 @@ func _physics_process(delta):
 	velocity.y += POWERUP_GRAVITY * delta;
 	var collision := move_and_collide(velocity * delta);
 	if collision:
-		if collision.get_collider() is Paddle:
+		var collider := collision.get_collider();
+		if collider is Paddle or true:
 			collected.emit(powerup);
 			queue_free();
 

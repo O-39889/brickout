@@ -34,6 +34,7 @@ var spawn_ball;
 var sticky : bool = false;
 
 @onready var collision_shape : CollisionShape2D = find_child("CollisionShape2D");
+@onready var area_shape : CollisionShape2D = find_child("Area2DShape");
 @onready var width_idx := PaddleSize.PADDLE_SIZE_NORMAL;
 @onready var width : float = PADDLE_SIZES[width_idx];
 
@@ -41,6 +42,8 @@ var sticky : bool = false;
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	collision_shape.shape.b.x = width;
+	area_shape.position.x = width / 2;
+	area_shape.shape.size.x = width;
 	if spawn_ball == null:
 		spawn_ball = true;
 	if spawn_ball == true:
@@ -65,6 +68,8 @@ func set_width(idx: PaddleSize):
 	width = PADDLE_SIZES[idx];
 	collision_shape.shape.b.x = width;
 	position.x = clamp(old_center - width / 2, 0, get_viewport_rect().size.x - width);
+	area_shape.position.x = width / 2;
+	area_shape.shape.size.x = width;
 
 
 func enlarge():
