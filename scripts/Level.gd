@@ -25,6 +25,8 @@ var barrier;
 
 @onready var current_ball_speed_idx : Ball.BallSpeed = Ball.BallSpeed.BALL_SPEED_NORMAL;
 
+@onready var weight_pool : Array[Powerup] = [];
+
 
 ## careful! this will place the topmost ball first!! probably...
 var y_sort_balls_asc : Callable = func(a: Ball, b: Ball):
