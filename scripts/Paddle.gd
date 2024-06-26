@@ -90,8 +90,11 @@ func _change_size(enlarge: bool):
 		delta = 1;
 	else:
 		delta = -1;
+	var old_width := width;
 	width_idx = clampi(width_idx + delta, PaddleSize.PADDLE_SIZE_TINY, PaddleSize.PADDLE_SIZE_MAX - 1);
 	set_width(width_idx);
+	for b in balls:
+		b.position.x = remap(b.position.x, 0, old_width, 0, width);
 
 
 func _input(event: InputEvent):

@@ -219,7 +219,20 @@ func _input(event):
 		get_tree().reload_current_scene();
 	if event.is_action_pressed("debug_do"):
 		pass
-
+	var add_powerup : Callable = func(id: String, type: String):
+		var p : PowerupNode = powerup_packed.instantiate();
+		p.position = paddle.position - Vector2(0, 1) * 100 + Vector2(1, 0) * paddle.width / 2;
+		p.pool = [Powerup.new(id, type)];
+		p.collected.connect(_on_powerup_collected);
+		add_child(p);
+	if event.is_action_pressed('debug_1'):
+		add_powerup.call('paddle_enlarge', 'good');
+	if event.is_action_pressed('debug_2'):
+		add_powerup.call('paddle_shrink', 'bad');
+	if event.is_action_pressed('debug_3'):
+		add_powerup.call('sticky_paddle', 'good');
+	if event.is_action_pressed('debug_4'):
+		add_powerup.call('triple_ball', 'good');
 
 func _on_sticky_timer_timeout():
 	paddle.sticky = false;
