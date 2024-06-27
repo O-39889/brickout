@@ -32,6 +32,22 @@ var balls : Array[Ball] = [];
 # whether a paddle should spawn a ball on itself or not when created
 var spawn_ball;
 var sticky : bool = false;
+var frozen : bool = false:
+	get:
+		return frozen;
+	set(value):
+		frozen = value;
+		if value:
+			ghost = false;
+			sticky = false;
+
+var ghost : bool = false:
+	get:
+		return ghost;
+	set(value):
+		ghost = value;
+		if value:
+			frozen = false;
 
 @onready var collision_shape : CollisionShape2D = find_child("CollisionShape2D");
 @onready var area_shape : CollisionShape2D = find_child("Area2DShape");
@@ -104,7 +120,7 @@ func _change_size(enlarge: bool):
 
 func _input(event: InputEvent):
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		if event is InputEventMouseMotion:
+		if event is InputEventMouseMotion and not frozen:
 			position.x += event.relative.x * Globals.MOUSE_SENSITIVITY;
 			position.x = clamp(position.x, 0, get_viewport_rect().size.x - width);
 		if event is InputEventMouseButton:

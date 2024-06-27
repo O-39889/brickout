@@ -10,6 +10,7 @@ while the first one is active
 const STICKY_TIME: float = 15.0;
 const STICKY_TIME_MAX: float = 35.003;
 const ACID_TIME : float = 20.0;
+const FROZEN_TIME : float = 7.0;
 
 
 var mouse_captured := false;
@@ -20,6 +21,7 @@ var barrier;
 @onready var paddle : Paddle = find_child("Paddle");
 @onready var timer_sticky : Timer = find_child("StickyTimer");
 @onready var timer_acid : Timer = find_child("AcidTimer");
+@onready var timer_frozen : Timer = find_child('FrozenTimer');
 
 @onready var ball_packed = preload("res://scenes/Ball.tscn");
 @onready var powerup_packed = preload("res://scenes/Powerup.tscn");
@@ -215,6 +217,9 @@ func _on_powerup_collected(powerup: Powerup):
 			balls_arr.erase(safe_ball);
 			for b in balls_arr:
 				murder_ball(b);
+		'paddle_freeze':
+			paddle.frozen = true;
+			start_or_extend_timer(timer_frozen, FROZEN_TIME);
 
 
 func _on_barrier_hit(b: Barrier):
@@ -245,6 +250,7 @@ func _physics_process(delta):
 func _process(delta):
 	$GUI/VBoxContainer/DebugTimerSticky.text = 'sticky ' + String.num(timer_sticky.time_left, 2);
 	$GUI/VBoxContainer/DebugTimerAcid.text = 'acid ' + String.num(timer_acid.time_left, 2);
+	$GUI/VBoxContainer/DebugTimerFreeze.text = 'freeze ' + String.num(timer_frozen.time_left, 2);
 
 
 func _input(event):
@@ -269,7 +275,7 @@ func _input(event):
 	if event.is_action_pressed('debug_4'):
 		add_powerup.call('triple_ball', 'good');
 	if event.is_action_pressed('debug_5'):
-		add_powerup.call('acid_ball', 'good');
+		add_powerup.call('paddle_freeze', 'bad');
 
 func _on_sticky_timer_timeout():
 	paddle.sticky = false;
@@ -278,3 +284,7 @@ func _on_sticky_timer_timeout():
 func _on_acid_timer_timeout():
 	for b in get_tree().get_nodes_in_group('balls'):
 		b.acid = false;
+
+
+func _on_frozen_timer_timeout():
+	paddle.frozen = false;
