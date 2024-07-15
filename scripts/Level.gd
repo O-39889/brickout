@@ -144,7 +144,6 @@ func _on_powerup_collected(powerup: Powerup):
 		'paddle_shrink':
 			paddle.shrink();
 		'add_ball':
-			return
 			# we will actually not even add it to the level
 			# but parent it to the paddle instead
 			var new_ball : Ball = ball_packed.instantiate();
@@ -255,7 +254,7 @@ func _input(event):
 		p.collected.connect(_on_powerup_collected);
 		add_child(p);
 	if event.is_action_pressed('debug_1'):
-		add_powerup.call('acid_ball', 'good');
+		add_powerup.call('add_ball', 'good');
 	if event.is_action_pressed('debug_2'):
 		add_powerup.call('paddle_freeze', 'bad');
 	if event.is_action_pressed('debug_3'):
