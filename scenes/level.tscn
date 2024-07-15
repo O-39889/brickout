@@ -136,6 +136,7 @@ position = Vector2(660, 330)
 
 [node name="IndestructibleBrick" parent="Bricks" instance=ExtResource("5_qmehk")]
 position = Vector2(510, 210)
+rotation = 3.14159
 
 [node name="IndestructibleBrick9" parent="Bricks" instance=ExtResource("5_qmehk")]
 position = Vector2(210, 210)

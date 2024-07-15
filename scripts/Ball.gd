@@ -12,23 +12,35 @@ enum BallSpeed {
 
 # random data fur now
 const BALL_SPEEDS = [
-	400,
+	390,
 	600,
-	800,
+	810,
 ];
 
 const BALL_RADIUS = 20;
 
 
-var speed_idx : BallSpeed = BallSpeed.BALL_SPEED_NORMAL:
+static var target_speed_idx : BallSpeed = BallSpeed.BALL_SPEED_NORMAL:
 	get:
-		return speed_idx;
+		return target_speed_idx;
 	set(value):
-		speed_idx = value;
-		speed = BALL_SPEEDS[speed_idx];
+		target_speed_idx = clampi(value, BallSpeed.BALL_SPEED_SLOW, BallSpeed.BALL_SPEED_FAST);
+		EventBus.ball_target_speed_idx_changed.emit();
 
-var speed : float = BALL_SPEEDS[speed_idx];
-var direction : Vector2 = Vector2(1, -1).normalized();
+var speed : float = BALL_SPEEDS[target_speed_idx]:
+	get:
+		return speed;
+	set(value):
+		speed = value;
+		velocity = speed * direction;
+
+var direction : Vector2 = Vector2(0, -1):
+	get:
+		return direction;
+	set(value):
+		direction = value;
+		velocity = speed * direction;
+
 var stuck : bool = false:
 	get:
 		return stuck;
@@ -67,27 +79,23 @@ var fire_ball : bool = false:
 
 
 func _ready():
+	EventBus.ball_target_speed_idx_changed.connect(_on_target_speed_idx_changed);
 	collision_shape.shape.radius = BALL_RADIUS;
 	if stuck:
 		process_mode = Node.PROCESS_MODE_DISABLED;
 
 
 func launch():
-	process_mode = Node.PROCESS_MODE_INHERIT;
 	stuck = false;
 	velocity = direction * speed;
 
 
-func increase_speed():
-	speed_idx = mini(speed_idx + 1, BallSpeed.BALL_SPEED_FAST);
-	speed = BALL_SPEEDS[speed_idx];
-	velocity = direction * speed;
+static func increase_speed():
+	target_speed_idx += 1;
 
 
-func decrease_speed():
-	speed_idx = maxi(speed_idx - 1, BallSpeed.BALL_SPEED_SLOW);
-	speed = BALL_SPEEDS[speed_idx];
-	velocity = direction * speed;
+static func decrease_speed():
+	target_speed_idx -= 1;
 
 
 func handle_collision(collision: KinematicCollision2D):
@@ -95,8 +103,7 @@ func handle_collision(collision: KinematicCollision2D):
 	if collider is Ball:
 		# and here we would somehow alter another guy's velocity
 		# und also avoid reduplication or idk lol
-		print("Not implemented!!!");
-		pass
+		assert(false, 'NOT IMPLEMENTED!!!! AAAAAAHHHHHHHH');
 	if collider is Paddle:
 		collider.handle_ball_collision(self, collision);
 	else:
@@ -111,15 +118,21 @@ func handle_collision(collision: KinematicCollision2D):
 				explosion.queue_free();
 				fire_ball = false;
 			else:
-				collider.hit(self, 999 if acid else 1);
+				collider.hit(self, 1997 if acid else 1);
+		# lmao that's why you use le state pattern
 		if not (collider is RegularBrick and acid):
-			velocity = velocity.bounce(collision.get_normal());
-			direction = velocity.normalized();
+			direction = direction.bounce(collision.get_normal());
 
 
 func _physics_process(delta):
+	velocity = direction * speed;
 	var collision: KinematicCollision2D = move_and_collide(velocity * delta);
 	if collision:
 		handle_collision(collision);
 	if position.y > get_viewport_rect().size.y + BALL_RADIUS * 4:
 		lost.emit(self);
+	get_window().title = str(target_speed_idx);
+
+
+func _on_target_speed_idx_changed():
+	speed = BALL_SPEEDS[target_speed_idx];

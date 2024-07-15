@@ -42,8 +42,16 @@ var filter_stuck_balls : Callable = func(b: Ball):
 	return not b.stuck;
 
 
+func stuff():
+	print('Hello I am in here');
+	print('Hello I am in here');
+	print('Hello I am in here');
+	
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	EventBus.ball_target_speed_idx_changed.connect(stuff);
 	paddle.spawn_ball = true;
 	paddle.position.x = (get_viewport_rect().size.x - paddle.width) / 2;
 	paddle.position.y = get_viewport_rect().size.y - Globals.PADDLE_OFFSET;
@@ -67,17 +75,17 @@ func life_lost():
 
 
 func add_ball(b: Ball):
-	b.speed_idx = current_ball_speed_idx;
 	if get_tree().get_nodes_in_group('balls').size() >= BALL_LIMIT:
 		return;
+	# TODO: REPLACE THIS WITH EVENT BUS
 	b.lost.connect(_on_ball_lost);
 	add_child(b);
 
 
 func add_ball_to_paddle(b: Ball):
-	b.speed_idx = current_ball_speed_idx;
 	if get_tree().get_nodes_in_group('balls').size() >= BALL_LIMIT:
 		return;
+	# TODO: REPLACE THIS      WITH EVENT BUS
 	b.lost.connect(_on_ball_lost);
 	paddle.add_bawl(b);
 
@@ -89,13 +97,11 @@ func clone_balls(b: Ball, n: int):
 		var angle_offset : float = (i + 1) * angle_range / (n + 1);
 		if b.stuck:
 			new_ball.position = b.global_position;
-			new_ball.position.y -= 1;
-			new_ball.velocity = b.speed * Vector2.LEFT.rotated(angle_offset);
-			new_ball.direction = new_ball.velocity.normalized();
+			new_ball.position.y -= 1; # "just in case"
+			new_ball.direction = Vector2.LEFT.rotated(angle_offset);
 		else:
 			new_ball.position = b.position;
-			new_ball.velocity = b.velocity.rotated(angle_offset);
-			new_ball.direction = new_ball.velocity.normalized();
+			new_ball.direction = b.direction.rotated(angle_offset);
 		add_ball(new_ball);
 
 
@@ -145,7 +151,6 @@ func _on_powerup_collected(powerup: Powerup):
 			new_ball.position.y = -Ball.BALL_RADIUS;
 			new_ball.position.x = paddle.width / 2;
 			new_ball.direction = Vector2.UP;
-			new_ball.stuck = true;
 			add_ball_to_paddle(new_ball);
 		'triple_ball':
 			# gotta go back to enums and shit i guess with the powerup ids
@@ -162,7 +167,7 @@ func _on_powerup_collected(powerup: Powerup):
 			# fallback (just get the first bawl available)
 			if ball_selection.is_empty():
 				ball_selection.append(get_tree().get_first_node_in_group('balls'));
-			clone_balls(ball_selection[randi_range(0, ball_selection.size() - 1)], 2);
+			clone_balls(ball_selection.pick_random(), 2);
 		'double_balls':
 			for b in get_tree().get_nodes_in_group('balls'):
 				clone_balls(b, 1);
@@ -179,13 +184,9 @@ func _on_powerup_collected(powerup: Powerup):
 			start_or_extend_timer(timer_acid, ACID_TIME);
 		# NEUTRAL
 		'ball_speed_up':
-			current_ball_speed_idx = mini(current_ball_speed_idx + 1, Ball.BallSpeed.BALL_SPEED_FAST);
-			for b in get_tree().get_nodes_in_group('balls'):
-				b.increase_speed();
+			Ball.increase_speed();
 		'ball_slow_down':
-			current_ball_speed_idx = maxi(current_ball_speed_idx - 1, Ball.BallSpeed.BALL_SPEED_SLOW);
-			for b in get_tree().get_nodes_in_group('balls'):
-				b.decrease_speed();
+			Ball.decrease_speed();
 		# BAD
 		'pop_ball':
 			var balls_arr : Array[Ball];
@@ -263,9 +264,9 @@ func _input(event):
 	if event.is_action_pressed('debug_2'):
 		add_powerup.call('paddle_freeze', 'bad');
 	if event.is_action_pressed('debug_3'):
-		add_powerup.call('double_balls', 'good');
+		add_powerup.call('ball_speed_up', 'neutral');
 	if event.is_action_pressed('debug_4'):
-		add_powerup.call('triple_ball', 'good');
+		add_powerup.call('ball_slow_down', 'neutral');
 	if event.is_action_pressed('debug_5'):
 		add_powerup.call('paddle_freeze', 'bad');
 		_input(event);

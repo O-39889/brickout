@@ -77,7 +77,6 @@ func _ready():
 	powerup_hitbox.shape.size.x = width;
 	# just make it ALWAYS spawn with a bawl
 	var b : Ball = load("res://scenes/Ball.tscn").instantiate();
-	b.stuck = true;
 	b.position.x = width / 2.0;
 	b.position.y = -b.BALL_RADIUS;
 	b.direction = Vector2.UP;
@@ -89,6 +88,7 @@ func add_bawl(b: Ball):
 		add_child(b);
 	else:
 		b.reparent(self);
+	b.stuck = true;
 	balls.append(b);	
 
 
@@ -116,17 +116,15 @@ func handle_ball_collision(b: Ball, collision: KinematicCollision2D) -> void:
 		PaddleState.Normal:
 			var ball_dir := _bounce_ball_dir_controlled(b.velocity, collision.get_position());
 			b.direction = ball_dir;
-			b.velocity = b.speed * b.direction;
 		PaddleState.Sticky:
 			var ball_dir := _bounce_ball_dir_controlled(b.velocity, collision.get_position());
 			b.direction = ball_dir;
-			b.stuck = true;
 			add_bawl(b);
 		PaddleState.Frozen:
 			# other stuff to handle? idk just bouncing it lol
 			# actaully might trigger an explosion if le ball is fire ball
 			# and then unfreeze le paddle
-			b.velocity = b.velocity.bounce(collision.get_normal());
+			b.direction = b.direction.bounce(collision.get_normal());
 		# I'm prolly not even gonna add a ghost state anyway
 
 
@@ -139,8 +137,8 @@ func _bounce_ball_dir_controlled(ball_velocity: Vector2, collision_position: Vec
 	return Vector2.UP.rotated(deg_to_rad(remapped));
 
 
-func _bounce_ball_dir_uncontrolled(ball_velocity: Vector2, normal: Vector2) -> Vector2:
-	return ball_velocity.bounce(normal).normalized();
+func _bounce_ball_dir_uncontrolled(ball_direction: Vector2, normal: Vector2) -> Vector2:
+	return ball_direction.bounce(normal);
 
 
 func _change_size(should_enlarge: bool):
