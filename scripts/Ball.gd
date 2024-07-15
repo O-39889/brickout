@@ -29,7 +29,16 @@ var speed_idx : BallSpeed = BallSpeed.BALL_SPEED_NORMAL:
 
 var speed : float = BALL_SPEEDS[speed_idx];
 var direction : Vector2 = Vector2(1, -1).normalized();
-var stuck : bool = false;
+var stuck : bool = false:
+	get:
+		return stuck;
+	set(value):
+		stuck = value;
+		if value:
+			process_mode = Node.PROCESS_MODE_DISABLED;
+		else:
+			process_mode = Node.PROCESS_MODE_INHERIT;
+## TODO: REPLACE THOSE TWO WITH A SINGLE STATE ENUM THINGY
 var acid: bool = false:
 	get:
 		return acid;
@@ -85,18 +94,11 @@ func handle_collision(collision: KinematicCollision2D):
 	var collider := collision.get_collider();
 	if collider is Ball:
 		# and here we would somehow alter another guy's velocity
+		# und also avoid reduplication or idk lol
 		print("Not implemented!!!");
 		pass
 	if collider is Paddle:
-		if collider.sticky:
-			stuck = true;
-			process_mode = Node.PROCESS_MODE_DISABLED;
-			velocity = Vector2.ZERO;
-			direction = collider.calculate_bounce_dir(collision.get_position());;
-			collider.add_bawl(self);
-		else:
-			direction = collider.calculate_bounce_dir(collision.get_position());;
-			velocity = speed * direction;
+		collider.handle_ball_collision(self, collision);
 	else:
 		if collider.has_method("hit"):
 			if collider is Brick and fire_ball:

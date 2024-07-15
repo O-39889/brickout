@@ -7,10 +7,9 @@ basically initially the timer is set to 15 seconds
 but you can stuck it up to 35 if you collect another sticky powerup
 while the first one is active
 '''
-const STICKY_TIME: float = 15.0;
-const STICKY_TIME_MAX: float = 35.003;
+
+## TODO: also remove when we make bawl into a state machine-like thingy instead
 const ACID_TIME : float = 20.0;
-const FROZEN_TIME : float = 7.0;
 
 
 var mouse_captured := false;
@@ -19,9 +18,10 @@ var barrier;
 
 @onready var wall_right = find_child("WallRight");
 @onready var paddle : Paddle = find_child("Paddle");
-@onready var timer_sticky : Timer = find_child("StickyTimer");
+# TODO: move to balls instead? idk lol might need to delegate it to somewhere else
+# bc i wanna have a single common timer for acid bawls
 @onready var timer_acid : Timer = find_child("AcidTimer");
-@onready var timer_frozen : Timer = find_child('FrozenTimer');
+
 
 @onready var ball_packed = preload("res://scenes/Ball.tscn");
 @onready var powerup_packed = preload("res://scenes/Powerup.tscn");
@@ -52,7 +52,6 @@ func _ready():
 		b.lost.connect(_on_ball_lost);
 	for b in get_tree().get_nodes_in_group("bricks"):
 		b.hitted.connect(_on_brick_hit);
-	timer_sticky.wait_time = STICKY_TIME;
 
 
 func set_mouse_capture(captured: bool):
@@ -139,6 +138,7 @@ func _on_powerup_collected(powerup: Powerup):
 		'paddle_shrink':
 			paddle.shrink();
 		'add_ball':
+			return
 			# we will actually not even add it to the level
 			# but parent it to the paddle instead
 			var new_ball : Ball = ball_packed.instantiate();
@@ -167,8 +167,7 @@ func _on_powerup_collected(powerup: Powerup):
 			for b in get_tree().get_nodes_in_group('balls'):
 				clone_balls(b, 1);
 		'sticky_paddle':
-			paddle.sticky = true;
-			start_or_extend_timer(timer_sticky, STICKY_TIME, STICKY_TIME_MAX);
+			paddle.state = Paddle.PaddleState.Sticky;
 		'barrier':
 			add_barrier();
 		'fire_ball':
@@ -218,8 +217,7 @@ func _on_powerup_collected(powerup: Powerup):
 			for b in balls_arr:
 				murder_ball(b);
 		'paddle_freeze':
-			paddle.frozen = true;
-			start_or_extend_timer(timer_frozen, FROZEN_TIME);
+			paddle.state = Paddle.PaddleState.Frozen;
 
 
 func _on_barrier_hit(b: Barrier):
@@ -247,12 +245,6 @@ func _physics_process(delta):
 	pass
 
 
-func _process(delta):
-	$GUI/VBoxContainer/DebugTimerSticky.text = 'sticky ' + String.num(timer_sticky.time_left, 2);
-	$GUI/VBoxContainer/DebugTimerAcid.text = 'acid ' + String.num(timer_acid.time_left, 2);
-	$GUI/VBoxContainer/DebugTimerFreeze.text = 'freeze ' + String.num(timer_frozen.time_left, 2);
-
-
 func _input(event):
 	if event.is_action_pressed("debug_exit"):
 		get_tree().quit();
@@ -267,15 +259,16 @@ func _input(event):
 		p.collected.connect(_on_powerup_collected);
 		add_child(p);
 	if event.is_action_pressed('debug_1'):
-		add_powerup.call('fire_ball', 'good');
+		add_powerup.call('sticky_paddle', 'good');
 	if event.is_action_pressed('debug_2'):
-		add_powerup.call('acid_ball', 'good');
+		add_powerup.call('paddle_freeze', 'bad');
 	if event.is_action_pressed('debug_3'):
 		add_powerup.call('double_balls', 'good');
 	if event.is_action_pressed('debug_4'):
 		add_powerup.call('triple_ball', 'good');
 	if event.is_action_pressed('debug_5'):
 		add_powerup.call('paddle_freeze', 'bad');
+		_input(event);
 
 func _on_sticky_timer_timeout():
 	paddle.sticky = false;

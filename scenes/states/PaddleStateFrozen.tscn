@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5rwe3bk7c3pu"]
+
+[ext_resource type="PackedScene" uid="uid://coouia2orcc5t" path="res://scenes/states/PaddleState.tscn" id="1_swolr"]
+[ext_resource type="Script" path="res://scripts/states/paddle/Frozen.gd" id="2_06jyc"]
+
+[node name="Frozen" instance=ExtResource("1_swolr")]
+script = ExtResource("2_06jyc")

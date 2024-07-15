@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://vbe4jn0cvom2"]
+
+[ext_resource type="PackedScene" uid="uid://coouia2orcc5t" path="res://scenes/states/PaddleState.tscn" id="1_7gaqq"]
+[ext_resource type="Script" path="res://scripts/states/paddle/Normal.gd" id="2_3t5cr"]
+
+[node name="Normal" instance=ExtResource("1_7gaqq")]
+script = ExtResource("2_3t5cr")

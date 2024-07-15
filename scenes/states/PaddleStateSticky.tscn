@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckmsbq5ky87q6"]
+
+[ext_resource type="PackedScene" uid="uid://coouia2orcc5t" path="res://scenes/states/PaddleState.tscn" id="1_25f73"]
+[ext_resource type="Script" path="res://scripts/states/paddle/Sticky.gd" id="2_elrpg"]
+
+[node name="Sticky" instance=ExtResource("1_25f73")]
+script = ExtResource("2_elrpg")
+
+[node name="StickyTimer" type="Timer" parent="." index="0"]
+process_callback = 0
+one_shot = true
+
+[connection signal="timeout" from="StickyTimer" to="." method="_on_sticky_timer_timeout"]
