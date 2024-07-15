@@ -10,7 +10,12 @@ enum BallSpeed {
 	BALL_SPEED_FAST,
 }
 
-# random data fur now
+enum BallState {
+	Normal,
+	Fire,
+	Acid,
+}
+
 const BALL_SPEEDS = [
 	390,
 	600,
@@ -50,28 +55,20 @@ var stuck : bool = false:
 			process_mode = Node.PROCESS_MODE_DISABLED;
 		else:
 			process_mode = Node.PROCESS_MODE_INHERIT;
-## TODO: REPLACE THOSE TWO WITH A SINGLE STATE ENUM THINGY
-var acid: bool = false:
-	get:
-		return acid;
-	set(value):
-		acid = value;
-		if value:
-			collision_shape.debug_color.h = (100.0 / 360.0);
-			fire_ball = false;
-		elif not fire_ball:
-			collision_shape.debug_color.h = (189.0 / 360.0);
 
-var fire_ball : bool = false:
+
+var state: BallState = BallState.Normal:
 	get:
-		return fire_ball;
+		return state;
 	set(value):
-		fire_ball = value;
-		if value:
-			collision_shape.debug_color.h = (20.0 / 360.0);
-			acid = false;
-		elif not acid:
-			collision_shape.debug_color.h = (189.0 / 360.0);
+		state = value;
+		match value:
+			BallState.Normal:
+				collision_shape.debug_color.h = (189.0 / 360.0);
+			BallState.Fire:
+				collision_shape.debug_color.h = (20.0 / 360.0);
+			BallState.Acid:
+				collision_shape.debug_color.h = (100.0 / 360.0);
 
 
 @onready var collision_shape : CollisionShape2D = find_child("CollisionShape2D");
@@ -98,30 +95,51 @@ static func decrease_speed():
 	target_speed_idx -= 1;
 
 
+# that started to look worse somehow
 func handle_collision(collision: KinematicCollision2D):
 	var collider := collision.get_collider();
 	if collider is Ball:
 		# and here we would somehow alter another guy's velocity
 		# und also avoid reduplication or idk lol
 		assert(false, 'NOT IMPLEMENTED!!!! AAAAAAHHHHHHHH');
-	if collider is Paddle:
+	elif collider is Paddle:
 		collider.handle_ball_collision(self, collision);
+		if state == BallState.Fire:
+			explode_stuff();
+			if collider.state == Paddle.PaddleState.Frozen:
+				collider.state = Paddle.PaddleState.Normal;
 	else:
-		if collider.has_method("hit"):
-			if collider is Brick and fire_ball:
-				var explosion : Explosion = explosion_packed.instantiate();
-				add_child(explosion);
-				explosion.exclude_parent = true;
-				explosion.force_shapecast_update();
-				for c in explosion.collision_result:
-					c.collider.hit(self, 999);
-				explosion.queue_free();
-				fire_ball = false;
-			else:
-				collider.hit(self, 1997 if acid else 1);
-		# lmao that's why you use le state pattern
-		if not (collider is RegularBrick and acid):
-			direction = direction.bounce(collision.get_normal());
+		match state:
+			BallState.Normal:
+				if collider.has_method('hit'):
+					collider.hit(self, 1);
+				direction = direction.bounce(collision.get_normal());
+			BallState.Fire:
+				if collider.has_method('hit'):
+					if collider is Brick:
+						explode_stuff();
+				direction = direction.bounce(collision.get_normal());
+			BallState.Acid:
+				if not (collider is RegularBrick):
+					direction = direction.bounce(collision.get_normal());
+				if collider.has_method('hit'):
+					collider.hit(self, 1997);
+
+
+func generate_explosion() -> Array:
+	var explosion : Explosion = explosion_packed.instantiate();
+	explosion.exclude_parent = true;
+	add_child(explosion);
+	explosion.force_shapecast_update();
+	var result = explosion.collision_result;
+	explosion.queue_free();
+	return result;
+
+
+func explode_stuff():
+	for c in generate_explosion():
+		c.collider.hit(self, 1997);
+	state = BallState.Normal;
 
 
 func _physics_process(delta):

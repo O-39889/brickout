@@ -8,7 +8,7 @@ but you can stuck it up to 35 if you collect another sticky powerup
 while the first one is active
 '''
 
-## TODO: also remove when we make bawl into a state machine-like thingy instead
+
 const ACID_TIME : float = 20.0;
 
 
@@ -177,10 +177,10 @@ func _on_powerup_collected(powerup: Powerup):
 			add_barrier();
 		'fire_ball':
 			for b in get_tree().get_nodes_in_group('balls'):
-				b.fire_ball = true;
+				b.state = Ball.BallState.Fire;
 		'acid_ball':
 			for b in get_tree().get_nodes_in_group('balls'):
-				b.acid = true;
+				b.state = Ball.BallState.Acid;
 			start_or_extend_timer(timer_acid, ACID_TIME);
 		# NEUTRAL
 		'ball_speed_up':
@@ -221,11 +221,6 @@ func _on_powerup_collected(powerup: Powerup):
 			paddle.state = Paddle.PaddleState.Frozen;
 
 
-func _on_barrier_hit(b: Barrier):
-	barrier = null;
-	b.queue_free();
-
-
 func start_or_extend_timer(t: Timer, set_val: float, max_val: float = set_val):
 	if t.is_stopped():
 		t.start(set_val);
@@ -260,7 +255,7 @@ func _input(event):
 		p.collected.connect(_on_powerup_collected);
 		add_child(p);
 	if event.is_action_pressed('debug_1'):
-		add_powerup.call('sticky_paddle', 'good');
+		add_powerup.call('acid_ball', 'good');
 	if event.is_action_pressed('debug_2'):
 		add_powerup.call('paddle_freeze', 'bad');
 	if event.is_action_pressed('debug_3'):
@@ -268,17 +263,15 @@ func _input(event):
 	if event.is_action_pressed('debug_4'):
 		add_powerup.call('ball_slow_down', 'neutral');
 	if event.is_action_pressed('debug_5'):
-		add_powerup.call('paddle_freeze', 'bad');
-		_input(event);
+		add_powerup.call('fire_ball', 'good');
 
-func _on_sticky_timer_timeout():
-	paddle.sticky = false;
+
+func _on_barrier_hit(b: Barrier):
+	barrier = null;
+	b.queue_free();
 
 
 func _on_acid_timer_timeout():
 	for b in get_tree().get_nodes_in_group('balls'):
-		b.acid = false;
-
-
-func _on_frozen_timer_timeout():
-	paddle.frozen = false;
+		if b.state == Ball.BallState.Acid:
+			b.state = Ball.BallState.Normal;
