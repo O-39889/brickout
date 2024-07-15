@@ -1,4 +1,4 @@
-class_name UnbreakableBrick extends "res://scripts/BrickBase.gd"
+class_name UnbreakableBrick extends Brick;
 
 
 # Called when the node enters the scene tree for the first time.

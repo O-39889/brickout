@@ -23,7 +23,7 @@ var barrier;
 @onready var timer_acid : Timer = find_child("AcidTimer");
 
 
-@onready var ball_packed = preload("res://scenes/Ball.tscn");
+var ball_packed = preload("res://scenes/Ball.tscn");
 @onready var powerup_packed = preload("res://scenes/Powerup.tscn");
 @onready var barrier_packed = preload("res://scenes/Barrier.tscn");
 

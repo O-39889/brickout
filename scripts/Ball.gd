@@ -72,7 +72,7 @@ var state: BallState = BallState.Normal:
 
 
 @onready var collision_shape : CollisionShape2D = find_child("CollisionShape2D");
-@onready var explosion_packed := preload("res://scenes/Explosion.tscn");
+var explosion_packed := preload("res://scenes/Explosion.tscn");
 
 
 func _ready():
