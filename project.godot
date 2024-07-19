@@ -84,6 +84,11 @@ debug_5={
 2d_physics/layer_6="projectiles"
 2d_physics/layer_7="paddle_powerup_hitbox"
 
+[physics]
+
+2d/default_gravity=0.0
+2d/default_gravity_vector=Vector2(0, 0)
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

@@ -1,7 +1,16 @@
 class_name Global extends Node
 
 
+enum PowerupPoolType {
+	Default,
+	Simple,
+	Custom = -1,
+};
+
+
+# lmao i swear it feels okay this way
 const MOUSE_SENSITIVITY = 2.718281828459045;
+## Vertical paddle offset from the bottom of the screen, in pixels.
 const PADDLE_OFFSET = 50;
 
 
@@ -12,7 +21,7 @@ const PADDLE_OFFSET = 50;
 # for example, if set_val = 15, max_val = 20, then initially the timer will
 # be set to 15; if another effect is triggered when time remaining is 10, then
 # the total would be 15 + 10 = 25 but clamped to max_val so it'd be 20
-func start_or_extend_timer(t: Timer, set_val: float, max_val: float = set_val):
+static func start_or_extend_timer(t: Timer, set_val: float, max_val: float = set_val):
 	if t.is_stopped():
 		t.start(set_val);
 	else:

@@ -6,4 +6,5 @@ signal hitted(barrier);
 
 # Called when the node enters the scene tree for the first time.
 func hit(_b: Ball, _damage: int):
-	hitted.emit(self);
+	EventBus.barrier_hit.emit();
+	queue_free();

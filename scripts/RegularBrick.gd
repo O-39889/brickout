@@ -1,4 +1,4 @@
-class_name RegularBrick extends "res://scripts/BrickBase.gd"
+class_name RegularBrick extends Brick
 
 
 func _ready():

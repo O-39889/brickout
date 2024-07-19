@@ -3,40 +3,43 @@ class_name Powerup extends RefCounted
 # TODO: REFACTORING OF THE POWERUP POOLS IG
 # also might maybe use the StringName class instead of enums if you don't like those
 
+
 const POWERUP_POOL = {
-	'good': [
-		'double_balls',
-		'paddle_enlarge',
-		'add_ball',
-		'triple_ball',
-		'sticky_paddle',
-		'barrier',
-		'fire_ball',
-		'acid_ball',
+	&'good': [
+		&'double_balls',
+		&'paddle_enlarge',
+		&'add_ball',
+		&'triple_ball',
+		&'sticky_paddle',
+		&'barrier',
+		&'fire_ball',
+		&'acid_ball',
 	],
-	'neutral': [
-		'ball_speed_up',
-		'ball_slow_down',
+	&'neutral': [
+		&'ball_speed_up',
+		&'ball_slow_down',
 	],
-	'bad': [
-		'paddle_shrink',
-		'pop_ball',
-		'pop_all_balls',
-		'ghost_paddle',
-		'paddle_freeze',
+	&'bad': [
+		&'paddle_shrink',
+		&'pop_ball',
+		&'pop_all_balls',
+		&'ghost_paddle',
+		&'paddle_freeze',
 	],
 };
 
 
-var id : String;
-var type: String;
-var weight: float = 1.0;
+var id : StringName;
+var type: StringName;
+var name: String;
+# not gonna use it and instead put just the powerup objects in a dictionary with le weight
+#var weight: float = 1.0;
 
 
-func _init(_id: String, _type: String, _weight: float = 1.0):
+func _init(_id: StringName, _type: StringName, _weight: float = 1.0):
 	self.id = _id;
 	self.type = _type;
-	self.weight = _weight;
+	#self.weight = _weight;
 
 
 static func get_default_weight_pool() -> Array[Powerup]:

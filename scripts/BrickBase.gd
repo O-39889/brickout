@@ -1,14 +1,10 @@
 class_name Brick extends StaticBody2D
 
-# sorry i had to do this shite
-signal hitted(brick, ball);
-
 
 @export var durability : int = 1;
 
-
+# not sure whether this is used anywhere though
 @onready var collision_shape := find_child("CollisionShape2D");
-
 
 @onready var width : float = collision_shape.shape.size.x;
 @onready var height : float = collision_shape.shape.size.y;
@@ -20,5 +16,5 @@ func _ready():
 	find_child("Sprite2D").texture.size.y = height;
 
 
-func hit(b: Ball, damage: int):
-	hitted.emit(self, b);
+func hit(ball: Ball, damage: int):
+	EventBus.brick_hit.emit(self, ball);

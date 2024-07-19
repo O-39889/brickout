@@ -1,18 +1,12 @@
 class_name PowerupNode extends CharacterBody2D
 
 
-signal collected(powerup);
-
-
-const POWERUP_GRAVITY = 150;
+const POWERUP_GRAVITY = 120;
 const INITIAL_SPEED = 200;
-const MIN_ANGLE = deg_to_rad(50);
+const MIN_ANGLE = deg_to_rad(55.55555);
 
 
 var powerup : Powerup;
-
-# level pool, passed when instantiating a node
-var pool : Array[Powerup];
 
 @onready var width : float = $CollisionShape2D.shape.radius * 2;
 
@@ -20,15 +14,13 @@ var pool : Array[Powerup];
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	velocity = get_launch_vector() * INITIAL_SPEED;
-	if pool.is_empty():
-		pool = Powerup.get_default_weight_pool();
-	powerup = choose_powerup();
+	assert(powerup != null, 'Powerup not set for ' + str(self));
 	match powerup.type:
-		'good':
+		&'good':
 			pass;
-		'neutral':
+		&'neutral':
 			$CollisionShape2D.debug_color.h = 60.0 / 360.0;
-		'bad':
+		&'bad':
 			$CollisionShape2D.debug_color.h = 0.0;
 	$DebugLbl.text = powerup.id;
 
@@ -39,11 +31,15 @@ func _physics_process(delta):
 	if collision:
 		var collider := collision.get_collider();
 		if (collider is Paddle
+		# paddle
 		or collider.get_collision_layer_value(2)
+		# paddle hitbox for powerups
 		or collider.get_collision_layer_value(7)):
-			collected.emit(powerup);
+			EventBus.powerup_collected.emit(powerup);
 			queue_free();
 
+
+# ENTERING PAIN TERRITORY
 
 func get_launch_vector() -> Vector2:
 	# we shift the whole system horizontally so that x_0, or initial x position
@@ -88,29 +84,7 @@ func compute_t(phi: float) -> float:
 func compute_x(phi: float, t: float) -> float:
 	return INITIAL_SPEED * cos(phi) * t;
 
-
-# TODO
-'''
-MAKE THIS SHIT CHECK WHETHER THE POOL VARIABLE IS NOT SET OR EMPTY
-THEN IF THAT IS SO FILL IT WITH THE DEFAULT WEIGHT POOL
-ACTUALLY MIGHT EVEN DO THAT IN _ready() INSTEAD
-IN HERE JUST IMPLEMENT A WEIGHTED RANDOM CHOICE ALGORITHM
-'''
-func choose_powerup() -> Powerup:
-	return choice_weighted(pool);
-
-
-func choice_weighted(arr: Array[Powerup]):
-	# hope this works
-	var pool_size : float = arr.reduce(func(accum: float, p: Powerup): return accum + p.weight, 0.0);
-	var choice : float = randf_range(0.0, pool_size);
-	var cum_weight : float = 0.0; # haha
-	for p in arr:
-		cum_weight += p.weight;
-		if choice < cum_weight:
-			return p;
-	# i don't think that would happen
-	return null;
+# PAIN TERRITORY PASSED
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited():

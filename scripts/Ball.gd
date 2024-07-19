@@ -1,9 +1,6 @@
 class_name Ball extends CharacterBody2D
 
 
-signal lost(ball);
-
-
 enum BallSpeed {
 	BALL_SPEED_SLOW,
 	BALL_SPEED_NORMAL,
@@ -95,6 +92,10 @@ static func decrease_speed():
 	target_speed_idx -= 1;
 
 
+static func reset_target_speed():
+	target_speed_idx = BallSpeed.BALL_SPEED_NORMAL;
+
+
 # that started to look worse somehow
 func handle_collision(collision: KinematicCollision2D):
 	var collider := collision.get_collider();
@@ -148,7 +149,7 @@ func _physics_process(delta):
 	if collision:
 		handle_collision(collision);
 	if position.y > get_viewport_rect().size.y + BALL_RADIUS * 4:
-		lost.emit(self);
+		EventBus.ball_lost.emit(self);
 	get_window().title = str(target_speed_idx);
 
 

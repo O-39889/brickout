@@ -41,15 +41,14 @@ const FROZEN_TIME : float = 7.0;
 
 
 var balls : Array[Ball] = [];
-# whether a paddle should spawn a ball on itself or not when created
-var spawn_ball;
-
 
 @onready var collision_shape : CollisionShape2D = find_child("CollisionShape2D");
 @onready var powerup_hitbox : CollisionShape2D = find_child("Area2DShape");
 @onready var sticky_timer : Timer = find_child('StickyTimer');
 @onready var frozen_timer : Timer = find_child('FrozenTimer');
-@onready var state : PaddleState = PaddleState.Normal:
+@onready var level : Node2D = get_parent();
+
+var state : PaddleState = PaddleState.Normal:
 	get:
 		return state;
 	set(value):
@@ -67,11 +66,14 @@ var spawn_ball;
 				sticky_timer.stop();
 				Globals.start_or_extend_timer(frozen_timer, FROZEN_TIME);
 
-@onready var width_idx := PaddleSize.PADDLE_SIZE_NORMAL;
-@onready var width : float = PADDLE_SIZES[width_idx];
+var width_idx := PaddleSize.PADDLE_SIZE_NORMAL;
+var width : float = PADDLE_SIZES[width_idx];
 
 
 func _ready():
+	assert(level != null, 'Level node not defined');
+	if level == null:
+		level = get_parent();
 	collision_shape.shape.b.x = width;
 	powerup_hitbox.position.x = width / 2;
 	powerup_hitbox.shape.size.x = width;
@@ -92,7 +94,7 @@ func add_bawl(b: Ball):
 	balls.append(b);	
 
 
-# would really need to change that stuff so that the paddle is also centered
+# TODO: would really need to change that stuff so that the paddle is also centered
 # even just for my own convenience
 func set_width(idx: PaddleSize):
 	var old_center := position.x + width / 2;
@@ -119,7 +121,10 @@ func handle_ball_collision(b: Ball, collision: KinematicCollision2D) -> void:
 		PaddleState.Sticky:
 			var ball_dir := _bounce_ball_dir_controlled(b.velocity, collision.get_position());
 			b.direction = ball_dir;
-			add_bawl(b);
+			# if we hold down le left mouse button then it should just
+			# bounce them off instantly
+			if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+				add_bawl(b);
 		PaddleState.Frozen:
 			# other stuff to handle? idk just bouncing it lol
 			# actaully might trigger an explosion if le ball is fire ball
@@ -141,6 +146,7 @@ func _bounce_ball_dir_uncontrolled(ball_direction: Vector2, normal: Vector2) -> 
 	return ball_direction.bounce(normal);
 
 
+# TODO: MAKE THE PADDLE CENTERED INSTEAD OF UGLY LIKE RN
 func _change_size(should_enlarge: bool):
 	var delta: int;
 	if should_enlarge:
@@ -172,16 +178,16 @@ func _input(event: InputEvent):
 					and event.pressed and balls.size() > 0):
 						# release the bawl	
 						var first_bawl : Ball = balls.pop_front();
-						first_bawl.reparent(get_parent());
+						first_bawl.reparent(level);
 						first_bawl.launch();
 						pass
 		PaddleState.Frozen:
 			## TODO: IDEA!!!
-			# MAKE IT SO THAT WHEN YOU YANK THE MOUSE CURSOR REALLY FAST IT WILL
+			# MAKE IT SO THAT WHEN YOU FLICK THE MOUSE CURSOR REALLY FAST IT WILL
 			# SLOWLY INCH TOWARD THAT DIRECTION BUT NOT CONSTANTLY BUT JUST
 			# IMPULSE-LIKE IDK
 			# basically the paddle is still not fully stopped but it moves, like,
-			# really really really slowly, and you can also jerk le mouse
+			# really really really slowly, and you can also flick le mouse
 			# really fast to make it move a little bit faster
 			# but that all is fur later
 			pass

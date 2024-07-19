@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://coqsjdil7pruh"]
+
+[ext_resource type="Script" path="res://scripts/level_components/brick_manager.gd" id="1_5ow5t"]
+
+[node name="BrickManager" type="Node2D"]
+script = ExtResource("1_5ow5t")
