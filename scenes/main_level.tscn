@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://ivtwix13e1nt"]
+[gd_scene load_steps=6 format=3 uid="uid://ivtwix13e1nt"]
 
 [ext_resource type="PackedScene" uid="uid://cljyfysqemsgw" path="res://scenes/level.tscn" id="1_fbwrt"]
-[ext_resource type="PackedScene" uid="uid://doylk4sp6cg5q" path="res://scenes/Wall.tscn" id="2_6l8ty"]
 [ext_resource type="PackedScene" uid="uid://coqsjdil7pruh" path="res://scenes/level_components/brick_manager.tscn" id="3_kuuje"]
 [ext_resource type="PackedScene" uid="uid://jeo4t2v7ja84" path="res://scenes/level_components/powerup_manager.tscn" id="4_5blil"]
 [ext_resource type="PackedScene" uid="uid://blofikyc7x7vn" path="res://scenes/RegularBrick.tscn" id="4_xeb2x"]
@@ -11,19 +10,6 @@
 add_paddle = true
 powerup_chance = 0.1
 pool_type = 0
-
-[node name="Walls" type="Node2D" parent="." index="1"]
-metadata/_edit_lock_ = true
-
-[node name="WallLeft" parent="Walls" index="0" groups=["walls"] instance=ExtResource("2_6l8ty")]
-rotation = 1.5708
-
-[node name="WallRight" parent="Walls" index="1" groups=["walls"] instance=ExtResource("2_6l8ty")]
-position = Vector2(1920, 0)
-rotation = -1.5708
-
-[node name="WallTop" parent="Walls" index="2" groups=["walls"] instance=ExtResource("2_6l8ty")]
-rotation = 3.14159
 
 [node name="BrickManager" parent="." index="2" instance=ExtResource("3_kuuje")]
 metadata/_edit_lock_ = true

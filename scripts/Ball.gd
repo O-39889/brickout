@@ -40,7 +40,7 @@ var direction : Vector2 = Vector2(0, -1):
 	get:
 		return direction;
 	set(value):
-		direction = value;
+		direction = value.normalized();
 		velocity = speed * direction;
 
 var stuck : bool = false:
@@ -150,7 +150,6 @@ func _physics_process(delta):
 		handle_collision(collision);
 	if position.y > get_viewport_rect().size.y + BALL_RADIUS * 4:
 		EventBus.ball_lost.emit(self);
-	get_window().title = str(target_speed_idx);
 
 
 func _on_target_speed_idx_changed():

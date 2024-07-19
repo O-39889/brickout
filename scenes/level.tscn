@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cljyfysqemsgw"]
+[gd_scene load_steps=3 format=3 uid="uid://cljyfysqemsgw"]
 
 [ext_resource type="Script" path="res://scripts/Level.gd" id="1_uhvnp"]
+[ext_resource type="PackedScene" uid="uid://doylk4sp6cg5q" path="res://scenes/Wall.tscn" id="2_jn27y"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_uhvnp")
@@ -13,5 +14,18 @@ pool_type = null
 [node name="AcidTimer" type="Timer" parent="Timers"]
 process_callback = 0
 one_shot = true
+
+[node name="Walls" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="WallLeft" parent="Walls" groups=["walls"] instance=ExtResource("2_jn27y")]
+rotation = 1.5708
+
+[node name="WallRight" parent="Walls" groups=["walls"] instance=ExtResource("2_jn27y")]
+position = Vector2(1920, 0)
+rotation = -1.5708
+
+[node name="WallTop" parent="Walls" groups=["walls"] instance=ExtResource("2_jn27y")]
+rotation = 3.14159
 
 [connection signal="timeout" from="Timers/AcidTimer" to="." method="_on_acid_timer_timeout"]
