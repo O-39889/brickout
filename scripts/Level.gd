@@ -1,4 +1,4 @@
-extends Node2D
+extends Node2D;
 
 
 const BALL_LIMIT : int = 20;
