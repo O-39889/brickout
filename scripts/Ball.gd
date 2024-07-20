@@ -118,10 +118,9 @@ func handle_collision(collision: KinematicCollision2D):
 		assert(false, 'NOT IMPLEMENTED!!!! AAAAAAHHHHHHHH');
 	elif collider is Paddle:
 		collider.handle_ball_collision(self, collision);
-		if state == BallState.Fire:
+		if state == BallState.Fire and collider.state == Paddle.PaddleState.Frozen:
 			explode_stuff();
-			if collider.state == Paddle.PaddleState.Frozen:
-				collider.state = Paddle.PaddleState.Normal;
+			collider.state = Paddle.PaddleState.Normal;
 	else:
 		match state:
 			BallState.Normal:
