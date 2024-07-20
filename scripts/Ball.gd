@@ -13,6 +13,17 @@ enum BallState {
 	Acid,
 }
 
+enum HorizontalCooldown {
+	# normal state
+	Inactive,
+	# detected the ball moving horizontally
+	Waiting,
+	# the ball is moving horizontally for at leat MAX_HORIZONTAL_TIME seconds,
+	# need to change
+	# apparntly I didn't need that lol
+	Active,
+}
+
 const BALL_SPEEDS = [
 	390,
 	600,
@@ -20,7 +31,7 @@ const BALL_SPEEDS = [
 ];
 
 const BALL_RADIUS = 20;
-
+const MAX_HORIZONTAL_TIME = 5;
 
 static var target_speed_idx : BallSpeed = BallSpeed.BALL_SPEED_NORMAL:
 	get:
@@ -29,6 +40,8 @@ static var target_speed_idx : BallSpeed = BallSpeed.BALL_SPEED_NORMAL:
 		target_speed_idx = clampi(value, BallSpeed.BALL_SPEED_SLOW, BallSpeed.BALL_SPEED_FAST);
 		EventBus.ball_target_speed_idx_changed.emit();
 
+var horizontal_cooldown: float = MAX_HORIZONTAL_TIME;
+var horizontal_state : HorizontalCooldown = HorizontalCooldown.Inactive;
 var speed : float = BALL_SPEEDS[target_speed_idx]:
 	get:
 		return speed;
@@ -125,7 +138,30 @@ func handle_collision(collision: KinematicCollision2D):
 					direction = direction.bounce(collision.get_normal());
 				if collider.has_method('hit'):
 					collider.hit(self, 1997);
-
+	# № 1
+	# Check for whether we move (almost) horizontally after le collision
+	# If so, then we set the cooldown and start ticking down
+	if (horizontal_state == HorizontalCooldown.Inactive and
+	is_zero_approx(direction.y)):
+		horizontal_state = HorizontalCooldown.Waiting;
+		horizontal_cooldown = MAX_HORIZONTAL_TIME;
+	# № 2
+	# After setting the state in № 1 and decrementing in № 1.5,
+	# during the next collision we check if the timer runs out
+	if (horizontal_state == HorizontalCooldown.Waiting
+		and horizontal_cooldown <= 0):
+			# if at this point we're still moving horizontally
+			if is_zero_approx(direction.y):
+				# then we apply a random rotation to the direction vector
+				# just so that the ball never gets stuck
+				direction = direction.rotated(deg_to_rad(
+					randf_range(1.0, 6.16) * (-1 if randf() < 0.5 else 1)));
+				# and then reset the whole state thingy
+				horizontal_state = HorizontalCooldown.Inactive;
+			# if otherwise we are already moving not horizontally
+			# then we just don't have to change the direction ourselves
+			else:
+				horizontal_state = HorizontalCooldown.Inactive;
 
 func generate_explosion() -> Array:
 	var explosion : Explosion = explosion_packed.instantiate();
@@ -150,6 +186,13 @@ func _physics_process(delta):
 		handle_collision(collision);
 	if position.y > get_viewport_rect().size.y + BALL_RADIUS * 4:
 		EventBus.ball_lost.emit(self);
+	# № 1.5)
+	# If we're waiting with a horizontal cooldown then we decrement the counter
+	# that acts as a timer
+	if horizontal_state == HorizontalCooldown.Waiting:
+		horizontal_cooldown -= delta;
+	
+		
 
 
 func _on_target_speed_idx_changed():

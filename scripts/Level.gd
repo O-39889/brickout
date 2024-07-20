@@ -125,6 +125,8 @@ func _input(event):
 		get_tree().quit();
 	if event.is_action_pressed("debug_restart"):
 		get_tree().reload_current_scene();
+	if event.is_action_pressed("debug_1"):
+		get_tree().get_nodes_in_group(&'balls').pick_random().direction = Vector2(1, 0.00000000001).normalized();
 
 
 func _on_barrier_hit():
