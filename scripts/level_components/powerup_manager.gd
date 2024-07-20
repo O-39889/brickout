@@ -144,8 +144,8 @@ func _on_powerup_collected(powerup: Powerup):
 			# we will actually not even add it to the level
 			# but parent it to the paddle instead
 			var new_ball : Ball = BALL_PACKED.instantiate();
-			new_ball.position.y = -Ball.BALL_RADIUS;
-			new_ball.position.x = level.paddle.width / 2;
+			new_ball.position.y = -Ball.BALL_RADIUS - Paddle.PADDLE_HEIGHT / 2;
+			new_ball.position.x = 0;
 			new_ball.direction = Vector2.UP;
 			level.add_ball_to_paddle(new_ball);
 		&'triple_ball':

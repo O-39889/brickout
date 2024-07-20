@@ -1,12 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://vmrccf7ghuu3"]
+[gd_scene load_steps=3 format=3 uid="uid://vmrccf7ghuu3"]
 
 [ext_resource type="Script" path="res://scripts/Paddle.gd" id="1_bkcyp"]
-
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_oyot1"]
-b = Vector2(228, 0)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_j1ovj"]
-size = Vector2(228, 45)
+[ext_resource type="Shape2D" uid="uid://uqmgpf1suy2l" path="res://resources/paddle_collision_shape.tres" id="2_ap7b8"]
 
 [node name="Paddle" type="StaticBody2D"]
 collision_layer = 2
@@ -14,7 +9,7 @@ collision_mask = 13
 script = ExtResource("1_bkcyp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("SegmentShape2D_oyot1")
+shape = ExtResource("2_ap7b8")
 one_way_collision = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -24,8 +19,7 @@ collision_layer = 64
 collision_mask = 0
 
 [node name="Area2DShape" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(114, 22.5)
-shape = SubResource("RectangleShape2D_j1ovj")
+shape = ExtResource("2_ap7b8")
 
 [node name="StickyTimer" type="Timer" parent="."]
 process_callback = 0
@@ -34,12 +28,6 @@ one_shot = true
 [node name="FrozenTimer" type="Timer" parent="."]
 process_callback = 0
 one_shot = true
-
-[node name="DebugLbl" type="Label" parent="."]
-offset_right = 226.0
-offset_bottom = 45.0
-text = "авырпа"
-horizontal_alignment = 1
 
 [connection signal="timeout" from="StickyTimer" to="." method="_on_sticky_timer_timeout"]
 [connection signal="timeout" from="FrozenTimer" to="." method="_on_frozen_timer_timeout"]

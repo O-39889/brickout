@@ -56,7 +56,7 @@ func create_paddle():
 		return;
 	paddle = PADDLE_PACKED.instantiate();
 	paddle.level = self;
-	paddle.position.x = (get_viewport_rect().size.x - paddle.width) / 2;
+	paddle.position.x = get_viewport_rect().size.x / 2;
 	paddle.position.y = get_viewport_rect().size.y - Globals.PADDLE_OFFSET;
 	mouse_captured = true;
 	add_child(paddle);

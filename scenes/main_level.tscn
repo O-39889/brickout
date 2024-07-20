@@ -195,7 +195,6 @@ metadata/_edit_lock_ = true
 script = ExtResource("6_ip4hg")
 
 [node name="Score" type="Label" parent="GUI" index="0"]
-anchors_preset = -1
 offset_left = 25.0
 offset_top = 25.0
 text = "Score: 000000"
