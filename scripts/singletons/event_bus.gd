@@ -12,3 +12,6 @@ signal barrier_hit;
 signal powerup_collected(powerup: Powerup);
 
 signal score_changed;
+
+signal life_lost;
+signal lives_changed;
