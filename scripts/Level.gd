@@ -44,9 +44,9 @@ func _ready():
 	if add_paddle:
 		create_paddle();
 	if brick_mgr:
-		pass
+		brick_mgr.level = self;
 	if powerup_mgr:
-		pass
+		powerup_mgr.level = self;
 	EventBus.ball_lost.connect(_on_ball_lost);
 	EventBus.barrier_hit.connect(_on_barrier_hit);
 

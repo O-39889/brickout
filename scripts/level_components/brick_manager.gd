@@ -4,14 +4,13 @@ extends Node2D;
 
 
 func _ready():
-	EventBus.brick_hit.connect(_on_brick_hit);
+	EventBus.brick_destroyed.connect(_on_brick_destroyed);
 
 
-func _on_brick_hit(brick: Brick, ball: Ball):
-	if brick is RegularBrick:
-		if brick.durability == 1:
-			# handle stuff like decrementing the brick counter etc idk
-			await get_tree().physics_frame;
-			if get_tree().get_nodes_in_group(&'destructible_bricks').is_empty():
-				print('Win!');
-				# something something
+func _on_brick_destroyed(brick: Brick, ball: Ball):
+	if brick.is_in_group(&'destructible_bricks'):
+		print(get_tree().get_nodes_in_group(&'destructible_bricks').size());
+		if get_tree().get_nodes_in_group(&'destructible_bricks').is_empty():
+			print('Win!');
+			await get_tree().create_timer(1.0).timeout;
+			get_tree().reload_current_scene();

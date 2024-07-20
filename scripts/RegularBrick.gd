@@ -7,12 +7,17 @@ func _ready():
 
 
 func hit(b: Ball, damage: int):
-	super(b, damage);
-	durability -= damage;
-	if durability <= 0:
-		queue_free();
+	durability = maxi(0, durability - damage);
+	if durability == 0:
+		destroy(b);
 	else:
+		EventBus.brick_hit.emit(self, b);
 		queue_redraw();
+
+
+func destroy(b: Ball):
+	EventBus.brick_destroyed.emit(self, b);
+	queue_free();
 
 
 func _draw():

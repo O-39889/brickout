@@ -15,7 +15,7 @@ var y_sort_balls_asc : Callable = func(a: Ball, b: Ball):
 
 
 func _ready():
-	EventBus.brick_hit.connect(_on_brick_hit);
+	EventBus.brick_destroyed.connect(_on_brick_destroyed);
 	EventBus.powerup_collected.connect(_on_powerup_collected);
 	match level.pool_type:
 		Global.PowerupPoolType.Default:
@@ -116,22 +116,21 @@ func choose_weighted(weights: Dictionary) -> StringName:
 	# wait it wouldn't???
 
 
-func _on_brick_hit(brick: Brick, ball: Ball):
+func _on_brick_destroyed(brick: Brick, ball: Ball):
 	if brick is RegularBrick:
-		if brick.durability == 1:
-			if randf() < level.powerup_chance or OS.is_debug_build():
-				var powerup_node : PowerupNode = POWERUP_PACKED.instantiate();
-				powerup_node.global_position = brick.global_position;
-				var new_id : StringName = choose_weighted(recalculate_weights(powerup_weights));
-				var new_type : StringName;
-				for type in Powerup.POWERUP_POOL.keys():
-					if new_id in Powerup.POWERUP_POOL[type]:
-						new_type = type;
-						break;
-				var new_powerup : Powerup = Powerup.new(
-					new_id, new_type);
-				powerup_node.powerup = new_powerup;
-				add_child(powerup_node);
+		if randf() < level.powerup_chance or OS.is_debug_build():
+			var powerup_node : PowerupNode = POWERUP_PACKED.instantiate();
+			powerup_node.global_position = brick.global_position;
+			var new_id : StringName = choose_weighted(recalculate_weights(powerup_weights));
+			var new_type : StringName;
+			for type in Powerup.POWERUP_POOL.keys():
+				if new_id in Powerup.POWERUP_POOL[type]:
+					new_type = type;
+					break;
+			var new_powerup : Powerup = Powerup.new(
+				new_id, new_type);
+			powerup_node.powerup = new_powerup;
+			add_child(powerup_node);
 
 
 func _on_powerup_collected(powerup: Powerup):
