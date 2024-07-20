@@ -34,12 +34,15 @@ position = Vector2(735, 240)
 
 [node name="Brick5" parent="BrickManager" index="4" instance=ExtResource("4_xeb2x")]
 position = Vector2(960, 180)
+initial_durability = 2
 
 [node name="Brick6" parent="BrickManager" index="5" instance=ExtResource("4_xeb2x")]
 position = Vector2(1110, 180)
+initial_durability = 2
 
 [node name="Brick7" parent="BrickManager" index="6" instance=ExtResource("4_xeb2x")]
 position = Vector2(1260, 180)
+initial_durability = 2
 
 [node name="Brick9" parent="BrickManager" index="7" instance=ExtResource("4_xeb2x")]
 position = Vector2(1185, 240)
@@ -67,9 +70,11 @@ position = Vector2(1335, 360)
 
 [node name="Brick10" parent="BrickManager" index="15" instance=ExtResource("4_xeb2x")]
 position = Vector2(660, 180)
+initial_durability = 2
 
 [node name="Brick8" parent="BrickManager" index="16" instance=ExtResource("4_xeb2x")]
 position = Vector2(810, 180)
+initial_durability = 2
 
 [node name="Brick15" parent="BrickManager" index="17" instance=ExtResource("4_xeb2x")]
 position = Vector2(960, 300)
@@ -94,45 +99,59 @@ position = Vector2(510, 180)
 
 [node name="Brick31" parent="BrickManager" index="24" instance=ExtResource("4_xeb2x")]
 position = Vector2(960, 120)
+initial_durability = 2
 
 [node name="Brick32" parent="BrickManager" index="25" instance=ExtResource("4_xeb2x")]
 position = Vector2(1110, 120)
+initial_durability = 2
 
 [node name="Brick33" parent="BrickManager" index="26" instance=ExtResource("4_xeb2x")]
 position = Vector2(1260, 120)
+initial_durability = 2
 
 [node name="Brick34" parent="BrickManager" index="27" instance=ExtResource("4_xeb2x")]
 position = Vector2(660, 120)
+initial_durability = 2
 
 [node name="Brick35" parent="BrickManager" index="28" instance=ExtResource("4_xeb2x")]
 position = Vector2(810, 120)
+initial_durability = 2
 
 [node name="Brick36" parent="BrickManager" index="29" instance=ExtResource("4_xeb2x")]
 position = Vector2(1410, 120)
+initial_durability = 2
 
 [node name="Brick37" parent="BrickManager" index="30" instance=ExtResource("4_xeb2x")]
 position = Vector2(510, 120)
+initial_durability = 2
 
 [node name="Brick38" parent="BrickManager" index="31" instance=ExtResource("4_xeb2x")]
 position = Vector2(960, 60)
+initial_durability = 3
 
 [node name="Brick39" parent="BrickManager" index="32" instance=ExtResource("4_xeb2x")]
 position = Vector2(1110, 60)
+initial_durability = 3
 
 [node name="Brick40" parent="BrickManager" index="33" instance=ExtResource("4_xeb2x")]
 position = Vector2(1260, 60)
+initial_durability = 3
 
 [node name="Brick41" parent="BrickManager" index="34" instance=ExtResource("4_xeb2x")]
 position = Vector2(660, 60)
+initial_durability = 3
 
 [node name="Brick42" parent="BrickManager" index="35" instance=ExtResource("4_xeb2x")]
 position = Vector2(810, 60)
+initial_durability = 3
 
 [node name="Brick43" parent="BrickManager" index="36" instance=ExtResource("4_xeb2x")]
 position = Vector2(1410, 60)
+initial_durability = 3
 
 [node name="Brick44" parent="BrickManager" index="37" instance=ExtResource("4_xeb2x")]
 position = Vector2(510, 60)
+initial_durability = 3
 
 [node name="Brick27" parent="BrickManager" index="38" instance=ExtResource("4_xeb2x")]
 position = Vector2(285, 120)

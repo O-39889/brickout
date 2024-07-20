@@ -1,8 +1,10 @@
 class_name Brick extends StaticBody2D
 
 
-@export var durability : int = 1;
+@export var initial_durability : int = 1;
 
+
+@onready var durability : int = initial_durability;
 # not sure whether this is used anywhere though
 @onready var collision_shape := find_child("CollisionShape2D");
 

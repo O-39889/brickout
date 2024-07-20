@@ -48,9 +48,9 @@ func get_simple_weights() -> Dictionary:
 	var good_weight_uncommon := 0.6;
 	var neutral_weight := 1.25;
 	var bad_weight := 0.85000001;
-	for id in [&'paddle_enlarge', &'add_ball', &'triple_ball', &'sticky_paddle']:
+	for id in [&'paddle_enlarge', &'add_ball', &'triple_ball', &'sticky_paddle', &'add_points_100']:
 		result[id] = good_weight_common;
-	for id in [&'barrier', &'fire_ball']:
+	for id in [&'barrier', &'fire_ball', &'add_points_200']:
 		result[id] = good_weight_uncommon;
 	for id in [&'ball_speed_up', &'ball_slow_down']:
 		result[id] = neutral_weight;
@@ -224,3 +224,4 @@ func _on_powerup_collected(powerup: Powerup):
 				level.murder_ball(b);
 		&'paddle_freeze':
 			level.paddle.state = Paddle.PaddleState.Frozen;
+	GameProgression.score += Powerup.POWERUP_LIST[powerup.id][&'points'];
