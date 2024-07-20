@@ -1,12 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://ivtwix13e1nt"]
+[gd_scene load_steps=8 format=3 uid="uid://ivtwix13e1nt"]
 
 [ext_resource type="PackedScene" uid="uid://cljyfysqemsgw" path="res://scenes/level.tscn" id="1_fbwrt"]
 [ext_resource type="PackedScene" uid="uid://coqsjdil7pruh" path="res://scenes/level_components/brick_manager.tscn" id="3_kuuje"]
 [ext_resource type="PackedScene" uid="uid://jeo4t2v7ja84" path="res://scenes/level_components/powerup_manager.tscn" id="4_5blil"]
 [ext_resource type="PackedScene" uid="uid://blofikyc7x7vn" path="res://scenes/RegularBrick.tscn" id="4_xeb2x"]
 [ext_resource type="PackedScene" uid="uid://blefa03mpdv8b" path="res://scenes/IndestructibleBrick.tscn" id="5_s0seo"]
+[ext_resource type="Script" path="res://scripts/level_gui.gd" id="6_ip4hg"]
 
-[node name="Level" instance=ExtResource("1_fbwrt")]
+[sub_resource type="LabelSettings" id="LabelSettings_0fqg0"]
+font_size = 42
+outline_size = 5
+outline_color = Color(0.145035, 0.0963099, 3.60981e-08, 1)
+
+[node name="MainLevel" instance=ExtResource("1_fbwrt")]
 add_paddle = true
 powerup_chance = 0.1
 pool_type = 0
@@ -186,5 +192,18 @@ position = Vector2(1785, 120)
 metadata/_edit_lock_ = true
 
 [node name="GUI" type="CanvasLayer" parent="." index="4"]
+script = ExtResource("6_ip4hg")
+
+[node name="Score" type="Label" parent="GUI" index="0"]
+anchors_preset = -1
+offset_left = 25.0
+offset_top = 25.0
+text = "Score: 000000"
+label_settings = SubResource("LabelSettings_0fqg0")
+
+[node name="ScoreTimer" type="Timer" parent="GUI" index="1"]
+wait_time = 0.1
+
+[connection signal="timeout" from="GUI/ScoreTimer" to="GUI" method="_on_score_timer_timeout"]
 
 [editable path="BrickManager"]
