@@ -43,12 +43,21 @@ var paddle : Paddle;
 func _ready():
 	if add_paddle:
 		create_paddle();
-	if brick_mgr:
-		brick_mgr.level = self;
-	if powerup_mgr:
-		powerup_mgr.level = self;
 	EventBus.ball_lost.connect(_on_ball_lost);
 	EventBus.barrier_hit.connect(_on_barrier_hit);
+
+func _enter_tree():
+	# hmm
+	# this is called before the level _ready()
+	# and even before the children's _ready()
+	# but at this point the manager nodes already exist
+	# so that might be where we infuse them with le level
+	brick_mgr = find_child('BrickManager');
+	if brick_mgr:
+		brick_mgr.level = self;
+	powerup_mgr = find_child('PowerupManager');
+	if powerup_mgr:
+		powerup_mgr.level = self;
 
 
 func create_paddle():
