@@ -1,12 +1,14 @@
 extends CanvasLayer;
 # This entire script looks horrible. My goodness gracious!
 
-const COUNTER_UPDATE_FREQUENCY = 0.025; # poka chto
+const COUNTER_UPDATE_FREQUENCY = 0.016; # poka chto
 const COUNTER_CHANGE_PER_UPDATE = 10;
+ 
 
+var score_counter : float = 0.0;
+var score_countdown_active : bool = false;
 
 @onready var score_label : Label = $Score;
-@onready var score_timer : Timer = $ScoreTimer;
 @onready var current_display_score : int = GameProgression.score:
 	get:
 		return current_display_score;
@@ -18,17 +20,23 @@ const COUNTER_CHANGE_PER_UPDATE = 10;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	score_timer.wait_time = COUNTER_UPDATE_FREQUENCY;
 	EventBus.score_changed.connect(_on_score_changed);
+
+
+func _process(delta):
+	if score_countdown_active:
+		score_counter += delta;
+		if score_counter >= COUNTER_UPDATE_FREQUENCY:
+			score_counter = 0.0;
+			countdown_tick();
 
 
 func _on_score_changed():
 	target_display_score = GameProgression.score;
-	if score_timer.is_stopped():
-		score_timer.start();
+	score_countdown_active = true;
 
 
-func _on_score_timer_timeout():
+func countdown_tick():
 	if current_display_score < target_display_score:
 		current_display_score = mini(target_display_score,
 			current_display_score + COUNTER_CHANGE_PER_UPDATE);
@@ -36,4 +44,4 @@ func _on_score_timer_timeout():
 		current_display_score = maxi(target_display_score,
 			current_display_score - COUNTER_CHANGE_PER_UPDATE);
 	else:
-		score_timer.stop();
+		score_countdown_active = false;
