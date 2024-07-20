@@ -1,8 +1,5 @@
 class_name Powerup extends RefCounted
 
-# TODO: REFACTORING OF THE POWERUP POOLS IG
-# also might maybe use the StringName class instead of enums if you don't like those
-
 
 const POWERUP_POOL = {
 	&'good': [
