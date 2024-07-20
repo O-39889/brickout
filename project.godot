@@ -17,8 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Globals="*res://scenes/Globals.tscn"
-EventBus="*res://scripts/event_bus.gd"
+Globals="*res://scripts/singletons/Globals.gd"
+EventBus="*res://scripts/singletons/event_bus.gd"
 
 [debug]
 
