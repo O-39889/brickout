@@ -219,7 +219,14 @@ offset_top = 25.0
 text = "Score: 000000"
 label_settings = SubResource("LabelSettings_0fqg0")
 
-[node name="ScoreTimer" type="Timer" parent="GUI" index="1"]
+[node name="Lives" type="Label" parent="GUI" index="1"]
+anchors_preset = -1
+offset_left = 25.0
+offset_top = 90.0
+text = "Lives: 3"
+label_settings = SubResource("LabelSettings_0fqg0")
+
+[node name="ScoreTimer" type="Timer" parent="GUI" index="2"]
 wait_time = 0.1
 
 [connection signal="timeout" from="GUI/ScoreTimer" to="GUI" method="_on_score_timer_timeout"]

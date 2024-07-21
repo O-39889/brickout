@@ -9,6 +9,7 @@ var score_counter : float = 0.0;
 var score_countdown_active : bool = false;
 
 @onready var score_label : Label = $Score;
+@onready var lives_label : Label = $Lives;
 @onready var current_display_score : int = GameProgression.score:
 	get:
 		return current_display_score;
@@ -21,6 +22,7 @@ var score_countdown_active : bool = false;
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	EventBus.score_changed.connect(_on_score_changed);
+	EventBus.lives_changed.connect(_on_lives_changed);
 
 
 func _process(delta):
@@ -28,15 +30,10 @@ func _process(delta):
 		score_counter += delta;
 		if score_counter >= COUNTER_UPDATE_FREQUENCY:
 			score_counter = 0.0;
-			countdown_tick();
+			_countdown_tick();
 
 
-func _on_score_changed():
-	target_display_score = GameProgression.score;
-	score_countdown_active = true;
-
-
-func countdown_tick():
+func _countdown_tick():
 	if current_display_score < target_display_score:
 		current_display_score = mini(target_display_score,
 			current_display_score + COUNTER_CHANGE_PER_UPDATE);
@@ -45,3 +42,12 @@ func countdown_tick():
 			current_display_score - COUNTER_CHANGE_PER_UPDATE);
 	else:
 		score_countdown_active = false;
+
+
+func _on_score_changed():
+	target_display_score = GameProgression.score;
+	score_countdown_active = true;
+
+
+func _on_lives_changed():
+	lives_label.text = 'Lives: ' + str(GameProgression.lives);

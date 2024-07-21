@@ -45,8 +45,6 @@ func _ready():
 		create_paddle();
 	EventBus.ball_lost.connect(_on_ball_lost);
 	EventBus.barrier_hit.connect(_on_barrier_hit);
-	get_window().title = str(GameProgression.lives);
-	EventBus.lives_changed.connect(func(): get_window().title = str(GameProgression.lives));
 
 
 func _enter_tree():
