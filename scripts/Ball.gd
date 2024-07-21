@@ -86,6 +86,8 @@ var explosion_packed := preload("res://scenes/Explosion.tscn");
 
 
 func _ready():
+	($VisibleOnScreenNotifier2D.rect as Rect2).position = Vector2(-BALL_RADIUS, -BALL_RADIUS);
+	($VisibleOnScreenNotifier2D.rect as Rect2).size = Vector2(BALL_RADIUS * 2, BALL_RADIUS * 2);
 	EventBus.ball_target_speed_idx_changed.connect(_on_target_speed_idx_changed);
 	collision_shape.shape.radius = BALL_RADIUS;
 	if stuck:
@@ -162,6 +164,7 @@ func handle_collision(collision: KinematicCollision2D):
 			else:
 				horizontal_state = HorizontalCooldown.Inactive;
 
+
 func generate_explosion() -> Array:
 	var explosion : Explosion = explosion_packed.instantiate();
 	explosion.exclude_parent = true;
@@ -183,16 +186,18 @@ func _physics_process(delta):
 	var collision: KinematicCollision2D = move_and_collide(velocity * delta);
 	if collision:
 		handle_collision(collision);
-	if position.y > get_viewport_rect().size.y + BALL_RADIUS * 4:
-		EventBus.ball_lost.emit(self);
 	# № 1.5)
 	# If we're waiting with a horizontal cooldown then we decrement the counter
 	# that acts as a timer
 	if horizontal_state == HorizontalCooldown.Waiting:
 		horizontal_cooldown -= delta;
-	
-		
 
 
 func _on_target_speed_idx_changed():
 	speed = BALL_SPEEDS[target_speed_idx];
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited():
+	await get_tree().physics_frame; # idk why lol but okay
+	EventBus.ball_lost.emit(self);
+	#queue_free();

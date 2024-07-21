@@ -37,6 +37,8 @@ func _physics_process(delta):
 		or collider.get_collision_layer_value(7)):
 			EventBus.powerup_collected.emit(powerup);
 			queue_free();
+	if position.y > get_viewport_rect().size.y + width * 2:
+		queue_free();
 
 
 # ENTERING PAIN TERRITORY
@@ -85,7 +87,3 @@ func compute_x(phi: float, t: float) -> float:
 	return INITIAL_SPEED * cos(phi) * t;
 
 # PAIN TERRITORY PASSED
-
-
-func _on_visible_on_screen_notifier_2d_screen_exited():
-	queue_free();
