@@ -14,6 +14,7 @@ const POWERUP_POOL = {
 		&'add_points_100',
 		&'add_points_200',
 		&'add_points_500',
+		&'finish_level',
 	],
 	&'neutral': [
 		&'ball_speed_up',
@@ -83,6 +84,11 @@ const POWERUP_LIST = {
 		&'name': '500 Points',
 		&'description': 'Adds 500 points to the counter. Earn 10 000 poins for an extra life!',
 		&'points': 500,
+	},
+	&'finish_level': {
+		&'name': 'Level Finish',
+		&'description': 'Wins the level immediately. This power-up can drop when there are very few bricks left on-screen.', 
+		&'points': 100,
 	},
 	&'ball_speed_up': {
 		&'name': 'Speed Up Balls',

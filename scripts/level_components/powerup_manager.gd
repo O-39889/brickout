@@ -34,7 +34,8 @@ func get_default_weights() -> Dictionary:
 	var bad_weight_rel := 2.0 / 3.0;
 	var bad_weight := float(pool[&'good'].size()) / float(pool[&'bad'].size()) * bad_weight_rel;
 	for good_id in pool[&'good']:
-		result[good_id] = good_weight;
+		if good_id != &'finish_level':
+			result[good_id] = good_weight;
 	for neutral_id in pool[&'neutral']:
 		result[neutral_id] = neutral_weight;
 	for bad_id in pool[&'bad']:
@@ -98,6 +99,9 @@ func recalculate_weights(original_weights: Dictionary) -> Dictionary:
 			new_weights[&'fire_ball'] *= 2;
 		if new_weights.has(&'acid_ball'):
 			new_weights[&'acid_ball'] *= 1.8;
+	
+	if get_tree().get_nodes_in_group(&'destructible_bricks').size() <= 5:
+		new_weights[&'finish_level'] = 2.5; # idk just ballpark lol
 	
 	return new_weights;
 
@@ -177,6 +181,8 @@ func _on_powerup_collected(powerup: Powerup):
 				b.state = Ball.BallState.Acid;
 			# probably move to somewhere else
 			Globals.start_or_extend_timer(level.timer_acid, level.ACID_TIME);
+		&'finish_level':
+			print('Win!');
 		# NEUTRAL
 		&'ball_speed_up':
 			Ball.increase_speed();

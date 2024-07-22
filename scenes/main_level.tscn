@@ -220,7 +220,6 @@ text = "Score: 000000"
 label_settings = SubResource("LabelSettings_0fqg0")
 
 [node name="Lives" type="Label" parent="GUI" index="1"]
-anchors_preset = -1
 offset_left = 25.0
 offset_top = 90.0
 text = "Lives: 3"
