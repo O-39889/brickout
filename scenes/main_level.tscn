@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://ivtwix13e1nt"]
+[gd_scene load_steps=9 format=3 uid="uid://ivtwix13e1nt"]
 
 [ext_resource type="PackedScene" uid="uid://cljyfysqemsgw" path="res://scenes/level.tscn" id="1_fbwrt"]
 [ext_resource type="PackedScene" uid="uid://coqsjdil7pruh" path="res://scenes/level_components/brick_manager.tscn" id="3_kuuje"]
 [ext_resource type="PackedScene" uid="uid://jeo4t2v7ja84" path="res://scenes/level_components/powerup_manager.tscn" id="4_5blil"]
 [ext_resource type="PackedScene" uid="uid://blofikyc7x7vn" path="res://scenes/RegularBrick.tscn" id="4_xeb2x"]
 [ext_resource type="PackedScene" uid="uid://blefa03mpdv8b" path="res://scenes/IndestructibleBrick.tscn" id="5_s0seo"]
+[ext_resource type="PackedScene" uid="uid://c0pvsntagt4y6" path="res://scenes/level_components/ball_manager.tscn" id="6_4tf2r"]
 [ext_resource type="Script" path="res://scripts/level_gui.gd" id="6_ip4hg"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_0fqg0"]
@@ -13,9 +14,6 @@ outline_size = 5
 outline_color = Color(0.145035, 0.0963099, 3.60981e-08, 1)
 
 [node name="MainLevel" instance=ExtResource("1_fbwrt")]
-add_paddle = true
-powerup_chance = 0.1
-pool_type = 0
 
 [node name="BrickManager" parent="." index="2" instance=ExtResource("3_kuuje")]
 metadata/_edit_lock_ = true
@@ -210,7 +208,9 @@ position = Vector2(1785, 120)
 [node name="PowerupManager" parent="." index="3" instance=ExtResource("4_5blil")]
 metadata/_edit_lock_ = true
 
-[node name="GUI" type="CanvasLayer" parent="." index="4"]
+[node name="BallManager" parent="." index="4" instance=ExtResource("6_4tf2r")]
+
+[node name="GUI" type="CanvasLayer" parent="." index="5"]
 script = ExtResource("6_ip4hg")
 
 [node name="Score" type="Label" parent="GUI" index="0"]

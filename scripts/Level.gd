@@ -28,8 +28,9 @@ var barrier : Barrier;
 
 var paddle : Paddle;
 
-@onready var brick_mgr := find_child('BrickManager');
-@onready var powerup_mgr := find_child('PowerupManager');
+var brick_mgr: Node2D;
+var powerup_mgr: Node2D;
+var ball_mgr: Node2D;
 # TODO: move to balls instead? idk lol might need to delegate it to somewhere else
 # bc i wanna have a single common timer for acid bawls
 @onready var timer_acid : Timer = find_child("AcidTimer");
@@ -59,6 +60,9 @@ func _enter_tree():
 	powerup_mgr = find_child('PowerupManager');
 	if powerup_mgr:
 		powerup_mgr.level = self;
+	ball_mgr = find_child('BallManager');
+	if ball_mgr:
+		ball_mgr.level = self;
 
 
 func create_paddle():

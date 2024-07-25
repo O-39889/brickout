@@ -81,8 +81,8 @@ var state: BallState = BallState.Normal:
 				collision_shape.debug_color.h = (100.0 / 360.0);
 
 
-@onready var collision_shape : CollisionShape2D = find_child("CollisionShape2D");
 var explosion_packed := preload("res://scenes/Explosion.tscn");
+@onready var collision_shape : CollisionShape2D = find_child("CollisionShape2D");
 
 
 func _ready():
@@ -117,7 +117,8 @@ func handle_collision(collision: KinematicCollision2D):
 	if collider is Ball:
 		# and here we would somehow alter another guy's velocity
 		# und also avoid reduplication or idk lol
-		assert(false, 'NOT IMPLEMENTED!!!! AAAAAAHHHHHHHH');
+		EventBus.ball_collision.emit(self, collider);
+		#assert(false, 'NOT IMPLEMENTED!!!! AAAAAAHHHHHHHH');
 	elif collider is Paddle:
 		collider.handle_ball_collision(self, collision);
 		if state == BallState.Fire and collider.state == Paddle.PaddleState.Frozen:

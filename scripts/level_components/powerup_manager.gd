@@ -103,6 +103,8 @@ func recalculate_weights(original_weights: Dictionary) -> Dictionary:
 	if get_tree().get_nodes_in_group(&'destructible_bricks').size() <= 5:
 		new_weights[&'finish_level'] = 2.5; # idk just ballpark lol
 	
+	new_weights[&'add_ball'] *= 10;
+	
 	return new_weights;
 
 
