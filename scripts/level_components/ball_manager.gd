@@ -7,9 +7,12 @@ extends Node2D;
 # from the dictionary)
 var collisions : Dictionary = {};
 var level;
+var audio_players : Array[AudioStreamPlayer2D];
 
 
 func _ready():
+	audio_players.assign(get_children());
+	Ball.reset_target_speed();
 	EventBus.ball_collision.connect(handle_collision);
 
 
@@ -24,6 +27,20 @@ func handle_collision(b1: Ball, b2: Ball):
 	if collisions.has(id):
 		return;
 	
+	# TODO: ACTUALLY MAKE THIS NOT BADLY IMPLEMENTED
+	# also should crop the audio files a bit more so that there's no
+	# silence in the beginning
+	# all credit goes to some guy from freesound
+	# thank you very much
+	# the developers of the site, not that much
+	# WHY did you make it so that you need to LOGIN to download sounds
+	# but when you login it just throws you onto your profile page
+	# and NOT to the previous page from where you were before (the one
+	# with the sound I wanted to download)
+	# scandalous!
+	var player : AudioStreamPlayer2D = audio_players.pick_random();
+	player.play();
+	
 	collisions[id] = 2;
 	var v1 = b1.velocity;
 	var v2 = b2.velocity;
@@ -32,9 +49,7 @@ func handle_collision(b1: Ball, b2: Ball):
 	var v1_new = v1 - (v1 - v2).dot(x1 - x2) / (x1 - x2).length_squared() * (x1 - x2);
 	var v2_new = v2 - (v2 - v1).dot(x2 - x1) / (x2 - x1).length_squared() * (x2 - x1);
 	b1.velocity = v1_new;
-	b1.direction = v1_new.normalized();
 	b2.velocity = v2_new;
-	b2.direction = v2_new.normalized();
 
 
 

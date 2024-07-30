@@ -25,13 +25,16 @@ enum HorizontalCooldown {
 }
 
 const BALL_SPEEDS = [
-	390,
+	420,
 	600,
-	810,
+	800,
 ];
 
+const SPEED_CAP = BALL_SPEEDS[BallSpeed.BALL_SPEED_FAST] * 1.5;
+const SPEED_CAP_SQUARED = SPEED_CAP * SPEED_CAP;
 const BALL_RADIUS = 20;
 const MAX_HORIZONTAL_TIME = 5;
+const ACCELERATION = 250; # px / sec^2
 
 static var target_speed_idx : BallSpeed = BallSpeed.BALL_SPEED_NORMAL:
 	get:
@@ -39,22 +42,15 @@ static var target_speed_idx : BallSpeed = BallSpeed.BALL_SPEED_NORMAL:
 	set(value):
 		target_speed_idx = clampi(value, BallSpeed.BALL_SPEED_SLOW, BallSpeed.BALL_SPEED_FAST);
 		EventBus.ball_target_speed_idx_changed.emit();
+		
+
+static var target_speed : float:
+	get:
+		return BALL_SPEEDS[target_speed_idx];
 
 var horizontal_cooldown: float = MAX_HORIZONTAL_TIME;
 var horizontal_state : HorizontalCooldown = HorizontalCooldown.Inactive;
-var speed : float = BALL_SPEEDS[target_speed_idx]:
-	get:
-		return speed;
-	set(value):
-		speed = value;
-		velocity = speed * direction;
-
-var direction : Vector2 = Vector2(0, -1):
-	get:
-		return direction;
-	set(value):
-		direction = value.normalized();
-		velocity = speed * direction;
+var speed : float = BALL_SPEEDS[target_speed_idx];
 
 var stuck : bool = false:
 	get:
@@ -65,7 +61,6 @@ var stuck : bool = false:
 			process_mode = Node.PROCESS_MODE_DISABLED;
 		else:
 			process_mode = Node.PROCESS_MODE_INHERIT;
-
 
 var state: BallState = BallState.Normal:
 	get:
@@ -80,23 +75,18 @@ var state: BallState = BallState.Normal:
 			BallState.Acid:
 				collision_shape.debug_color.h = (100.0 / 360.0);
 
-
 var explosion_packed := preload("res://scenes/Explosion.tscn");
+var last_direction : Vector2;
 @onready var collision_shape : CollisionShape2D = find_child("CollisionShape2D");
 
 
 func _ready():
 	($VisibleOnScreenNotifier2D.rect as Rect2).position = Vector2(-BALL_RADIUS, -BALL_RADIUS);
 	($VisibleOnScreenNotifier2D.rect as Rect2).size = Vector2(BALL_RADIUS * 2, BALL_RADIUS * 2);
-	EventBus.ball_target_speed_idx_changed.connect(_on_target_speed_idx_changed);
+	#EventBus.ball_target_speed_idx_changed.connect(_on_target_speed_idx_changed);
 	collision_shape.shape.radius = BALL_RADIUS;
 	if stuck:
 		process_mode = Node.PROCESS_MODE_DISABLED;
-
-
-func launch():
-	stuck = false;
-	velocity = direction * speed;
 
 
 static func increase_speed():
@@ -109,6 +99,23 @@ static func decrease_speed():
 
 static func reset_target_speed():
 	target_speed_idx = BallSpeed.BALL_SPEED_NORMAL;
+
+
+## Launch the ball in the specified direction with its target speed.
+func launch(direction: Vector2):
+	stuck = false;
+	velocity = direction * target_speed;
+	last_direction = velocity.normalized();
+
+
+## Change the direction of the ball, its current speed remaining the same.
+func change_direction(to: Vector2):
+	velocity = to.normalized() * velocity.length();
+
+
+## Change the velocity by a given amount.
+func apply_impulse(impulse: Vector2):
+	velocity += impulse;
 
 
 # that started to look worse somehow
@@ -129,22 +136,22 @@ func handle_collision(collision: KinematicCollision2D):
 			BallState.Normal:
 				if collider.has_method('hit'):
 					collider.hit(self, 1);
-				direction = direction.bounce(collision.get_normal());
+				velocity = velocity.bounce(collision.get_normal());
 			BallState.Fire:
 				if collider.has_method('hit'):
 					if collider is Brick:
 						explode_stuff();
-				direction = direction.bounce(collision.get_normal());
+				velocity = velocity.bounce(collision.get_normal());
 			BallState.Acid:
 				if not (collider is RegularBrick):
-					direction = direction.bounce(collision.get_normal());
+					velocity = velocity.bounce(collision.get_normal());
 				if collider.has_method('hit'):
 					collider.hit(self, 1997);
 	# № 1
 	# Check for whether we move (almost) horizontally after le collision
 	# If so, then we set the cooldown and start ticking down
 	if (horizontal_state == HorizontalCooldown.Inactive and
-	is_zero_approx(direction.y)):
+	is_zero_approx(velocity.normalized().y)):
 		horizontal_state = HorizontalCooldown.Waiting;
 		horizontal_cooldown = MAX_HORIZONTAL_TIME;
 	# № 2
@@ -153,10 +160,10 @@ func handle_collision(collision: KinematicCollision2D):
 	if (horizontal_state == HorizontalCooldown.Waiting
 		and horizontal_cooldown <= 0):
 			# if at this point we're still moving horizontally
-			if is_zero_approx(direction.y):
+			if is_zero_approx(velocity.normalized().y):
 				# then we apply a random rotation to the direction vector
 				# just so that the ball never gets stuck
-				direction = direction.rotated(deg_to_rad(
+				velocity = velocity.rotated(deg_to_rad(
 					randf_range(1.0, 6.16) * (-1 if randf() < 0.5 else 1)));
 				# and then reset the whole state thingy
 				horizontal_state = HorizontalCooldown.Inactive;
@@ -183,7 +190,28 @@ func explode_stuff():
 
 
 func _physics_process(delta):
-	velocity = direction * speed;
+	# btw the last direction variable is unused yet
+	var velocity_dir : Vector2 = velocity.normalized();
+	var scalar_speed_difference : float = (
+		target_speed - velocity.length()
+	);
+	if abs(scalar_speed_difference) <= delta * ACCELERATION:
+		velocity = velocity_dir * target_speed;
+	# current speed is smaller than the target speed
+	elif scalar_speed_difference > 0:
+		# we will need to accelerate
+		velocity += velocity_dir * ACCELERATION * delta;
+	# current speed is larger than the target speed
+	else:
+		# will need to decelerate
+		velocity -= velocity_dir * ACCELERATION * delta;
+	#var speed_difference : Vector2 = (velocity_dir
+		#* target_speed - velocity);
+	#if speed_difference.length() <= delta * ACCELERATION:
+		#velocity = velocity_dir * target_speed;
+	#else:
+		#velocity += ACCELERATION * delta * velocity_dir;
+	
 	var collision: KinematicCollision2D = move_and_collide(velocity * delta);
 	if collision:
 		handle_collision(collision);
@@ -192,9 +220,20 @@ func _physics_process(delta):
 	# that acts as a timer
 	if horizontal_state == HorizontalCooldown.Waiting:
 		horizontal_cooldown -= delta;
+	if velocity.length_squared() > SPEED_CAP_SQUARED:
+		velocity = velocity.limit_length(SPEED_CAP);
+	if not velocity.is_zero_approx():
+		last_direction = velocity_dir;
+	queue_redraw();
+
+
+func _draw():
+	draw_string(ThemeDB.fallback_font, Vector2.ZERO, String.num(velocity.length(), 0),HORIZONTAL_ALIGNMENT_CENTER,
+	-1, 32)
 
 
 func _on_target_speed_idx_changed():
+	return;
 	speed = BALL_SPEEDS[target_speed_idx];
 
 

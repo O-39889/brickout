@@ -48,10 +48,10 @@ func get_simple_weights() -> Dictionary:
 	var good_weight_common := 1.0;
 	var good_weight_uncommon := 0.6;
 	var neutral_weight := 1.25;
-	var bad_weight := 0.85000001;
-	for id in [&'paddle_enlarge', &'add_ball', &'triple_ball', &'sticky_paddle', &'add_points_100']:
+	var bad_weight := 0.9;
+	for id in [&'paddle_enlarge', &'add_ball', &'sticky_paddle', &'add_points_100']:
 		result[id] = good_weight_common;
-	for id in [&'barrier', &'fire_ball', &'add_points_200']:
+	for id in [&'triple_ball', &'barrier', &'fire_ball', &'add_points_200']:
 		result[id] = good_weight_uncommon;
 	for id in [&'ball_speed_up', &'ball_slow_down']:
 		result[id] = neutral_weight;
@@ -66,6 +66,13 @@ func recalculate_weights(original_weights: Dictionary) -> Dictionary:
 	var new_weights : Dictionary = original_weights.duplicate();
 	var ball_count : float = get_tree().get_nodes_in_group(&'balls').size();
 	var ball_limit : float = level.BALL_LIMIT;
+	
+	if Ball.target_speed_idx == Ball.BallSpeed.BALL_SPEED_FAST:
+		if new_weights.has(&'ball_speed_up'):
+			new_weights[&'ball_speed_up'] /= 4;
+	if Ball.target_speed_idx == Ball.BallSpeed.BALL_SPEED_SLOW:
+		if new_weights.has(&'ball_slow_down'):
+			new_weights[&'ball_slow_down'] /= 4;
 	
 	if ball_count == 1:
 		new_weights.erase(&'pop_ball');
@@ -103,7 +110,7 @@ func recalculate_weights(original_weights: Dictionary) -> Dictionary:
 	if get_tree().get_nodes_in_group(&'destructible_bricks').size() <= 5:
 		new_weights[&'finish_level'] = 2.5; # idk just ballpark lol
 	
-	new_weights[&'add_ball'] *= 10;
+	new_weights[&'add_ball'] *= 1.09;
 	
 	return new_weights;
 
@@ -118,8 +125,10 @@ func choose_weighted(weights: Dictionary) -> StringName:
 		if choice < cum_weight:
 			return id;
 	print('Houston, we have a big troublem: we are all out of IDs and weights!');
-	return weights.keys().pick_random(); # just because you would complain about no return value otherwise
+	# just because you would complain about no return value otherwise
+	return weights.keys().pick_random();
 	# wait it wouldn't???
+	# unless there's actually something weird like one of weights being inf lmao
 
 
 func _on_brick_destroyed(brick: Brick, ball: Ball):
@@ -150,9 +159,8 @@ func _on_powerup_collected(powerup: Powerup):
 			# we will actually not even add it to the level
 			# but parent it to the paddle instead
 			var new_ball : Ball = BALL_PACKED.instantiate();
-			new_ball.position.y = -Ball.BALL_RADIUS - Paddle.PADDLE_HEIGHT / 2;
+			#new_ball.position.y = -Ball.BALL_RADIUS - Paddle.PADDLE_HEIGHT / 2;
 			new_ball.position.x = 0;
-			new_ball.direction = Vector2.UP;
 			level.add_ball_to_paddle(new_ball);
 		&'triple_ball':
 			var ball_selection : Array[Ball];

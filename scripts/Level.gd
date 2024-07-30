@@ -14,7 +14,7 @@ var mouse_captured : bool = false:
 	set(value):
 		mouse_captured = value;
 		if value:
-				Input.mouse_mode = Input.MOUSE_MODE_CAPTURED;
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED;
 		else:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE;
 
@@ -93,20 +93,22 @@ func clone_balls(b: Ball, n: int):
 	for i in range(n):
 		var new_ball : Ball = BALL_PACKED.instantiate();
 		var angle_offset : float = (i + 1) * angle_range / (n + 1);
+		var launch_vector : Vector2;
 		if b.stuck:
 			new_ball.position = b.global_position;
 			new_ball.position.y -= 1; # "just in case"
-			new_ball.direction = Vector2.LEFT.rotated(angle_offset);
+			launch_vector = Vector2.LEFT.rotated(angle_offset);
 		else:
 			new_ball.position = b.position;
-			new_ball.direction = b.direction.rotated(angle_offset);
+			launch_vector = b.velocity.normalized().rotated(angle_offset);
 		add_ball(new_ball);
+		new_ball.launch(launch_vector);
 
 
 func murder_ball(b: Ball):
 	if paddle:
 		paddle.balls.erase(b);
-	b.queue_free(); # why though lol but okay
+	b.queue_free();
 
 
 func add_barrier():
@@ -131,7 +133,7 @@ func _on_ball_lost(ball: Ball):
 	# because the ball is queue'd free on the next frame so for now
 	# we still have it in the tree so will have to wait fur the next frame
 	await get_tree().physics_frame;
-	if get_tree().get_nodes_in_group(&"balls").size() == 0:
+	if get_tree().get_nodes_in_group(&"balls").is_empty():
 		life_lost();
 
 

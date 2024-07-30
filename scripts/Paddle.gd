@@ -42,6 +42,15 @@ const PADDLE_HEIGHT : float = 40;
 
 
 var balls : Array[Ball] = [];
+# TODO
+# balls that got there by getting stuck when the sticky paddle powerup
+# is active
+# they get released when the paddle changes state to a non sticky one
+var ephemeral_balls : Array[Ball] = [];
+# the starting ball, as well as any balls that you get when getting add ball
+# powerup
+# they remain on the paddle always until released by the player
+var persistent_balls : Array[Ball] = [];
 
 @onready var collision_shape : CollisionShape2D = find_child("CollisionShape2D");
 @onready var powerup_hitbox : CollisionShape2D = find_child("Area2DShape");
@@ -80,8 +89,6 @@ func _ready():
 	hitbox.size.y = PADDLE_HEIGHT;
 	# it will always spawn with a ball, just for convenience
 	var b : Ball = load("res://scenes/Ball.tscn").instantiate();
-	b.position.y = -collision_shape.shape.size.y / 2 -b.BALL_RADIUS;
-	b.direction = Vector2.UP;
 	add_bawl(b);
 
 
@@ -91,7 +98,8 @@ func add_bawl(b: Ball):
 	else:
 		b.reparent(self);
 	b.stuck = true;
-	balls.append(b);	
+	b.position.y = -collision_shape.shape.size.y / 2 - b.BALL_RADIUS;
+	balls.append(b);
 
 ''
 func set_width(idx: PaddleSize):
@@ -107,27 +115,40 @@ func shrink():
 	_change_size(false);
 
 
+func release_ball(ball: Ball):
+	if ball not in balls:
+		return;
+	balls.erase(ball);
+	ball.reparent(level);
+	ball.launch(_bounce_ball_dir_controlled(ball.global_position));
+
+
 func handle_ball_collision(b: Ball, collision: KinematicCollision2D) -> void:
 	match state:
 		PaddleState.Normal:
-			var ball_dir := _bounce_ball_dir_controlled(b.velocity, collision.get_position());
-			b.direction = ball_dir;
+			var ball_dir := _bounce_ball_dir_controlled(collision.get_position());
+			b.change_direction(ball_dir);
 		PaddleState.Sticky:
-			var ball_dir := _bounce_ball_dir_controlled(b.velocity, collision.get_position());
-			b.direction = ball_dir;
+			# don't think I'll need any of that since I'll just do that
+			# when we release it lol
+			#var ball_dir := _bounce_ball_dir_controlled(collision.get_position());
+			#b.change_direction(ball_dir);
 			# if we hold down le left mouse button then it should just
 			# bounce them off instantly
-			if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+			if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+				var ball_dir := _bounce_ball_dir_controlled(collision.get_position());
+				b.change_direction(ball_dir);
+			else:
 				add_bawl(b);
 		PaddleState.Frozen:
 			# other stuff to handle? idk just bouncing it lol
 			# actaully might trigger an explosion if le ball is fire ball
 			# and then unfreeze le paddle
-			b.direction = b.direction.bounce(collision.get_normal());
+			b.change_direction(b.velocity.bounce(collision.get_normal()));
 		# I'm prolly not even gonna add a ghost state anyway
 
 
-func _bounce_ball_dir_controlled(ball_velocity: Vector2, collision_position: Vector2) -> Vector2:
+func _bounce_ball_dir_controlled(collision_position: Vector2) -> Vector2:
 	var left: float = position.x - width / 2;
 	var right: float = position.x + width / 2;
 	var clamped: float = clampf(collision_position.x, left, right);
@@ -150,7 +171,10 @@ func _change_size(should_enlarge: bool):
 	width_idx = clampi(width_idx + delta, PaddleSize.PADDLE_SIZE_TINY, PaddleSize.PADDLE_SIZE_MAX - 1);
 	set_width(width_idx);
 	for b in balls:
-		b.position.x = remap(b.position.x, -old_width / 2, old_width / 2, -width / 2, width / 2);
+		# "stretch" or "shrink" the balls' positions across the paddle
+		# when its size changes 
+		b.position.x = remap(b.position.x, -old_width / 2, old_width / 2,
+		-width / 2, width / 2);
 
 
 func _input(event: InputEvent):
@@ -170,11 +194,7 @@ func _input(event: InputEvent):
 				if event is InputEventMouseButton:
 					if (event.button_index == MOUSE_BUTTON_LEFT
 					and event.pressed and balls.size() > 0):
-						# release the bawl	
-						var first_bawl : Ball = balls.pop_front();
-						first_bawl.reparent(level);
-						first_bawl.launch();
-						pass
+						release_ball(balls[0]);
 		PaddleState.Frozen:
 			## TODO: IDEA!!!
 			# MAKE IT SO THAT WHEN YOU FLICK THE MOUSE CURSOR REALLY FAST IT WILL
