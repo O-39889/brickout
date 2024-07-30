@@ -11,7 +11,7 @@ var y_sort_balls_asc : Callable = func(a: Ball, b: Ball):
 		return true;
 	return false;
 
-@onready var level : Node2D = get_parent();
+var level : Node2D;
 
 
 func _ready():

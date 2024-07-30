@@ -1,6 +1,6 @@
 extends Node2D;
 
-@onready var level : Node2D = get_parent();
+var level : Node2D;
 
 
 func _ready():

@@ -28,9 +28,9 @@ var barrier : Barrier;
 
 var paddle : Paddle;
 
-var brick_mgr: Node2D;
-var powerup_mgr: Node2D;
-var ball_mgr: Node2D;
+var brick_component: Node2D;
+var powerup_component: Node2D;
+var ball_component: Node2D;
 # TODO: move to balls instead? idk lol might need to delegate it to somewhere else
 # bc i wanna have a single common timer for acid bawls
 @onready var timer_acid : Timer = find_child("AcidTimer");
@@ -54,15 +54,15 @@ func _enter_tree():
 	# and even before the children's _ready()
 	# but at this point the manager nodes already exist
 	# so that might be where we infuse them with le level
-	brick_mgr = find_child('BrickManager');
-	if brick_mgr:
-		brick_mgr.level = self;
-	powerup_mgr = find_child('PowerupManager');
-	if powerup_mgr:
-		powerup_mgr.level = self;
-	ball_mgr = find_child('BallManager');
-	if ball_mgr:
-		ball_mgr.level = self;
+	brick_component = find_child('BrickComponent');
+	if brick_component:
+		brick_component.level = self;
+	powerup_component = find_child('PowerupComponent');
+	if powerup_component:
+		powerup_component.level = self;
+	ball_component = find_child('BallComponent');
+	if ball_component:
+		ball_component.level = self;
 
 
 func create_paddle():
