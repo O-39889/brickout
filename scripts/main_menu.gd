@@ -1,3 +1,6 @@
+# I think this is unused now and the actual title screen now uses the
+# title_screen.gd file
+
 extends "res://scripts/Level.gd";
 
 

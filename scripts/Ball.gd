@@ -104,7 +104,7 @@ static func reset_target_speed():
 ## Launch the ball in the specified direction with its target speed.
 func launch(direction: Vector2):
 	stuck = false;
-	velocity = direction * target_speed;
+	velocity = direction.normalized() * target_speed;
 	last_direction = velocity.normalized();
 
 
