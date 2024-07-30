@@ -2,7 +2,6 @@ extends Node2D;
 
 
 const BALL_LIMIT : int = 20;
-const ACID_TIME : float = 20.0;
 const BARRIER_PACKED : PackedScene = preload("res://scenes/Barrier.tscn");
 const BALL_PACKED : PackedScene = preload('res://scenes/Ball.tscn');
 const PADDLE_PACKED : PackedScene = preload("res://scenes/Paddle.tscn");
@@ -31,9 +30,7 @@ var paddle : Paddle;
 var brick_component: Node2D;
 var powerup_component: Node2D;
 var ball_component: Node2D;
-# TODO: move to balls instead? idk lol might need to delegate it to somewhere else
-# bc i wanna have a single common timer for acid bawls
-@onready var timer_acid : Timer = find_child("AcidTimer");
+
 
 @onready var current_ball_speed_idx : Ball.BallSpeed = Ball.BallSpeed.BALL_SPEED_NORMAL;
 
@@ -150,18 +147,13 @@ func _input(event):
 			paddle.position - Vector2(0, 69));
 	if event.is_action_pressed("debug_2"):
 		powerup_component._request_powerup('triple_ball',
-			paddle.position - Vector2(0, 69))
+			paddle.position - Vector2(0, 69));
 	if event.is_action_pressed('debug_3'):
-		Engine.time_scale = 1.0 / 60;
+		powerup_component._request_powerup('acid_ball',
+			paddle.position - Vector2(0, 69));
 	if event.is_action_pressed('debug_4'):
 		Engine.time_scale = 1.0;
 
 
 func _on_barrier_hit():
 	barrier = null;
-
-
-func _on_acid_timer_timeout():
-	for b in get_tree().get_nodes_in_group(&'balls'):
-		if b.state == Ball.BallState.Acid:
-			b.state = Ball.BallState.Normal;

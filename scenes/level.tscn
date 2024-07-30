@@ -6,12 +6,6 @@
 [node name="Level" type="Node2D"]
 script = ExtResource("1_uhvnp")
 
-[node name="Timers" type="Node" parent="."]
-
-[node name="AcidTimer" type="Timer" parent="Timers"]
-process_callback = 0
-one_shot = true
-
 [node name="Walls" type="Node2D" parent="."]
 metadata/_edit_lock_ = true
 
@@ -24,5 +18,3 @@ rotation = -1.5708
 
 [node name="WallTop" parent="Walls" groups=["walls"] instance=ExtResource("2_jn27y")]
 rotation = 3.14159
-
-[connection signal="timeout" from="Timers/AcidTimer" to="." method="_on_acid_timer_timeout"]

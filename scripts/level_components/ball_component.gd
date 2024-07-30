@@ -1,6 +1,9 @@
 extends Node2D;
 
 
+const ACID_TIME : float = 20.0;
+
+
 # Key: string, two concatenated instance ids,
 # sorted by ascending, underscore in-between
 # Value: number of ticks after that collision (when it reaches 0, remove
@@ -8,12 +11,27 @@ extends Node2D;
 var collisions : Dictionary = {};
 var level;
 var audio_players : Array[AudioStreamPlayer2D];
+@onready var acid_timer : Timer = (func():
+	var t : Timer = Timer.new();
+	t.autostart = false;
+	t.one_shot = true;
+	t.wait_time = ACID_TIME;
+	add_child(t)
+	return t).call();
 
 
 func _ready():
-	audio_players.assign(get_children());
+	audio_players.assign(get_children().filter(func(a): return a is AudioStreamPlayer2D));
 	Ball.reset_target_speed();
 	EventBus.ball_collision.connect(handle_collision);
+	acid_timer.timeout.connect(_on_acid_timer_timeout);
+	EventBus.ball_lost.connect(_on_ball_lost);
+
+
+func enable_acid():
+	for b : Ball in get_tree().get_nodes_in_group(&'balls'):
+		b.state = Ball.BallState.Acid;
+	Globals.start_or_extend_timer(acid_timer, ACID_TIME);
 
 
 func handle_collision(b1: Ball, b2: Ball):
@@ -52,9 +70,24 @@ func handle_collision(b1: Ball, b2: Ball):
 	b2.velocity = v2_new;
 
 
-
 func _physics_process(delta):
 	for k in collisions:
 		collisions[k] -= 1;
 		if collisions[k] == 0:
 			collisions.erase(k);
+
+
+func _on_acid_timer_timeout():
+	for ball : Ball in get_tree().get_nodes_in_group(&'balls'):
+		if ball.state == Ball.BallState.Acid:
+			ball.state = Ball.BallState.Normal;
+
+
+func _on_ball_lost(_ball: Ball):
+	await get_tree().physics_frame;
+	if get_tree().get_nodes_in_group(&'balls').any(
+		func(b): return b.state == Ball.BallState.Acid):
+			return;
+	else:
+		# reset the acid timer ig
+		acid_timer.stop();

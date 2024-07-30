@@ -187,10 +187,11 @@ func _on_powerup_collected(powerup: Powerup):
 			for b in get_tree().get_nodes_in_group(&'balls'):
 				b.state = Ball.BallState.Fire;
 		&'acid_ball':
-			for b in get_tree().get_nodes_in_group(&'balls'):
-				b.state = Ball.BallState.Acid;
-			# probably move to somewhere else
-			Globals.start_or_extend_timer(level.timer_acid, level.ACID_TIME);
+			level.ball_component.enable_acid();
+			#for b in get_tree().get_nodes_in_group(&'balls'):
+				#b.state = Ball.BallState.Acid;
+			## probably move to somewhere else
+			#Globals.start_or_extend_timer(level.timer_acid, level.ACID_TIME);
 		&'finish_level':
 			print('Win!');
 		# NEUTRAL

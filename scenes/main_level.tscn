@@ -15,7 +15,7 @@ outline_color = Color(0.145035, 0.0963099, 3.60981e-08, 1)
 
 [node name="MainLevel" instance=ExtResource("1_fbwrt")]
 
-[node name="BrickComponent" parent="." index="2" instance=ExtResource("3_kuuje")]
+[node name="BrickComponent" parent="." index="1" instance=ExtResource("3_kuuje")]
 metadata/_edit_lock_ = true
 
 [node name="Brick" parent="BrickComponent" index="0" instance=ExtResource("4_xeb2x")]
@@ -205,12 +205,12 @@ position = Vector2(1710, 180)
 [node name="IndestructibleBrick8" parent="BrickComponent" index="55" instance=ExtResource("5_s0seo")]
 position = Vector2(1785, 120)
 
-[node name="PowerupComponent" parent="." index="3" instance=ExtResource("4_5blil")]
+[node name="PowerupComponent" parent="." index="2" instance=ExtResource("4_5blil")]
 metadata/_edit_lock_ = true
 
-[node name="BallComponent" parent="." index="4" instance=ExtResource("6_4tf2r")]
+[node name="BallComponent" parent="." index="3" instance=ExtResource("6_4tf2r")]
 
-[node name="GUI" type="CanvasLayer" parent="." index="5"]
+[node name="GUI" type="CanvasLayer" parent="." index="4"]
 script = ExtResource("6_ip4hg")
 
 [node name="Score" type="Label" parent="GUI" index="0"]
