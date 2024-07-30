@@ -241,3 +241,17 @@ func _on_powerup_collected(powerup: Powerup):
 		&'paddle_freeze':
 			level.paddle.state = Paddle.PaddleState.Frozen;
 	GameProgression.score += Powerup.POWERUP_LIST[powerup.id][&'points'];
+
+
+func _request_powerup(id: StringName, pos: Vector2):
+	if not OS.is_debug_build():
+		return;
+	var powerup_node : PowerupNode = POWERUP_PACKED.instantiate() as PowerupNode;
+	powerup_node.global_position = pos;
+	var powerup_type : StringName;
+	for type in Powerup.POWERUP_POOL.keys():
+		if id in Powerup.POWERUP_POOL[type]:
+			powerup_type = type;
+			break;
+	powerup_node.powerup = Powerup.new(id, powerup_type);
+	add_child(powerup_node);

@@ -90,6 +90,7 @@ func add_ball_to_paddle(b: Ball):
 
 func clone_balls(b: Ball, n: int):
 	var angle_range : float = PI if b.stuck else TAU;
+	var cloned_balls : Array[Ball] = [];
 	for i in range(n):
 		var new_ball : Ball = BALL_PACKED.instantiate();
 		var angle_offset : float = (i + 1) * angle_range / (n + 1);
@@ -102,7 +103,9 @@ func clone_balls(b: Ball, n: int):
 			new_ball.position = b.position;
 			launch_vector = b.velocity.normalized().rotated(angle_offset);
 		add_ball(new_ball);
+		cloned_balls.append(new_ball);
 		new_ball.launch(launch_vector);
+	b.handle_cloned(cloned_balls);
 
 
 func murder_ball(b: Ball):
@@ -143,9 +146,15 @@ func _input(event):
 	if event.is_action_pressed("debug_restart"):
 		get_tree().reload_current_scene();
 	if event.is_action_pressed("debug_1"):
-		pass
+		powerup_component._request_powerup('double_balls',
+			paddle.position - Vector2(0, 69));
 	if event.is_action_pressed("debug_2"):
-		pass
+		powerup_component._request_powerup('triple_ball',
+			paddle.position - Vector2(0, 69))
+	if event.is_action_pressed('debug_3'):
+		Engine.time_scale = 1.0 / 60;
+	if event.is_action_pressed('debug_4'):
+		Engine.time_scale = 1.0;
 
 
 func _on_barrier_hit():

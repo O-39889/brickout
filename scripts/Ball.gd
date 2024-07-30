@@ -80,6 +80,11 @@ var last_direction : Vector2;
 @onready var collision_shape : CollisionShape2D = find_child("CollisionShape2D");
 
 
+#func _enter_tree():
+	#set_collision_mask_value(3, false);
+	#$CollisionShape2D.debug_color = Color(Color.WHITE, 107.0 / 256.0);
+
+
 func _ready():
 	($VisibleOnScreenNotifier2D.rect as Rect2).position = Vector2(-BALL_RADIUS, -BALL_RADIUS);
 	($VisibleOnScreenNotifier2D.rect as Rect2).size = Vector2(BALL_RADIUS * 2, BALL_RADIUS * 2);
@@ -106,6 +111,10 @@ func launch(direction: Vector2):
 	stuck = false;
 	velocity = direction.normalized() * target_speed;
 	last_direction = velocity.normalized();
+	#(get_tree().create_timer(BALL_RADIUS * sqrt(2) / target_speed)
+		#.timeout.connect(func():
+			#set_collision_mask_value(3, true);
+			#collision_shape.debug_color = Color('0099b36b')));
 
 
 ## Change the direction of the ball, its current speed remaining the same.
@@ -116,6 +125,21 @@ func change_direction(to: Vector2):
 ## Change the velocity by a given amount.
 func apply_impulse(impulse: Vector2):
 	velocity += impulse;
+
+
+func handle_cloned(clones: Array[Ball]):
+	set_collision_mask_value(3, false);
+	collision_shape.debug_color = Color(Color.ALICE_BLUE, 0.420);
+	for ball in clones:
+		ball.set_collision_mask_value(3, false);
+		ball.collision_shape.debug_color = Color(Color.ALICE_BLUE, 0.420);
+	get_tree().create_timer(BALL_RADIUS * 2 / target_speed).\
+		timeout.connect(func():
+			set_collision_mask_value(3, true);
+			collision_shape.debug_color = Color('0099b36b');
+			for b in clones:
+				b.set_collision_mask_value(3, true)
+				b.collision_shape.debug_color = Color('0099b36b'));
 
 
 # that started to look worse somehow
