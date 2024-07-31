@@ -39,9 +39,10 @@ const STICKY_TIME: float = 15.0;
 const STICKY_TIME_MAX: float = 30.000000000000004;
 const FROZEN_TIME : float = 7.0;
 const PADDLE_HEIGHT : float = 40;
-const BALL_RELEASE_COOLDOWN : float = 0.2;
+const BALL_RELEASE_COOLDOWN_MAX : float = 0.2;
 
 
+var level : Node2D;
 var balls : Array[Ball] = [];
 # TODO
 # balls that got there by getting stuck when the sticky paddle powerup
@@ -58,7 +59,7 @@ var persistent_balls : Array[Ball] = [];
 @onready var hitbox : RectangleShape2D = find_child('CollisionShape2D').shape;
 @onready var sticky_timer : Timer = find_child('StickyTimer');
 @onready var frozen_timer : Timer = find_child('FrozenTimer');
-@onready var level : Node2D = get_parent();
+@onready var ball_timer : Timer = find_child('BallReleaseTimer');
 
 var state : PaddleState = PaddleState.Normal:
 	get:
@@ -83,7 +84,7 @@ var width : float = PADDLE_SIZES[width_idx];
 
 
 func _ready():
-	print(BALL_RELEASE_COOLDOWN)
+	ball_timer.wait_time = BALL_RELEASE_COOLDOWN_MAX;
 	assert(level != null, 'Level node not defined');
 	if level == null:
 		level = get_parent();
@@ -179,6 +180,10 @@ func _change_size(should_enlarge: bool):
 		-width / 2, width / 2);
 
 
+func _physics_process(delta):
+	pass
+
+
 func _input(event: InputEvent):
 	match state:
 		PaddleState.Normal, PaddleState.Sticky, PaddleState.Ghost:
@@ -195,8 +200,10 @@ func _input(event: InputEvent):
 						get_viewport_rect().size.x - width / 2);
 				if event is InputEventMouseButton:
 					if (event.button_index == MOUSE_BUTTON_LEFT
-					and event.pressed and balls.size() > 0):
+					and event.pressed and balls.size() > 0
+					and ball_timer.is_stopped()):
 						release_ball(balls[0]);
+						ball_timer.start(BALL_RELEASE_COOLDOWN_MAX);
 		PaddleState.Frozen:
 			## TODO: IDEA!!!
 			# MAKE IT SO THAT WHEN YOU FLICK THE MOUSE CURSOR REALLY FAST IT WILL
@@ -215,3 +222,7 @@ func _on_sticky_timer_timeout():
 
 func _on_frozen_timer_timeout():
 	state = PaddleState.Normal;
+
+
+func _on_ball_release_timer_timeout():
+	pass # Replace with function body.

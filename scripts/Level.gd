@@ -60,6 +60,9 @@ func _enter_tree():
 	ball_component = find_child('BallComponent');
 	if ball_component:
 		ball_component.level = self;
+	paddle = find_child('Paddle');
+	if paddle:
+		paddle.level = self;
 
 
 func create_paddle():
@@ -165,7 +168,8 @@ func _input(event):
 		powerup_component._request_powerup('acid_ball',
 			paddle.position - Vector2(0, 69));
 	if event.is_action_pressed('debug_4'):
-		Engine.time_scale = 1.0;
+		powerup_component._request_powerup('sticky_paddle',
+			paddle.position - Vector2(0, 69));
 
 
 func _on_barrier_hit():

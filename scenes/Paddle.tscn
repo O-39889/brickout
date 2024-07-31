@@ -29,5 +29,9 @@ one_shot = true
 process_callback = 0
 one_shot = true
 
+[node name="BallReleaseTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="timeout" from="StickyTimer" to="." method="_on_sticky_timer_timeout"]
 [connection signal="timeout" from="FrozenTimer" to="." method="_on_frozen_timer_timeout"]
+[connection signal="timeout" from="BallReleaseTimer" to="." method="_on_ball_release_timer_timeout"]
