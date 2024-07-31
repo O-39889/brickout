@@ -95,10 +95,10 @@ func reparent_ball(ball: Ball):
 			add_child(ball);
 
 
-func add_ball_to_paddle(b: Ball):
+func add_ball_to_paddle(b: Ball, persistent: bool):
 	if get_tree().get_nodes_in_group(&'balls').size() >= BALL_LIMIT:
 		return;
-	paddle.add_bawl(b);
+	paddle.add_bawl(b, persistent);
 
 
 func clone_balls(b: Ball, n: int):

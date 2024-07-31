@@ -40,26 +40,25 @@ const STICKY_TIME_MAX: float = 30.000000000000004;
 const FROZEN_TIME : float = 7.0;
 const PADDLE_HEIGHT : float = 40;
 const BALL_RELEASE_COOLDOWN_MAX : float = 0.2;
+const BALL_AUTO_RELEASE_INTERVAL : float = 0.6;
 
 
 var level : Node2D;
 var balls : Array[Ball] = [];
-# TODO
-# balls that got there by getting stuck when the sticky paddle powerup
-# is active
-# they get released when the paddle changes state to a non sticky one
-var ephemeral_balls : Array[Ball] = [];
-# the starting ball, as well as any balls that you get when getting add ball
-# powerup
-# they remain on the paddle always until released by the player
 var persistent_balls : Array[Ball] = [];
+
 
 @onready var collision_shape : CollisionShape2D = find_child("CollisionShape2D");
 @onready var powerup_hitbox : CollisionShape2D = find_child("Area2DShape");
 @onready var hitbox : RectangleShape2D = find_child('CollisionShape2D').shape;
 @onready var sticky_timer : Timer = find_child('StickyTimer');
 @onready var frozen_timer : Timer = find_child('FrozenTimer');
-@onready var ball_timer : Timer = find_child('BallReleaseTimer');
+# cooldown between consecutive releases of the ball
+# by clicking while in sticky state
+@onready var ball_manual_timer : Timer = find_child('BallManualReleaseTimer');
+# interval between consecutive releases of the stuck balls after switching from
+# le sticky state to either le normal state or le frozen state
+@onready var ball_auto_timer : Timer = find_child('BallAutoReleaseTimer');
 
 var state : PaddleState = PaddleState.Normal:
 	get:
@@ -70,21 +69,27 @@ var state : PaddleState = PaddleState.Normal:
 			PaddleState.Normal:
 				sticky_timer.stop();
 				frozen_timer.stop();
+				release_ephemeral_ball();
+				ball_auto_timer.start(BALL_AUTO_RELEASE_INTERVAL);
 			
 			PaddleState.Sticky:
 				frozen_timer.stop();
+				ball_auto_timer.stop();
 				Globals.start_or_extend_timer(sticky_timer, STICKY_TIME, STICKY_TIME_MAX);
 			
 			PaddleState.Frozen:
 				sticky_timer.stop();
 				Globals.start_or_extend_timer(frozen_timer, FROZEN_TIME);
+				release_ephemeral_ball();
+				ball_auto_timer.start(BALL_AUTO_RELEASE_INTERVAL);
 
 var width_idx := PaddleSize.PADDLE_SIZE_NORMAL;
 var width : float = PADDLE_SIZES[width_idx];
 
 
 func _ready():
-	ball_timer.wait_time = BALL_RELEASE_COOLDOWN_MAX;
+	ball_manual_timer.wait_time = BALL_RELEASE_COOLDOWN_MAX;
+	ball_auto_timer.wait_time = BALL_AUTO_RELEASE_INTERVAL;
 	assert(level != null, 'Level node not defined');
 	if level == null:
 		level = get_parent();
@@ -92,10 +97,10 @@ func _ready():
 	hitbox.size.y = PADDLE_HEIGHT;
 	# it will always spawn with a ball, just for convenience
 	var b : Ball = load("res://scenes/Ball.tscn").instantiate();
-	add_bawl(b);
+	add_bawl(b, true);
 
 
-func add_bawl(b: Ball):
+func add_bawl(b: Ball, persistent: bool):
 	if b.get_parent() == null:
 		add_child(b);
 	else:
@@ -103,8 +108,10 @@ func add_bawl(b: Ball):
 	b.stuck = true;
 	b.position.y = -collision_shape.shape.size.y / 2 - b.BALL_RADIUS;
 	balls.append(b);
+	if persistent:
+		persistent_balls.append(b);
 
-''
+
 func set_width(idx: PaddleSize):
 	width = PADDLE_SIZES[idx];
 	hitbox.size.x = width;
@@ -122,8 +129,19 @@ func release_ball(ball: Ball):
 	if ball not in balls:
 		return;
 	balls.erase(ball);
+	persistent_balls.erase(ball);
 	level.reparent_ball(ball);
 	ball.launch(_bounce_ball_dir_controlled(ball.global_position));
+
+
+func release_ephemeral_ball():
+	var to_release : Array[Ball] = balls.filter(
+		func(ball: Ball):
+			return ball not in persistent_balls
+	);
+	if to_release.is_empty():
+		return
+	release_ball(to_release[0]);
 
 
 func handle_ball_collision(b: Ball, collision: KinematicCollision2D) -> void:
@@ -142,7 +160,7 @@ func handle_ball_collision(b: Ball, collision: KinematicCollision2D) -> void:
 				var ball_dir := _bounce_ball_dir_controlled(collision.get_position());
 				b.change_direction(ball_dir);
 			else:
-				add_bawl(b);
+				add_bawl(b, false);
 		PaddleState.Frozen:
 			# other stuff to handle? idk just bouncing it lol
 			# actaully might trigger an explosion if le ball is fire ball
@@ -180,10 +198,6 @@ func _change_size(should_enlarge: bool):
 		-width / 2, width / 2);
 
 
-func _physics_process(delta):
-	pass
-
-
 func _input(event: InputEvent):
 	match state:
 		PaddleState.Normal, PaddleState.Sticky, PaddleState.Ghost:
@@ -201,9 +215,9 @@ func _input(event: InputEvent):
 				if event is InputEventMouseButton:
 					if (event.button_index == MOUSE_BUTTON_LEFT
 					and event.pressed and balls.size() > 0
-					and ball_timer.is_stopped()):
+					and ball_manual_timer.is_stopped()):
 						release_ball(balls[0]);
-						ball_timer.start(BALL_RELEASE_COOLDOWN_MAX);
+						ball_manual_timer.start(BALL_RELEASE_COOLDOWN_MAX);
 		PaddleState.Frozen:
 			## TODO: IDEA!!!
 			# MAKE IT SO THAT WHEN YOU FLICK THE MOUSE CURSOR REALLY FAST IT WILL
@@ -224,5 +238,18 @@ func _on_frozen_timer_timeout():
 	state = PaddleState.Normal;
 
 
-func _on_ball_release_timer_timeout():
+func _on_ball_manual_release_timer_timeout():
 	pass # Replace with function body.
+
+
+func _on_ball_auto_release_timer_timeout():
+	release_ephemeral_ball();
+	# we look only at ephemeral (non-persistent) balls
+	# so here we remove persistent balls and see if there's no ephemeral balls left
+	if balls.filter(func(ball: Ball): return ball not in persistent_balls).is_empty():
+		# in which case we just ignore and don't continue
+		pass
+	# otherwise just restart le timer
+	else:
+		ball_auto_timer.start(BALL_AUTO_RELEASE_INTERVAL);
+	

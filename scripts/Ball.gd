@@ -260,6 +260,13 @@ func _draw():
 	else:
 		string = 'LVL';
 	string = '';
+	if stuck:
+		if get_parent() is Paddle:
+			var pdl := get_parent() as Paddle;
+			if self in pdl.persistent_balls:
+				string = 'P';
+			else:
+				string = 'E';
 	draw_string(ThemeDB.fallback_font, Vector2.ZERO, string,HORIZONTAL_ALIGNMENT_CENTER,
 	-1, 32)
 

@@ -161,7 +161,7 @@ func _on_powerup_collected(powerup: Powerup):
 			var new_ball : Ball = BALL_PACKED.instantiate();
 			#new_ball.position.y = -Ball.BALL_RADIUS - Paddle.PADDLE_HEIGHT / 2;
 			new_ball.position.x = 0;
-			level.add_ball_to_paddle(new_ball);
+			level.add_ball_to_paddle(new_ball, true);
 		&'triple_ball':
 			var ball_selection : Array[Ball];
 			# have a lower chance of picking a stuck ball
