@@ -39,6 +39,7 @@ const STICKY_TIME: float = 15.0;
 const STICKY_TIME_MAX: float = 30.000000000000004;
 const FROZEN_TIME : float = 7.0;
 const PADDLE_HEIGHT : float = 40;
+const BALL_RELEASE_COOLDOWN : float = 0.2;
 
 
 var balls : Array[Ball] = [];
@@ -82,6 +83,7 @@ var width : float = PADDLE_SIZES[width_idx];
 
 
 func _ready():
+	print(BALL_RELEASE_COOLDOWN)
 	assert(level != null, 'Level node not defined');
 	if level == null:
 		level = get_parent();
@@ -119,7 +121,7 @@ func release_ball(ball: Ball):
 	if ball not in balls:
 		return;
 	balls.erase(ball);
-	ball.reparent(level);
+	level.reparent_ball(ball);
 	ball.launch(_bounce_ball_dir_controlled(ball.global_position));
 
 

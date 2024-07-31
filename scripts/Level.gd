@@ -76,7 +76,20 @@ func create_paddle():
 func add_ball(b: Ball):
 	if get_tree().get_nodes_in_group(&'balls').size() >= BALL_LIMIT:
 		return;
-	add_child(b);
+	reparent_ball(b);
+
+
+func reparent_ball(ball: Ball):
+	if ball.get_parent():
+		if ball_component:
+			ball.reparent(ball_component);
+		else:
+			ball.reparent(self);
+	else:
+		if ball_component:
+			ball_component.add_child(ball);
+		else:
+			add_child(ball);
 
 
 func add_ball_to_paddle(b: Ball):

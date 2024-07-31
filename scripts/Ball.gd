@@ -244,21 +244,28 @@ func _physics_process(delta):
 	# that acts as a timer
 	if horizontal_state == HorizontalCooldown.Waiting:
 		horizontal_cooldown -= delta;
-	if velocity.length_squared() > SPEED_CAP_SQUARED:
-		velocity = velocity.limit_length(SPEED_CAP);
+	if velocity.length_squared() > target_speed * target_speed * 2.25:
+		velocity = velocity.limit_length(target_speed * 1.5);
 	if not velocity.is_zero_approx():
 		last_direction = velocity_dir;
 	queue_redraw();
 
 
 func _draw():
-	draw_string(ThemeDB.fallback_font, Vector2.ZERO, String.num(velocity.length(), 0),HORIZONTAL_ALIGNMENT_CENTER,
+	var string;
+	if get_parent() is Paddle:
+		string = 'PDL';
+	elif get_parent().name == 'BallComponent':
+		string = 'BALL';
+	else:
+		string = 'LVL';
+	string = '';
+	draw_string(ThemeDB.fallback_font, Vector2.ZERO, string,HORIZONTAL_ALIGNMENT_CENTER,
 	-1, 32)
 
 
 func _on_target_speed_idx_changed():
-	return;
-	speed = BALL_SPEEDS[target_speed_idx];
+	pass;
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
