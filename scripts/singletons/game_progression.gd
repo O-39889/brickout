@@ -1,6 +1,8 @@
 extends Node;
 
 
+# TODO: update score counter to the real value immediately when reaching
+# new life
 const EXTRA_LIFE_MULTIPLIER : int = 25000;
 
 

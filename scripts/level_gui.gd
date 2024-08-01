@@ -7,6 +7,7 @@ const COUNTER_CHANGE_PER_UPDATE = 10;
 
 var score_counter : float = 0.0;
 var score_countdown_active : bool = false;
+@onready var old_lives : int = GameProgression.lives;
 
 @onready var score_label : Label = $Score;
 @onready var lives_label : Label = $Lives;
@@ -51,3 +52,11 @@ func _on_score_changed():
 
 func _on_lives_changed():
 	lives_label.text = 'Lives: ' + str(GameProgression.lives);
+	# that means we've gained an extra life! skip points scrolling, if there was any
+	if old_lives < GameProgression.lives:
+		score_countdown_active = false;
+		score_counter = 0.0;
+		target_display_score = GameProgression.score;
+		current_display_score = GameProgression.score;
+	old_lives = GameProgression.lives;
+	

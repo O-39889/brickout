@@ -25,7 +25,7 @@ enum HorizontalCooldown {
 }
 
 const BALL_SPEEDS = [
-	420,
+	450,
 	600,
 	800,
 ];
