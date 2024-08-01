@@ -266,6 +266,7 @@ func _on_powerup_collected(powerup: Powerup):
 
 func _request_powerup(id: StringName, pos: Vector2):
 	if not OS.is_debug_build():
+		print('Hey, what are you trying to do? Cheat in some power-ups?');
 		return;
 	var powerup_node : PowerupNode = POWERUP_PACKED.instantiate() as PowerupNode;
 	powerup_node.global_position = pos;
