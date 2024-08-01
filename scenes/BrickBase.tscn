@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/BrickBase.gd" id="1_y6bog"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_olqhh"]
-size = Vector2(150, 60)
+size = Vector2(100, 50)
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_frpwi"]
 

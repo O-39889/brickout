@@ -153,7 +153,7 @@ func choose_weighted(weights: Dictionary) -> StringName:
 
 func _on_brick_destroyed(brick: Brick, ball: Ball):
 	if brick is RegularBrick:
-		if randf() < level.powerup_chance or OS.is_debug_build():
+		if randf() < level.powerup_chance:
 			var powerup_node : PowerupNode = POWERUP_PACKED.instantiate();
 			powerup_node.global_position = brick.global_position;
 			var new_id : StringName = choose_weighted(recalculate_weights(powerup_weights));
