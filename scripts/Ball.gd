@@ -32,7 +32,7 @@ const BALL_SPEEDS = [
 
 const SPEED_CAP = BALL_SPEEDS[BallSpeed.BALL_SPEED_FAST] * 1.5;
 const SPEED_CAP_SQUARED = SPEED_CAP * SPEED_CAP;
-const BALL_RADIUS = 20;
+const BALL_RADIUS = 15;
 const MAX_HORIZONTAL_TIME = 5;
 const ACCELERATION = 250; # px / sec^2
 
