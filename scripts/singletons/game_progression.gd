@@ -1,7 +1,7 @@
 extends Node;
 
 
-const EXTRA_LIFE_MULTIPLIER : int = 10000;
+const EXTRA_LIFE_MULTIPLIER : int = 25000;
 
 
 @onready var score : int = 0:
