@@ -69,10 +69,17 @@ func recalculate_weights(original_weights: Dictionary) -> Dictionary:
 	
 	if Ball.target_speed_idx == Ball.BallSpeed.BALL_SPEED_FAST:
 		if new_weights.has(&'ball_speed_up'):
-			new_weights[&'ball_speed_up'] /= 4;
+			new_weights[&'ball_speed_up'] /= 8;
 	if Ball.target_speed_idx == Ball.BallSpeed.BALL_SPEED_SLOW:
 		if new_weights.has(&'ball_slow_down'):
-			new_weights[&'ball_slow_down'] /= 4;
+			new_weights[&'ball_slow_down'] /= 8;
+	
+	if (level.paddle as Paddle).width_idx == Paddle.PaddleSize.PADDLE_SIZE_TINY\
+		and new_weights.has(&'paddle_shrink'):
+			new_weights[&'paddle_shrink'] /= 8;
+	if (level.paddle as Paddle).width_idx == Paddle.PaddleSize.PADDLE_SIZE_HUMONGOUS\
+		and new_weights.has(&'paddle_enlarge'):
+			new_weights[&'paddle_enlarge'] /= 8;
 	
 	if ball_count == 1:
 		new_weights.erase(&'pop_ball');
@@ -88,6 +95,7 @@ func recalculate_weights(original_weights: Dictionary) -> Dictionary:
 			new_weights[&'add_ball'] *= (
 				-2 * ball_count / ball_limit + 2
 			);
+			new_weights[&'add_ball'] *= 1.0 + 1.0 / 65536.0;
 		if new_weights.has(&'triple_ball'):
 			# starting at 1 at half the limit and tapering to 0 at limit - 1
 			new_weights[&'triple_ball'] *= maxf(0.0,
@@ -110,7 +118,19 @@ func recalculate_weights(original_weights: Dictionary) -> Dictionary:
 	if get_tree().get_nodes_in_group(&'destructible_bricks').size() <= 5:
 		new_weights[&'finish_level'] = 2.5; # idk just ballpark lol
 	
-	new_weights[&'add_ball'] *= 1.09;
+	var what : StringName = new_weights.keys().pick_random() as StringName;
+	var weight_sum : float = (func():
+			var sum := 0.0;
+			for k in new_weights:
+				if k != what:
+					sum += new_weights[k];
+			return sum;
+	).call();
+	new_weights[what] -= 1 / (weight_sum * weight_sum); # idk why lmao
+	
+	for k in new_weights:
+		print("'", k, "': ", str(new_weights[k]));
+	print();
 	
 	return new_weights;
 

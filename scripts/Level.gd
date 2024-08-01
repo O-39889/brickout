@@ -165,10 +165,10 @@ func _input(event):
 		powerup_component._request_powerup('triple_ball',
 			paddle.position - Vector2(0, 69));
 	if event.is_action_pressed('debug_3'):
-		powerup_component._request_powerup('acid_ball',
+		powerup_component._request_powerup('sticky_paddle',
 			paddle.position - Vector2(0, 69));
 	if event.is_action_pressed('debug_4'):
-		powerup_component._request_powerup('sticky_paddle',
+		powerup_component._request_powerup('paddle_freeze',
 			paddle.position - Vector2(0, 69));
 
 
