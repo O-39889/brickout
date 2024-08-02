@@ -48,6 +48,10 @@ static var target_speed : float:
 	get:
 		return BALL_SPEEDS[target_speed_idx];
 
+# TODO: make it also check that it doesn't collide with regular bricks before
+# starting the horizontal cooldown (and reset it each time it collides with
+# a regular breakable brick just so that it doesn't detect being "stuck"
+# while it might possibly be not stuck yet)
 var horizontal_cooldown: float = MAX_HORIZONTAL_TIME;
 var horizontal_state : HorizontalCooldown = HorizontalCooldown.Inactive;
 var speed : float = BALL_SPEEDS[target_speed_idx];
@@ -78,20 +82,22 @@ var state: BallState = BallState.Normal:
 var explosion_packed := preload("res://scenes/Explosion.tscn");
 var last_direction : Vector2;
 @onready var collision_shape : CollisionShape2D = find_child("CollisionShape2D");
-
-
-#func _enter_tree():
-	#set_collision_mask_value(3, false);
-	#$CollisionShape2D.debug_color = Color(Color.WHITE, 107.0 / 256.0);
+@onready var ball_detection_area : Area2D = find_child('OtherBallDetectionArea');
 
 
 func _ready():
-	($VisibleOnScreenNotifier2D.rect as Rect2).position = Vector2(-BALL_RADIUS, -BALL_RADIUS);
-	($VisibleOnScreenNotifier2D.rect as Rect2).size = Vector2(BALL_RADIUS * 2, BALL_RADIUS * 2);
-	#EventBus.ball_target_speed_idx_changed.connect(_on_target_speed_idx_changed);
+	$VisibleOnScreenNotifier2D.rect.position = Vector2(-BALL_RADIUS * 2, -BALL_RADIUS * 2);
+	$VisibleOnScreenNotifier2D.rect.size = Vector2(BALL_RADIUS * 4, BALL_RADIUS * 4);
 	collision_shape.shape.radius = BALL_RADIUS;
+	ball_detection_area.find_child('CollisionShape2D').shape.radius = BALL_RADIUS + 1.01;
 	if stuck:
 		process_mode = Node.PROCESS_MODE_DISABLED;
+	else:
+		await get_tree().physics_frame;
+		if ball_detection_area:
+			if ball_detection_area.get_overlapping_bodies().filter(func(x):
+				return x is Ball and x != self).is_empty():
+					set_collision_mask_value(3, true);
 
 
 static func increase_speed():
@@ -111,10 +117,14 @@ func launch(direction: Vector2):
 	stuck = false;
 	velocity = direction.normalized() * target_speed;
 	last_direction = velocity.normalized();
-	#(get_tree().create_timer(BALL_RADIUS * sqrt(2) / target_speed)
-		#.timeout.connect(func():
-			#set_collision_mask_value(3, true);
-			#collision_shape.debug_color = Color('0099b36b')));
+	await get_tree().physics_frame;
+	if ball_detection_area:
+		if ball_detection_area.get_overlapping_bodies().filter(
+			func(x): return x is Ball and x != self
+		).is_empty():
+			set_collision_mask_value(3, true);
+			ball_detection_area.visible = false;
+			ball_detection_area.process_mode = Node.PROCESS_MODE_DISABLED;
 
 
 ## Change the direction of the ball, its current speed remaining the same.
@@ -128,26 +138,35 @@ func apply_impulse(impulse: Vector2):
 
 
 func handle_cloned(clones: Array[Ball]):
+	if false:
+		return;
+		set_collision_mask_value(3, false);
+		collision_shape.self_modulate = Color.BLACK;
+		for ball in clones:
+			ball.set_collision_mask_value(3, false);
+			ball.collision_shape.self_modulate = Color.BLACK;
+		get_tree().create_timer(BALL_RADIUS * 2 / target_speed).\
+			timeout.connect(func():
+				set_collision_mask_value(3, true);
+				collision_shape.self_modulate = Color.WHITE;
+				for b in clones:
+					b.set_collision_mask_value(3, true)
+					b.collision_shape.self_modulate = Color.WHITE);
+	ball_detection_area.visible = true;
+	ball_detection_area.process_mode = Node.PROCESS_MODE_INHERIT;	
 	set_collision_mask_value(3, false);
-	collision_shape.self_modulate = Color.BLACK;
-	for ball in clones:
-		ball.set_collision_mask_value(3, false);
-		ball.collision_shape.self_modulate = Color.BLACK;
-	get_tree().create_timer(BALL_RADIUS * 2 / target_speed).\
-		timeout.connect(func():
-			set_collision_mask_value(3, true);
-			collision_shape.self_modulate = Color.WHITE;
-			for b in clones:
-				b.set_collision_mask_value(3, true)
-				b.collision_shape.self_modulate = Color.WHITE);
 
 
 # that started to look worse somehow
 func handle_collision(collision: KinematicCollision2D):
 	var collider := collision.get_collider();
 	if collider is Ball:
+		#assert(false, 'Also there was supposed to be a jumpscare in here');
 		# and here we would somehow alter another guy's velocity
 		# und also avoid reduplication or idk lol
+		# actually might even be okay to use signals
+		# just will actually generalize the signal to just include any other
+		# CollisionObject2D it can collide with instead
 		EventBus.ball_collision.emit(self, collider);
 		#assert(false, 'NOT IMPLEMENTED!!!! AAAAAAHHHHHHHH');
 	elif collider is Paddle:
@@ -214,11 +233,14 @@ func explode_stuff():
 
 
 func _physics_process(delta):
+	#modulate = Color.WHITE if get_collision_mask_value(3) else Color.BLACK;
 	# btw the last direction variable is unused yet
 	var velocity_dir : Vector2 = velocity.normalized();
 	var scalar_speed_difference : float = (
 		target_speed - velocity.length()
 	);
+	# to snap to the needed velocity without oscillating constantly around it
+	# in small increments or something
 	if abs(scalar_speed_difference) <= delta * ACCELERATION:
 		velocity = velocity_dir * target_speed;
 	# current speed is smaller than the target speed
@@ -267,6 +289,7 @@ func _draw():
 				string = 'P';
 			else:
 				string = 'E';
+	string = str(int(get_collision_mask_value(3)));
 	draw_string(ThemeDB.fallback_font, Vector2.ZERO, string,HORIZONTAL_ALIGNMENT_CENTER,
 	-1, 32)
 
@@ -278,4 +301,12 @@ func _on_target_speed_idx_changed():
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	await get_tree().physics_frame; # idk why lol but okay
 	EventBus.ball_lost.emit(self);
-	#queue_free();
+
+
+func _on_other_ball_detection_area_body_exited(body):
+	var bodies := ball_detection_area.get_overlapping_bodies();
+	var filtered := bodies.filter(func(x): return x is Ball and not x == self)
+	if filtered.is_empty():
+		ball_detection_area.visible = false;
+		ball_detection_area.process_mode = Node.PROCESS_MODE_DISABLED;	
+		set_collision_mask_value(3, true);

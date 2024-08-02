@@ -165,11 +165,15 @@ func _input(event):
 		powerup_component._request_powerup('triple_ball',
 			paddle.position - Vector2(0, 69));
 	if event.is_action_pressed('debug_3'):
-		powerup_component._request_powerup('sticky_paddle',
+		powerup_component._request_powerup('add_ball',
 			paddle.position - Vector2(0, 69));
 	if event.is_action_pressed('debug_4'):
-		powerup_component._request_powerup('paddle_freeze',
-			paddle.position - Vector2(0, 69));
+		Engine.time_scale = 1.0 if is_equal_approx(Engine.time_scale, 0.02) else 0.02;
+	if event.is_action_pressed('debug_5'):
+		var ball := BALL_PACKED.instantiate() as Ball;
+		ball.position = Vector2(1590, 440);
+		ball_component.add_child(ball);
+		ball.launch(Vector2(-0.1, -1));
 
 
 func _on_barrier_hit():

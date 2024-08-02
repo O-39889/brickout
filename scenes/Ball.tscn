@@ -1,13 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://snfgq3rpho6f"]
+[gd_scene load_steps=4 format=3 uid="uid://snfgq3rpho6f"]
 
 [ext_resource type="Script" path="res://scripts/Ball.gd" id="1_6mlqy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vbfvk"]
 radius = 20.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_8nncr"]
+radius = 21.0
+
 [node name="Ball" type="CharacterBody2D" groups=["balls"]]
 collision_layer = 4
-collision_mask = 23
+collision_mask = 19
 motion_mode = 1
 wall_min_slide_angle = 0.0
 safe_margin = 0.1
@@ -23,4 +26,12 @@ position = Vector2(0, -1)
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 rect = Rect2(-20, -20, 40, 40)
 
+[node name="OtherBallDetectionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OtherBallDetectionArea"]
+shape = SubResource("CircleShape2D_8nncr")
+
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="body_exited" from="OtherBallDetectionArea" to="." method="_on_other_ball_detection_area_body_exited"]

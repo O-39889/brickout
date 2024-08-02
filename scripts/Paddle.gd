@@ -39,8 +39,8 @@ const STICKY_TIME: float = 15.0;
 const STICKY_TIME_MAX: float = 30.000000000000004;
 const FROZEN_TIME : float = 7.0;
 const PADDLE_HEIGHT : float = 40;
-const BALL_RELEASE_COOLDOWN_MAX : float = 0.2;
-const BALL_AUTO_RELEASE_INTERVAL : float = 0.6;
+const BALL_RELEASE_COOLDOWN_MAX : float = 0.15;
+const BALL_AUTO_RELEASE_INTERVAL : float = 0.45;
 
 
 var level : Node2D;
@@ -101,11 +101,11 @@ func _ready():
 
 
 func add_bawl(b: Ball, persistent: bool):
+	b.stuck = true;
 	if b.get_parent() == null:
 		add_child(b);
 	else:
 		b.reparent(self);
-	b.stuck = true;
 	b.position.y = -collision_shape.shape.size.y / 2 - b.BALL_RADIUS;
 	balls.append(b);
 	if persistent:
