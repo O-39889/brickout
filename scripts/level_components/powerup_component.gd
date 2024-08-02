@@ -128,9 +128,9 @@ func recalculate_weights(original_weights: Dictionary) -> Dictionary:
 	).call();
 	new_weights[what] -= 1 / (weight_sum * weight_sum); # idk why lmao
 	
-	for k in new_weights:
-		print("'", k, "': ", str(new_weights[k]));
-	print();
+	#for k in new_weights:
+		#print("'", k, "': ", str(new_weights[k]));
+	#print();
 	
 	return new_weights;
 
