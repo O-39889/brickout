@@ -165,7 +165,7 @@ func _input(event):
 		powerup_component._request_powerup('triple_ball',
 			paddle.position - Vector2(0, 69));
 	if event.is_action_pressed('debug_3'):
-		powerup_component._request_powerup('add_ball',
+		powerup_component._request_powerup('acid_ball',
 			paddle.position - Vector2(0, 69));
 	if event.is_action_pressed('debug_4'):
 		Engine.time_scale = 1.0 if is_equal_approx(Engine.time_scale, 0.02) else 0.02;

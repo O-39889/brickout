@@ -2,6 +2,7 @@ class_name Brick extends StaticBody2D
 
 
 @export var initial_durability : int = 1;
+@export var points : int = 0;
 
 
 @onready var durability : int = initial_durability;
@@ -20,3 +21,11 @@ func _ready():
 
 func hit(ball: Ball, damage: int):
 	EventBus.brick_hit.emit(self, ball);
+
+
+func destroy(ball: Ball):
+	EventBus.brick_destroyed.emit(self, ball);
+
+
+func get_points() -> int:
+	return points;

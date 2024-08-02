@@ -30,5 +30,9 @@ func _ready():
 	EventBus.life_lost.connect(_on_life_lost);
 
 
+func _physics_process(delta):
+	get_window().title = str(score);
+
+
 func _on_life_lost():
 	lives -= 1;

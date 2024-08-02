@@ -8,9 +8,12 @@ func _ready():
 
 
 func _on_brick_destroyed(brick: Brick, ball: Ball):
+	if ball.state == Ball.BallState.Acid and brick is RegularBrick:
+		# reduce score from regular bricks destroyed by acid bawls
+		GameProgression.score += maxi(snappedi(brick.get_points() * 0.666667, 100), 100);
+	else:
+		GameProgression.score += brick.get_points();
 	if brick.is_in_group(&'destructible_bricks'):
-		GameProgression.score += brick.initial_durability * 100;
-		var tree := brick.get_tree();
 		await get_tree().physics_frame;
 		if get_tree().get_nodes_in_group(&'destructible_bricks').is_empty():
 			print('Win!');
