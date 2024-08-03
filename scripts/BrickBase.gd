@@ -15,8 +15,9 @@ class_name Brick extends StaticBody2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	find_child("Sprite2D").texture.size.x = width;
-	find_child("Sprite2D").texture.size.y = height;
+	#find_child("Sprite2D").texture.size.x = width;
+	#find_child("Sprite2D").texture.size.y = height;
+	pass
 
 
 func hit(ball: Ball, damage: int):

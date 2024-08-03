@@ -1,3 +1,4 @@
+@tool
 class_name ReinforcedBrick extends RegularBrick;
 
 @export_flags('Top', 'Right', 'Bottom', 'Left') var protected_sides;
