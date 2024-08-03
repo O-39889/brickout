@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://d336i5dsjdf86"]
+
+[ext_resource type="PackedScene" uid="uid://blofikyc7x7vn" path="res://scenes/RegularBrick.tscn" id="1_04o0l"]
+[ext_resource type="Script" path="res://scripts/gem_brick.gd" id="2_ix6pc"]
+
+[node name="GemBrick" instance=ExtResource("1_04o0l")]
+script = ExtResource("2_ix6pc")
+
+[node name="Sprite2D" parent="." index="1"]
+modulate = Color(1, 1, 1, 0.992565)

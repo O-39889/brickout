@@ -136,6 +136,7 @@ func recalculate_weights(original_weights: Dictionary) -> Dictionary:
 
 
 func choose_weighted(weights: Dictionary) -> StringName:
+	print(weights);
 	var pool_size : float = weights.values().reduce(
 		func(accum: float, weight: float): return accum + weight, 0.0);
 	var choice : float = randf() * pool_size;
@@ -151,21 +152,46 @@ func choose_weighted(weights: Dictionary) -> StringName:
 	# unless there's actually something weird like one of weights being inf lmao
 
 
+func generate_powerup(pos: Vector2, try_good: bool = false):
+	var powerup_node : PowerupNode = POWERUP_PACKED.instantiate();
+	powerup_node.global_position = pos;
+	var weights : Dictionary = recalculate_weights(powerup_weights);
+	var new_id : StringName;
+	# try_good is true, for example, for gem bricks (the ones that always
+	# contain a power-up)
+	# in this case, it will try to generate a good power-up
+	# first, it will make one attempt
+	# if the generated power-up isn't a good one, then it will make
+	# another attempt with all non-good power-up weight reduced
+	if try_good:
+		# so, attempt № 1
+		new_id = choose_weighted(weights);
+		# if it fails (not a good powerup)
+		if not Powerup.POWERUP_POOL[&'good'].has(new_id):
+			# iterate over weights, reducing the weights of all
+			# non good powerup
+			for id in weights:
+				if not Powerup.POWERUP_POOL[&'good'].has(id):
+					weights[id] /= 2.0;
+			# and then try again
+			new_id = choose_weighted(weights);
+	else:
+		new_id = choose_weighted(weights);
+	var new_type : StringName;
+	for type in Powerup.POWERUP_POOL.keys():
+		if new_id in Powerup.POWERUP_POOL[type]:
+			new_type = type;
+			break;
+	var new_powerup : Powerup = Powerup.new(
+		new_id, new_type);
+	powerup_node.powerup = new_powerup;
+	add_child(powerup_node);
+
+
 func _on_brick_destroyed(brick: Brick, ball: Ball):
 	if brick is RegularBrick:
-		if randf() < level.powerup_chance:
-			var powerup_node : PowerupNode = POWERUP_PACKED.instantiate();
-			powerup_node.global_position = brick.global_position;
-			var new_id : StringName = choose_weighted(recalculate_weights(powerup_weights));
-			var new_type : StringName;
-			for type in Powerup.POWERUP_POOL.keys():
-				if new_id in Powerup.POWERUP_POOL[type]:
-					new_type = type;
-					break;
-			var new_powerup : Powerup = Powerup.new(
-				new_id, new_type);
-			powerup_node.powerup = new_powerup;
-			add_child(powerup_node);
+		if randf() < level.powerup_chance or brick is GemBrick:
+			generate_powerup(brick.global_position, brick is GemBrick);
 
 
 func _on_powerup_collected(powerup: Powerup):
