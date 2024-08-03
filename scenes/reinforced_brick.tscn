@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cv05chgoxqc55"]
+
+[ext_resource type="PackedScene" uid="uid://blofikyc7x7vn" path="res://scenes/RegularBrick.tscn" id="1_b0aau"]
+[ext_resource type="Script" path="res://scripts/reinforced_brick.gd" id="2_apbqr"]
+
+[node name="ReinforcedBrick" instance=ExtResource("1_b0aau")]
+script = ExtResource("2_apbqr")
+protected_sides = 0

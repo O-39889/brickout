@@ -160,6 +160,7 @@ func handle_cloned(clones: Array[Ball]):
 # that started to look worse somehow
 func handle_collision(collision: KinematicCollision2D):
 	var collider := collision.get_collider();
+	queue_redraw();
 	if collider is Ball:
 		#assert(false, 'Also there was supposed to be a jumpscare in here');
 		# and here we would somehow alter another guy's velocity
@@ -178,7 +179,11 @@ func handle_collision(collision: KinematicCollision2D):
 		match state:
 			BallState.Normal:
 				if collider.has_method('hit'):
-					collider.hit(self, 1);
+					if collider is ReinforcedBrick:
+						if collider.is_valid_hit(collision.get_normal()):
+							collider.hit(self, 1);
+					else:
+						collider.hit(self, 1);
 				velocity = velocity.bounce(collision.get_normal());
 			BallState.Fire:
 				if collider.has_method('hit'):
@@ -275,21 +280,22 @@ func _physics_process(delta):
 
 func _draw():
 	var string;
-	if get_parent() is Paddle:
-		string = 'PDL';
-	elif get_parent().name == 'BallComponent':
-		string = 'BALL';
-	else:
-		string = 'LVL';
+	#if get_parent() is Paddle:
+		#string = 'PDL';
+	#elif get_parent().name == 'BallComponent':
+		#string = 'BALL';
+	#else:
+		#string = 'LVL';
 	string = '';
-	if stuck:
-		if get_parent() is Paddle:
-			var pdl := get_parent() as Paddle;
-			if self in pdl.persistent_balls:
-				string = 'P';
-			else:
-				string = 'E';
-	string = str(int(get_collision_mask_value(3)));
+	#if stuck:
+		#if get_parent() is Paddle:
+			#var pdl := get_parent() as Paddle;
+			#if self in pdl.persistent_balls:
+				#string = 'P';
+			#else:
+				#string = 'E';
+	#string = str(int(get_collision_mask_value(3)));
+	#string = String.num(rad_to_deg(angle_difference(drawino, Vector2.UP.angle())), 0);
 	draw_string(ThemeDB.fallback_font, Vector2.ZERO, string,HORIZONTAL_ALIGNMENT_CENTER,
 	-1, 32)
 
