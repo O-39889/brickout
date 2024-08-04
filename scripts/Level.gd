@@ -43,6 +43,7 @@ func _ready():
 		create_paddle();
 	EventBus.ball_lost.connect(_on_ball_lost);
 	EventBus.barrier_hit.connect(_on_barrier_hit);
+	$Walls/WallRight.position.x = get_viewport_rect().size.x;
 
 
 func _enter_tree():
