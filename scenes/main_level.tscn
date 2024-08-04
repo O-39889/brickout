@@ -115,12 +115,12 @@ color = 1
 position = Vector2(860, 325)
 color = 1
 
-[node name="Brick29" parent="BrickComponent" index="24" instance=ExtResource("4_xeb2x")]
-position = Vector2(760, 325)
+[node name="Brick30" parent="BrickComponent" index="24" instance=ExtResource("4_xeb2x")]
+position = Vector2(660, 325)
 color = 1
 
-[node name="Brick30" parent="BrickComponent" index="25" instance=ExtResource("4_xeb2x")]
-position = Vector2(660, 325)
+[node name="Brick47" parent="BrickComponent" index="25" instance=ExtResource("4_xeb2x")]
+position = Vector2(760, 325)
 color = 1
 
 [node name="Brick31" parent="BrickComponent" index="26" instance=ExtResource("4_xeb2x")]
@@ -143,161 +143,153 @@ color = 1
 position = Vector2(410, 275)
 color = 2
 
-[node name="Brick24" parent="BrickComponent" index="31" instance=ExtResource("4_xeb2x")]
-position = Vector2(50, 25)
-color = 5
-
-[node name="Brick64" parent="BrickComponent" index="32" instance=ExtResource("4_xeb2x")]
-position = Vector2(160, 75)
-color = 5
-
-[node name="Brick63" parent="BrickComponent" index="33" instance=ExtResource("4_xeb2x")]
+[node name="Brick63" parent="BrickComponent" index="31" instance=ExtResource("4_xeb2x")]
 position = Vector2(410, 125)
 color = 5
 
-[node name="Brick61" parent="BrickComponent" index="34" instance=ExtResource("4_xeb2x")]
+[node name="Brick61" parent="BrickComponent" index="32" instance=ExtResource("4_xeb2x")]
 position = Vector2(310, 125)
 is_shimmering = true
 color = 5
 
-[node name="Brick62" parent="BrickComponent" index="35" instance=ExtResource("4_xeb2x")]
+[node name="Brick62" parent="BrickComponent" index="33" instance=ExtResource("4_xeb2x")]
 position = Vector2(1310, 125)
 is_shimmering = true
 color = 5
 
-[node name="Brick25" parent="BrickComponent" index="36" instance=ExtResource("4_xeb2x")]
+[node name="Brick25" parent="BrickComponent" index="34" instance=ExtResource("4_xeb2x")]
 position = Vector2(1210, 125)
 color = 5
 
-[node name="Brick35" parent="BrickComponent" index="37" instance=ExtResource("4_xeb2x")]
+[node name="Brick35" parent="BrickComponent" index="35" instance=ExtResource("4_xeb2x")]
 position = Vector2(810, 175)
 color = 4
 
-[node name="Brick36" parent="BrickComponent" index="38" instance=ExtResource("4_xeb2x")]
+[node name="Brick36" parent="BrickComponent" index="36" instance=ExtResource("4_xeb2x")]
 position = Vector2(910, 175)
 color = 4
 
-[node name="Brick37" parent="BrickComponent" index="39" instance=ExtResource("4_xeb2x")]
+[node name="Brick37" parent="BrickComponent" index="37" instance=ExtResource("4_xeb2x")]
 position = Vector2(710, 175)
 color = 4
 
-[node name="Brick38" parent="BrickComponent" index="40" instance=ExtResource("4_xeb2x")]
+[node name="Brick38" parent="BrickComponent" index="38" instance=ExtResource("4_xeb2x")]
 position = Vector2(610, 175)
 color = 4
 
-[node name="Brick39" parent="BrickComponent" index="41" instance=ExtResource("4_xeb2x")]
+[node name="Brick39" parent="BrickComponent" index="39" instance=ExtResource("4_xeb2x")]
 position = Vector2(1010, 175)
 color = 4
 
-[node name="Brick40" parent="BrickComponent" index="42" instance=ExtResource("4_xeb2x")]
+[node name="Brick40" parent="BrickComponent" index="40" instance=ExtResource("4_xeb2x")]
 position = Vector2(1110, 175)
 color = 4
 
-[node name="Brick41" parent="BrickComponent" index="43" instance=ExtResource("4_xeb2x")]
+[node name="Brick41" parent="BrickComponent" index="41" instance=ExtResource("4_xeb2x")]
 position = Vector2(510, 175)
 color = 4
 
-[node name="Brick42" parent="BrickComponent" index="44" instance=ExtResource("4_xeb2x")]
+[node name="Brick42" parent="BrickComponent" index="42" instance=ExtResource("4_xeb2x")]
 position = Vector2(410, 175)
 color = 4
 
-[node name="Brick43" parent="BrickComponent" index="45" instance=ExtResource("4_xeb2x")]
+[node name="Brick43" parent="BrickComponent" index="43" instance=ExtResource("4_xeb2x")]
 position = Vector2(1210, 175)
 color = 4
 
-[node name="Brick26" parent="BrickComponent" index="46" instance=ExtResource("4_xeb2x")]
+[node name="Brick26" parent="BrickComponent" index="44" instance=ExtResource("4_xeb2x")]
 position = Vector2(1210, 275)
 color = 2
 
-[node name="Brick44" parent="BrickComponent" index="47" instance=ExtResource("4_xeb2x")]
+[node name="Brick44" parent="BrickComponent" index="45" instance=ExtResource("4_xeb2x")]
 position = Vector2(510, 375)
 
-[node name="Brick45" parent="BrickComponent" index="48" instance=ExtResource("4_xeb2x")]
+[node name="Brick45" parent="BrickComponent" index="46" instance=ExtResource("4_xeb2x")]
 position = Vector2(610, 375)
 
-[node name="Brick46" parent="BrickComponent" index="49" instance=ExtResource("4_xeb2x")]
+[node name="Brick46" parent="BrickComponent" index="47" instance=ExtResource("4_xeb2x")]
 position = Vector2(710, 375)
 
-[node name="Brick47" parent="BrickComponent" index="50" instance=ExtResource("4_xeb2x")]
+[node name="Brick64" parent="BrickComponent" index="48" instance=ExtResource("4_xeb2x")]
 position = Vector2(810, 375)
 
-[node name="Brick48" parent="BrickComponent" index="51" instance=ExtResource("4_xeb2x")]
+[node name="Brick48" parent="BrickComponent" index="49" instance=ExtResource("4_xeb2x")]
 position = Vector2(910, 375)
 
-[node name="Brick49" parent="BrickComponent" index="52" instance=ExtResource("4_xeb2x")]
+[node name="Brick49" parent="BrickComponent" index="50" instance=ExtResource("4_xeb2x")]
 position = Vector2(1010, 375)
 
-[node name="Brick50" parent="BrickComponent" index="53" instance=ExtResource("4_xeb2x")]
+[node name="Brick50" parent="BrickComponent" index="51" instance=ExtResource("4_xeb2x")]
 position = Vector2(1110, 375)
 
-[node name="Brick51" parent="BrickComponent" index="54" instance=ExtResource("4_xeb2x")]
+[node name="Brick51" parent="BrickComponent" index="52" instance=ExtResource("4_xeb2x")]
 position = Vector2(410, 375)
 
-[node name="Brick55" parent="BrickComponent" index="55" instance=ExtResource("4_xeb2x")]
+[node name="Brick55" parent="BrickComponent" index="53" instance=ExtResource("4_xeb2x")]
 position = Vector2(360, 225)
 is_shimmering = true
 color = 3
 protected_sides = 14
 
-[node name="Brick57" parent="BrickComponent" index="56" instance=ExtResource("4_xeb2x")]
+[node name="Brick57" parent="BrickComponent" index="54" instance=ExtResource("4_xeb2x")]
 position = Vector2(360, 325)
 color = 1
 
-[node name="Brick58" parent="BrickComponent" index="57" instance=ExtResource("4_xeb2x")]
+[node name="Brick58" parent="BrickComponent" index="55" instance=ExtResource("4_xeb2x")]
 position = Vector2(310, 275)
 color = 2
 
-[node name="Brick60" parent="BrickComponent" index="58" instance=ExtResource("4_xeb2x")]
+[node name="Brick60" parent="BrickComponent" index="56" instance=ExtResource("4_xeb2x")]
 position = Vector2(310, 375)
 
-[node name="Brick52" parent="BrickComponent" index="59" instance=ExtResource("4_xeb2x")]
+[node name="Brick52" parent="BrickComponent" index="57" instance=ExtResource("4_xeb2x")]
 position = Vector2(1210, 375)
 
-[node name="Brick53" parent="BrickComponent" index="60" instance=ExtResource("4_xeb2x")]
+[node name="Brick53" parent="BrickComponent" index="58" instance=ExtResource("4_xeb2x")]
 position = Vector2(1260, 225)
 is_shimmering = true
 color = 3
 protected_sides = 14
 
-[node name="Brick54" parent="BrickComponent" index="61" instance=ExtResource("4_xeb2x")]
+[node name="Brick54" parent="BrickComponent" index="59" instance=ExtResource("4_xeb2x")]
 position = Vector2(1310, 275)
 color = 2
 
-[node name="Brick56" parent="BrickComponent" index="62" instance=ExtResource("4_xeb2x")]
+[node name="Brick56" parent="BrickComponent" index="60" instance=ExtResource("4_xeb2x")]
 position = Vector2(1260, 325)
 color = 1
 
-[node name="Brick59" parent="BrickComponent" index="63" instance=ExtResource("4_xeb2x")]
+[node name="Brick59" parent="BrickComponent" index="61" instance=ExtResource("4_xeb2x")]
 position = Vector2(1310, 375)
 
-[node name="SuperUnbreakableBrick" parent="BrickComponent" index="64" instance=ExtResource("6_xop2c")]
+[node name="SuperUnbreakableBrick" parent="BrickComponent" index="62" instance=ExtResource("6_xop2c")]
 position = Vector2(260, 325)
 
-[node name="SuperUnbreakableBrick2" parent="BrickComponent" index="65" instance=ExtResource("6_xop2c")]
+[node name="SuperUnbreakableBrick2" parent="BrickComponent" index="63" instance=ExtResource("6_xop2c")]
 position = Vector2(1410, 125)
 
-[node name="SuperUnbreakableBrick3" parent="BrickComponent" index="66" instance=ExtResource("6_xop2c")]
+[node name="SuperUnbreakableBrick3" parent="BrickComponent" index="64" instance=ExtResource("6_xop2c")]
 position = Vector2(210, 275)
 
-[node name="SuperUnbreakableBrick4" parent="BrickComponent" index="67" instance=ExtResource("6_xop2c")]
+[node name="SuperUnbreakableBrick4" parent="BrickComponent" index="65" instance=ExtResource("6_xop2c")]
 position = Vector2(260, 225)
 
-[node name="SuperUnbreakableBrick5" parent="BrickComponent" index="68" instance=ExtResource("6_xop2c")]
+[node name="SuperUnbreakableBrick5" parent="BrickComponent" index="66" instance=ExtResource("6_xop2c")]
 position = Vector2(310, 175)
 
-[node name="SuperUnbreakableBrick8" parent="BrickComponent" index="69" instance=ExtResource("6_xop2c")]
+[node name="SuperUnbreakableBrick8" parent="BrickComponent" index="67" instance=ExtResource("6_xop2c")]
 position = Vector2(1310, 175)
 
-[node name="SuperUnbreakableBrick9" parent="BrickComponent" index="70" instance=ExtResource("6_xop2c")]
+[node name="SuperUnbreakableBrick9" parent="BrickComponent" index="68" instance=ExtResource("6_xop2c")]
 position = Vector2(1360, 225)
 
-[node name="SuperUnbreakableBrick10" parent="BrickComponent" index="71" instance=ExtResource("6_xop2c")]
+[node name="SuperUnbreakableBrick10" parent="BrickComponent" index="69" instance=ExtResource("6_xop2c")]
 position = Vector2(1410, 275)
 
-[node name="SuperUnbreakableBrick11" parent="BrickComponent" index="72" instance=ExtResource("6_xop2c")]
+[node name="SuperUnbreakableBrick11" parent="BrickComponent" index="70" instance=ExtResource("6_xop2c")]
 position = Vector2(1360, 325)
 
-[node name="SuperUnbreakableBrick12" parent="BrickComponent" index="73" instance=ExtResource("6_xop2c")]
+[node name="SuperUnbreakableBrick12" parent="BrickComponent" index="71" instance=ExtResource("6_xop2c")]
 position = Vector2(210, 125)
 
 [node name="PowerupComponent" parent="." index="2" instance=ExtResource("4_5blil")]

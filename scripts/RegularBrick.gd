@@ -56,6 +56,8 @@ enum Direction {
 
 @onready var initial_durability : int = get_durability(color);
 @onready var durability : int = initial_durability;
+@onready var brick_sprite : Sprite2D = $Sprite2D;
+@onready var crack_sprite : Sprite2D = $CrackSprite;
 @onready var is_reinforced : bool:
 	get:
 		return protected_sides != 0 and protected_sides != null;
@@ -64,8 +66,12 @@ enum Direction {
 		is_reinforced = protected_sides == 0 or protected_sides == null;
 
 
+
 func _ready():
 	super();
+	if initial_durability == 1 and not Engine.is_editor_hint():
+		$CrackSprite.queue_free();
+		crack_sprite = null;
 	if protected_sides == (Direction.Top | Direction.Right | Direction.Bottom | Direction.Left):
 		printerr('Warning: reinforced brick ' + str(self) + ' ' + str(self.global_position) + ' has all sides protected and won\'t be able to be broken with regular balls or projectiles.');
 		if not Engine.is_editor_hint():
@@ -86,6 +92,21 @@ func get_durability(color_idx : int) -> int:
 	if color_idx < 8:
 		return 5;
 	return 1; # fallback lmao
+
+
+func set_crack_sprite(new_durability: int, initial_durability: int):
+	if new_durability == initial_durability:
+		# not broken yet, just in case I accidentally call it somewhere else
+		return;
+	if crack_sprite:
+		# just why lmao
+		var idx : int = [
+			[3],		# 2		1
+			[1, 3],		# 3		2 1
+			[1, 2, 3],	# 4		3 2 1
+			[0, 1, 2, 3]# 5		4 3 2 1
+		][initial_durability - 2][initial_durability - new_durability - 1];
+		crack_sprite.region_rect.position.x = width * idx;
 
 
 # can't handle collisions using regular hit() method because there's just
@@ -146,6 +167,9 @@ func hit(ball: Ball, damage: int):
 	else:
 		EventBus.brick_hit.emit(self, ball);
 		if damage != 0:
+			if crack_sprite:
+				crack_sprite.visible = true;
+				set_crack_sprite(durability, initial_durability);
 			queue_redraw();
 
 

@@ -14,13 +14,14 @@ class_name Brick extends StaticBody2D;
 
 
 func _ready():
-	$Sprite2D.scale = Vector2(0, 0);
-	get_tree().create_timer((global_position.x - width / 2
-	+ global_position.y * (width / height) - height / 2) / 2220.2222)\
-	.timeout.connect(func():
-		var tween := create_tween();
-		tween.tween_property($Sprite2D, 'scale', Vector2(1, 1), 0.2);
-		);
+	if not Engine.is_editor_hint():
+		$Sprite2D.scale = Vector2(0, 0);
+		get_tree().create_timer((global_position.x - width / 2
+		+ global_position.y * (width / height) - height / 2) / 2220.2222)\
+		.timeout.connect(func():
+			var tween := create_tween();
+			tween.tween_property($Sprite2D, 'scale', Vector2(1, 1), 0.2);
+			);
 	
 
 

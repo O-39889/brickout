@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://blofikyc7x7vn"]
+[gd_scene load_steps=5 format=3 uid="uid://blofikyc7x7vn"]
 
 [ext_resource type="PackedScene" uid="uid://5p2y5riyrwvs" path="res://scenes/BrickBase.tscn" id="1_q32mh"]
 [ext_resource type="Script" path="res://scripts/RegularBrick.gd" id="2_oy74a"]
 [ext_resource type="Texture2D" uid="uid://hoh4st5a63fk" path="res://assets/bricks-placeholder.png" id="3_soec6"]
+[ext_resource type="Texture2D" uid="uid://x04nv5d3f8ll" path="res://assets/brick-cracks-placeholder.png" id="4_kqa0t"]
 
 [node name="Brick" groups=["destructible_bricks"] instance=ExtResource("1_q32mh")]
 script = ExtResource("2_oy74a")
@@ -16,5 +17,11 @@ visible = false
 [node name="Sprite2D" parent="." index="1"]
 z_index = -1
 texture = ExtResource("3_soec6")
+region_enabled = true
+region_rect = Rect2(0, 0, 100, 50)
+
+[node name="CrackSprite" type="Sprite2D" parent="." index="2"]
+visible = false
+texture = ExtResource("4_kqa0t")
 region_enabled = true
 region_rect = Rect2(0, 0, 100, 50)
