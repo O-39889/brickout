@@ -6,7 +6,12 @@
 
 [node name="Brick" groups=["destructible_bricks"] instance=ExtResource("1_q32mh")]
 script = ExtResource("2_oy74a")
-color = null
+is_shimmering = false
+color = 0
+protected_sides = 0
+
+[node name="CollisionShape2D" parent="." index="0"]
+visible = false
 
 [node name="Sprite2D" parent="." index="1"]
 z_index = -1

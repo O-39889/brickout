@@ -11,7 +11,7 @@ func _on_brick_destroyed(brick: Brick, ball: Ball):
 	# I intended for reinforced bricks to still give full points when broken with acid balls
 	if (ball.state == Ball.BallState.Acid
 		and brick is RegularBrick
-		and not brick is ReinforcedBrick):
+		and not brick.is_reinforced): # le short circuit evaluation, baby
 		# reduce score from regular bricks destroyed by acid bawls
 		GameProgression.score += maxi(snappedi(brick.get_points() * 0.666667, 100), 100);
 	else:

@@ -136,7 +136,6 @@ func recalculate_weights(original_weights: Dictionary) -> Dictionary:
 
 
 func choose_weighted(weights: Dictionary) -> StringName:
-	print(weights);
 	var pool_size : float = weights.values().reduce(
 		func(accum: float, weight: float): return accum + weight, 0.0);
 	var choice : float = randf() * pool_size;
@@ -190,8 +189,12 @@ func generate_powerup(pos: Vector2, try_good: bool = false):
 
 func _on_brick_destroyed(brick: Brick, ball: Ball):
 	if brick is RegularBrick:
-		if randf() < level.powerup_chance or brick is ShimmeringBrick:
-			generate_powerup(brick.global_position, brick is ShimmeringBrick);
+		if (brick.is_shimmering
+		# lmao the multiplier would be 1 at durability of 1 and then slowly
+		# decrease very very slightly with increasing durability, thus
+		# increasing the chance for a powerup to appear
+		or randf() * (pow(1.015625, -brick.initial_durability + 1)) < level.powerup_chance):
+			generate_powerup(brick.global_position, brick.is_shimmering);
 
 
 func _on_powerup_collected(powerup: Powerup):

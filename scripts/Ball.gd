@@ -179,9 +179,11 @@ func handle_collision(collision: KinematicCollision2D):
 		match state:
 			BallState.Normal:
 				if collider.has_method('hit'):
-					if collider is ReinforcedBrick:
-						if collider.is_valid_hit(collision.get_normal()):
-							collider.hit(self, 1);
+					if collider is RegularBrick:
+						# lmao bruh
+						collider.hit(self,
+							1 if collider.is_valid_hit(collision.get_normal())
+							else 0);
 					else:
 						collider.hit(self, 1);
 				velocity = velocity.bounce(collision.get_normal());
@@ -191,7 +193,7 @@ func handle_collision(collision: KinematicCollision2D):
 						explode_stuff();
 				velocity = velocity.bounce(collision.get_normal());
 			BallState.Acid:
-				if not (collider is RegularBrick):
+				if not (collider is RegularBrick or collider is UnbreakableBrick):
 					velocity = velocity.bounce(collision.get_normal());
 				if collider.has_method('hit'):
 					collider.hit(self, 1997);

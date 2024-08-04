@@ -162,7 +162,7 @@ func _input(event):
 		powerup_component._request_powerup('double_balls',
 			paddle.position - Vector2(0, 69));
 	if event.is_action_pressed("debug_2"):
-		powerup_component._request_powerup('triple_ball',
+		powerup_component._request_powerup('fire_ball',
 			paddle.position - Vector2(0, 69));
 	if event.is_action_pressed('debug_3'):
 		powerup_component._request_powerup('acid_ball',
