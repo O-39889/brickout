@@ -190,8 +190,8 @@ func generate_powerup(pos: Vector2, try_good: bool = false):
 
 func _on_brick_destroyed(brick: Brick, ball: Ball):
 	if brick is RegularBrick:
-		if randf() < level.powerup_chance or brick is GemBrick:
-			generate_powerup(brick.global_position, brick is GemBrick);
+		if randf() < level.powerup_chance or brick is ShimmeringBrick:
+			generate_powerup(brick.global_position, brick is ShimmeringBrick);
 
 
 func _on_powerup_collected(powerup: Powerup):

@@ -1,5 +1,5 @@
 @tool
-class_name GemBrick extends RegularBrick;
+class_name ShimmeringBrick extends RegularBrick;
 
 
 func _process(delta):

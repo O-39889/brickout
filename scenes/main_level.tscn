@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://blefa03mpdv8b" path="res://scenes/IndestructibleBrick.tscn" id="5_s0seo"]
 [ext_resource type="PackedScene" uid="uid://c0pvsntagt4y6" path="res://scenes/level_components/ball_component.tscn" id="6_4tf2r"]
 [ext_resource type="Script" path="res://scripts/level_gui.gd" id="6_ip4hg"]
-[ext_resource type="PackedScene" uid="uid://d336i5dsjdf86" path="res://scenes/gem_brick.tscn" id="6_m2bpl"]
+[ext_resource type="PackedScene" uid="uid://d336i5dsjdf86" path="res://scenes/shimmering_brick.tscn" id="6_m2bpl"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_0fqg0"]
 font_size = 42
