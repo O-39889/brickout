@@ -159,13 +159,13 @@ func _input(event):
 	if event.is_action_pressed("debug_restart"):
 		get_tree().reload_current_scene();
 	if event.is_action_pressed("debug_1"):
-		powerup_component._request_powerup('double_balls',
+		powerup_component._request_powerup('add_ball',
 			paddle.position - Vector2(0, 69));
 	if event.is_action_pressed("debug_2"):
-		powerup_component._request_powerup('fire_ball',
+		powerup_component._request_powerup('sticky_paddle',
 			paddle.position - Vector2(0, 69));
 	if event.is_action_pressed('debug_3'):
-		powerup_component._request_powerup('acid_ball',
+		powerup_component._request_powerup('triple_ball',
 			paddle.position - Vector2(0, 69));
 	if event.is_action_pressed('debug_4'):
 		Engine.time_scale = 1.0 if is_equal_approx(Engine.time_scale, 0.02) else 0.02;
