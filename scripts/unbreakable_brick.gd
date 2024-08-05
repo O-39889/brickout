@@ -2,9 +2,9 @@
 class_name UnbreakableBrick extends Brick;
 
 
-func hit(ball: Ball, damage: int):
+func hit(by: Node2D, damage: int):
 	if damage > 1:
-		EventBus.brick_destroyed.emit(self, ball);
+		EventBus.brick_destroyed.emit(self, by);
 		queue_free();
 	else:
-		EventBus.brick_hit.emit(self, ball);
+		EventBus.brick_hit.emit(self, by);

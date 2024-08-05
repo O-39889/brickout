@@ -13,7 +13,7 @@ func _ready():
 	EventBus.brick_destroyed.connect(_on_brick_destroyed);
 
 
-func _on_brick_destroyed(brick: Brick, ball: Ball):
+func _on_brick_destroyed(brick: Brick, by: Node2D):
 	if brick is RegularBrick:
 		if randf() < 0.08 and (get_tree()
 		.get_nodes_in_group(&'balls').size() < level.BALL_LIMIT
@@ -24,4 +24,4 @@ func _on_brick_destroyed(brick: Brick, ball: Ball):
 			level.add_child(new_ball);
 	await get_tree().physics_frame;
 	if get_tree().get_nodes_in_group(&'destructible_bricks').is_empty():
-		pass # do something idk
+		pass # do something idk lol

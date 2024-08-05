@@ -187,7 +187,7 @@ func generate_powerup(pos: Vector2, try_good: bool = false):
 	add_child(powerup_node);
 
 
-func _on_brick_destroyed(brick: Brick, ball: Ball):
+func _on_brick_destroyed(brick: Brick, by: Node2D):
 	if brick is RegularBrick:
 		if (brick.is_shimmering
 		# lmao the multiplier would be 1 at durability of 1 and then slowly

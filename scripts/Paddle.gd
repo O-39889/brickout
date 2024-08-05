@@ -218,6 +218,11 @@ func _input(event: InputEvent):
 					and ball_manual_timer.is_stopped()):
 						release_ball(balls[0]);
 						ball_manual_timer.start(BALL_RELEASE_COOLDOWN_MAX);
+					elif event.button_index == MOUSE_BUTTON_RIGHT\
+					and event.pressed:
+						var bullet = load('res://scenes/bullet.tscn').instantiate();
+						bullet.position = global_position - Vector2(0, 40);
+						level.add_child(bullet);
 		PaddleState.Frozen:
 			## TODO: IDEA!!!
 			# MAKE IT SO THAT WHEN YOU FLICK THE MOUSE CURSOR REALLY FAST IT WILL

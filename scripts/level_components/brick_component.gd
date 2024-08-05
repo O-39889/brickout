@@ -7,9 +7,9 @@ func _ready():
 	EventBus.brick_destroyed.connect(_on_brick_destroyed);
 
 
-func _on_brick_destroyed(brick: Brick, ball: Ball):
+func _on_brick_destroyed(brick: Brick, by: Node2D):
 	# I intended for reinforced bricks to still give full points when broken with acid balls
-	if (ball.state == Ball.BallState.Acid
+	if (by is Ball and by.state == Ball.BallState.Acid
 		and brick is RegularBrick
 		and not brick.is_reinforced): # le short circuit evaluation, baby
 		# reduce score from regular bricks destroyed by acid bawls

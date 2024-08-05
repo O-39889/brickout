@@ -2,5 +2,5 @@
 class_name SuperUnbreakableBrick extends Brick;
 
 
-func hit(ball: Ball, _damage: int):
-	EventBus.brick_hit.emit(self, ball);
+func hit(by: Node2D, _damage: int):
+	EventBus.brick_hit.emit(self, by);

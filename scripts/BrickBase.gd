@@ -25,12 +25,12 @@ func _ready():
 	
 
 
-func hit(ball: Ball, damage: int):
-	EventBus.brick_hit.emit(self, ball);
+func hit(by: Node2D, damage: int):
+	EventBus.brick_hit.emit(self, by);
 
 
-func destroy(ball: Ball):
-	EventBus.brick_destroyed.emit(self, ball);
+func destroy(by: Node2D):
+	EventBus.brick_destroyed.emit(self, by);
 
 
 func get_points() -> int:

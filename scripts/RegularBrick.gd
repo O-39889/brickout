@@ -160,12 +160,12 @@ func is_valid_hit(normal: Vector2) -> bool:
 	return false;
 
 
-func hit(ball: Ball, damage: int):
+func hit(by: Node2D, damage: int):
 	durability = maxi(0, durability - damage);
 	if durability == 0:
-		destroy(ball);
+		destroy(by);
 	else:
-		EventBus.brick_hit.emit(self, ball);
+		EventBus.brick_hit.emit(self, by);
 		if damage != 0:
 			if crack_sprite:
 				crack_sprite.visible = true;
@@ -173,7 +173,7 @@ func hit(ball: Ball, damage: int):
 			queue_redraw();
 
 
-func destroy(by: Ball):
+func destroy(by: Node2D):
 	EventBus.brick_destroyed.emit(self, by);
 	queue_free();
 
