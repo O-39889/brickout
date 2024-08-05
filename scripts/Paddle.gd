@@ -47,6 +47,10 @@ var level : Node2D;
 var balls : Array[Ball] = [];
 var persistent_balls : Array[Ball] = [];
 
+var my_velocity : float = float(((((((0.0 as float) as float) as float) as float) as float) as float) as float) as float;
+var last_tick_position : Vector2;
+var slip : bool = false;
+
 
 @onready var collision_shape : CollisionShape2D = find_child("CollisionShape2D");
 @onready var powerup_hitbox : CollisionShape2D = find_child("Area2DShape");
@@ -98,6 +102,7 @@ func _ready():
 	# it will always spawn with a ball, just for convenience
 	var b : Ball = load("res://scenes/Ball.tscn").instantiate();
 	add_bawl(b, true);
+	last_tick_position = position;
 
 
 func add_bawl(b: Ball, persistent: bool):
@@ -111,6 +116,33 @@ func add_bawl(b: Ball, persistent: bool):
 	if persistent:
 		persistent_balls.append(b);
 
+
+func _physics_process(delta):
+	if not slip:
+		my_velocity = (position.x - last_tick_position.x) / delta;
+	last_tick_position = position;
+	$DebugLbl.text = String.num(my_velocity, 0);
+	$DebugLbl.global_position.x = 810;
+	if slip:
+		if absf(my_velocity) < 2.5:
+			my_velocity = 0;
+		var accel = delta * my_velocity * my_velocity * 0.00025;
+		if accel > 300 * delta:
+			$DebugLbl.modulate = Color.RED;
+		else:
+			$DebugLbl.modulate = Color.BLUE;
+		if my_velocity < 0:
+			my_velocity += max(accel, 350 * delta);
+		elif my_velocity > 0:
+			my_velocity -= max(accel, 350 * delta);
+		var collision := move_and_collide(Vector2(my_velocity, 0) * delta);
+		if collision:
+			var collider = collision.get_collider();
+			if collider is StaticBody2D:
+				if collider.is_in_group(&'walls'):
+					my_velocity *= -1;
+
+	position.x = clamp(position.x, width / 2, get_viewport_rect().size.x - width / 2);
 
 func set_width(idx: PaddleSize):
 	width = PADDLE_SIZES[idx];
@@ -208,7 +240,7 @@ func _input(event: InputEvent):
 			# with it on the same frame (would probably need to put code
 			# for that in the handling ball collision code though)
 			if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-				if event is InputEventMouseMotion:
+				if event is InputEventMouseMotion and not slip:
 					position.x += event.relative.x * Globals.MOUSE_SENSITIVITY;
 					position.x = clamp(position.x, width / 2,
 						get_viewport_rect().size.x - width / 2);
@@ -220,9 +252,11 @@ func _input(event: InputEvent):
 						ball_manual_timer.start(BALL_RELEASE_COOLDOWN_MAX);
 					elif event.button_index == MOUSE_BUTTON_RIGHT\
 					and event.pressed:
-						var bullet = load('res://scenes/bullet.tscn').instantiate();
-						bullet.position = global_position - Vector2(0, 40);
-						level.add_child(bullet);
+						#slip = not slip;
+						#var bullet = load('res://scenes/bullet.tscn').instantiate();
+						#bullet.position = global_position - Vector2(0, 40);
+						#level.add_child(bullet);
+						pass
 		PaddleState.Frozen:
 			## TODO: IDEA!!!
 			# MAKE IT SO THAT WHEN YOU FLICK THE MOUSE CURSOR REALLY FAST IT WILL
