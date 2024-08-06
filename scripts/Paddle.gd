@@ -45,7 +45,7 @@ const BALL_AUTO_RELEASE_INTERVAL : float = BALL_RELEASE_COOLDOWN_MAX * 2;
 # the relative position of the left gun mounted on the paddle
 # (with 0 being the paddle's left edge and 1 being the paddle's right edge)
 # the relative position of the right gun would just be 1 - GUN_POS
-const GUN_POS : float = 0.15;
+const GUN_POS : float = 0.1;
 
 
 var level : Node2D;
