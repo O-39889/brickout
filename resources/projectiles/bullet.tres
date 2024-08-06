@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ProjectileAttributes" load_steps=2 format=3 uid="uid://brldhlmn1q474"]
+
+[ext_resource type="Script" path="res://scripts/classes/projectiles/projectile_attributes.gd" id="1_y1myu"]
+
+[resource]
+script = ExtResource("1_y1myu")
+amount = 10
+speed = 900.0
+acceleration = 0.0
+mass = 1.0

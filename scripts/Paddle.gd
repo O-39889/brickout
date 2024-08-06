@@ -253,9 +253,9 @@ func _input(event: InputEvent):
 					elif event.button_index == MOUSE_BUTTON_RIGHT\
 					and event.pressed:
 						#slip = not slip;
-						#var bullet = load('res://scenes/bullet.tscn').instantiate();
-						#bullet.position = global_position - Vector2(0, 40);
-						#level.add_child(bullet);
+						var bullet = load('res://scenes/bullet.tscn').instantiate();
+						bullet.position = global_position - Vector2(0, 40);
+						level.add_child(bullet);
 						pass
 		PaddleState.Frozen:
 			## TODO: IDEA!!!

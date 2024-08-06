@@ -1,14 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://cej0phc8314h3"]
+[gd_scene load_steps=5 format=3 uid="uid://cej0phc8314h3"]
 
 [ext_resource type="PackedScene" uid="uid://d1bskf75ppebd" path="res://scenes/projectile.tscn" id="1_53pid"]
 [ext_resource type="Script" path="res://scripts/bullet.gd" id="2_dxnuw"]
+[ext_resource type="Resource" uid="uid://brldhlmn1q474" path="res://resources/projectiles/bullet.tres" id="3_kn38l"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cty2o"]
 radius = 5.0
 
 [node name="Bullet" instance=ExtResource("1_53pid")]
 script = ExtResource("2_dxnuw")
-speed = 1000.0
+attributes = ExtResource("3_kn38l")
 
 [node name="CollisionShape2D" parent="." index="0"]
 shape = SubResource("CircleShape2D_cty2o")

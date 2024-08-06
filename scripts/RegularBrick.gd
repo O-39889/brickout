@@ -63,7 +63,6 @@ enum Direction {
 		return protected_sides != 0 and protected_sides != null;
 	set(value):
 		assert(is_reinforced and not is_reinforced, 'Trying to write to le read-only (hopefully) variable is_reinforced.\n(Sorry guys there\'s no other way to write read-only properties, would be hella cool if it was like in C# where you can just tell it to only have a getter and no setter would mean it cannot be set)');
-		is_reinforced = protected_sides == 0 or protected_sides == null;
 
 
 
