@@ -1,6 +1,12 @@
 class_name Projectile extends CharacterBody2D;
 
 
+enum GunType {
+	Regular,
+	Rocket
+};
+
+
 ## Determines the amount of momentum that will be given to a ball
 ## when colliding with it.
 @export var attributes : ProjectileAttributes;

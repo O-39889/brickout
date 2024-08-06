@@ -115,6 +115,12 @@ func recalculate_weights(original_weights: Dictionary) -> Dictionary:
 		if new_weights.has(&'acid_ball'):
 			new_weights[&'acid_ball'] *= 1.8;
 	
+	if level.paddle.has_gun:
+		var guns := [&'gun'];
+		for id in guns:
+			if new_weights.has(id):
+				new_weights[id] /= 3;
+	
 	if get_tree().get_nodes_in_group(&'destructible_bricks').size() <= 5:
 		new_weights[&'finish_level'] = 2.5; # idk just ballpark lol
 	
@@ -144,7 +150,7 @@ func choose_weighted(weights: Dictionary) -> StringName:
 		cum_weight += weights[id];
 		if choice < cum_weight:
 			return id;
-	print('Houston, we have a big troublem: we are all out of IDs and weights!');
+	printerr('Houston, we have a big troublem: we are all out of IDs and weights!');
 	# just because you would complain about no return value otherwise
 	return weights.keys().pick_random();
 	# wait it wouldn't???
@@ -168,7 +174,7 @@ func generate_powerup(pos: Vector2, try_good: bool = false):
 		# if it fails (not a good powerup)
 		if not Powerup.POWERUP_POOL[&'good'].has(new_id):
 			# iterate over weights, reducing the weights of all
-			# non good powerup
+			# non good powerups
 			for id in weights:
 				if not Powerup.POWERUP_POOL[&'good'].has(id):
 					weights[id] /= 2.0;
@@ -241,13 +247,17 @@ func _on_powerup_collected(powerup: Powerup):
 				#b.state = Ball.BallState.Acid;
 			## probably move to somewhere else
 			#Globals.start_or_extend_timer(level.timer_acid, level.ACID_TIME);
+		&'gun':
+			level.paddle.equip_gun(Projectile.GunType.Regular);
 		&'finish_level':
 			print('Win!');
+		
 		# NEUTRAL
 		&'ball_speed_up':
 			Ball.increase_speed();
 		&'ball_slow_down':
 			Ball.decrease_speed();
+		
 		# BAD
 		&'pop_ball':
 			var balls_arr : Array[Ball];

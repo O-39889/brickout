@@ -14,6 +14,7 @@ const POWERUP_POOL = {
 		&'add_points_100',
 		&'add_points_200',
 		&'add_points_500',
+		&'gun',
 		&'finish_level',
 	],
 	&'neutral': [
@@ -42,7 +43,7 @@ const POWERUP_LIST = {
 	},
 	&'add_ball': {
 		&'name': 'Add Ball',
-		&'description': 'Adds another ball to the play. The ball starts attached to a paddle and must be released by clicking .',
+		&'description': 'Adds another ball to play. The ball starts attached to a paddle and must be released by clicking .',
 		&'points': 150,
 	},
 	&'triple_ball': {
@@ -72,18 +73,23 @@ const POWERUP_LIST = {
 	},
 	&'add_points_100': {
 		&'name': '100 Points',
-		&'description': 'Adds 100 points to the counter. Earn 10 000 poins for an extra life!',
+		&'description': 'Adds 100 points to the counter. Earn 25 000 poins for an extra life!',
 		&'points': 100,
 	},
 	&'add_points_200': {
 		&'name': '200 Points',
-		&'description': 'Adds 200 points to the counter. Earn 10 000 poins for an extra life!',
+		&'description': 'Adds 200 points to the counter. Earn 25 000 poins for an extra life!',
 		&'points': 200,
 	},
 	&'add_points_500': {
 		&'name': '500 Points',
-		&'description': 'Adds 500 points to the counter. Earn 10 000 poins for an extra life!',
+		&'description': 'Adds 500 points to the counter. Earn 25 000 poins for an extra life!',
 		&'points': 500,
+	},
+	&'gun': {
+		&'name': 'Gun',
+		&'description': 'Mounts a gun on the paddle. The gun can shoot bullets to break the bricks, however, the ammo is limited.',
+		&'points': 250,
 	},
 	&'finish_level': {
 		&'name': 'Level Finish',

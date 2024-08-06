@@ -42,6 +42,11 @@ const PADDLE_HEIGHT : float = 40;
 const BALL_RELEASE_COOLDOWN_MAX : float = 0.15;
 const BALL_AUTO_RELEASE_INTERVAL : float = BALL_RELEASE_COOLDOWN_MAX * 2;
 
+# the relative position of the left gun mounted on the paddle
+# (with 0 being the paddle's left edge and 1 being the paddle's right edge)
+# the relative position of the right gun would just be 1 - GUN_POS
+const GUN_POS : float = 0.15;
+
 
 var level : Node2D;
 var balls : Array[Ball] = [];
@@ -87,6 +92,14 @@ var state : PaddleState = PaddleState.Normal:
 				release_ephemeral_ball();
 				ball_auto_timer.start(BALL_AUTO_RELEASE_INTERVAL);
 
+var has_gun : bool = false;
+var gun_equipped : ProjectileAttributes = null;
+var ammo_left : int = 0;
+var left_gun : Node2D = null;
+var right_gun : Node2D = null;
+# Whether to shoot out of the left or out of the right gun next
+var left_right_toggle : bool = false;
+
 var width_idx := PaddleSize.PADDLE_SIZE_NORMAL;
 var width : float = PADDLE_SIZES[width_idx];
 
@@ -121,7 +134,7 @@ func _physics_process(delta):
 	if not slip:
 		my_velocity = (position.x - last_tick_position.x) / delta;
 	last_tick_position = position;
-	$DebugLbl.text = String.num(my_velocity, 0);
+	$DebugLbl.text = String.num(ammo_left, 9);
 	$DebugLbl.global_position.x = 810;
 	if slip:
 		if absf(my_velocity) < 2.5:
@@ -144,6 +157,9 @@ func _physics_process(delta):
 
 	position.x = clamp(position.x, width / 2, get_viewport_rect().size.x - width / 2);
 
+
+#region Width
+
 func set_width(idx: PaddleSize):
 	width = PADDLE_SIZES[idx];
 	hitbox.size.x = width;
@@ -155,6 +171,57 @@ func enlarge():
 
 func shrink():
 	_change_size(false);
+
+#endregion
+
+
+func equip_gun(gun_type: Projectile.GunType):
+	reset_gun();
+	has_gun = true;
+	match gun_type:
+		Projectile.GunType.Regular:
+			gun_equipped = load("res://resources/projectiles/bullet.tres");
+			ammo_left = gun_equipped.amount;
+			left_gun = CollisionShape2D.new();
+			left_gun.disabled = true;
+			right_gun = CollisionShape2D.new();
+			right_gun.disabled = true;
+			var rect := RectangleShape2D.new();
+			rect.size = Vector2(15, 40);
+			left_gun.debug_color = Color.BISQUE;
+			right_gun.debug_color = Color.BISQUE;
+			left_gun.shape = rect;
+			right_gun.shape = rect;
+			add_child(left_gun);
+			add_child(right_gun);
+		Projectile.GunType.Rocket:
+			pass
+	set_gun_positions();
+
+
+func set_gun_positions():
+	if left_gun:
+		left_gun.position.x = -width / 2 + width * GUN_POS;
+		left_gun.position.y = -PADDLE_HEIGHT + 8;
+	if right_gun:
+		right_gun.position.x = -width / 2 + width * (1 - GUN_POS);
+		right_gun.position.y = -PADDLE_HEIGHT + 8;
+		right_gun.modulate = Color.BLACK;
+
+
+func reset_gun():
+	has_gun = false;
+	gun_equipped = null;
+	ammo_left = 0;
+	if left_gun:
+		remove_child(left_gun);
+		left_gun.queue_free();
+		left_gun = null;
+	if right_gun:
+		remove_child(right_gun);
+		right_gun.queue_free();
+		right_gun = null;
+	left_right_toggle = false;
 
 
 func release_ball(ball: Ball):
@@ -228,6 +295,7 @@ func _change_size(should_enlarge: bool):
 		# when its size changes 
 		b.position.x = remap(b.position.x, -old_width / 2, old_width / 2,
 		-width / 2, width / 2);
+	set_gun_positions();
 
 
 func _input(event: InputEvent):
@@ -251,12 +319,16 @@ func _input(event: InputEvent):
 						release_ball(balls[0]);
 						ball_manual_timer.start(BALL_RELEASE_COOLDOWN_MAX);
 					elif event.button_index == MOUSE_BUTTON_RIGHT\
-					and event.pressed:
-						#slip = not slip;
+					and event.pressed and has_gun:
 						var bullet = load('res://scenes/bullet.tscn').instantiate();
-						bullet.position = global_position - Vector2(0, 40);
+						bullet.position.x = global_position.x - width / 2\
+						+ width * (1 - GUN_POS if left_right_toggle else GUN_POS);
+						bullet.position.y = global_position.y - PADDLE_HEIGHT - 10;
+						left_right_toggle = not left_right_toggle;
 						level.add_child(bullet);
-						pass
+						ammo_left -= 1;
+						if ammo_left == 0:
+							reset_gun();
 		PaddleState.Frozen:
 			## TODO: IDEA!!!
 			# MAKE IT SO THAT WHEN YOU FLICK THE MOUSE CURSOR REALLY FAST IT WILL
