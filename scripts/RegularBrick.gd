@@ -274,34 +274,6 @@ func get_points() -> int:
 	return initial_durability * 100;
 
 
-func _process(delta):
-	#if is_shimmering:
-		#$Sprite2D.modulate.a = sin(Time.get_ticks_msec() / 42) / 2 + 0.5;
-	pass
-
-
-func _draw():
-	if Engine.is_editor_hint():
-		if is_reinforced:
-			# TODO: have this shit actually draw the armor on top of it
-				if protected_sides & Direction.Top:
-					draw_rect(Rect2(
-						-width / 2, -height / 2, width, 10
-					), Color.BLACK, true);
-				if protected_sides & Direction.Right:
-					draw_rect(Rect2(
-						width / 2 - 10, -height / 2, 10, height
-					), Color.BLACK, true);
-				if protected_sides & Direction.Bottom:
-					draw_rect(Rect2(
-						-width / 2, height / 2 - 10, width, 10
-					), Color.BLACK, true);
-				if protected_sides & Direction.Left:
-					draw_rect(Rect2(
-						-width / 2, -height / 2, 10, height
-					), Color.BLACK, true);
-
-
 func _angle_diff(normal: Vector2, dir: Direction) -> float:
 	var vec : Vector2;
 	match dir:

@@ -223,19 +223,17 @@ func handle_collision(collision: KinematicCollision2D):
 				horizontal_state = HorizontalCooldown.Inactive;
 
 
-func generate_explosion() -> Array:
-	var explosion : Explosion = explosion_packed.instantiate();
-	explosion.exclude_parent = true;
-	add_child(explosion);
-	explosion.force_shapecast_update();
-	var result = explosion.collision_result;
-	explosion.queue_free();
-	return result;
-
-
 func explode_stuff():
-	for c in generate_explosion():
-		c.collider.hit(self, 1997);
+	var explosion : Explosion = explosion_packed.instantiate() as Explosion;
+	explosion.exclude_parent = true;
+	explosion.add_exception(self);
+	explosion.global_position = self.global_position;
+	get_parent().add_child(explosion);
+	explosion.force_shapecast_update();
+	for c in explosion.collision_result:
+		# should probably also do a raycast and see if there's anything like
+		# indestructible bricks between the target and the ball before destroying them
+		c.collider.hit(explosion, 1997);
 	state = BallState.Normal;
 
 

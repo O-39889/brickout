@@ -32,3 +32,5 @@ func _ready():
 
 func _on_life_lost():
 	lives -= 1;
+	if lives == 0:
+		pass # gameover !! haha

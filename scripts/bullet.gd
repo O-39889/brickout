@@ -11,5 +11,4 @@ func handle_collision(collision: KinematicCollision2D):
 			collider.hit(self, 1);
 	elif collider is Ball:
 		collider.apply_impulse(Vector2.UP * absf(velocity.y) * mass);
-	print();
-	queue_free();
+	super(collision);

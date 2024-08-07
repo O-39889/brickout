@@ -1,5 +1,10 @@
 class_name Paddle extends StaticBody2D
-
+# TODO:
+# new feature idea for paddle:
+# when the ball collides with the paddle side, it will only detect that collision
+# if it's moving towards the paddle
+# but not when moving away from it
+# would probably be impossible to actually implement lmao
 
 # I gave up on the BS all caps names
 enum PaddleState {

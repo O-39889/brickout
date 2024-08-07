@@ -28,6 +28,7 @@ func _ready():
 
 
 func handle_collision(collision: KinematicCollision2D):
+	EventBus.projectile_collided.emit(self, collision.get_collider());
 	queue_free();
 
 

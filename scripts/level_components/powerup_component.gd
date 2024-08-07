@@ -199,7 +199,8 @@ func _on_brick_destroyed(brick: Brick, by: Node2D):
 		# lmao the multiplier would be 1 at durability of 1 and then slowly
 		# decrease very very slightly with increasing durability, thus
 		# increasing the chance for a powerup to appear
-		or randf() * (pow(1.015625, -brick.initial_durability + 1)) < level.powerup_chance):
+		or randf() * (pow(1.015625, -brick.initial_durability + 1)) <
+		level.powerup_chance * 0.9 if by is Explosion else 1.0):
 			generate_powerup(brick.global_position, brick.is_shimmering);
 
 
