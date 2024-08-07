@@ -11,6 +11,14 @@ class_name Brick extends StaticBody2D;
 
 @onready var width : float = collision_shape.shape.size.x;
 @onready var height : float = collision_shape.shape.size.y;
+@onready var to_tween := [
+	{
+		'object': $Sprite2D,
+		'property': 'scale',
+		'final_val': Vector2(1, 1),
+		'duration': 0.2
+	},
+];
 
 
 func _ready():
@@ -20,7 +28,12 @@ func _ready():
 		+ global_position.y * (width / height) - height / 2) / 2220.2222)\
 		.timeout.connect(func():
 			var tween := create_tween();
-			tween.tween_property($Sprite2D, 'scale', Vector2(1, 1), 0.2);
+			for prop in to_tween:
+				var dur = prop['duration'] if prop.has('duration') else 0.2;
+				tween.tween_property(
+					prop['object'], prop['property'],
+					prop['final_val'], dur
+				);
 			);
 	
 

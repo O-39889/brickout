@@ -1,9 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://blofikyc7x7vn"]
+[gd_scene load_steps=7 format=3 uid="uid://blofikyc7x7vn"]
 
 [ext_resource type="PackedScene" uid="uid://5p2y5riyrwvs" path="res://scenes/BrickBase.tscn" id="1_q32mh"]
 [ext_resource type="Script" path="res://scripts/RegularBrick.gd" id="2_oy74a"]
 [ext_resource type="Texture2D" uid="uid://hoh4st5a63fk" path="res://assets/bricks-placeholder.png" id="3_soec6"]
 [ext_resource type="Texture2D" uid="uid://x04nv5d3f8ll" path="res://assets/brick-cracks-placeholder.png" id="4_kqa0t"]
+[ext_resource type="Texture2D" uid="uid://lstywc00fqyo" path="res://assets/sparkle-placeholder.png" id="5_bt2ku"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_psgnd"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(50, 25, 1)
+gravity = Vector3(0, 0, 0)
+radial_accel_min = 3.0
+radial_accel_max = 15.0
+damping_max = 5.0
+scale_min = 0.33
+scale_max = 0.99
 
 [node name="Brick" groups=["destructible_bricks"] instance=ExtResource("1_q32mh")]
 script = ExtResource("2_oy74a")
@@ -15,7 +27,6 @@ protected_sides = 0
 visible = false
 
 [node name="Sprite2D" parent="." index="1"]
-z_index = -1
 texture = ExtResource("3_soec6")
 region_enabled = true
 region_rect = Rect2(0, 0, 100, 50)
@@ -25,3 +36,16 @@ visible = false
 texture = ExtResource("4_kqa0t")
 region_enabled = true
 region_rect = Rect2(0, 0, 100, 50)
+
+[node name="ArmorSprites" type="Node2D" parent="." index="3"]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." index="4"]
+visible = false
+emitting = false
+amount = 5
+process_material = SubResource("ParticleProcessMaterial_psgnd")
+texture = ExtResource("5_bt2ku")
+lifetime = 0.35
+preprocess = 1.0
+randomness = 0.1
+visibility_rect = Rect2(-50, -25, 100, 50)

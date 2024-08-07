@@ -21,7 +21,8 @@ metadata/_edit_lock_ = true
 
 [node name="Brick" parent="BrickComponent" index="0" instance=ExtResource("4_xeb2x")]
 position = Vector2(810, 125)
-color = 5
+is_shimmering = true
+color = 7
 
 [node name="Brick2" parent="BrickComponent" index="1" instance=ExtResource("4_xeb2x")]
 position = Vector2(910, 125)
@@ -81,6 +82,7 @@ color = 2
 
 [node name="Brick16" parent="BrickComponent" index="15" instance=ExtResource("4_xeb2x")]
 position = Vector2(710, 275)
+is_shimmering = true
 color = 2
 
 [node name="Brick17" parent="BrickComponent" index="16" instance=ExtResource("4_xeb2x")]
@@ -129,6 +131,7 @@ color = 1
 
 [node name="Brick32" parent="BrickComponent" index="27" instance=ExtResource("4_xeb2x")]
 position = Vector2(1060, 325)
+is_shimmering = true
 color = 1
 
 [node name="Brick33" parent="BrickComponent" index="28" instance=ExtResource("4_xeb2x")]
@@ -203,6 +206,7 @@ color = 2
 
 [node name="Brick44" parent="BrickComponent" index="45" instance=ExtResource("4_xeb2x")]
 position = Vector2(510, 375)
+is_shimmering = true
 
 [node name="Brick45" parent="BrickComponent" index="46" instance=ExtResource("4_xeb2x")]
 position = Vector2(610, 375)
@@ -215,6 +219,7 @@ position = Vector2(810, 375)
 
 [node name="Brick48" parent="BrickComponent" index="49" instance=ExtResource("4_xeb2x")]
 position = Vector2(910, 375)
+is_shimmering = true
 
 [node name="Brick49" parent="BrickComponent" index="50" instance=ExtResource("4_xeb2x")]
 position = Vector2(1010, 375)
@@ -233,6 +238,7 @@ protected_sides = 14
 
 [node name="Brick57" parent="BrickComponent" index="54" instance=ExtResource("4_xeb2x")]
 position = Vector2(360, 325)
+is_shimmering = true
 color = 1
 
 [node name="Brick58" parent="BrickComponent" index="55" instance=ExtResource("4_xeb2x")]
@@ -261,6 +267,7 @@ color = 1
 
 [node name="Brick59" parent="BrickComponent" index="61" instance=ExtResource("4_xeb2x")]
 position = Vector2(1310, 375)
+is_shimmering = true
 
 [node name="SuperUnbreakableBrick" parent="BrickComponent" index="62" instance=ExtResource("6_xop2c")]
 position = Vector2(260, 325)
