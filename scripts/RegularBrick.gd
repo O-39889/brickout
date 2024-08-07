@@ -59,9 +59,17 @@ const ARMOR_TEXTURE := preload('res://assets/brick-edges-placeholder.png');
 	set(value):
 		protected_sides = value;
 		if Engine.is_editor_hint():
-			queue_redraw();
-		else:
-			set_armor_sprites();
+			if $ArmorSprites:
+				$ArmorSprites.queue_redraw();
+		elif not Engine.is_editor_hint():
+			print(name);
+			print_tree_pretty();
+			print();
+			if $ArmorSprites:
+				if protected_sides == 0:
+					$ArmorSprites.queue_free();
+				else:
+					$ArmorSprites.queue_redraw();
 
 
 @onready var initial_durability : int = get_durability(color);
@@ -71,9 +79,6 @@ const ARMOR_TEXTURE := preload('res://assets/brick-edges-placeholder.png');
 @onready var is_reinforced : bool:
 	get:
 		return protected_sides != 0 and protected_sides != null;
-	set(value):
-		assert(is_reinforced and not is_reinforced, 'Trying to write to le read-only (hopefully) variable is_reinforced.\n(Sorry guys there\'s no other way to write read-only properties, would be hella cool if it was like in C# where you can just tell it to only have a getter and no setter would mean it cannot be set)');
-
 
 
 func _ready():
@@ -96,21 +101,27 @@ func _ready():
 			# to prevent softlocks or idk lol
 			self.remove_from_group(&'destructible_bricks');
 	update_sprites();
-	if is_reinforced:
-		if Engine.is_editor_hint():
-			queue_redraw();
-		else:
-			set_armor_sprites();
 	if $GPUParticles2D:
 		$GPUParticles2D.visible = is_shimmering;
 		$GPUParticles2D.emitting = is_shimmering;
 	if Engine.is_editor_hint():
 		$GPUParticles2D.amount = 5;
+		if is_reinforced:
+			print(name);
+			print_tree_pretty();
+			print();
+			$ArmorSprites.brick = self;
+			$ArmorSprites.queue_redraw();
 	elif not Engine.is_editor_hint():
 		if not is_shimmering:
 			$GPUParticles2D.queue_free();
 		else:
 			$GPUParticles2D.amount = 10;
+		if is_reinforced:
+			$ArmorSprites.brick = self;
+			$ArmorSprites.queue_redraw();
+		else:
+			$ArmorSprites.queue_free();	
 
 
 func get_durability(color_idx : int) -> int:
@@ -137,59 +148,7 @@ func update_sprites():
 
 
 func set_armor_sprites():
-	if is_reinforced and not Engine.is_editor_hint():
-		var sprites_node : Node2D = $ArmorSprites;
-		for child in sprites_node.get_children():
-			child.queue_free();
-		
-		var sides := [];
-		var corners := [];
-		# have to do one by one by hand since trying to be a smartass
-		# didn't work because of some bullshit
-		# UPD: sorry guys I just mixed up width and height
-		# but alas, the old one is gone
-		# it was literally bulkier than this one though
-		if protected_sides & Direction.Top:
-			sides.append(0);
-		if protected_sides & Direction.Right:
-			sides.append(1);
-		if protected_sides & Direction.Bottom:
-			sides.append(2);
-		if protected_sides & Direction.Left:
-			sides.append(3);
-		if 0 in sides and 1 in sides:
-			corners.append(0);
-		if 1 in sides and 2 in sides:
-			corners.append(1);
-		if 2 in sides and 3 in sides:
-			corners.append(2);
-		if 3 in sides and 0 in sides:
-			corners.append(3);
-	
-		for side_idx in sides:
-			var sprite := Sprite2D.new();
-			sprite.region_enabled = true;
-			sprite.region_rect.position.x = 0;
-			sprite.region_rect.position.y = height * side_idx;
-			sprite.region_rect.size.x = width;
-			sprite.region_rect.size.y = height;
-			sprite.centered = true;
-			sprite.texture = ARMOR_TEXTURE;
-			sprite.name = 'Side' + 'NESW'[side_idx];
-			sprites_node.add_child(sprite);
-		for corner_idx in corners:
-			var sprite := Sprite2D.new();
-			sprite.region_enabled = true;
-			sprite.region_rect.position.x = width;
-			sprite.region_rect.position.y = height * corner_idx;
-			sprite.region_rect.size.x = width;
-			sprite.region_rect.size.y = height;
-			sprite.centered = true;
-			sprite.texture = ARMOR_TEXTURE;
-			sprite.name = 'Corner' + [
-				'NE', 'SE', 'SW', 'NW'
-			][corner_idx]
-			sprites_node.add_child(sprite);
+	pass
 
 
 func set_crack_sprite(new_durability: int, initial_durability: int):
