@@ -9,7 +9,7 @@ const ACID_TIME : float = 20.0;
 # Value: number of ticks after that collision (when it reaches 0, remove
 # from the dictionary)
 var collisions : Dictionary = {};
-var level;
+var level : Level;
 var audio_players : Array[AudioStreamPlayer2D];
 @onready var acid_timer : Timer = (func():
 	var t : Timer = Timer.new();

@@ -42,17 +42,7 @@ func life_lost_check():
 	# So, basically:
 	# Even if there is no balls in play,
 	# we still see if the player maybe has a gun
-	# then they can maybe shoot and destroy the last bricks 
-	var balls := get_tree().get_nodes_in_group(&'balls');
-	var goon := paddle.has_gun;
-	var projectiles := get_tree().get_nodes_in_group(&'projectiles');
-	var briks := get_tree().get_nodes_in_group(&'destructible_bricks').size();
-	print(balls);
-	print(goon);
-	print(projectiles);
-	print(briks);
-	print();
-	
+	# then they can maybe shoot and destroy the last bricks
 	return get_tree().get_nodes_in_group(&'balls').is_empty()\
 	and not paddle.has_gun\
 	and get_tree().get_nodes_in_group(&'projectiles').is_empty()\

@@ -11,7 +11,7 @@ var y_sort_balls_asc : Callable = func(a: Ball, b: Ball):
 		return true;
 	return false;
 
-var level : Node2D;
+var level : Level;
 
 
 func _ready():

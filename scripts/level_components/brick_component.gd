@@ -1,6 +1,6 @@
 extends Node2D;
 
-var level : Node2D;
+var level : Level;
 
 
 func _ready():
