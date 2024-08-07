@@ -28,6 +28,7 @@ func _ready():
 		+ global_position.y * (width / height) - height / 2) / 2220.2222)\
 		.timeout.connect(func():
 			var tween := create_tween();
+			tween.set_parallel(true);
 			for prop in to_tween:
 				var dur = prop['duration'] if prop.has('duration') else 0.2;
 				tween.tween_property(

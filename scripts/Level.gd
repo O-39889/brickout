@@ -169,7 +169,7 @@ func _input(event):
 		powerup_component._request_powerup('paddle_shrink',
 			paddle.position - Vector2(0, 69));
 	if event.is_action_pressed('debug_4'):
-		Engine.time_scale = 1.0 if is_equal_approx(Engine.time_scale, 0.02) else 0.02;
+		Engine.time_scale = 1.0 if not is_equal_approx(Engine.time_scale, 1.0) else 0.1;
 	if event.is_action_pressed('debug_5'):
 		var ball := BALL_PACKED.instantiate() as Ball;
 		ball.position = Vector2(1590, 440);

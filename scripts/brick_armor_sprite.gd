@@ -1,3 +1,4 @@
+@tool
 extends Node2D;
 
 
@@ -8,6 +9,8 @@ var brick : RegularBrick;
 
 
 func _draw():
+	if brick == null:
+		return;
 	if not brick.is_reinforced:
 		return
 	var sides := [];
@@ -20,18 +23,18 @@ func _draw():
 		sides.append(2);
 	if brick.protected_sides & RegularBrick.Direction.Left:
 		sides.append(3);
-	if 0 in sides and 1 in sides:
+	if 0 in sides or 1 in sides:
 		corners.append(0);
-	if 1 in sides and 2 in sides:
+	if 1 in sides or 2 in sides:
 		corners.append(1);
-	if 2 in sides and 3 in sides:
+	if 2 in sides or 3 in sides:
 		corners.append(2);
-	if 3 in sides and 0 in sides:
+	if 3 in sides or 0 in sides:
 		corners.append(3);
 		
 	var draw_rect := Rect2(); # prolly lol
-	draw_rect.position.x = brick.global_position.x - brick.width / 2;
-	draw_rect.position.y = brick.global_position.y - brick.height / 2;
+	draw_rect.position.x =  - brick.width / 2;
+	draw_rect.position.y =  - brick.height / 2;
 	draw_rect.size.x = brick.width;
 	draw_rect.size.y = brick.height;
 	

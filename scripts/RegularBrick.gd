@@ -22,12 +22,13 @@ const ARMOR_TEXTURE := preload('res://assets/brick-edges-placeholder.png');
 		if value == false and Engine.is_editor_hint():
 			$Sprite2D.modulate.a = 1.0;
 		is_shimmering = value;
-		if $GPUParticles2D:
-			$GPUParticles2D.visible = value;
-			$GPUParticles2D.emitting = value;
+		if particles:
+			particles.visible = value;
+			particles.emitting = value;
 			if not Engine.is_editor_hint():
 				if not value:
-					$GPUParticles2D.queue_free();
+					particles.queue_free();
+					particles = null;
 
 ## Color of the brick, also determines the overall durability of the brick.
 @export_enum(
@@ -57,39 +58,59 @@ const ARMOR_TEXTURE := preload('res://assets/brick-edges-placeholder.png');
 	get:
 		return protected_sides;
 	set(value):
+		#print('Setter activated for ', name);
 		protected_sides = value;
+		if armor_sprite:
+			armor_sprite.visible = protected_sides != 0;
 		if Engine.is_editor_hint():
-			if $ArmorSprites:
-				$ArmorSprites.queue_redraw();
+			if protected_sides == (Direction.Top | Direction.Right | Direction.Bottom | Direction.Left):
+				printerr('Warning: reinforced brick ' + str(self) + ' ' + str(self.global_position) + ' has all sides protected and won\'t be able to be broken with regular balls or projectiles.');
+			if armor_sprite:
+				#print(name, ' queueieuign ', armor_sprite, ' to redraw NOW!');
+				armor_sprite.queue_redraw();
 		elif not Engine.is_editor_hint():
-			print(name);
-			print_tree_pretty();
-			print();
-			if $ArmorSprites:
+			if armor_sprite:
 				if protected_sides == 0:
-					$ArmorSprites.queue_free();
+					armor_sprite.queue_free();
+					armor_sprite = null;
 				else:
-					$ArmorSprites.queue_redraw();
+					armor_sprite.queue_redraw();
 
 
 @onready var initial_durability : int = get_durability(color);
 @onready var durability : int = initial_durability;
 @onready var brick_sprite : Sprite2D = $Sprite2D;
 @onready var crack_sprite : Sprite2D = $CrackSprite;
+@onready var armor_sprite : Node2D = $ArmorSprites;
+@onready var particles : GPUParticles2D = $GPUParticles2D;
 @onready var is_reinforced : bool:
 	get:
 		return protected_sides != 0 and protected_sides != null;
 
 
 func _ready():
-	if is_shimmering:
-		if not Engine.is_editor_hint():
-			$GPUParticles2D.amount_ratio = 0.0;
+	if not Engine.is_editor_hint():
+		if is_shimmering:
+			particles.amount_ratio = 0.0;
+			particles.scale = Vector2(0, 0);
 			to_tween.append({
-				'object': $GPUParticles2D,
+				'object': particles,
 				'property': 'amount_ratio',
 				'final_val': 1.0,
 				'duration': 0.1,
+			});
+			to_tween.append({
+				'object': particles,
+				'property': 'scale',
+				'final_val': Vector2(1, 1),
+				'duration': 0.1,
+			});
+		if is_reinforced:
+			armor_sprite.scale = Vector2(0, 0);
+			to_tween.append({
+					'object': armor_sprite,
+					'property': 'scale',
+					'final_val': Vector2(1, 1),
 			});
 	super();
 	if initial_durability == 1 and not Engine.is_editor_hint():
@@ -101,27 +122,33 @@ func _ready():
 			# to prevent softlocks or idk lol
 			self.remove_from_group(&'destructible_bricks');
 	update_sprites();
-	if $GPUParticles2D:
-		$GPUParticles2D.visible = is_shimmering;
-		$GPUParticles2D.emitting = is_shimmering;
+	if particles:
+		particles.visible = is_shimmering;
+		particles.emitting = is_shimmering;
+	if armor_sprite:
+		# even when it's hidden, like, in the editor when it's not a reinforced brick
+		armor_sprite.brick = self;
 	if Engine.is_editor_hint():
-		$GPUParticles2D.amount = 5;
+		particles.amount = 5;
 		if is_reinforced:
-			print(name);
-			print_tree_pretty();
-			print();
-			$ArmorSprites.brick = self;
-			$ArmorSprites.queue_redraw();
+			#print(name)
+			#print('Armor sprite: ', armor_sprite);
+			#print("Armor sprite's brick before: ", armor_sprite.brick)
+			#print("Me: ", self);
+			#print("Armor sprite's brick after: ", armor_sprite.brick)
+			#print();
+			armor_sprite.queue_redraw();
 	elif not Engine.is_editor_hint():
 		if not is_shimmering:
-			$GPUParticles2D.queue_free();
+			particles.queue_free();
+			particles = null;
 		else:
-			$GPUParticles2D.amount = 10;
+			particles.amount = 10;
 		if is_reinforced:
-			$ArmorSprites.brick = self;
-			$ArmorSprites.queue_redraw();
+			armor_sprite.queue_redraw();
 		else:
-			$ArmorSprites.queue_free();	
+			armor_sprite.queue_free();
+			armor_sprite = null;
 
 
 func get_durability(color_idx : int) -> int:
@@ -224,8 +251,8 @@ func hit(by: Node2D, damage: int):
 	else:
 		EventBus.brick_hit.emit(self, by);
 		if damage != 0:
-			if $GPUParticles2D:
-				$GPUParticles2D.amount_ratio -= 1.0 / (initial_durability + 1);
+			if particles:
+				particles.amount_ratio -= 1.0 / (initial_durability + 1);
 			if crack_sprite:
 				crack_sprite.visible = true;
 				set_crack_sprite(durability, initial_durability);
@@ -233,12 +260,13 @@ func hit(by: Node2D, damage: int):
 
 func destroy(by: Node2D):
 	EventBus.brick_destroyed.emit(self, by);
-	if $GPUParticles2D:
-		var particles : GPUParticles2D = $GPUParticles2D;
+	if particles:
 		particles.reparent(get_parent());
 		(particles as GPUParticles2D).lifetime /= 2.0;
 		particles.emitting = false;
-		get_tree().create_timer(1).timeout.connect(func(): particles.queue_free());
+		get_tree().create_timer(1).timeout.connect(func():
+			particles.queue_free()
+			particles = null);
 	queue_free();
 
 

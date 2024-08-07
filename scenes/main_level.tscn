@@ -23,6 +23,7 @@ metadata/_edit_lock_ = true
 position = Vector2(810, 125)
 is_shimmering = true
 color = 7
+protected_sides = 4
 
 [node name="Brick2" parent="BrickComponent" index="1" instance=ExtResource("4_xeb2x")]
 position = Vector2(910, 125)
@@ -167,6 +168,7 @@ color = 5
 [node name="Brick35" parent="BrickComponent" index="35" instance=ExtResource("4_xeb2x")]
 position = Vector2(810, 175)
 color = 4
+protected_sides = 1
 
 [node name="Brick36" parent="BrickComponent" index="36" instance=ExtResource("4_xeb2x")]
 position = Vector2(910, 175)
@@ -234,7 +236,7 @@ position = Vector2(410, 375)
 position = Vector2(360, 225)
 is_shimmering = true
 color = 3
-protected_sides = 14
+protected_sides = 13
 
 [node name="Brick57" parent="BrickComponent" index="54" instance=ExtResource("4_xeb2x")]
 position = Vector2(360, 325)
@@ -250,12 +252,13 @@ position = Vector2(310, 375)
 
 [node name="Brick52" parent="BrickComponent" index="57" instance=ExtResource("4_xeb2x")]
 position = Vector2(1210, 375)
+protected_sides = 2
 
 [node name="Brick53" parent="BrickComponent" index="58" instance=ExtResource("4_xeb2x")]
 position = Vector2(1260, 225)
 is_shimmering = true
 color = 3
-protected_sides = 14
+protected_sides = 7
 
 [node name="Brick54" parent="BrickComponent" index="59" instance=ExtResource("4_xeb2x")]
 position = Vector2(1310, 275)

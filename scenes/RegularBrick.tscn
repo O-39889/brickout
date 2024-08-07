@@ -39,11 +39,11 @@ region_enabled = true
 region_rect = Rect2(0, 0, 100, 50)
 
 [node name="ArmorSprites" type="Node2D" parent="." index="3"]
-visible = false
 script = ExtResource("5_36o2p")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="." index="4"]
 visible = false
+z_index = 1
 emitting = false
 amount = 5
 process_material = SubResource("ParticleProcessMaterial_psgnd")
