@@ -1,7 +1,9 @@
 extends Node2D;
+# TODO: make it also manage other stuff such as creating balls etc
 
 
 const ACID_TIME : float = 20.0;
+const BALL_LIMIT := 20;
 
 
 # Key: string, two concatenated instance ids,
@@ -26,11 +28,16 @@ func _ready():
 	EventBus.ball_collision.connect(handle_collision);
 	acid_timer.timeout.connect(_on_acid_timer_timeout);
 	EventBus.ball_lost.connect(_on_ball_lost);
+	EventBus.level_cleared.connect(func():
+		acid_timer.timeout.disconnect(_on_acid_timer_timeout);
+		for ball : Ball in get_tree().get_nodes_in_group(&'balls'):
+			pass);
 
 
 func enable_acid():
 	for b : Ball in get_tree().get_nodes_in_group(&'balls'):
 		b.state = Ball.BallState.Acid;
+	@warning_ignore('static_called_on_instance')
 	Globals.start_or_extend_timer(acid_timer, ACID_TIME);
 
 
@@ -70,7 +77,7 @@ func handle_collision(b1: Ball, b2: Ball):
 	b2.velocity = v2_new;
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	for k in collisions:
 		collisions[k] -= 1;
 		if collisions[k] == 0:

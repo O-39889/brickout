@@ -28,6 +28,8 @@ var brick_component: Node2D;
 var powerup_component: Node2D;
 var ball_component: Node2D;
 
+var cleared : bool = false;
+
 
 @onready var current_ball_speed_idx : Ball.BallSpeed = Ball.BallSpeed.BALL_SPEED_NORMAL;
 
@@ -75,6 +77,7 @@ func create_paddle():
 ## Returns true if the adding was successful (the amount of balls is below
 ## the limit), false otherwise
 func add_ball(b: Ball) -> bool:
+	b.is_finish_state = cleared;
 	if get_tree().get_nodes_in_group(&'balls').size() >= BALL_LIMIT:
 		return false;
 	reparent_ball(b);
@@ -84,6 +87,7 @@ func add_ball(b: Ball) -> bool:
 ## Returns true if the adding was successful (the amount of balls is below
 ## the limit), false otherwise
 func add_ball_to_paddle(b: Ball, persistent: bool):
+	b.is_finish_state = cleared;
 	if get_tree().get_nodes_in_group(&'balls').size() >= BALL_LIMIT:
 		return false;
 	paddle.add_bawl(b, persistent);
@@ -101,3 +105,9 @@ func reparent_ball(ball: Ball):
 			ball_component.add_child(ball);
 		else:
 			add_child(ball);
+
+
+func finish():
+	cleared = true;
+	EventBus.level_cleared.emit();
+	print('Win');

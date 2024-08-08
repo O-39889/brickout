@@ -1,4 +1,4 @@
-class_name Ball extends CharacterBody2D
+class_name Ball extends CharacterBody2D;
 
 
 enum BallSpeed {
@@ -11,7 +11,7 @@ enum BallState {
 	Normal,
 	Fire,
 	Acid,
-}
+};
 
 enum HorizontalCooldown {
 	# normal state
@@ -22,7 +22,7 @@ enum HorizontalCooldown {
 	# need to change
 	# apparntly I didn't need that lol
 	Active,
-}
+};
 
 const BALL_SPEEDS = [
 	450,
@@ -35,6 +35,19 @@ const SPEED_CAP_SQUARED = SPEED_CAP * SPEED_CAP;
 const BALL_RADIUS = 15;
 const MAX_HORIZONTAL_TIME = 5;
 const ACCELERATION = 250; # px / sec^2
+# TODO:
+# For this stuff, might be possible to do it more seamlessly to that the deceleration
+# values at the threshold match exactly from both sides
+# Will need to do some calculations for it though
+## Multiplier for the drag-like deceleration (at high speeds).
+const FINISH_DECELERATION_MULT = 0.05;
+## Threshold of deceleration value below which regular deceleration kicks in (instead of drag-like).
+# Actually seems like I won't need it that way
+const FINISH_DECELERATION_THRESHOLD = 200;
+## Constant deceleration when velocity is below FINISH_DECELERATION_THRESHOLD,
+## in pixels / second^2.
+const CONSTANT_DECELERATION = 300;
+const EXPLOSION_PACKED := preload("res://scenes/Explosion.tscn");
 
 static var target_speed_idx : BallSpeed = BallSpeed.BALL_SPEED_NORMAL:
 	get:
@@ -79,8 +92,10 @@ var state: BallState = BallState.Normal:
 			BallState.Acid:
 				collision_shape.debug_color.h = (100.0 / 360.0);
 
-var explosion_packed := preload("res://scenes/Explosion.tscn");
+
 var last_direction : Vector2;
+var is_finish_state : bool = false;
+
 @onready var collision_shape : CollisionShape2D = find_child("CollisionShape2D");
 @onready var ball_detection_area : Area2D = find_child('OtherBallDetectionArea');
 
@@ -90,6 +105,16 @@ func _ready():
 	$VisibleOnScreenNotifier2D.rect.size = Vector2(BALL_RADIUS * 4, BALL_RADIUS * 4);
 	collision_shape.shape.radius = BALL_RADIUS;
 	ball_detection_area.find_child('CollisionShape2D').shape.radius = BALL_RADIUS + 1.01;
+	if not is_finish_state:
+		EventBus.level_cleared.connect(func():
+			is_finish_state = true;
+			$VisibleOnScreenNotifier2D.screen_exited.disconnect(
+				_on_visible_on_screen_notifier_2d_screen_exited);
+			$VisibleOnScreenNotifier2D.queue_free();
+		);
+	else:
+		$VisibleOnScreenNotifier2D.screen_exited.disconnect(_on_visible_on_screen_notifier_2d_screen_exited);
+		$VisibleOnScreenNotifier2D.queue_free();
 	if stuck:
 		process_mode = Node.PROCESS_MODE_DISABLED;
 	else:
@@ -160,16 +185,8 @@ func handle_cloned(clones: Array[Ball]):
 # that started to look worse somehow
 func handle_collision(collision: KinematicCollision2D):
 	var collider := collision.get_collider();
-	queue_redraw();
 	if collider is Ball:
-		#assert(false, 'Also there was supposed to be a jumpscare in here');
-		# and here we would somehow alter another guy's velocity
-		# und also avoid reduplication or idk lol
-		# actually might even be okay to use signals
-		# just will actually generalize the signal to just include any other
-		# CollisionObject2D it can collide with instead
 		EventBus.ball_collision.emit(self, collider);
-		#assert(false, 'NOT IMPLEMENTED!!!! AAAAAAHHHHHHHH');
 	elif collider is Paddle:
 		collider.handle_ball_collision(self, collision);
 		if state == BallState.Fire and collider.state == Paddle.PaddleState.Frozen:
@@ -180,7 +197,6 @@ func handle_collision(collision: KinematicCollision2D):
 			BallState.Normal:
 				if collider.has_method('hit'):
 					if collider is RegularBrick:
-						# lmao bruh
 						collider.hit(self,
 							1 if collider.is_valid_hit(collision.get_normal())
 							else 0);
@@ -210,7 +226,8 @@ func handle_collision(collision: KinematicCollision2D):
 	if (horizontal_state == HorizontalCooldown.Waiting
 		and horizontal_cooldown <= 0):
 			# if at this point we're still moving horizontally
-			if is_zero_approx(velocity.normalized().y):
+			# also if we finished the level then it doesn't really matter
+			if is_zero_approx(velocity.normalized().y and not is_finish_state):
 				# then we apply a random rotation to the direction vector
 				# just so that the ball never gets stuck
 				velocity = velocity.rotated(deg_to_rad(
@@ -224,7 +241,7 @@ func handle_collision(collision: KinematicCollision2D):
 
 
 func explode_stuff():
-	var explosion : Explosion = explosion_packed.instantiate() as Explosion;
+	var explosion : Explosion = EXPLOSION_PACKED.instantiate() as Explosion;
 	explosion.exclude_parent = true;
 	explosion.add_exception(self);
 	explosion.global_position = self.global_position;
@@ -240,29 +257,37 @@ func explode_stuff():
 func _physics_process(delta):
 	#modulate = Color.WHITE if get_collision_mask_value(3) else Color.BLACK;
 	# btw the last direction variable is unused yet
-	var velocity_dir : Vector2 = velocity.normalized();
-	var scalar_speed_difference : float = (
-		target_speed - velocity.length()
-	);
+	var velocity_dir : Vector2;
+	if velocity.is_zero_approx():
+		velocity_dir = last_direction;
+	else:
+		velocity_dir = velocity.normalized();
+	if not is_finish_state:
+		var speed_difference : float = target_speed - velocity.length();
 	# to snap to the needed velocity without oscillating constantly around it
 	# in small increments or something
-	if abs(scalar_speed_difference) <= delta * ACCELERATION:
-		velocity = velocity_dir * target_speed;
+		if absf(speed_difference) <= delta * ACCELERATION:
+			velocity = velocity_dir * target_speed;
 	# current speed is smaller than the target speed
-	elif scalar_speed_difference > 0:
+		elif speed_difference > 0:
 		# we will need to accelerate
-		velocity += velocity_dir * ACCELERATION * delta;
-	# current speed is larger than the target speed
-	else:
-		# will need to decelerate
-		velocity -= velocity_dir * ACCELERATION * delta;
-	#var speed_difference : Vector2 = (velocity_dir
-		#* target_speed - velocity);
-	#if speed_difference.length() <= delta * ACCELERATION:
-		#velocity = velocity_dir * target_speed;
-	#else:
-		#velocity += ACCELERATION * delta * velocity_dir;
-	
+			velocity += velocity_dir * ACCELERATION * delta;
+		# current speed is larger than the target speed
+		else:
+			# will need to decelerate
+			velocity -= velocity_dir * ACCELERATION * delta;
+	elif is_finish_state:
+		if velocity.length() <= CONSTANT_DECELERATION * delta:
+			velocity = Vector2(0, 0);
+		else:
+			var deceleration : float = delta * velocity.length_squared() * FINISH_DECELERATION_MULT;
+			if deceleration < CONSTANT_DECELERATION * delta:
+				collision_shape.debug_color = Color.WHITE;
+				deceleration = CONSTANT_DECELERATION * delta;
+			else:
+				collision_shape.debug_color = Color.BLACK;
+			velocity -= velocity.normalized() * maxf(deceleration, CONSTANT_DECELERATION * delta);
+		
 	var collision: KinematicCollision2D = move_and_collide(velocity * delta);
 	if collision:
 		handle_collision(collision);
@@ -275,33 +300,6 @@ func _physics_process(delta):
 		velocity = velocity.limit_length(target_speed * 1.5);
 	if not velocity.is_zero_approx():
 		last_direction = velocity_dir;
-	queue_redraw();
-
-
-func _draw():
-	var string;
-	#if get_parent() is Paddle:
-		#string = 'PDL';
-	#elif get_parent().name == 'BallComponent':
-		#string = 'BALL';
-	#else:
-		#string = 'LVL';
-	string = '';
-	#if stuck:
-		#if get_parent() is Paddle:
-			#var pdl := get_parent() as Paddle;
-			#if self in pdl.persistent_balls:
-				#string = 'P';
-			#else:
-				#string = 'E';
-	#string = str(int(get_collision_mask_value(3)));
-	#string = String.num(rad_to_deg(angle_difference(drawino, Vector2.UP.angle())), 0);
-	draw_string(ThemeDB.fallback_font, Vector2.ZERO, string,HORIZONTAL_ALIGNMENT_CENTER,
-	-1, 32)
-
-
-func _on_target_speed_idx_changed():
-	pass;
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited():

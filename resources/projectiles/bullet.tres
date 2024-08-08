@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_y1myu")
-amount = 10
+amount = 16
 speed = 900.0
 acceleration = 0.0
 mass = 1.0

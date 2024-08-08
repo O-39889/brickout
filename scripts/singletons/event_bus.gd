@@ -20,3 +20,5 @@ signal score_changed;
 
 signal life_lost;
 signal lives_changed;
+
+signal level_cleared;

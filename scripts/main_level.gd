@@ -22,7 +22,7 @@ func _ready():
 	if not level_author.is_empty():
 		author_name_string += ' ' + level_author + ' —';
 	author_name_string += ' ' + 'New Level' if level_name.is_empty() else level_name;
-	$GUI/LevelAuthorName.text = author_name_string;
+	$GUI/Regular/LevelAuthorName.text = author_name_string;
 	super();
 
 
@@ -100,6 +100,17 @@ func murder_ball(b: Ball):
 	b.queue_free();
 
 
+func finish():
+	cleared = true;
+	EventBus.level_cleared.emit();
+	await get_tree().create_timer(1.0).timeout;
+	for ball : Ball in get_tree().get_nodes_in_group(&'balls'):
+		GameProgression.score += 1000;
+		await get_tree().create_timer(0.5).timeout;
+	await get_tree().create_timer(1.0).timeout;
+	get_tree().reload_current_scene();
+
+
 func _on_projectile_collided(_projectile: Projectile, with: CollisionObject2D):
 	handle_life_lost();
 
@@ -116,13 +127,15 @@ func _input(event):
 		if event.is_action_pressed("debug_restart"):
 			get_tree().reload_current_scene();
 		if event.is_action_pressed("debug_1"):
-			powerup_component._request_powerup('gun',
+			finish();
+			return
+			powerup_component._request_powerup('finish_level',
 				paddle.position - Vector2(0, 69));
 		if event.is_action_pressed("debug_2"):
-			powerup_component._request_powerup('paddle_enlarge',
+			powerup_component._request_powerup('ball_speed_up',
 				paddle.position - Vector2(0, 69));
 		if event.is_action_pressed('debug_3'):
-			powerup_component._request_powerup('paddle_shrink',
+			powerup_component._request_powerup('ball_slow_down',
 				paddle.position - Vector2(0, 69));
 		if event.is_action_pressed('debug_4'):
 			Engine.time_scale = 1.0 if not is_equal_approx(Engine.time_scale, 1.0) else 0.02;

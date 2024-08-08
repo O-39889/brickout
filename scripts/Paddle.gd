@@ -11,7 +11,7 @@ enum PaddleState {
 	Normal,
 	Sticky,
 	Frozen,
-	Ghost,	
+	Ghost,
 };
 
 enum PaddleSize {
@@ -47,6 +47,10 @@ const PADDLE_HEIGHT : float = 40;
 const BALL_RELEASE_COOLDOWN_MAX : float = 0.15;
 const BALL_AUTO_RELEASE_INTERVAL : float = BALL_RELEASE_COOLDOWN_MAX * 2;
 
+const DECELERATION_MULT := 0.005;
+const CONSTANT_DECELERATION := 100;
+
+
 # the relative position of the left gun mounted on the paddle
 # (with 0 being the paddle's left edge and 1 being the paddle's right edge)
 # the relative position of the right gun would just be 1 - GUN_POS
@@ -59,7 +63,8 @@ var persistent_balls : Array[Ball] = [];
 
 var my_velocity : float = float(((((((0.0 as float) as float) as float) as float) as float) as float) as float) as float;
 var last_tick_position : Vector2;
-var slip : bool = false;
+var level_cleared : bool = false;
+var finish_speed : float;
 
 
 @onready var collision_shape : CollisionShape2D = find_child("CollisionShape2D");
@@ -115,6 +120,7 @@ func _ready():
 	assert(level != null, 'Level node not defined');
 	if level == null:
 		level = get_parent();
+	EventBus.level_cleared.connect(trigger_finish);
 	hitbox.size.x = width;
 	hitbox.size.y = PADDLE_HEIGHT;
 	# it will always spawn with a ball, just for convenience
@@ -133,34 +139,6 @@ func add_bawl(b: Ball, persistent: bool):
 	balls.append(b);
 	if persistent:
 		persistent_balls.append(b);
-
-
-func _physics_process(delta):
-	if not slip:
-		my_velocity = (position.x - last_tick_position.x) / delta;
-	last_tick_position = position;
-	$DebugLbl.text = String.num(ammo_left, 9);
-	$DebugLbl.global_position.x = 810;
-	if slip:
-		if absf(my_velocity) < 2.5:
-			my_velocity = 0;
-		var accel = delta * my_velocity * my_velocity * 0.00025;
-		if accel > 300 * delta:
-			$DebugLbl.modulate = Color.RED;
-		else:
-			$DebugLbl.modulate = Color.BLUE;
-		if my_velocity < 0:
-			my_velocity += max(accel, 350 * delta);
-		elif my_velocity > 0:
-			my_velocity -= max(accel, 350 * delta);
-		var collision := move_and_collide(Vector2(my_velocity, 0) * delta);
-		if collision:
-			var collider = collision.get_collider();
-			if collider is StaticBody2D:
-				if collider.is_in_group(&'walls'):
-					my_velocity *= -1;
-
-	position.x = clamp(position.x, width / 2, get_viewport_rect().size.x - width / 2);
 
 
 #region Width
@@ -249,6 +227,9 @@ func release_ephemeral_ball():
 
 
 func handle_ball_collision(b: Ball, collision: KinematicCollision2D) -> void:
+	if level_cleared:
+		b.change_direction(b.velocity.bounce(collision.get_normal()));
+		return;
 	match state:
 		PaddleState.Normal:
 			var ball_dir := _bounce_ball_dir_controlled(collision.get_position());
@@ -271,6 +252,29 @@ func handle_ball_collision(b: Ball, collision: KinematicCollision2D) -> void:
 			# and then unfreeze le paddle
 			b.change_direction(b.velocity.bounce(collision.get_normal()));
 		# I'm prolly not even gonna add a ghost state anyway
+
+
+func trigger_finish():
+	level_cleared = true;
+	finish_speed = absf(my_velocity);
+	await get_tree().physics_frame;
+	create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)\
+	.tween_property(self, 'finish_speed', 0.0, 0.5);
+
+
+func _physics_process(delta):
+	if not level_cleared:
+		my_velocity = (position.x - last_tick_position.x) / delta;
+	last_tick_position = position;
+	$DebugLbl.text = String.num(ammo_left, 9);
+	$DebugLbl.global_position.x = 810;
+	if level_cleared:
+		var collision := move_and_collide(Vector2(my_velocity, 0).normalized() * finish_speed * delta);
+		if collision:
+			if collision.get_collider().is_in_group(&'walls'):
+				my_velocity *= -1;
+	
+	position.x = clamp(position.x, width / 2, get_viewport_rect().size.x - width / 2);
 
 
 func _bounce_ball_dir_controlled(collision_position: Vector2) -> Vector2:
@@ -304,6 +308,8 @@ func _change_size(should_enlarge: bool):
 
 
 func _input(event: InputEvent):
+	if level_cleared:
+		return;
 	match state:
 		PaddleState.Normal, PaddleState.Sticky, PaddleState.Ghost:
 			## TODO: FORGOT
@@ -313,7 +319,7 @@ func _input(event: InputEvent):
 			# with it on the same frame (would probably need to put code
 			# for that in the handling ball collision code though)
 			if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-				if event is InputEventMouseMotion and not slip:
+				if event is InputEventMouseMotion and not level_cleared:
 					position.x += event.relative.x * Globals.MOUSE_SENSITIVITY;
 					position.x = clamp(position.x, width / 2,
 						get_viewport_rect().size.x - width / 2);

@@ -7,12 +7,14 @@ const MIN_ANGLE = deg_to_rad(55.55555);
 
 
 var powerup : Powerup;
+var level_cleared : bool = false;
 
 @onready var width : float = $CollisionShape2D.shape.radius * 2;
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	EventBus.level_cleared.connect(func(): level_cleared = true);
 	velocity = get_launch_vector() * INITIAL_SPEED;
 	assert(powerup != null, 'Powerup not set for ' + str(self));
 	match powerup.type:
@@ -26,7 +28,7 @@ func _ready():
 
 
 func _physics_process(delta):
-	velocity.y += POWERUP_GRAVITY * delta;
+	velocity.y += POWERUP_GRAVITY * delta * (0.50001 if level_cleared else 1);
 	var collision := move_and_collide(velocity * delta);
 	if collision:
 		var collider := collision.get_collider();
@@ -35,11 +37,13 @@ func _physics_process(delta):
 		or collider.get_collision_layer_value(2)
 		# paddle hitbox for powerups
 		or collider.get_collision_layer_value(7)):
-			EventBus.powerup_collected.emit(powerup);
-			queue_free();
-	if position.y > get_viewport_rect().size.y + width * 2:
+			if get_parent().level.cleared:
+				velocity = velocity.bounce(collision.get_normal());
+			else:
+				EventBus.powerup_collected.emit(powerup);
+				queue_free();
+	if position.y > get_viewport_rect().size.y + width * 3:
 		queue_free();
-
 
 # ENTERING PAIN TERRITORY
 

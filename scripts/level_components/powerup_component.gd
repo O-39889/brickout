@@ -12,11 +12,13 @@ var y_sort_balls_asc : Callable = func(a: Ball, b: Ball):
 	return false;
 
 var level : Level;
+var level_cleared : bool = false;
 
 
 func _ready():
 	EventBus.brick_destroyed.connect(_on_brick_destroyed);
 	EventBus.powerup_collected.connect(_on_powerup_collected);
+	EventBus.level_cleared.connect(func(): level_cleared = true);
 	match level.pool_type:
 		Global.PowerupPoolType.Default:
 			pass # already set
@@ -159,6 +161,7 @@ func choose_weighted(weights: Dictionary) -> StringName:
 
 func generate_powerup(pos: Vector2, try_good: bool = false):
 	var powerup_node : PowerupNode = POWERUP_PACKED.instantiate();
+	powerup_node.level_cleared = self.level_cleared;
 	powerup_node.global_position = pos;
 	var weights : Dictionary = recalculate_weights(powerup_weights);
 	var new_id : StringName;
@@ -195,12 +198,12 @@ func generate_powerup(pos: Vector2, try_good: bool = false):
 
 func _on_brick_destroyed(brick: Brick, by: Node2D):
 	if brick is RegularBrick:
-		if (brick.is_shimmering
+		if not level_cleared and (brick.is_shimmering
 		# lmao the multiplier would be 1 at durability of 1 and then slowly
 		# decrease very very slightly with increasing durability, thus
 		# increasing the chance for a powerup to appear
 		or randf() * (pow(1.015625, -brick.initial_durability + 1)) <
-		level.powerup_chance * 0.9 if by is Explosion else 1.0):
+		level.powerup_chance * (0.9 if by is Explosion else 1.0)):
 			generate_powerup(brick.global_position, brick.is_shimmering);
 
 
@@ -251,8 +254,7 @@ func _on_powerup_collected(powerup: Powerup):
 		&'gun':
 			level.paddle.equip_gun(Projectile.GunType.Regular);
 		&'finish_level':
-			print('Win!');
-		
+			level.finish();
 		# NEUTRAL
 		&'ball_speed_up':
 			Ball.increase_speed();

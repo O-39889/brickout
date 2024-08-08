@@ -19,6 +19,4 @@ func _on_brick_destroyed(brick: Brick, by: Node2D):
 	if brick.is_in_group(&'destructible_bricks'):
 		await get_tree().physics_frame;
 		if get_tree().get_nodes_in_group(&'destructible_bricks').is_empty():
-			print('Win!');
-			await get_tree().create_timer(1.0).timeout;
-			get_tree().reload_current_scene();
+			level.finish();

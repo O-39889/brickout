@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ivtwix13e1nt"]
+[gd_scene load_steps=10 format=3 uid="uid://ivtwix13e1nt"]
 
 [ext_resource type="PackedScene" uid="uid://cljyfysqemsgw" path="res://scenes/level.tscn" id="1_fbwrt"]
 [ext_resource type="Script" path="res://scripts/main_level.gd" id="2_rqcuv"]
@@ -8,14 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c0pvsntagt4y6" path="res://scenes/level_components/ball_component.tscn" id="6_4tf2r"]
 [ext_resource type="Script" path="res://scripts/level_gui.gd" id="6_ip4hg"]
 [ext_resource type="PackedScene" uid="uid://clcdnhk8jx7nc" path="res://scenes/super_unbreakable_brick.tscn" id="6_xop2c"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_0fqg0"]
-font_size = 42
-outline_size = 5
-outline_color = Color(0.145035, 0.0963099, 3.60981e-08, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_axbs4"]
-font_size = 18
+[ext_resource type="PackedScene" uid="uid://comrpp24vqju6" path="res://scenes/gui/level_regular.tscn" id="9_djsw5"]
 
 [node name="MainLevel" instance=ExtResource("1_fbwrt")]
 script = ExtResource("2_rqcuv")
@@ -177,7 +170,7 @@ color = 5
 [node name="Brick35" parent="BrickComponent" index="35" instance=ExtResource("4_xeb2x")]
 position = Vector2(810, 175)
 color = 4
-protected_sides = 1
+protected_sides = 11
 
 [node name="Brick36" parent="BrickComponent" index="36" instance=ExtResource("4_xeb2x")]
 position = Vector2(910, 175)
@@ -318,35 +311,6 @@ metadata/_edit_lock_ = true
 [node name="GUI" type="CanvasLayer" parent="." index="4"]
 script = ExtResource("6_ip4hg")
 
-[node name="Score" type="Label" parent="GUI" index="0"]
-offset_left = 25.0
-offset_top = 25.0
-text = "Score: 000000"
-label_settings = SubResource("LabelSettings_0fqg0")
-metadata/_edit_lock_ = true
-
-[node name="Lives" type="Label" parent="GUI" index="1"]
-offset_left = 25.0
-offset_top = 90.0
-text = "Lives: 3"
-label_settings = SubResource("LabelSettings_0fqg0")
-metadata/_edit_lock_ = true
-
-[node name="ScoreTimer" type="Timer" parent="GUI" index="2"]
-wait_time = 0.1
-
-[node name="LevelAuthorName" type="Label" parent="GUI" index="3"]
-modulate = Color(1, 1, 1, 0.705882)
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_top = 10.0
-grow_horizontal = 2
-text = "[1] Olepograd — My Level Name"
-label_settings = SubResource("LabelSettings_axbs4")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[connection signal="timeout" from="GUI/ScoreTimer" to="GUI" method="_on_score_timer_timeout"]
+[node name="Regular" parent="GUI" index="0" instance=ExtResource("9_djsw5")]
 
 [editable path="BrickComponent"]
