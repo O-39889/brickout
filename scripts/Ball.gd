@@ -255,8 +255,6 @@ func explode_stuff():
 
 
 func _physics_process(delta):
-	#modulate = Color.WHITE if get_collision_mask_value(3) else Color.BLACK;
-	# btw the last direction variable is unused yet
 	var velocity_dir : Vector2;
 	if velocity.is_zero_approx():
 		velocity_dir = last_direction;
@@ -282,10 +280,7 @@ func _physics_process(delta):
 		else:
 			var deceleration : float = delta * velocity.length_squared() * FINISH_DECELERATION_MULT;
 			if deceleration < CONSTANT_DECELERATION * delta:
-				collision_shape.debug_color = Color.WHITE;
 				deceleration = CONSTANT_DECELERATION * delta;
-			else:
-				collision_shape.debug_color = Color.BLACK;
 			velocity -= velocity.normalized() * maxf(deceleration, CONSTANT_DECELERATION * delta);
 		
 	var collision: KinematicCollision2D = move_and_collide(velocity * delta);
