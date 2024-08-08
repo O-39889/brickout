@@ -4,8 +4,10 @@ extends Node2D;
 
 const ACID_TIME : float = 20.0;
 const BALL_LIMIT := 20;
+const BALL_PACKED : PackedScene = preload('res://scenes/Ball.tscn');
 
 
+@export var play_collision_sound : bool = true;
 # Key: string, two concatenated instance ids,
 # sorted by ascending, underscore in-between
 # Value: number of ticks after that collision (when it reaches 0, remove
@@ -13,6 +15,7 @@ const BALL_LIMIT := 20;
 var collisions : Dictionary = {};
 var level : Level;
 var audio_players : Array[AudioStreamPlayer2D];
+
 @onready var acid_timer : Timer = (func():
 	var t : Timer = Timer.new();
 	t.autostart = false;
@@ -37,7 +40,6 @@ func _ready():
 func enable_acid():
 	for b : Ball in get_tree().get_nodes_in_group(&'balls'):
 		b.state = Ball.BallState.Acid;
-	@warning_ignore('static_called_on_instance')
 	Globals.start_or_extend_timer(acid_timer, ACID_TIME);
 
 
@@ -63,8 +65,9 @@ func handle_collision(b1: Ball, b2: Ball):
 	# and NOT to the previous page from where you were before (the one
 	# with the sound I wanted to download)
 	# scandalous!
-	var player : AudioStreamPlayer2D = audio_players.pick_random();
-	player.play();
+	if play_collision_sound:
+		var player : AudioStreamPlayer2D = audio_players.pick_random();
+		player.play();
 	
 	collisions[id] = 2;
 	var v1 = b1.velocity;

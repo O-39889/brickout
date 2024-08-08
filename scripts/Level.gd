@@ -1,7 +1,7 @@
 class_name Level extends Node2D;
 
 
-const BALL_LIMIT : int = 20;
+@export var BALL_LIMIT : int = 20;
 const BALL_PACKED : PackedScene = preload('res://scenes/Ball.tscn');
 const PADDLE_PACKED : PackedScene = preload("res://scenes/Paddle.tscn");
 

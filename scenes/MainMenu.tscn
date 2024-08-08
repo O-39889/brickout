@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://c42uau2bh2d6l"]
-
-[ext_resource type="Script" path="res://scripts/title_screen.gd" id="1_ncyg4"]
-
-[node name="MainMenu" type="Node2D"]
-script = ExtResource("1_ncyg4")

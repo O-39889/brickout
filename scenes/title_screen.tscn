@@ -1,501 +1,66 @@
-[gd_scene load_steps=6 format=3 uid="uid://vq8mwjj8om13"]
+[gd_scene load_steps=8 format=3 uid="uid://vq8mwjj8om13"]
 
 [ext_resource type="PackedScene" uid="uid://cljyfysqemsgw" path="res://scenes/level.tscn" id="1_8xsji"]
-[ext_resource type="Script" path="res://scenes/title_screen.gd" id="2_j55pm"]
+[ext_resource type="Script" path="res://scripts/title_screen.gd" id="2_j55pm"]
 [ext_resource type="PackedScene" uid="uid://doylk4sp6cg5q" path="res://scenes/Wall.tscn" id="3_jn3tt"]
-[ext_resource type="Script" path="res://scripts/level_components/title_screen_brick_component.gd" id="4_psgbd"]
-[ext_resource type="PackedScene" uid="uid://blofikyc7x7vn" path="res://scenes/RegularBrick.tscn" id="5_yjwoq"]
+[ext_resource type="PackedScene" uid="uid://c0pvsntagt4y6" path="res://scenes/level_components/ball_component.tscn" id="4_kgr2b"]
+[ext_resource type="Script" path="res://scripts/level_components/title_screen_ball_component.gd" id="5_wptyq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3vi2w"]
+font_size = 81
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 15
+shadow_color = Color(0, 0, 0, 0.545098)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mbdus"]
+bg_color = Color(0.174985, 0.174985, 0.174985, 0.764706)
 
 [node name="TitleScreen" instance=ExtResource("1_8xsji")]
 script = ExtResource("2_j55pm")
-
-[node name="BallSpawnTimer" type="Timer" parent="Timers" index="1"]
-wait_time = 0.25
+layout_directory = "res://scenes/level_components/title_screen_layouts"
+BALL_LIMIT = 10
+add_paddle = false
+powerup_chance = 0.0
 
 [node name="WallBottom" parent="Walls" index="3" groups=["walls"] instance=ExtResource("3_jn3tt")]
-position = Vector2(0, 1080)
+position = Vector2(0, 1000)
 
-[node name="BrickComponent" type="Node2D" parent="." index="2"]
-script = ExtResource("4_psgbd")
+[node name="BallComponent" parent="." index="1" instance=ExtResource("4_kgr2b")]
+script = ExtResource("5_wptyq")
+play_collision_sound = false
 
-[node name="Brick2" parent="BrickComponent" index="0" instance=ExtResource("5_yjwoq")]
-position = Vector2(1035, 420)
-
-[node name="Brick3" parent="BrickComponent" index="1" instance=ExtResource("5_yjwoq")]
-position = Vector2(885, 420)
-
-[node name="Brick4" parent="BrickComponent" index="2" instance=ExtResource("5_yjwoq")]
-position = Vector2(810, 480)
-
-[node name="Brick5" parent="BrickComponent" index="3" instance=ExtResource("5_yjwoq")]
-position = Vector2(1110, 480)
-
-[node name="Brick6" parent="BrickComponent" index="4" instance=ExtResource("5_yjwoq")]
-position = Vector2(1185, 420)
-
-[node name="Brick7" parent="BrickComponent" index="5" instance=ExtResource("5_yjwoq")]
-position = Vector2(735, 420)
-
-[node name="Brick8" parent="BrickComponent" index="6" instance=ExtResource("5_yjwoq")]
-position = Vector2(660, 480)
-
-[node name="Brick9" parent="BrickComponent" index="7" instance=ExtResource("5_yjwoq")]
-position = Vector2(1260, 480)
-
-[node name="Brick10" parent="BrickComponent" index="8" instance=ExtResource("5_yjwoq")]
-position = Vector2(1335, 420)
-
-[node name="Brick11" parent="BrickComponent" index="9" instance=ExtResource("5_yjwoq")]
-position = Vector2(1260, 360)
-
-[node name="Brick12" parent="BrickComponent" index="10" instance=ExtResource("5_yjwoq")]
-position = Vector2(1110, 360)
-
-[node name="Brick13" parent="BrickComponent" index="11" instance=ExtResource("5_yjwoq")]
-position = Vector2(960, 360)
-
-[node name="Brick14" parent="BrickComponent" index="12" instance=ExtResource("5_yjwoq")]
-position = Vector2(810, 360)
-
-[node name="Brick15" parent="BrickComponent" index="13" instance=ExtResource("5_yjwoq")]
-position = Vector2(660, 360)
-
-[node name="Brick17" parent="BrickComponent" index="14" instance=ExtResource("5_yjwoq")]
-position = Vector2(1185, 300)
-
-[node name="Brick18" parent="BrickComponent" index="15" instance=ExtResource("5_yjwoq")]
-position = Vector2(1035, 300)
-
-[node name="Brick19" parent="BrickComponent" index="16" instance=ExtResource("5_yjwoq")]
-position = Vector2(885, 300)
-
-[node name="Brick20" parent="BrickComponent" index="17" instance=ExtResource("5_yjwoq")]
-position = Vector2(735, 300)
-
-[node name="Brick21" parent="BrickComponent" index="18" instance=ExtResource("5_yjwoq")]
-position = Vector2(585, 300)
-
-[node name="Brick22" parent="BrickComponent" index="19" instance=ExtResource("5_yjwoq")]
-position = Vector2(1260, 240)
-
-[node name="Brick23" parent="BrickComponent" index="20" instance=ExtResource("5_yjwoq")]
-position = Vector2(1110, 240)
-
-[node name="Brick24" parent="BrickComponent" index="21" instance=ExtResource("5_yjwoq")]
-position = Vector2(960, 240)
-
-[node name="Brick25" parent="BrickComponent" index="22" instance=ExtResource("5_yjwoq")]
-position = Vector2(810, 240)
-
-[node name="Brick26" parent="BrickComponent" index="23" instance=ExtResource("5_yjwoq")]
-position = Vector2(660, 240)
-
-[node name="Brick27" parent="BrickComponent" index="24" instance=ExtResource("5_yjwoq")]
-position = Vector2(1185, 180)
-
-[node name="Brick28" parent="BrickComponent" index="25" instance=ExtResource("5_yjwoq")]
-position = Vector2(1035, 180)
-
-[node name="Brick29" parent="BrickComponent" index="26" instance=ExtResource("5_yjwoq")]
-position = Vector2(885, 180)
-
-[node name="Brick30" parent="BrickComponent" index="27" instance=ExtResource("5_yjwoq")]
-position = Vector2(735, 180)
-
-[node name="Brick31" parent="BrickComponent" index="28" instance=ExtResource("5_yjwoq")]
-position = Vector2(585, 180)
-
-[node name="Brick32" parent="BrickComponent" index="29" instance=ExtResource("5_yjwoq")]
-position = Vector2(1260, 120)
-
-[node name="Brick33" parent="BrickComponent" index="30" instance=ExtResource("5_yjwoq")]
-position = Vector2(1110, 120)
-
-[node name="Brick34" parent="BrickComponent" index="31" instance=ExtResource("5_yjwoq")]
-position = Vector2(960, 120)
-
-[node name="Brick35" parent="BrickComponent" index="32" instance=ExtResource("5_yjwoq")]
-position = Vector2(810, 120)
-
-[node name="Brick36" parent="BrickComponent" index="33" instance=ExtResource("5_yjwoq")]
-position = Vector2(660, 120)
-
-[node name="Brick60" parent="BrickComponent" index="34" instance=ExtResource("5_yjwoq")]
-position = Vector2(510, 240)
-
-[node name="Brick61" parent="BrickComponent" index="35" instance=ExtResource("5_yjwoq")]
-position = Vector2(510, 120)
-
-[node name="Brick37" parent="BrickComponent" index="36" instance=ExtResource("5_yjwoq")]
-position = Vector2(1185, 60)
-
-[node name="Brick42" parent="BrickComponent" index="37" instance=ExtResource("5_yjwoq")]
-position = Vector2(1335, 300)
-
-[node name="Brick43" parent="BrickComponent" index="38" instance=ExtResource("5_yjwoq")]
-position = Vector2(1410, 240)
-
-[node name="Brick44" parent="BrickComponent" index="39" instance=ExtResource("5_yjwoq")]
-position = Vector2(1335, 180)
-
-[node name="Brick45" parent="BrickComponent" index="40" instance=ExtResource("5_yjwoq")]
-position = Vector2(1410, 120)
-
-[node name="Brick46" parent="BrickComponent" index="41" instance=ExtResource("5_yjwoq")]
-position = Vector2(1335, 60)
-
-[node name="Brick47" parent="BrickComponent" index="42" instance=ExtResource("5_yjwoq")]
-position = Vector2(1485, 300)
-
-[node name="Brick48" parent="BrickComponent" index="43" instance=ExtResource("5_yjwoq")]
-position = Vector2(1560, 240)
-
-[node name="Brick49" parent="BrickComponent" index="44" instance=ExtResource("5_yjwoq")]
-position = Vector2(1485, 180)
-
-[node name="Brick50" parent="BrickComponent" index="45" instance=ExtResource("5_yjwoq")]
-position = Vector2(1560, 120)
-
-[node name="Brick51" parent="BrickComponent" index="46" instance=ExtResource("5_yjwoq")]
-position = Vector2(1485, 60)
-
-[node name="Brick52" parent="BrickComponent" index="47" instance=ExtResource("5_yjwoq")]
-position = Vector2(1635, 300)
-
-[node name="Brick53" parent="BrickComponent" index="48" instance=ExtResource("5_yjwoq")]
-position = Vector2(1710, 240)
-
-[node name="Brick54" parent="BrickComponent" index="49" instance=ExtResource("5_yjwoq")]
-position = Vector2(1635, 180)
-
-[node name="Brick55" parent="BrickComponent" index="50" instance=ExtResource("5_yjwoq")]
-position = Vector2(1710, 120)
-
-[node name="Brick56" parent="BrickComponent" index="51" instance=ExtResource("5_yjwoq")]
-position = Vector2(1635, 60)
-
-[node name="Brick38" parent="BrickComponent" index="52" instance=ExtResource("5_yjwoq")]
-position = Vector2(1035, 60)
-
-[node name="Brick39" parent="BrickComponent" index="53" instance=ExtResource("5_yjwoq")]
-position = Vector2(885, 60)
-
-[node name="Brick40" parent="BrickComponent" index="54" instance=ExtResource("5_yjwoq")]
-position = Vector2(735, 60)
-
-[node name="Brick41" parent="BrickComponent" index="55" instance=ExtResource("5_yjwoq")]
-position = Vector2(585, 60)
-
-[node name="Brick57" parent="BrickComponent" index="56" instance=ExtResource("5_yjwoq")]
-position = Vector2(435, 300)
-
-[node name="Brick58" parent="BrickComponent" index="57" instance=ExtResource("5_yjwoq")]
-position = Vector2(435, 180)
-
-[node name="Brick59" parent="BrickComponent" index="58" instance=ExtResource("5_yjwoq")]
-position = Vector2(435, 60)
-
-[node name="Brick62" parent="BrickComponent" index="59" instance=ExtResource("5_yjwoq")]
-position = Vector2(360, 240)
-
-[node name="Brick63" parent="BrickComponent" index="60" instance=ExtResource("5_yjwoq")]
-position = Vector2(360, 120)
-
-[node name="Brick64" parent="BrickComponent" index="61" instance=ExtResource("5_yjwoq")]
-position = Vector2(285, 300)
-
-[node name="Brick65" parent="BrickComponent" index="62" instance=ExtResource("5_yjwoq")]
-position = Vector2(285, 180)
-
-[node name="Brick66" parent="BrickComponent" index="63" instance=ExtResource("5_yjwoq")]
-position = Vector2(285, 60)
-
-[node name="Brick67" parent="BrickComponent" index="64" instance=ExtResource("5_yjwoq")]
-position = Vector2(210, 240)
-
-[node name="Brick68" parent="BrickComponent" index="65" instance=ExtResource("5_yjwoq")]
-position = Vector2(210, 120)
-
-[node name="Brick69" parent="BrickComponent" index="66" instance=ExtResource("5_yjwoq")]
-position = Vector2(135, 300)
-
-[node name="Brick72" parent="BrickComponent" index="67" instance=ExtResource("5_yjwoq")]
-position = Vector2(60, 360)
-
-[node name="Brick73" parent="BrickComponent" index="68" instance=ExtResource("5_yjwoq")]
-position = Vector2(60, 240)
-
-[node name="Brick74" parent="BrickComponent" index="69" instance=ExtResource("5_yjwoq")]
-position = Vector2(60, 120)
-
-[node name="Brick75" parent="BrickComponent" index="70" instance=ExtResource("5_yjwoq")]
-position = Vector2(60, 720)
-
-[node name="Brick78" parent="BrickComponent" index="71" instance=ExtResource("5_yjwoq")]
-position = Vector2(60, 840)
-
-[node name="Brick79" parent="BrickComponent" index="72" instance=ExtResource("5_yjwoq")]
-position = Vector2(135, 900)
-
-[node name="Brick80" parent="BrickComponent" index="73" instance=ExtResource("5_yjwoq")]
-position = Vector2(135, 780)
-
-[node name="Brick81" parent="BrickComponent" index="74" instance=ExtResource("5_yjwoq")]
-position = Vector2(135, 660)
-
-[node name="Brick82" parent="BrickComponent" index="75" instance=ExtResource("5_yjwoq")]
-position = Vector2(135, 540)
-
-[node name="Brick83" parent="BrickComponent" index="76" instance=ExtResource("5_yjwoq")]
-position = Vector2(135, 420)
-
-[node name="Brick84" parent="BrickComponent" index="77" instance=ExtResource("5_yjwoq")]
-position = Vector2(210, 360)
-
-[node name="Brick85" parent="BrickComponent" index="78" instance=ExtResource("5_yjwoq")]
-position = Vector2(360, 360)
-
-[node name="Brick153" parent="BrickComponent" index="79" instance=ExtResource("5_yjwoq")]
-position = Vector2(285, 420)
-
-[node name="Brick154" parent="BrickComponent" index="80" instance=ExtResource("5_yjwoq")]
-position = Vector2(435, 420)
-
-[node name="Brick86" parent="BrickComponent" index="81" instance=ExtResource("5_yjwoq")]
-position = Vector2(510, 360)
-
-[node name="Brick87" parent="BrickComponent" index="82" instance=ExtResource("5_yjwoq")]
-position = Vector2(210, 480)
-
-[node name="Brick88" parent="BrickComponent" index="83" instance=ExtResource("5_yjwoq")]
-position = Vector2(210, 600)
-
-[node name="Brick89" parent="BrickComponent" index="84" instance=ExtResource("5_yjwoq")]
-position = Vector2(285, 660)
-
-[node name="Brick90" parent="BrickComponent" index="85" instance=ExtResource("5_yjwoq")]
-position = Vector2(210, 720)
-
-[node name="Brick91" parent="BrickComponent" index="86" instance=ExtResource("5_yjwoq")]
-position = Vector2(210, 840)
-
-[node name="Brick92" parent="BrickComponent" index="87" instance=ExtResource("5_yjwoq")]
-position = Vector2(285, 780)
-
-[node name="Brick93" parent="BrickComponent" index="88" instance=ExtResource("5_yjwoq")]
-position = Vector2(285, 900)
-
-[node name="Brick94" parent="BrickComponent" index="89" instance=ExtResource("5_yjwoq")]
-position = Vector2(360, 840)
-
-[node name="Brick155" parent="BrickComponent" index="90" instance=ExtResource("5_yjwoq")]
-position = Vector2(1560, 840)
-
-[node name="Brick156" parent="BrickComponent" index="91" instance=ExtResource("5_yjwoq")]
-position = Vector2(1560, 480)
-
-[node name="Brick157" parent="BrickComponent" index="92" instance=ExtResource("5_yjwoq")]
-position = Vector2(360, 480)
-
-[node name="Brick95" parent="BrickComponent" index="93" instance=ExtResource("5_yjwoq")]
-position = Vector2(435, 900)
-
-[node name="Brick96" parent="BrickComponent" index="94" instance=ExtResource("5_yjwoq")]
-position = Vector2(585, 900)
-
-[node name="Brick97" parent="BrickComponent" index="95" instance=ExtResource("5_yjwoq")]
-position = Vector2(735, 900)
-
-[node name="Brick98" parent="BrickComponent" index="96" instance=ExtResource("5_yjwoq")]
-position = Vector2(885, 900)
-
-[node name="Brick99" parent="BrickComponent" index="97" instance=ExtResource("5_yjwoq")]
-position = Vector2(1035, 900)
-
-[node name="Brick100" parent="BrickComponent" index="98" instance=ExtResource("5_yjwoq")]
-position = Vector2(1185, 900)
-
-[node name="Brick101" parent="BrickComponent" index="99" instance=ExtResource("5_yjwoq")]
-position = Vector2(1335, 900)
-
-[node name="Brick102" parent="BrickComponent" index="100" instance=ExtResource("5_yjwoq")]
-position = Vector2(1485, 900)
-
-[node name="Brick103" parent="BrickComponent" index="101" instance=ExtResource("5_yjwoq")]
-position = Vector2(1635, 900)
-
-[node name="Brick104" parent="BrickComponent" index="102" instance=ExtResource("5_yjwoq")]
-position = Vector2(1785, 900)
-
-[node name="Brick128" parent="BrickComponent" index="103" instance=ExtResource("5_yjwoq")]
-position = Vector2(60, 960)
-
-[node name="Brick129" parent="BrickComponent" index="104" instance=ExtResource("5_yjwoq")]
-position = Vector2(210, 960)
-
-[node name="Brick130" parent="BrickComponent" index="105" instance=ExtResource("5_yjwoq")]
-position = Vector2(360, 960)
-
-[node name="Brick131" parent="BrickComponent" index="106" instance=ExtResource("5_yjwoq")]
-position = Vector2(510, 960)
-
-[node name="Brick132" parent="BrickComponent" index="107" instance=ExtResource("5_yjwoq")]
-position = Vector2(660, 960)
-
-[node name="Brick133" parent="BrickComponent" index="108" instance=ExtResource("5_yjwoq")]
-position = Vector2(810, 960)
-
-[node name="Brick134" parent="BrickComponent" index="109" instance=ExtResource("5_yjwoq")]
-position = Vector2(960, 960)
-
-[node name="Brick135" parent="BrickComponent" index="110" instance=ExtResource("5_yjwoq")]
-position = Vector2(1110, 960)
-
-[node name="Brick136" parent="BrickComponent" index="111" instance=ExtResource("5_yjwoq")]
-position = Vector2(1260, 960)
-
-[node name="Brick137" parent="BrickComponent" index="112" instance=ExtResource("5_yjwoq")]
-position = Vector2(1410, 960)
-
-[node name="Brick138" parent="BrickComponent" index="113" instance=ExtResource("5_yjwoq")]
-position = Vector2(1560, 960)
-
-[node name="Brick139" parent="BrickComponent" index="114" instance=ExtResource("5_yjwoq")]
-position = Vector2(1710, 960)
-
-[node name="Brick152" parent="BrickComponent" index="115" instance=ExtResource("5_yjwoq")]
-position = Vector2(1860, 960)
-
-[node name="Brick140" parent="BrickComponent" index="116" instance=ExtResource("5_yjwoq")]
-position = Vector2(135, 1020)
-
-[node name="Brick141" parent="BrickComponent" index="117" instance=ExtResource("5_yjwoq")]
-position = Vector2(285, 1020)
-
-[node name="Brick142" parent="BrickComponent" index="118" instance=ExtResource("5_yjwoq")]
-position = Vector2(435, 1020)
-
-[node name="Brick143" parent="BrickComponent" index="119" instance=ExtResource("5_yjwoq")]
-position = Vector2(585, 1020)
-
-[node name="Brick144" parent="BrickComponent" index="120" instance=ExtResource("5_yjwoq")]
-position = Vector2(735, 1020)
-
-[node name="Brick145" parent="BrickComponent" index="121" instance=ExtResource("5_yjwoq")]
-position = Vector2(885, 1020)
-
-[node name="Brick146" parent="BrickComponent" index="122" instance=ExtResource("5_yjwoq")]
-position = Vector2(1035, 1020)
-
-[node name="Brick147" parent="BrickComponent" index="123" instance=ExtResource("5_yjwoq")]
-position = Vector2(1185, 1020)
-
-[node name="Brick148" parent="BrickComponent" index="124" instance=ExtResource("5_yjwoq")]
-position = Vector2(1335, 1020)
-
-[node name="Brick149" parent="BrickComponent" index="125" instance=ExtResource("5_yjwoq")]
-position = Vector2(1485, 1020)
-
-[node name="Brick150" parent="BrickComponent" index="126" instance=ExtResource("5_yjwoq")]
-position = Vector2(1635, 1020)
-
-[node name="Brick151" parent="BrickComponent" index="127" instance=ExtResource("5_yjwoq")]
-position = Vector2(1785, 1020)
-
-[node name="Brick105" parent="BrickComponent" index="128" instance=ExtResource("5_yjwoq")]
-position = Vector2(1710, 840)
-
-[node name="Brick106" parent="BrickComponent" index="129" instance=ExtResource("5_yjwoq")]
-position = Vector2(1860, 840)
-
-[node name="Brick107" parent="BrickComponent" index="130" instance=ExtResource("5_yjwoq")]
-position = Vector2(1785, 780)
-
-[node name="Brick108" parent="BrickComponent" index="131" instance=ExtResource("5_yjwoq")]
-position = Vector2(1860, 720)
-
-[node name="Brick109" parent="BrickComponent" index="132" instance=ExtResource("5_yjwoq")]
-position = Vector2(1710, 720)
-
-[node name="Brick110" parent="BrickComponent" index="133" instance=ExtResource("5_yjwoq")]
-position = Vector2(1785, 660)
-
-[node name="Brick111" parent="BrickComponent" index="134" instance=ExtResource("5_yjwoq")]
-position = Vector2(1710, 600)
-
-[node name="Brick112" parent="BrickComponent" index="135" instance=ExtResource("5_yjwoq")]
-position = Vector2(1860, 600)
-
-[node name="Brick113" parent="BrickComponent" index="136" instance=ExtResource("5_yjwoq")]
-position = Vector2(1785, 540)
-
-[node name="Brick114" parent="BrickComponent" index="137" instance=ExtResource("5_yjwoq")]
-position = Vector2(1860, 480)
-
-[node name="Brick115" parent="BrickComponent" index="138" instance=ExtResource("5_yjwoq")]
-position = Vector2(1710, 480)
-
-[node name="Brick116" parent="BrickComponent" index="139" instance=ExtResource("5_yjwoq")]
-position = Vector2(1785, 420)
-
-[node name="Brick117" parent="BrickComponent" index="140" instance=ExtResource("5_yjwoq")]
-position = Vector2(1635, 420)
-
-[node name="Brick118" parent="BrickComponent" index="141" instance=ExtResource("5_yjwoq")]
-position = Vector2(1485, 420)
-
-[node name="Brick119" parent="BrickComponent" index="142" instance=ExtResource("5_yjwoq")]
-position = Vector2(1410, 360)
-
-[node name="Brick120" parent="BrickComponent" index="143" instance=ExtResource("5_yjwoq")]
-position = Vector2(1560, 360)
-
-[node name="Brick121" parent="BrickComponent" index="144" instance=ExtResource("5_yjwoq")]
-position = Vector2(1710, 360)
-
-[node name="Brick122" parent="BrickComponent" index="145" instance=ExtResource("5_yjwoq")]
-position = Vector2(1860, 360)
-
-[node name="Brick123" parent="BrickComponent" index="146" instance=ExtResource("5_yjwoq")]
-position = Vector2(1785, 300)
-
-[node name="Brick124" parent="BrickComponent" index="147" instance=ExtResource("5_yjwoq")]
-position = Vector2(1785, 180)
-
-[node name="Brick125" parent="BrickComponent" index="148" instance=ExtResource("5_yjwoq")]
-position = Vector2(1785, 60)
-
-[node name="Brick126" parent="BrickComponent" index="149" instance=ExtResource("5_yjwoq")]
-position = Vector2(1860, 120)
-
-[node name="Brick127" parent="BrickComponent" index="150" instance=ExtResource("5_yjwoq")]
-position = Vector2(1860, 240)
-
-[node name="Brick76" parent="BrickComponent" index="151" instance=ExtResource("5_yjwoq")]
-position = Vector2(60, 600)
-
-[node name="Brick77" parent="BrickComponent" index="152" instance=ExtResource("5_yjwoq")]
-position = Vector2(60, 480)
-
-[node name="Brick70" parent="BrickComponent" index="153" instance=ExtResource("5_yjwoq")]
-position = Vector2(135, 180)
-
-[node name="Brick71" parent="BrickComponent" index="154" instance=ExtResource("5_yjwoq")]
-position = Vector2(135, 60)
-
-[node name="Brick16" parent="BrickComponent" index="155" instance=ExtResource("5_yjwoq")]
-position = Vector2(585, 420)
+[node name="BallSpawnTimer" type="Timer" parent="." index="2"]
+wait_time = 0.25
 
 [node name="GUI" type="CanvasLayer" parent="." index="3"]
 
-[node name="Buttons" type="VBoxContainer" parent="GUI" index="0"]
+[node name="Title" type="Label" parent="GUI" index="0"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.5
+offset_top = -11.5
+offset_right = 36.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "BrickOut!"
+label_settings = SubResource("LabelSettings_3vi2w")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Buttons" type="VBoxContainer" parent="GUI" index="1"]
 anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.557
+anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
 grow_horizontal = 2
 alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="NewGameBtn" type="Button" parent="GUI/Buttons" index="0"]
 layout_mode = 2
@@ -522,7 +87,7 @@ text = "Stats"
 layout_mode = 2
 text = "Quit"
 
-[node name="MeLbl" type="Label" parent="GUI" index="1"]
+[node name="PanelContainer" type="PanelContainer" parent="GUI" index="2"]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -532,7 +97,15 @@ offset_right = -10.0
 offset_bottom = -10.0
 grow_horizontal = 0
 grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_mbdus")
+metadata/_edit_lock_ = true
+
+[node name="MeLbl" type="Label" parent="GUI/PanelContainer" index="0"]
+layout_mode = 2
 text = "BrickOut
 Made by OLP Solutions
 © "
 horizontal_alignment = 2
+metadata/_edit_lock_ = true
+
+[connection signal="pressed" from="GUI/Buttons/QuitBtn" to="." method="_on_quit_btn_pressed"]
