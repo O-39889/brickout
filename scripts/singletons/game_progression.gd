@@ -5,16 +5,21 @@ extends Node;
 # new life
 const EXTRA_LIFE_MULTIPLIER : int = 25000;
 
+var level_campaign := [];
+var current_level : MainLevel;
+var current_level_idx : int = 0;
+
 
 @onready var score : int = 0:
 	get:
 		return score;
 	set(value):
+		var old_val = score;
 		score = maxi(value, 0);
 		if score >= (extra_lives_earned + 1) * EXTRA_LIFE_MULTIPLIER:
 			lives += 1;
 			extra_lives_earned += 1;
-		EventBus.score_changed.emit();
+		EventBus.score_changed.emit(score - old_val);
 
 @onready var lives : int = 3:
 	get:

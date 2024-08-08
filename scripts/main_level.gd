@@ -7,13 +7,26 @@ const BARRIER_PACKED : PackedScene = preload("res://scenes/Barrier.tscn");
 @export var level_name : String = 'New Level';
 @export var level_author : String = 'Someone';
 
-
 var barrier : Barrier;
+var points_earned : int = 0;
+var time_passed : float = 0.0;
+
+var gui : LevelGUI;
+
+
+func _enter_tree():
+	super();
+	gui = find_child('GUI');
+	if gui:
+		gui.level = self;
 
 
 func _ready():
 	EventBus.ball_lost.connect(handle_ball_lost);
 	EventBus.barrier_hit.connect(_on_barrier_hit);
+	EventBus.score_changed.connect(func(amount: int): 
+		if not cleared:
+			points_earned += amount);
 	# actually no, we'll need another signal on bullet collision just so that
 	# we can handle the cases where it just bonks into the top wall
 	EventBus.projectile_collided.connect(_on_projectile_collided);
@@ -59,6 +72,8 @@ func handle_ball_lost(ball: Ball):
 
 
 func handle_life_lost():
+	if cleared:
+		return;
 	await get_tree().physics_frame;
 	if life_lost_check():
 		reset_level();
@@ -101,14 +116,24 @@ func murder_ball(b: Ball):
 
 
 func finish():
+	if cleared:
+		return;
 	cleared = true;
+	mouse_captured = false;
 	EventBus.level_cleared.emit();
+	gui.show_level_clear();
 	await get_tree().create_timer(1.0).timeout;
 	for ball : Ball in get_tree().get_nodes_in_group(&'balls'):
 		GameProgression.score += 1000;
 		await get_tree().create_timer(0.5).timeout;
 	await get_tree().create_timer(1.0).timeout;
-	get_tree().reload_current_scene();
+	get_tree().physics_frame.connect(func():
+		if randf() < 0.0001:
+			get_tree().reload_current_scene())
+
+
+func _physics_process(delta):
+	time_passed += delta;
 
 
 func _on_projectile_collided(_projectile: Projectile, with: CollisionObject2D):

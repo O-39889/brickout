@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cex7tbpf2a3i2"]
+[gd_scene load_steps=4 format=3 uid="uid://cex7tbpf2a3i2"]
 
 [ext_resource type="Theme" uid="uid://disr836qacj33" path="res://resources/gui_theme.tres" id="1_0qekg"]
+[ext_resource type="Script" path="res://scripts/gui_level_clear.gd" id="1_3euap"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6x34w"]
 font_size = 80
@@ -9,10 +10,12 @@ outline_color = Color(0, 0, 0, 1)
 
 [node name="LevelClear" type="Control"]
 layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_3euap")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
@@ -23,7 +26,7 @@ anchor_right = 0.5
 anchor_bottom = 0.4
 grow_horizontal = 2
 grow_vertical = 2
-text = "Skibidi Toilet"
+text = "Level Complete"
 label_settings = SubResource("LabelSettings_6x34w")
 horizontal_alignment = 1
 

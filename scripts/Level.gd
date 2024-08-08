@@ -52,12 +52,15 @@ func _enter_tree():
 	brick_component = find_child('BrickComponent');
 	if brick_component:
 		brick_component.level = self;
+		
 	powerup_component = find_child('PowerupComponent');
 	if powerup_component:
 		powerup_component.level = self;
+		
 	ball_component = find_child('BallComponent');
 	if ball_component:
 		ball_component.level = self;
+		
 	paddle = find_child('Paddle');
 	if paddle:
 		paddle.level = self;
