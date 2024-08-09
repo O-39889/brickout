@@ -57,7 +57,7 @@ const CONSTANT_DECELERATION := 100;
 const GUN_POS : float = 0.1;
 
 
-var level : Node2D;
+var level : Level;
 var balls : Array[Ball] = [];
 var persistent_balls : Array[Ball] = [];
 

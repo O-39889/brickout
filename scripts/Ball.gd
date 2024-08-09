@@ -165,20 +165,6 @@ func apply_impulse(impulse: Vector2):
 
 
 func handle_cloned(clones: Array[Ball]):
-	if false:
-		return;
-		set_collision_mask_value(3, false);
-		collision_shape.self_modulate = Color.BLACK;
-		for ball in clones:
-			ball.set_collision_mask_value(3, false);
-			ball.collision_shape.self_modulate = Color.BLACK;
-		get_tree().create_timer(BALL_RADIUS * 2 / target_speed).\
-			timeout.connect(func():
-				set_collision_mask_value(3, true);
-				collision_shape.self_modulate = Color.WHITE;
-				for b in clones:
-					b.set_collision_mask_value(3, true)
-					b.collision_shape.self_modulate = Color.WHITE);
 	ball_detection_area.visible = true;
 	ball_detection_area.process_mode = Node.PROCESS_MODE_INHERIT;	
 	set_collision_mask_value(3, false);

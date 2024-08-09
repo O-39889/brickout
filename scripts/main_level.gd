@@ -108,9 +108,11 @@ func clone_balls(b: Ball, n: int):
 		else:
 			new_ball.position = b.position;
 			launch_vector = b.velocity.normalized().rotated(angle_offset);
-		add_ball(new_ball);
-		cloned_balls.append(new_ball);
-		new_ball.launch(launch_vector);
+		if add_ball(new_ball):
+			cloned_balls.append(new_ball);
+			new_ball.launch(launch_vector);
+		else:
+			new_ball.queue_free();
 	b.handle_cloned(cloned_balls);
 
 
@@ -187,13 +189,13 @@ func _input(event):
 			powerup_component._request_powerup('finish_level',
 				paddle.position - Vector2(0, 69));
 		if event.is_action_pressed("debug_2"):
-			powerup_component._request_powerup('fire_ball',
+			powerup_component._request_powerup('double_balls',
 				paddle.position - Vector2(0, 69));
 		if event.is_action_pressed('debug_3'):
-			powerup_component._request_powerup('acid_ball',
+			powerup_component._request_powerup('triple_ball',
 				paddle.position - Vector2(0, 69));
 		if event.is_action_pressed('debug_4'):
-			powerup_component._request_powerup('paddle_freeze',
+			powerup_component._request_powerup('add_ball',
 				paddle.position - Vector2(0, 69));
 		if event.is_action_pressed('debug_5'):
 			Engine.time_scale = 1.0 if not is_equal_approx(Engine.time_scale, 1.0) else 0.02;
