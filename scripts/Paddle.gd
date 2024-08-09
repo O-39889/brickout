@@ -212,6 +212,7 @@ func release_ball(ball: Ball):
 		return;
 	balls.erase(ball);
 	persistent_balls.erase(ball);
+	ball.request_ready();
 	level.reparent_ball(ball);
 	ball.launch(_bounce_ball_dir_controlled(ball.global_position));
 
