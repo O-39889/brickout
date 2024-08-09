@@ -25,11 +25,11 @@ enum PaddleSize {
 
 
 const PADDLE_SIZES = [
-	100,
-	150,
-	240,
-	300,
-	400,
+	90,
+	120,
+	200,
+	250,
+	320,
 ];
 
 const MAX_BOUNCE_ANGLES = [
