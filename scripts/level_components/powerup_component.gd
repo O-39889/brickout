@@ -239,14 +239,14 @@ func _on_powerup_collected(powerup: Powerup):
 			for b in get_tree().get_nodes_in_group(&'balls'):
 				level.clone_balls(b, 1);
 		&'sticky_paddle':
-			level.paddle.state = Paddle.PaddleState.Sticky;
+			level.activate_sticky_powerup();
 		&'barrier':
 			level.add_barrier();
 		&'fire_ball':
 			for b in get_tree().get_nodes_in_group(&'balls'):
 				b.state = Ball.BallState.Fire;
 		&'acid_ball':
-			level.ball_component.enable_acid();
+			level.activate_acid_powerup();
 			#for b in get_tree().get_nodes_in_group(&'balls'):
 				#b.state = Ball.BallState.Acid;
 			## probably move to somewhere else
@@ -302,7 +302,7 @@ func _on_powerup_collected(powerup: Powerup):
 			for b in balls_arr:
 				level.murder_ball(b);
 		&'paddle_freeze':
-			level.paddle.state = Paddle.PaddleState.Frozen;
+			level.activate_freeze_powerup();
 	GameProgression.score += Powerup.POWERUP_LIST[powerup.id][&'points'];
 
 

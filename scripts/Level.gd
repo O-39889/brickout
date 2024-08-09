@@ -110,6 +110,18 @@ func reparent_ball(ball: Ball):
 			add_child(ball);
 
 
+func activate_sticky_powerup():
+	pass
+
+
+func activate_acid_powerup():
+	pass
+
+
+func activate_freeze_powerup():
+	pass
+
+
 func finish():
 	cleared = true;
 	EventBus.level_cleared.emit();

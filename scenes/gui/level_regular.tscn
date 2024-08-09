@@ -10,9 +10,14 @@ font_size = 18
 
 [node name="Regular" type="Control"]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Score" type="Label" parent="."]
+layout_mode = 0
 offset_left = 25.0
 offset_top = 25.0
 offset_right = 304.0
@@ -22,6 +27,7 @@ label_settings = SubResource("LabelSettings_0fqg0")
 metadata/_edit_lock_ = true
 
 [node name="Lives" type="Label" parent="."]
+layout_mode = 0
 offset_left = 25.0
 offset_top = 90.0
 offset_right = 173.0
@@ -36,16 +42,25 @@ wait_time = 0.1
 [node name="LevelAuthorName" type="Label" parent="."]
 modulate = Color(1, 1, 1, 0.705882)
 layout_mode = 1
-anchors_preset = 5
+anchors_preset = -1
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = 650.5
-offset_top = 10.0
-offset_right = 929.5
-offset_bottom = 36.0
+offset_top = 15.0
 grow_horizontal = 2
 text = "[1] Olepograd — My Level Name"
 label_settings = SubResource("LabelSettings_axbs4")
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_lock_ = true
+
+[node name="TimersEtc" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+theme_override_constants/separation = 6

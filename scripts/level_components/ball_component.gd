@@ -31,6 +31,17 @@ func _ready():
 	EventBus.ball_collision.connect(handle_collision);
 	acid_timer.timeout.connect(_on_acid_timer_timeout);
 	EventBus.ball_lost.connect(_on_ball_lost);
+	EventBus.ball_state_changed.connect(func(old_state, new_state):
+		var acid_balls_found := false;
+		for ball : Ball in get_tree().get_nodes_in_group(&'balls'):
+			if ball.state == Ball.BallState.Acid:
+				acid_balls_found = true;
+				break;
+		if not acid_balls_found:
+			acid_timer.stop();
+			# this is a piece of bs
+			level.gui.remove_timer(Powerup.TimedPowerup.AcidBall);
+		pass)
 	EventBus.level_cleared.connect(func():
 		acid_timer.timeout.disconnect(_on_acid_timer_timeout);
 		for ball : Ball in get_tree().get_nodes_in_group(&'balls'):

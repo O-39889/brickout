@@ -83,6 +83,7 @@ var state: BallState = BallState.Normal:
 	get:
 		return state;
 	set(value):
+		var old_state = state;
 		state = value;
 		match value:
 			BallState.Normal:
@@ -91,6 +92,7 @@ var state: BallState = BallState.Normal:
 				collision_shape.debug_color.h = (20.0 / 360.0);
 			BallState.Acid:
 				collision_shape.debug_color.h = (100.0 / 360.0);
+		EventBus.ball_state_changed.emit(old_state, state);
 
 
 var last_direction : Vector2;

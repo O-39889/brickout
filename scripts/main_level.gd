@@ -88,6 +88,11 @@ func reset_level():
 	create_paddle();
 
 
+func handle_powerup_activated(powerup: Powerup):
+	if powerup.type == &'sticky_paddle':
+		pass
+
+
 # TODO: take advantage of the new bool return types of add ball functions
 func clone_balls(b: Ball, n: int):
 	var angle_range : float = PI if b.stuck else TAU;
@@ -113,6 +118,31 @@ func murder_ball(b: Ball):
 	if paddle:
 		paddle.balls.erase(b);
 	b.queue_free();
+
+
+func activate_sticky_powerup():
+	if paddle:
+		paddle.state = Paddle.PaddleState.Sticky;
+		gui.add_or_extend_timer(paddle.sticky_timer,
+			Powerup.TimedPowerup.StickyPaddle);
+		gui.remove_timer(Powerup.TimedPowerup.PaddleFreeze);
+		gui.remove_timer(Powerup.TimedPowerup.GhostPaddle);
+
+
+func activate_acid_powerup():
+	if ball_component:
+		ball_component.enable_acid();
+		gui.add_or_extend_timer(ball_component.acid_timer,
+			Powerup.TimedPowerup.AcidBall);
+
+
+func activate_freeze_powerup():
+	if paddle:
+		paddle.state = Paddle.PaddleState.Frozen;
+		gui.add_or_extend_timer(paddle.frozen_timer,
+			Powerup.TimedPowerup.PaddleFreeze);
+		gui.remove_timer(Powerup.TimedPowerup.StickyPaddle);
+		gui.remove_timer(Powerup.TimedPowerup.GhostPaddle);
 
 
 func finish():
@@ -157,15 +187,13 @@ func _input(event):
 			powerup_component._request_powerup('finish_level',
 				paddle.position - Vector2(0, 69));
 		if event.is_action_pressed("debug_2"):
-			powerup_component._request_powerup('ball_speed_up',
+			powerup_component._request_powerup('fire_ball',
 				paddle.position - Vector2(0, 69));
 		if event.is_action_pressed('debug_3'):
-			powerup_component._request_powerup('ball_slow_down',
+			powerup_component._request_powerup('acid_ball',
 				paddle.position - Vector2(0, 69));
 		if event.is_action_pressed('debug_4'):
-			Engine.time_scale = 1.0 if not is_equal_approx(Engine.time_scale, 1.0) else 0.02;
+			powerup_component._request_powerup('paddle_freeze',
+				paddle.position - Vector2(0, 69));
 		if event.is_action_pressed('debug_5'):
-			var ball := BALL_PACKED.instantiate() as Ball;
-			ball.position = Vector2(1590, 440);
-			ball_component.add_child(ball);
-			ball.launch(Vector2(-0.1, -1));
+			Engine.time_scale = 1.0 if not is_equal_approx(Engine.time_scale, 1.0) else 0.02;
