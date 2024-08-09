@@ -43,9 +43,7 @@ func _ready():
 			level.gui.remove_timer(Powerup.TimedPowerup.AcidBall);
 		pass)
 	EventBus.level_cleared.connect(func():
-		acid_timer.timeout.disconnect(_on_acid_timer_timeout);
-		for ball : Ball in get_tree().get_nodes_in_group(&'balls'):
-			pass);
+		acid_timer.timeout.disconnect(_on_acid_timer_timeout));
 
 
 func enable_acid():
