@@ -1,6 +1,14 @@
 class_name Powerup extends RefCounted;
 
 
+enum TimedPowerup {
+	StickyPaddle,
+	AcidBall,
+	GhostPaddle,
+	PaddleFreeze,
+};
+
+
 const POWERUP_POOL = {
 	&'good': [
 		&'double_balls',
@@ -88,7 +96,7 @@ const POWERUP_LIST = {
 	},
 	&'gun': {
 		&'name': 'Gun',
-		&'description': 'Mounts a gun on the paddle. The gun can shoot bullets to break the bricks, however, the ammo is limited.',
+		&'description': 'Mounts a gun on the paddle. Press the right mouse button to shoot! Remember, ammo is limited.',
 		&'points': 250,
 	},
 	&'finish_level': {
