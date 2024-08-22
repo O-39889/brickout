@@ -10,7 +10,9 @@ const TIMER_THING_PACKED := preload('res://scenes/gui/timer_container.tscn');
 var level : MainLevel;
 var score_counter : float = 0.0;
 var score_countdown_active : bool = false;
+@onready var regular_gui : LevelRegularGUI = $Regular;
 var clear_gui : LevelClearGUI;
+var game_over_gui : LevelGameOverGUI;
 var timers : Dictionary = {
 	Powerup.TimedPowerup.StickyPaddle: null,
 	Powerup.TimedPowerup.AcidBall: null,
@@ -20,9 +22,9 @@ var timers : Dictionary = {
 
 @onready var old_lives : int = GameProgression.lives;
 
-@onready var score_label : Label = $Regular/Score;
-@onready var lives_label : Label = $Regular/Lives;
-@onready var timers_container : VBoxContainer = $Regular/TimersEtc;
+@onready var score_label : Label = regular_gui.score_label;
+@onready var lives_label : Label = regular_gui.lives_label;
+@onready var timers_container : VBoxContainer = regular_gui.timers_container;
 
 @onready var current_display_score : int = GameProgression.score:
 	get:
@@ -41,20 +43,36 @@ func _ready():
 	set_score_label();
 
 
-func show_level_clear():
+func show_level_clear(next_level_func: Callable = Callable(),
+	main_menu_func : Callable = Callable()):
 	if clear_gui == null:
 		clear_gui = load('res://scenes/gui/level_clear.tscn').instantiate();
 		add_child(clear_gui);
 		clear_gui.time_lbl.text = 'Time: ' + Globals.display_time(level.time_passed);
 		clear_gui.score_lbl.text = 'Score: %d' % level.points_earned;
-		clear_gui.next_btn.pressed.connect(next_level);
-		clear_gui.menu_btn.pressed.connect(main_menu);
+		clear_gui.next_btn.pressed.connect(next_level_func);
+		clear_gui.menu_btn.pressed.connect(main_menu_func);
 		for t in timers:
 			remove_timer(t);
 		timers.clear();
 
 
+func show_game_over(restart_func: Callable = Callable(),
+	main_menu_func : Callable = Callable()):
+	if game_over_gui != null:
+		return;
+	game_over_gui = load('res://scenes/gui/level_game_over.tscn').instantiate();
+	add_child(game_over_gui);
+	game_over_gui.score_label.text ='Score: ' + str(GameProgression.score);
+	game_over_gui.restart_btn.pressed.connect(restart_func);
+	game_over_gui.main_menu_btn.pressed.connect(main_menu_func);
+
+
 func next_level():
+	pass
+
+
+func restart():
 	pass
 
 

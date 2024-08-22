@@ -1,10 +1,19 @@
 class_name Level extends Node2D;
 
 
-@export var BALL_LIMIT : int = 20;
+enum LevelCompletionState {
+	None,
+	Clear,
+	Lost,
+	GameOver,
+};
+
+
 const BALL_PACKED : PackedScene = preload('res://scenes/Ball.tscn');
 const PADDLE_PACKED : PackedScene = preload("res://scenes/Paddle.tscn");
 
+
+@export var BALL_LIMIT : int = 20;
 
 var mouse_captured : bool = false:
 	get:
@@ -28,12 +37,12 @@ var brick_component: Node2D;
 var powerup_component: Node2D;
 var ball_component: Node2D;
 
-var cleared : bool = false;
-
 
 @onready var current_ball_speed_idx : Ball.BallSpeed = Ball.BallSpeed.BALL_SPEED_NORMAL;
 
 @onready var weight_pool : Array[Powerup] = [];
+
+var state : LevelCompletionState = LevelCompletionState.None;
 
 
 # Called when the node enters the scene tree for the first time.
@@ -80,7 +89,7 @@ func create_paddle():
 ## Returns true if the adding was successful (the amount of balls is below
 ## the limit), false otherwise
 func add_ball(b: Ball) -> bool:
-	b.is_finish_state = cleared;
+	b.is_finish_state = (state == Level.LevelCompletionState.Clear);
 	if get_tree().get_nodes_in_group(&'balls').size() >= BALL_LIMIT:
 		return false;
 	reparent_ball(b);
@@ -90,7 +99,7 @@ func add_ball(b: Ball) -> bool:
 ## Returns true if the adding was successful (the amount of balls is below
 ## the limit), false otherwise
 func add_ball_to_paddle(b: Ball, persistent: bool):
-	b.is_finish_state = cleared;
+	b.is_finish_state = (state == Level.LevelCompletionState.Clear);
 	if get_tree().get_nodes_in_group(&'balls').size() >= BALL_LIMIT:
 		return false;
 	paddle.add_bawl(b, persistent);
@@ -123,6 +132,8 @@ func activate_freeze_powerup():
 
 
 func finish():
-	cleared = true;
+	if state != Level.LevelCompletionState.None:
+		return;
+	state = Level.LevelCompletionState.Clear;
 	EventBus.level_cleared.emit();
 	print('Win');

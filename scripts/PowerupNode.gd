@@ -37,7 +37,7 @@ func _physics_process(delta):
 		or collider.get_collision_layer_value(2)
 		# paddle hitbox for powerups
 		or collider.get_collision_layer_value(7)):
-			if get_parent().level.cleared:
+			if get_parent().level.state == Level.LevelCompletionState.Clear:
 				velocity = velocity.bounce(collision.get_normal());
 			else:
 				EventBus.powerup_collected.emit(powerup);

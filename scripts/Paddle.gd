@@ -269,7 +269,7 @@ func _physics_process(delta):
 	last_tick_position = position;
 	$DebugLbl.text = String.num(ammo_left, 9);
 	$DebugLbl.global_position.x = 810;
-	if level_cleared:
+	if level_cleared and false: # bc bs
 		var collision := move_and_collide(Vector2(my_velocity, 0).normalized() * finish_speed * delta);
 		if collision:
 			if collision.get_collider().is_in_group(&'walls'):

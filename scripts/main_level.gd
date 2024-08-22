@@ -25,7 +25,7 @@ func _ready():
 	EventBus.ball_lost.connect(handle_ball_lost);
 	EventBus.barrier_hit.connect(_on_barrier_hit);
 	EventBus.score_changed.connect(func(amount: int): 
-		if not cleared:
+		if state != Level.LevelCompletionState.Clear:
 			points_earned += amount);
 	# actually no, we'll need another signal on bullet collision just so that
 	# we can handle the cases where it just bonks into the top wall
@@ -56,7 +56,8 @@ func life_lost_check():
 	# Even if there is no balls in play,
 	# we still see if the player maybe has a gun
 	# then they can maybe shoot and destroy the last bricks
-	return get_tree().get_nodes_in_group(&'balls').is_empty()\
+	return state == LevelCompletionState.None\
+	and get_tree().get_nodes_in_group(&'balls').is_empty()\
 	and not paddle.has_gun\
 	and get_tree().get_nodes_in_group(&'projectiles').is_empty()\
 	and not get_tree().get_nodes_in_group(&'destructible_bricks').is_empty();
@@ -72,7 +73,7 @@ func handle_ball_lost(ball: Ball):
 
 
 func handle_life_lost():
-	if cleared:
+	if state == Level.LevelCompletionState.Clear:
 		return;
 	await get_tree().physics_frame;
 	if life_lost_check():
@@ -80,12 +81,32 @@ func handle_life_lost():
 
 
 func reset_level():
+	if state != LevelCompletionState.None:
+		return;
+	state = LevelCompletionState.Lost;
 	Ball.reset_target_speed();
 	paddle.queue_free();
 	paddle = null;
 	EventBus.life_lost.emit();
-	await get_tree().create_timer(1.0).timeout;
+	if GameProgression.lives == 0:
+		handle_game_over();
+	else:
+		await get_tree().create_timer(1.0).timeout;
+		restart();
+
+
+func restart():
+	state = LevelCompletionState.None;
 	create_paddle();
+
+
+func handle_game_over():
+	if state != LevelCompletionState.Lost and state != LevelCompletionState.None:
+		return;
+	mouse_captured = false;
+	state = LevelCompletionState.GameOver;
+	gui.show_game_over(func(): get_window().title = 'Restart!',
+		func(): get_window().title = 'Main menu!');
 
 
 func handle_powerup_activated(powerup: Powerup):
@@ -148,12 +169,13 @@ func activate_freeze_powerup():
 
 
 func finish():
-	if cleared:
+	if state != Level.LevelCompletionState.None:
 		return;
-	cleared = true;
+	state = Level.LevelCompletionState.Clear;
 	mouse_captured = false;
 	EventBus.level_cleared.emit();
-	gui.show_level_clear();
+	gui.show_level_clear(func(): get_window().title = 'Next level!',
+		func(): get_window().title = 'Main menu!');
 	await get_tree().create_timer(1.0).timeout;
 	for ball : Ball in get_tree().get_nodes_in_group(&'balls'):
 		GameProgression.score += 1000;
