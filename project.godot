@@ -27,14 +27,25 @@ gdscript/warnings/inference_on_variant=1
 
 [display]
 
-window/size/viewport_width=1500
-window/size/viewport_height=1000
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 window/size/mode=2
+window/size/window_width_override=1440
+window/size/window_height_override=810
 window/stretch/mode="canvas_items"
+window/stretch/aspect="keep_height"
 
 [filesystem]
 
 import/blender/enabled=false
+
+[global_group]
+
+bricks="All bricks in the level."
+fadeable="Sprites in this group will fade in by scaling out from 0 to their normal scale when starting a level, as well as fade out by scaling down their scale from normal to 0 when completing a level, in the order determined by their position on the screen."
+destructible_bricks="All bricks that can be broken by regular balls and must be destroyed to clear the level."
+balls="All balls in the level, either in play or on the paddle."
+projectiles="All projectiles in the level."
 
 [input]
 

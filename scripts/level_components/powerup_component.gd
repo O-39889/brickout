@@ -1,4 +1,4 @@
-extends Node2D;
+class_name MainPowerupComponent extends Node2D;
 
 
 const POWERUP_PACKED = preload('res://scenes/Powerup.tscn');
@@ -11,7 +11,7 @@ var y_sort_balls_asc : Callable = func(a: Ball, b: Ball):
 		return true;
 	return false;
 
-var level : Level;
+var level : MainLevel;
 var level_cleared : bool = false;
 
 

@@ -32,16 +32,16 @@ texture = ExtResource("3_soec6")
 region_enabled = true
 region_rect = Rect2(0, 0, 100, 50)
 
-[node name="CrackSprite" type="Sprite2D" parent="." index="2"]
+[node name="CrackSprite" type="Sprite2D" parent="." index="2" groups=["fadeable"]]
 visible = false
 texture = ExtResource("4_kqa0t")
 region_enabled = true
 region_rect = Rect2(0, 0, 100, 50)
 
-[node name="ArmorSprites" type="Node2D" parent="." index="3"]
+[node name="ArmorSprites" type="Node2D" parent="." index="3" groups=["fadeable"]]
 script = ExtResource("5_36o2p")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="." index="4"]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." index="4" groups=["fadeable"]]
 visible = false
 z_index = 1
 emitting = false

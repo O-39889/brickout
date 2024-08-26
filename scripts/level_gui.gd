@@ -26,6 +26,13 @@ var timers : Dictionary = {
 @onready var lives_label : Label = regular_gui.lives_label;
 @onready var timers_container : VBoxContainer = regular_gui.timers_container;
 
+# TODO: WHY IS IT JUST SO STUPID
+# JUST HAVE A CURRENT SCORE COUNTER
+# IT WILL ALWAYS, AT EVERY FRAME, INCREASE ITS VALUE TOWARDS
+# THE ACTUAL GAME SCORE (DON'T HAVE TO PRETTY MUCH JUST COPY THE
+# GAME VARIABLE FROM THE PROGRESSION SINGLETON)
+# AND WHEN IT CHANGES IT WOULD ALSO SET THE SCORE LABEL
+# THAT'S ALL FOR GOD'S SAKE
 @onready var current_display_score : int = GameProgression.score:
 	get:
 		return current_display_score;

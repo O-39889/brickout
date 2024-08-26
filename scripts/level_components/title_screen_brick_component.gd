@@ -1,4 +1,4 @@
-extends Node2D;
+class_name TitleScreenBrickComponent extends Node2D;
 
 
 const BALL_PACKED : PackedScene = preload('res://scenes/Ball.tscn');

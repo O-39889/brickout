@@ -24,9 +24,10 @@ var mouse_captured : bool = false:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED;
 		else:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE;
+			# will need to also adjust for the left panel ffs
+			#Input.warp_mouse(get_viewport_rect().size / 2);
 
-
-@export var add_paddle : bool = true; # ????? bruh lmao please stop
+var add_paddle : bool = false;
 ## Base chance to generate a power-up after destroying a regular brick.
 @export_range(0.0, 1.0) var powerup_chance : float = 0.1;
 @export var pool_type : Global.PowerupPoolType = Global.PowerupPoolType.Default;
@@ -53,6 +54,7 @@ func _ready():
 
 
 func _enter_tree():
+	print(get_viewport_rect());
 	# hmm
 	# this is called before the level _ready()
 	# and even before the children's _ready()
@@ -69,10 +71,12 @@ func _enter_tree():
 	ball_component = find_child('BallComponent');
 	if ball_component:
 		ball_component.level = self;
-		
-	paddle = find_child('Paddle');
-	if paddle:
-		paddle.level = self;
+
+	# doesn't seem necessary since the paddle is dynamically
+	# instantiated in _ready() anyway?
+	#paddle = find_child('Paddle');
+	#if paddle:
+		#paddle.level = self;
 
 
 func create_paddle():

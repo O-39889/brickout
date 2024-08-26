@@ -11,17 +11,15 @@ var barrier : Barrier;
 var points_earned : int = 0;
 var time_passed : float = 0.0;
 
-var gui : LevelGUI;
+@onready var author_name_lbl : Label = %LevelAuthorName;
 
 
 func _enter_tree():
 	super();
-	gui = find_child('GUI');
-	if gui:
-		gui.level = self;
 
 
 func _ready():
+	add_paddle = true;
 	EventBus.ball_lost.connect(handle_ball_lost);
 	EventBus.barrier_hit.connect(_on_barrier_hit);
 	EventBus.score_changed.connect(func(amount: int): 
@@ -35,7 +33,7 @@ func _ready():
 	if not level_author.is_empty():
 		author_name_string += ' ' + level_author + ' —';
 	author_name_string += ' ' + 'New Level' if level_name.is_empty() else level_name;
-	$GUI/Regular/LevelAuthorName.text = author_name_string;
+	author_name_lbl.text = author_name_string;
 	super();
 
 
@@ -91,6 +89,7 @@ func reset_level():
 	if GameProgression.lives == 0:
 		handle_game_over();
 	else:
+		# TODO: actually handle life lost thing later
 		await get_tree().create_timer(1.0).timeout;
 		restart();
 
@@ -105,8 +104,6 @@ func handle_game_over():
 		return;
 	mouse_captured = false;
 	state = LevelCompletionState.GameOver;
-	gui.show_game_over(func(): get_window().title = 'Restart!',
-		func(): get_window().title = 'Main menu!');
 
 
 func handle_powerup_activated(powerup: Powerup):
@@ -114,7 +111,6 @@ func handle_powerup_activated(powerup: Powerup):
 		pass
 
 
-# TODO: take advantage of the new bool return types of add ball functions
 func clone_balls(b: Ball, n: int):
 	var angle_range : float = PI if b.stuck else TAU;
 	var cloned_balls : Array[Ball] = [];
@@ -146,26 +142,26 @@ func murder_ball(b: Ball):
 func activate_sticky_powerup():
 	if paddle:
 		paddle.state = Paddle.PaddleState.Sticky;
-		gui.add_or_extend_timer(paddle.sticky_timer,
-			Powerup.TimedPowerup.StickyPaddle);
-		gui.remove_timer(Powerup.TimedPowerup.PaddleFreeze);
-		gui.remove_timer(Powerup.TimedPowerup.GhostPaddle);
+		#gui.add_or_extend_timer(paddle.sticky_timer,
+			#Powerup.TimedPowerup.StickyPaddle);
+		#gui.remove_timer(Powerup.TimedPowerup.PaddleFreeze);
+		#gui.remove_timer(Powerup.TimedPowerup.GhostPaddle);
 
 
 func activate_acid_powerup():
 	if ball_component:
 		ball_component.enable_acid();
-		gui.add_or_extend_timer(ball_component.acid_timer,
-			Powerup.TimedPowerup.AcidBall);
+		#gui.add_or_extend_timer(ball_component.acid_timer,
+			#Powerup.TimedPowerup.AcidBall);
 
 
 func activate_freeze_powerup():
 	if paddle:
 		paddle.state = Paddle.PaddleState.Frozen;
-		gui.add_or_extend_timer(paddle.frozen_timer,
-			Powerup.TimedPowerup.PaddleFreeze);
-		gui.remove_timer(Powerup.TimedPowerup.StickyPaddle);
-		gui.remove_timer(Powerup.TimedPowerup.GhostPaddle);
+		#gui.add_or_extend_timer(paddle.frozen_timer,
+			#Powerup.TimedPowerup.PaddleFreeze);
+		#gui.remove_timer(Powerup.TimedPowerup.StickyPaddle);
+		#gui.remove_timer(Powerup.TimedPowerup.GhostPaddle);
 
 
 func finish():
@@ -174,8 +170,8 @@ func finish():
 	state = Level.LevelCompletionState.Clear;
 	mouse_captured = false;
 	EventBus.level_cleared.emit();
-	gui.show_level_clear(func(): get_window().title = 'Next level!',
-		func(): get_window().title = 'Main menu!');
+	#gui.show_level_clear(func(): get_window().title = 'Next level!',
+		#func(): get_window().title = 'Main menu!');
 	await get_tree().create_timer(1.0).timeout;
 	for ball : Ball in get_tree().get_nodes_in_group(&'balls'):
 		GameProgression.score += 1000;
@@ -183,7 +179,7 @@ func finish():
 	await get_tree().create_timer(1.0).timeout;
 	get_tree().physics_frame.connect(func():
 		if randf() < 0.0001:
-			get_tree().reload_current_scene())
+			get_tree().reload_current_scene());
 
 
 func _physics_process(delta):
@@ -201,6 +197,9 @@ func _on_brick_destroyed(brick: Brick, by: Node2D):
 
 func _input(event):
 	if OS.is_debug_build():
+		if event is InputEventMouseButton:
+			if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+				mouse_captured = not mouse_captured;
 		if event.is_action_pressed("debug_exit"):
 			get_tree().quit();
 		if event.is_action_pressed("debug_restart"):

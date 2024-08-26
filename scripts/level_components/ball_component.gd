@@ -1,4 +1,4 @@
-extends Node2D;
+class_name BallComponent extends Node2D;
 # TODO: make it also manage other stuff such as creating balls etc
 
 
@@ -76,6 +76,7 @@ func handle_collision(b1: Ball, b2: Ball):
 	# scandalous!
 	if play_collision_sound:
 		var player : AudioStreamPlayer2D = audio_players.pick_random();
+		print(player);
 		player.play();
 	
 	collisions[id] = 2;

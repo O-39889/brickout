@@ -313,12 +313,6 @@ func _input(event: InputEvent):
 		return;
 	match state:
 		PaddleState.Normal, PaddleState.Sticky, PaddleState.Ghost:
-			## TODO: FORGOT
-			# Oh wait I remmeberd
-			# Like, make it so that if mouse btn is held down in le sticky
-			# state then it would automatically release any balls colliding
-			# with it on the same frame (would probably need to put code
-			# for that in the handling ball collision code though)
 			if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 				if event is InputEventMouseMotion and not level_cleared:
 					position.x += event.relative.x * Globals.MOUSE_SENSITIVITY;

@@ -19,4 +19,4 @@ attributes = SubResource("Resource_15tcc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." groups=["fadeable"]]

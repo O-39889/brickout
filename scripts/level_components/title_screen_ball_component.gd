@@ -1,4 +1,4 @@
-extends "res://scripts/level_components/ball_component.gd";
+class_name TitleScreenBallComponent extends BallComponent;
 
 
 func _ready():

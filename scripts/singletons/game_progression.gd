@@ -1,11 +1,14 @@
 extends Node;
 
+# TASK: maybe have the campaign switch not between the top-level
+# level scenes (the ones with the GUI and everything) but instead only
+# the gameplay ones in the subviewport?
 
-# TODO: update score counter to the real value immediately when reaching
-# new life
 const EXTRA_LIFE_MULTIPLIER : int = 25000;
 
-var level_campaign := [];
+# idk what to do with this lol bruh
+# ig just an array of level scene names or something
+var level_campaign : Array[String] = [];
 var current_level : MainLevel;
 var current_level_idx : int = 0;
 

@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://oocamidsvdup"]
+
+[ext_resource type="PackedScene" uid="uid://blofikyc7x7vn" path="res://scenes/RegularBrick.tscn" id="1_oya0r"]
+
+[node name="Brick" instance=ExtResource("1_oya0r")]
+color = 3
+
+[node name="Sprite2D" parent="." index="1"]
+region_rect = Rect2(0, 150, 100, 50)
+
+[node name="ArmorSprites" parent="." index="3"]
+visible = false

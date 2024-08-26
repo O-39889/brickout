@@ -20,7 +20,7 @@ script = ExtResource("1_6mlqy")
 shape = SubResource("CircleShape2D_vbfvk")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="." groups=["fadeable"]]
 position = Vector2(0, -1)
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

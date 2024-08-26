@@ -1,6 +1,6 @@
-extends Node2D;
+class_name MainBrickComponent extends Node2D;
 
-var level : Level;
+var level : MainLevel;
 
 
 func _ready():

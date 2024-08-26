@@ -1,0 +1,105 @@
+[gd_scene load_steps=5 format=3 uid="uid://dlmov8h5im38b"]
+
+[ext_resource type="Script" path="res://scripts/main_level_template.gd" id="1_h2xl7"]
+[ext_resource type="PackedScene" uid="uid://bu3y7vlu8g83f" path="res://scenes/levels_new/main_level_gameplay.tscn" id="1_n8d5k"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p2rb1"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.152889, 0.174741, 0.338536, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.8, 0.8, 0.8, 0.662745)
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_bottom_right = 20
+corner_detail = 16
+
+[sub_resource type="LabelSettings" id="LabelSettings_mtv2m"]
+font_size = 32
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 6
+shadow_color = Color(0, 0, 0, 0.254902)
+shadow_offset = Vector2(3, 3)
+
+[node name="MainLevel" type="Node"]
+script = ExtResource("1_h2xl7")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="LeftPanel" type="Panel" parent="HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="GameContainer" type="SubViewportContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="GameVPort" type="SubViewport" parent="HBoxContainer/GameContainer"]
+disable_3d = true
+handle_input_locally = false
+size = Vector2i(1440, 1080)
+render_target_update_mode = 4
+
+[node name="MainLevelGameplay" parent="HBoxContainer/GameContainer/GameVPort" instance=ExtResource("1_n8d5k")]
+level_author = "Olepograd"
+
+[node name="StatsPanel" type="Panel" parent="HBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Stats" type="VBoxContainer" parent="HBoxContainer/StatsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScoreAndLives" type="PanelContainer" parent="HBoxContainer/StatsPanel/Stats"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_p2rb1")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/StatsPanel/Stats/ScoreAndLives"]
+layout_mode = 2
+
+[node name="ScoreLbl" type="Label" parent="HBoxContainer/StatsPanel/Stats/ScoreAndLives/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Score: 000000"
+label_settings = SubResource("LabelSettings_mtv2m")
+
+[node name="LivesLbl" type="Label" parent="HBoxContainer/StatsPanel/Stats/ScoreAndLives/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Lives: 3"
+label_settings = SubResource("LabelSettings_mtv2m")
+
+[node name="PowerupTimers" type="PanelContainer" parent="HBoxContainer/StatsPanel/Stats"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_p2rb1")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/StatsPanel/Stats/PowerupTimers"]
+layout_mode = 2
+
+[node name="OtherStuffIdk" type="PanelContainer" parent="HBoxContainer/StatsPanel/Stats"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_p2rb1")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/StatsPanel/Stats/OtherStuffIdk"]
+layout_mode = 2
