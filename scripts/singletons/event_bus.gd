@@ -16,7 +16,7 @@ signal projectile_collided(projectile: Projectile, with: CollisionObject2D);
 signal barrier_hit;
 
 signal powerup_collected(powerup: Powerup);
-
+# TODO: remove the score amount parameter?
 signal score_changed(amount: int);
 
 signal life_lost;
