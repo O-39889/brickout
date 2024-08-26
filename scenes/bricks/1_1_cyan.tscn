@@ -1,5 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bh04y8b3617r2"]
-
-[ext_resource type="PackedScene" uid="uid://blofikyc7x7vn" path="res://scenes/RegularBrick.tscn" id="1_ju8ne"]
-
-[node name="Brick" instance=ExtResource("1_ju8ne")]
