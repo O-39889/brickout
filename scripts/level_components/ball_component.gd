@@ -40,7 +40,7 @@ func _ready():
 		if not acid_balls_found:
 			acid_timer.stop();
 			# this is a piece of bs
-			level.gui.remove_timer(Powerup.TimedPowerup.AcidBall);
+			#level.gui.remove_timer(Powerup.TimedPowerup.AcidBall);
 		pass)
 	EventBus.level_cleared.connect(func():
 		acid_timer.timeout.disconnect(_on_acid_timer_timeout));

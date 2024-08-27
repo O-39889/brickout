@@ -197,9 +197,9 @@ func _on_brick_destroyed(brick: Brick, by: Node2D):
 
 func _input(event):
 	if OS.is_debug_build():
-		if event is InputEventMouseButton:
-			if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
-				mouse_captured = not mouse_captured;
+		#if event is InputEventMouseButton:
+			#if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+				#mouse_captured = not mouse_captured;
 		if event.is_action_pressed("debug_exit"):
 			get_tree().quit();
 		if event.is_action_pressed("debug_restart"):

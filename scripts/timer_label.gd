@@ -28,7 +28,7 @@ func _ready():
 
 func _physics_process(delta):
 	if bound_timer != null:
-		# not exactly otoo helpful with my case of, like, stuff
+		# not exactly too helpful with my case of, like, stuff
 		#if bound_timer.is_stopped():
 			#queue_free();
 		label.text = Globals.display_time(bound_timer.time_left);

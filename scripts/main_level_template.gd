@@ -20,6 +20,9 @@ var score_match : bool = true;
 
 @onready var score_lbl : Label = %ScoreLbl;
 @onready var lives_lbl : Label = %LivesLbl;
+@onready var timer_lbl : Label = %LevelTime;
+
+@onready var lvl : MainLevel = %MainLevelGameplay;
 
 
 # Called when the node enters the scene tree for the first time.
@@ -44,3 +47,4 @@ func update_lives_counter() -> void:
 func _process(delta: float) -> void:
 	if not score_match:
 		display_score = int(move_toward(display_score, GameProgression.score, SCORE_CHANGE_SPEED));
+	timer_lbl.text = "Time: " + Globals.display_time(lvl.time_passed);
