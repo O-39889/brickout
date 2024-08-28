@@ -54,7 +54,6 @@ func _ready():
 
 
 func _enter_tree():
-	print(get_viewport_rect());
 	# hmm
 	# this is called before the level _ready()
 	# and even before the children's _ready()
