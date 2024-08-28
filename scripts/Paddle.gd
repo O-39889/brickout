@@ -66,6 +66,8 @@ var last_tick_position : Vector2;
 var level_cleared : bool = false;
 var finish_speed : float;
 
+var accept_input : bool = false;
+
 
 @onready var collision_shape : CollisionShape2D = find_child("CollisionShape2D");
 @onready var powerup_hitbox : CollisionShape2D = find_child("Area2DShape");
@@ -78,6 +80,9 @@ var finish_speed : float;
 # interval between consecutive releases of the stuck balls after switching from
 # le sticky state to either le normal state or le frozen state
 @onready var ball_auto_timer : Timer = find_child('BallAutoReleaseTimer');
+
+@onready var sprite : Sprite2D = %Sprite2D;
+
 
 var state : PaddleState = PaddleState.Normal:
 	get:
@@ -115,6 +120,7 @@ var width : float = PADDLE_SIZES[width_idx];
 
 
 func _ready():
+	EventBus.fade_start_finished.connect(func(): accept_input = true);
 	ball_manual_timer.wait_time = BALL_RELEASE_COOLDOWN_MAX;
 	ball_auto_timer.wait_time = BALL_AUTO_RELEASE_INTERVAL;
 	assert(level != null, 'Level node not defined');
@@ -123,6 +129,11 @@ func _ready():
 	EventBus.level_cleared.connect(trigger_finish);
 	hitbox.size.x = width;
 	hitbox.size.y = PADDLE_HEIGHT;
+	
+	# NOTICE: PLACEHOLDER ONLY
+	sprite.texture.size.x = width;
+	sprite.texture.size.y = PADDLE_HEIGHT;
+	
 	# it will always spawn with a ball, just for convenience
 	var b : Ball = load("res://scenes/Ball.tscn").instantiate();
 	add_bawl(b, true);
@@ -146,6 +157,8 @@ func add_bawl(b: Ball, persistent: bool):
 func set_width(idx: PaddleSize):
 	width = PADDLE_SIZES[idx];
 	hitbox.size.x = width;
+	# NOTICE: PLACEHOLDER ONLY
+	sprite.texture.size.x = width;
 
 
 func enlarge():
@@ -269,11 +282,6 @@ func _physics_process(delta):
 	last_tick_position = position;
 	$DebugLbl.text = String.num(ammo_left, 9);
 	$DebugLbl.global_position.x = 810;
-	if level_cleared and false: # bc bs
-		var collision := move_and_collide(Vector2(my_velocity, 0).normalized() * finish_speed * delta);
-		if collision:
-			if collision.get_collider().is_in_group(&'walls'):
-				my_velocity *= -1;
 	
 	position.x = clamp(position.x, width / 2, get_viewport_rect().size.x - width / 2);
 
@@ -309,7 +317,7 @@ func _change_size(should_enlarge: bool):
 
 
 func _input(event: InputEvent):
-	if level_cleared:
+	if not accept_input:
 		return;
 	match state:
 		PaddleState.Normal, PaddleState.Sticky, PaddleState.Ghost:

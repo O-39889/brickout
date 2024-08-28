@@ -6,6 +6,11 @@ const SCORE_CHANGE_SPEED := 10; # framerate dependent i don't care lmao
 
 const TIMER_CONTAINER_PACKED := preload("res://scenes/gui/timer_container.tscn");
 
+# width / height ratio for fadeables
+const FADE_RATIO := 2.0;
+const FADE_MULT := 1.0 / 3333.333333333;
+const FADE_DURATION := 0.2;
+
 
 var display_score : int = GameProgression.score:
 	get:
@@ -47,9 +52,33 @@ func _ready() -> void:
 	EventBus.lives_changed.connect(update_lives_counter);
 	EventBus.powerup_collected.connect(_on_powerup_collected);
 	EventBus.barrier_hit.connect(barrier_indicator.hide);
-	
+	EventBus.fade_start_finished.connect(get_window().set_title.bind("AMOBO"));
+
+	fade_in();	
 	update_score_counter();
 	update_lives_counter();
+
+
+func fade_in() -> void:
+	EventBus.fade_start_started.emit();
+	var max_fade_delay := 0.0;
+	for fadeable : Node2D in get_tree().get_nodes_in_group(&'fadeable'):
+		var initial_scale : Vector2 = fadeable.scale;
+		fadeable.scale = Vector2(0, 0);
+		var fade_delay := (fadeable.global_position.x +
+		fadeable.global_position.y * FADE_RATIO) * FADE_MULT;
+		max_fade_delay = maxf(max_fade_delay, fade_delay) if max_fade_delay != 0.0 else fade_delay;
+		get_tree().create_timer(fade_delay).timeout.connect((func(to_fade: Node2D):
+			if not is_instance_valid(to_fade):
+				return;
+			var tween := to_fade.create_tween();
+			tween.set_parallel(true);
+			tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS);
+			tween.tween_property(to_fade, 'scale',
+				initial_scale, FADE_DURATION);
+			).bind(fadeable));
+	get_tree().create_timer(max_fade_delay + FADE_DURATION)\
+	.timeout.connect(EventBus.fade_start_finished.emit);
 
 
 func update_score_counter() -> void:

@@ -87,11 +87,11 @@ var state: BallState = BallState.Normal:
 		state = value;
 		match value:
 			BallState.Normal:
-				collision_shape.debug_color.h = (189.0 / 360.0);
+				modulate = Color.WHITE;
 			BallState.Fire:
-				collision_shape.debug_color.h = (20.0 / 360.0);
+				modulate = Color.ORANGE_RED;
 			BallState.Acid:
-				collision_shape.debug_color.h = (100.0 / 360.0);
+				modulate = Color.LIME;
 		EventBus.ball_state_changed.emit(old_state, state);
 
 
@@ -243,6 +243,7 @@ func explode_stuff():
 
 
 func _physics_process(delta):
+	# TODO: MOVE TOWARD FUNCTION !!!!!!! MOVE_TOWARD!!!!
 	var velocity_dir : Vector2;
 	if velocity.is_zero_approx():
 		velocity_dir = last_direction;

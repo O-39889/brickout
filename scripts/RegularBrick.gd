@@ -90,28 +90,29 @@ const ARMOR_TEXTURE := preload('res://assets/brick-edges-placeholder.png');
 
 func _ready():
 	if not Engine.is_editor_hint():
-		if is_shimmering:
-			particles.amount_ratio = 0.0;
-			particles.scale = Vector2(0, 0);
-			to_tween.append({
-				'object': particles,
-				'property': 'amount_ratio',
-				'final_val': 1.0,
-				'duration': 0.1,
-			});
-			to_tween.append({
-				'object': particles,
-				'property': 'scale',
-				'final_val': Vector2(1, 1),
-				'duration': 0.1,
-			});
-		if is_reinforced:
-			armor_sprite.scale = Vector2(0, 0);
-			to_tween.append({
-					'object': armor_sprite,
-					'property': 'scale',
-					'final_val': Vector2(1, 1),
-			});
+		pass
+		#if is_shimmering:
+			#particles.amount_ratio = 0.0;
+			#particles.scale = Vector2(0, 0);
+			#to_tween.append({
+				#'object': particles,
+				#'property': 'amount_ratio',
+				#'final_val': 1.0,
+				#'duration': 0.1,
+			#});
+			#to_tween.append({
+				#'object': particles,
+				#'property': 'scale',
+				#'final_val': Vector2(1, 1),
+				#'duration': 0.1,
+			#});
+		#if is_reinforced:
+			#armor_sprite.scale = Vector2(0, 0);
+			#to_tween.append({
+					#'object': armor_sprite,
+					#'property': 'scale',
+					#'final_val': Vector2(1, 1),
+			#});
 	super();
 	if initial_durability == 1 and not Engine.is_editor_hint():
 		$CrackSprite.queue_free();

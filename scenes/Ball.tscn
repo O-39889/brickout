@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://snfgq3rpho6f"]
+[gd_scene load_steps=5 format=3 uid="uid://snfgq3rpho6f"]
 
 [ext_resource type="Script" path="res://scripts/Ball.gd" id="1_6mlqy"]
+[ext_resource type="Texture2D" uid="uid://dndnivolxwiqx" path="res://assets/ball-placeholder.png" id="2_fd2r1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vbfvk"]
 radius = 20.0
@@ -22,6 +23,7 @@ debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
 [node name="Sprite" type="Sprite2D" parent="." groups=["fadeable"]]
 position = Vector2(0, -1)
+texture = ExtResource("2_fd2r1")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 rect = Rect2(-20, -20, 40, 40)

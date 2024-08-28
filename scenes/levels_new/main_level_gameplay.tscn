@@ -198,6 +198,7 @@ color = 3
 
 [node name="Brick51" parent="BrickComponent" instance=ExtResource("5_arx0l")]
 position = Vector2(1170, 300)
+is_shimmering = true
 color = 4
 
 [node name="Brick52" parent="BrickComponent" instance=ExtResource("5_arx0l")]
@@ -222,6 +223,7 @@ color = 4
 
 [node name="Brick44" parent="BrickComponent" instance=ExtResource("5_arx0l")]
 position = Vector2(270, 300)
+is_shimmering = true
 color = 4
 
 [node name="Brick63" parent="BrickComponent" instance=ExtResource("5_arx0l")]
@@ -246,6 +248,7 @@ color = 5
 
 [node name="Brick68" parent="BrickComponent" instance=ExtResource("5_arx0l")]
 position = Vector2(1220, 200)
+is_shimmering = true
 color = 5
 
 [node name="Brick69" parent="BrickComponent" instance=ExtResource("5_arx0l")]
@@ -266,6 +269,7 @@ color = 5
 
 [node name="Brick73" parent="BrickComponent" instance=ExtResource("5_arx0l")]
 position = Vector2(220, 200)
+is_shimmering = true
 color = 5
 
 [node name="UnbreakableBrick" parent="BrickComponent" instance=ExtResource("6_p8wi7")]
