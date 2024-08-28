@@ -21,6 +21,7 @@ var audio_players : Array[AudioStreamPlayer2D];
 	t.autostart = false;
 	t.one_shot = true;
 	t.wait_time = ACID_TIME;
+	t.name = "AcidTimer";
 	add_child(t)
 	return t).call();
 
@@ -31,19 +32,22 @@ func _ready():
 	EventBus.ball_collision.connect(handle_collision);
 	acid_timer.timeout.connect(_on_acid_timer_timeout);
 	EventBus.ball_lost.connect(_on_ball_lost);
-	EventBus.ball_state_changed.connect(func(old_state, new_state):
-		var acid_balls_found := false;
-		for ball : Ball in get_tree().get_nodes_in_group(&'balls'):
-			if ball.state == Ball.BallState.Acid:
-				acid_balls_found = true;
-				break;
-		if not acid_balls_found:
-			acid_timer.stop();
-			# this is a piece of bs
-			#level.gui.remove_timer(Powerup.TimedPowerup.AcidBall);
-		pass)
-	EventBus.level_cleared.connect(func():
-		acid_timer.timeout.disconnect(_on_acid_timer_timeout));
+	EventBus.powerup_collected.connect(func(powerup: Powerup) -> void:
+		if powerup.id == &'fire_ball':
+			if not acid_timer.is_stopped():
+				# oh dios mio
+				# it does NOT send a signal on being stopped
+				# that means we must send it ourselves
+				# or do something else instead lol
+				# but maybe just force stop the timer ig
+				# TODO: do something with it
+				acid_timer.stop();
+				# well i guess this works as well
+				acid_timer.timeout.emit();
+	);
+	EventBus.level_cleared.connect(acid_timer.stop);
+	#EventBus.level_cleared.connect(func():
+		#acid_timer.timeout.disconnect(_on_acid_timer_timeout));
 
 
 func enable_acid():

@@ -210,13 +210,16 @@ func _input(event):
 			powerup_component._request_powerup('finish_level',
 				paddle.position - Vector2(0, 69));
 		if event.is_action_pressed("debug_2"):
-			powerup_component._request_powerup('double_balls',
+			powerup_component._request_powerup('acid_ball',
 				paddle.position - Vector2(0, 69));
 		if event.is_action_pressed('debug_3'):
-			powerup_component._request_powerup('triple_ball',
+			powerup_component._request_powerup('fire_ball',
 				paddle.position - Vector2(0, 69));
 		if event.is_action_pressed('debug_4'):
-			powerup_component._request_powerup('add_ball',
+			powerup_component._request_powerup('sticky_paddle',
 				paddle.position - Vector2(0, 69));
-		if event.is_action_pressed('debug_5'):
+		if event.is_action_pressed("debug_5"):
+			powerup_component._request_powerup('paddle_freeze',
+				paddle.position - Vector2(0, 69))
+		if event.is_action_pressed('debug_8'):
 			Engine.time_scale = 1.0 if not is_equal_approx(Engine.time_scale, 1.0) else 0.02;

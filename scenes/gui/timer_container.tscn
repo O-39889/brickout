@@ -2,9 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cffnlue8pxf6p" path="res://icon.svg" id="1_7b28w"]
 [ext_resource type="Script" path="res://scripts/timer_label.gd" id="1_fvvvv"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_h56ac"]
-font_size = 28
+[ext_resource type="LabelSettings" uid="uid://dse1o7dk5j0oi" path="res://resources/stats_label_settings.tres" id="3_78mhx"]
 
 [node name="TimerContainer" type="HBoxContainer"]
 offset_right = 110.0
@@ -21,4 +19,4 @@ expand_mode = 1
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
 text = "0:00"
-label_settings = SubResource("LabelSettings_h56ac")
+label_settings = ExtResource("3_78mhx")

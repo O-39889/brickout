@@ -11,8 +11,8 @@ var assigned_powerup : Powerup.TimedPowerup;
 func _ready():
 	assert(bound_timer);
 	assert(assigned_powerup != null);
-	bound_timer.tree_exiting.connect(func(): queue_free());
-	bound_timer.timeout.connect(func(): queue_free());
+	bound_timer.tree_exiting.connect(queue_free);
+	bound_timer.timeout.connect(queue_free);
 	match assigned_powerup:
 		Powerup.TimedPowerup.StickyPaddle:
 			icon.modulate = Color.MAGENTA;
@@ -23,7 +23,6 @@ func _ready():
 		Powerup.TimedPowerup.GhostPaddle:
 			icon.modulate = Color.LIGHT_SLATE_GRAY;
 			icon.modulate.a = 0.3333;
-		
 
 
 func _physics_process(delta):

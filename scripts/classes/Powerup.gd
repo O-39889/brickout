@@ -9,6 +9,13 @@ enum TimedPowerup {
 };
 
 
+const TIMED_POWERUPS := [
+	&'sticky_paddle',
+	&'acid_ball',
+	&'ghost_paddle',
+	&'paddle_freeze',
+];
+
 const POWERUP_POOL = {
 	&'good': [
 		&'double_balls',

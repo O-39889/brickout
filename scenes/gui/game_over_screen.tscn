@@ -1,0 +1,60 @@
+[gd_scene load_steps=5 format=3 uid="uid://beqk5sg07uh84"]
+
+[ext_resource type="Script" path="res://scripts/game_over_screen.gd" id="1_d7y4q"]
+[ext_resource type="LabelSettings" uid="uid://bedtepc8kaaw5" path="res://resources/bigtext_label_settings.tres" id="1_m3iex"]
+[ext_resource type="Theme" uid="uid://disr836qacj33" path="res://resources/gui_theme.tres" id="2_udwcm"]
+[ext_resource type="LabelSettings" uid="uid://dse1o7dk5j0oi" path="res://resources/stats_label_settings.tres" id="3_8cawh"]
+
+[node name="GameOverScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_d7y4q")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.4
+anchor_right = 0.5
+anchor_bottom = 0.4
+grow_horizontal = 2
+grow_vertical = 2
+text = "Game Over"
+label_settings = ExtResource("1_m3iex")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Stuff" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="ScoreLbl" type="Label" parent="Stuff"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Score: 0"
+label_settings = ExtResource("3_8cawh")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RestartBtn" type="Button" parent="Stuff"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_udwcm")
+text = "Restart"
+
+[node name="ExitBtn" type="Button" parent="Stuff"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_udwcm")
+text = "Main Menu"

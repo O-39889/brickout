@@ -48,31 +48,39 @@ metadata/_edit_lock_ = true
 
 [node name="Brick6" parent="BrickComponent" instance=ExtResource("5_arx0l")]
 position = Vector2(720, 450)
+is_shimmering = true
 
 [node name="Brick7" parent="BrickComponent" instance=ExtResource("5_arx0l")]
 position = Vector2(820, 450)
+is_shimmering = true
 
 [node name="Brick8" parent="BrickComponent" instance=ExtResource("5_arx0l")]
 position = Vector2(620, 450)
+is_shimmering = true
 
 [node name="Brick9" parent="BrickComponent" instance=ExtResource("5_arx0l")]
 position = Vector2(570, 400)
+is_shimmering = true
 color = 2
 
 [node name="Brick10" parent="BrickComponent" instance=ExtResource("5_arx0l")]
 position = Vector2(670, 400)
+is_shimmering = true
 color = 2
 
 [node name="Brick11" parent="BrickComponent" instance=ExtResource("5_arx0l")]
 position = Vector2(770, 400)
+is_shimmering = true
 color = 2
 
 [node name="Brick12" parent="BrickComponent" instance=ExtResource("5_arx0l")]
 position = Vector2(870, 400)
+is_shimmering = true
 color = 2
 
 [node name="Brick13" parent="BrickComponent" instance=ExtResource("5_arx0l")]
 position = Vector2(970, 400)
+is_shimmering = true
 color = 2
 
 [node name="Brick40" parent="BrickComponent" instance=ExtResource("5_arx0l")]
@@ -82,22 +90,28 @@ color = 2
 
 [node name="Brick14" parent="BrickComponent" instance=ExtResource("5_arx0l")]
 position = Vector2(920, 450)
+is_shimmering = true
 
 [node name="Brick41" parent="BrickComponent" instance=ExtResource("5_arx0l")]
 position = Vector2(1020, 450)
+is_shimmering = true
 
 [node name="Brick15" parent="BrickComponent" instance=ExtResource("5_arx0l")]
 position = Vector2(520, 450)
+is_shimmering = true
 
 [node name="Brick42" parent="BrickComponent" instance=ExtResource("5_arx0l")]
 position = Vector2(420, 450)
+is_shimmering = true
 
 [node name="Brick16" parent="BrickComponent" instance=ExtResource("5_arx0l")]
 position = Vector2(470, 400)
+is_shimmering = true
 color = 2
 
 [node name="Brick39" parent="BrickComponent" instance=ExtResource("5_arx0l")]
 position = Vector2(370, 400)
+is_shimmering = true
 color = 2
 
 [node name="Brick17" parent="BrickComponent" instance=ExtResource("5_arx0l")]
@@ -278,7 +292,7 @@ metadata/_edit_lock_ = true
 
 [node name="LevelAuthorName" type="Label" parent="CanvasLayer"]
 unique_name_in_owner = true
-anchors_preset = -1
+anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_top = 12.0
