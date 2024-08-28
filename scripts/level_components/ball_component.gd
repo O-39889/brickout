@@ -2,7 +2,7 @@ class_name BallComponent extends Node2D;
 # TODO: make it also manage other stuff such as creating balls etc
 
 
-const ACID_TIME : float = 20.0;
+const ACID_TIME : float = 20.999;
 const BALL_LIMIT := 20;
 const BALL_PACKED : PackedScene = preload('res://scenes/Ball.tscn');
 
@@ -109,9 +109,12 @@ func _on_acid_timer_timeout():
 
 func _on_ball_lost(_ball: Ball):
 	await get_tree().physics_frame;
+	# if there are any acid balls still left in play, we continue counting
+	# otherwise, we reset the timer
 	if get_tree().get_nodes_in_group(&'balls').any(
 		func(b): return b.state == Ball.BallState.Acid):
 			return;
 	else:
 		# reset the acid timer ig
 		acid_timer.stop();
+		acid_timer.timeout.emit();

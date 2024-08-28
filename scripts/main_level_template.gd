@@ -30,6 +30,7 @@ var timers : Dictionary = {
 @onready var score_lbl : Label = %ScoreLbl;
 @onready var lives_lbl : Label = %LivesLbl;
 @onready var timer_lbl : Label = %LevelTime;
+@onready var barrier_indicator : Label = %BarrierIndicator;
 
 @onready var main_container : MarginContainer = %UglyWorkaround;
 @onready var timers_container : Container = %PowerupTimersContainer;
@@ -45,6 +46,7 @@ func _ready() -> void:
 		score_match = false);
 	EventBus.lives_changed.connect(update_lives_counter);
 	EventBus.powerup_collected.connect(_on_powerup_collected);
+	EventBus.barrier_hit.connect(barrier_indicator.hide);
 	
 	update_score_counter();
 	update_lives_counter();
@@ -94,8 +96,6 @@ func clear_timers() -> void:
 
 
 func _on_powerup_collected(powerup: Powerup) -> void:
-	if not powerup.id in Powerup.TIMED_POWERUPS:
-		return;
 	match powerup.id:
 		&'sticky_paddle':
 			add_or_extend_timer(lvl.paddle.sticky_timer,
@@ -105,7 +105,9 @@ func _on_powerup_collected(powerup: Powerup) -> void:
 				Powerup.TimedPowerup.AcidBall);
 		&'paddle_freeze':
 			add_or_extend_timer(lvl.paddle.frozen_timer,
-				Powerup.TimedPowerup.PaddleFreeze);	
+				Powerup.TimedPowerup.PaddleFreeze);
+		&'barrier':
+			barrier_indicator.show();
 
 
 func _process(delta: float) -> void:
