@@ -86,6 +86,36 @@ func fade_in() -> void:
 	.timeout.connect(EventBus.fade_start_finished.emit);
 
 
+func fade_out() -> void:
+	EventBus.fade_end_started.emit();
+	var max_fade_delay := 0.0;
+	for fadeable : Node2D in get_tree().get_nodes_in_group(&'fadeable'):
+		# don't need to calculate initial/final scale or anything
+		# since we're just gonna scale everything down to 0
+		var fade_delay := (fadeable.global_position.x +
+			fadeable.global_position.y * FADE_RATIO) * FADE_MULT;
+		max_fade_delay = maxf(max_fade_delay, fade_delay) if max_fade_delay != 0.0 else fade_delay;
+		get_tree().create_timer(fade_delay).timeout.connect((func(to_fade : Node2D):
+			if not is_instance_valid(to_fade):
+				return;
+			var tween := to_fade.create_tween();
+			tween.set_parallel(true);
+			tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS);
+			tween.tween_property(to_fade, 'scale',
+				Vector2.ZERO, FADE_DURATION);
+			if to_fade is GPUParticles2D and to_fade.get_parent() is Brick:
+				# other stuff seems to be broken otherwise bruh
+				# new idea: make the particle emitting thing
+				# a resource unique to each scene
+				# and then change its specific scale-related parameters
+				tween.tween_property(to_fade, 'amount_ratio',
+					0.0, FADE_DURATION / 2);
+			).bind(fadeable));
+	get_tree().create_timer(max_fade_delay).timeout\
+	.connect(EventBus.fade_end_finished.emit);
+	EventBus.fade_end_finished.connect(func(): get_window().title = 'AJFKLJSD');
+
+
 func update_score_counter() -> void:
 	score_lbl.text = "Score: " + "%06d" % display_score;
 
@@ -148,3 +178,8 @@ func _process(delta: float) -> void:
 	if not score_match:
 		display_score = int(move_toward(display_score, GameProgression.score, SCORE_CHANGE_SPEED));
 	timer_lbl.text = "Time: " + Globals.display_time(lvl.time_passed);
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("debug_1"):
+		fade_out();

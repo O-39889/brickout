@@ -205,6 +205,7 @@ func _input(event):
 		if event.is_action_pressed("debug_restart"):
 			get_tree().reload_current_scene();
 		if event.is_action_pressed("debug_1"):
+			return;
 			Engine.time_scale = 1.0 if not is_equal_approx(Engine.time_scale, 1.0) else 0.05;
 			return;
 			finish();
