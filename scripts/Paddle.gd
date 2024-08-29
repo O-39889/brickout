@@ -118,9 +118,22 @@ var left_right_toggle : bool = false;
 var width_idx := PaddleSize.PADDLE_SIZE_NORMAL;
 var width : float = PADDLE_SIZES[width_idx];
 
+var size_callable : Callable = (func():
+	%NinePatchRect.pivot_offset = %NinePatchRect.size / 2;
+	%NinePatchRect.scale = sprite.scale;
+	)
+
 
 func _ready():
-	EventBus.fade_start_finished.connect(func(): accept_input = true);
+	EventBus.fade_start_started.connect(func():
+		%NinePatchRect.scale = Vector2(0, 0);
+		get_tree().process_frame.connect(size_callable);
+		);
+	EventBus.fade_start_finished.connect(func():
+		accept_input = true;
+		get_tree().process_frame.disconnect(size_callable);
+		);
+	
 	ball_manual_timer.wait_time = BALL_RELEASE_COOLDOWN_MAX;
 	ball_auto_timer.wait_time = BALL_AUTO_RELEASE_INTERVAL;
 	assert(level != null, 'Level node not defined');
@@ -133,6 +146,10 @@ func _ready():
 	# NOTICE: PLACEHOLDER ONLY
 	sprite.texture.size.x = width;
 	sprite.texture.size.y = PADDLE_HEIGHT;
+	%NinePatchRect.size.x = width;
+	%NinePatchRect.size.y = PADDLE_HEIGHT;
+	%NinePatchRect.position.x = -width / 2;
+	%NinePatchRect.position.y = -PADDLE_HEIGHT / 2;
 	
 	# it will always spawn with a ball, just for convenience
 	var b : Ball = load("res://scenes/Ball.tscn").instantiate();
@@ -159,6 +176,8 @@ func set_width(idx: PaddleSize):
 	hitbox.size.x = width;
 	# NOTICE: PLACEHOLDER ONLY
 	sprite.texture.size.x = width;
+	%NinePatchRect.size.x = width;
+	%NinePatchRect.position.x = -width / 2;
 
 
 func enlarge():

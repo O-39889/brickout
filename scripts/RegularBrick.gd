@@ -76,6 +76,11 @@ const ARMOR_TEXTURE := preload('res://assets/brick-edges-placeholder.png');
 				else:
 					armor_sprite.queue_redraw();
 
+# dayum that all was for nothin' lmao bc it should be on the object getting tweened lol
+# oh well
+# I'll just hardcode those in the level then ffs
+#var start_fade_parameters : Array[CustomFadeParameter];
+#var end_fade_parameters : Array[CustomFadeParameter];
 
 @onready var initial_durability : int = get_durability(color);
 @onready var durability : int = initial_durability;
@@ -145,6 +150,7 @@ func _ready():
 			particles = null;
 		else:
 			particles.amount = 10;
+			
 		if is_reinforced:
 			armor_sprite.queue_redraw();
 		else:

@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://vmrccf7ghuu3"]
+[gd_scene load_steps=6 format=3 uid="uid://vmrccf7ghuu3"]
 
 [ext_resource type="Script" path="res://scripts/Paddle.gd" id="1_bkcyp"]
 [ext_resource type="Shape2D" uid="uid://uqmgpf1suy2l" path="res://resources/paddle_collision_shape.tres" id="2_ap7b8"]
+[ext_resource type="Texture2D" uid="uid://dv7isec2ierp5" path="res://assets/paddle-9-patch-placeholder.png" id="3_2rkat"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_j1pfi"]
 size = Vector2(20, 20)
@@ -17,8 +18,20 @@ script = ExtResource("1_bkcyp")
 shape = ExtResource("2_ap7b8")
 one_way_collision = true
 
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+unique_name_in_owner = true
+offset_right = 134.0
+offset_bottom = 40.0
+texture = ExtResource("3_2rkat")
+region_rect = Rect2(0, 0, 33, 40)
+patch_margin_left = 12
+patch_margin_top = 20
+patch_margin_right = 12
+patch_margin_bottom = 20
+
 [node name="Sprite2D" type="Sprite2D" parent="." groups=["fadeable"]]
 unique_name_in_owner = true
+visible = false
 texture = SubResource("PlaceholderTexture2D_j1pfi")
 
 [node name="Area2D" type="StaticBody2D" parent="."]

@@ -221,7 +221,7 @@ color = 4
 position = Vector2(320, 250)
 color = 4
 
-[node name="Brick44" parent="BrickComponent" instance=ExtResource("5_arx0l")]
+[node name="TestBrick" parent="BrickComponent" instance=ExtResource("5_arx0l")]
 position = Vector2(270, 300)
 is_shimmering = true
 color = 4

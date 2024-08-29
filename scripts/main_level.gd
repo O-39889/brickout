@@ -205,6 +205,8 @@ func _input(event):
 		if event.is_action_pressed("debug_restart"):
 			get_tree().reload_current_scene();
 		if event.is_action_pressed("debug_1"):
+			Engine.time_scale = 1.0 if not is_equal_approx(Engine.time_scale, 1.0) else 0.05;
+			return;
 			finish();
 			return
 			powerup_component._request_powerup('finish_level',
@@ -221,5 +223,3 @@ func _input(event):
 		if event.is_action_pressed("debug_5"):
 			powerup_component._request_powerup('paddle_freeze',
 				paddle.position - Vector2(0, 69))
-		if event.is_action_pressed('debug_8'):
-			Engine.time_scale = 1.0 if not is_equal_approx(Engine.time_scale, 1.0) else 0.02;
