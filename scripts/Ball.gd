@@ -92,7 +92,6 @@ var state: BallState = BallState.Normal:
 				modulate = Color.ORANGE_RED;
 			BallState.Acid:
 				modulate = Color.LIME;
-		EventBus.ball_state_changed.emit(old_state, state);
 
 
 var last_direction : Vector2;

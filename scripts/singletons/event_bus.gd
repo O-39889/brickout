@@ -3,7 +3,6 @@ extends Node;
 
 signal ball_lost(ball: Ball);
 signal ball_target_speed_idx_changed;
-signal ball_state_changed(old_state: Ball.BallState, new_state: Ball.BallState);
 
 signal ball_collision(ball_1: Ball, ball_2: Ball);
 
