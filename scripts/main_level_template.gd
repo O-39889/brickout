@@ -104,12 +104,15 @@ func fade_out() -> void:
 			tween.tween_property(to_fade, 'scale',
 				Vector2.ZERO, FADE_DURATION);
 			if to_fade is GPUParticles2D and to_fade.get_parent() is Brick:
-				# other stuff seems to be broken otherwise bruh
-				# new idea: make the particle emitting thing
-				# a resource unique to each scene
-				# and then change its specific scale-related parameters
+				# maybe ALL of this at the same time is too much idk lmao
+				tween.tween_property(to_fade.process_material, 'scale_min',
+					0.0, FADE_DURATION - 0.05);
+				tween.tween_property(to_fade.process_material ,'scale_max',
+					0.0, FADE_DURATION);
+				tween.tween_property(to_fade.process_material, 'emission_shape_scale',
+					Vector3.ZERO, FADE_DURATION);
 				tween.tween_property(to_fade, 'amount_ratio',
-					0.0, FADE_DURATION / 2);
+					0.0, FADE_DURATION);
 			).bind(fadeable));
 	get_tree().create_timer(max_fade_delay).timeout\
 	.connect(EventBus.fade_end_finished.emit);

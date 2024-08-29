@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://lstywc00fqyo" path="res://assets/sparkle-placeholder.png" id="5_bt2ku"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_psgnd"]
+resource_local_to_scene = true
 particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(50, 25, 1)
