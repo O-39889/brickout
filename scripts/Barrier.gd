@@ -1,6 +1,7 @@
 class_name Barrier extends StaticBody2D
 
 
+# TODO: probably unused, remove?
 signal hitted(barrier);
 
 

@@ -83,7 +83,6 @@ var state: BallState = BallState.Normal:
 	get:
 		return state;
 	set(value):
-		var old_state = state;
 		state = value;
 		match value:
 			BallState.Normal:
@@ -163,7 +162,8 @@ func apply_impulse(impulse: Vector2):
 	velocity += impulse;
 
 
-func handle_cloned(clones: Array[Ball]):
+# apparently the ball doesn't have to do anything with the cloned balls
+func handle_cloned(_clones: Array[Ball]):
 	ball_detection_area.visible = true;
 	ball_detection_area.process_mode = Node.PROCESS_MODE_INHERIT;	
 	set_collision_mask_value(3, false);
@@ -290,7 +290,7 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 	EventBus.ball_lost.emit(self);
 
 
-func _on_other_ball_detection_area_body_exited(body):
+func _on_other_ball_detection_area_body_exited(_body):
 	var bodies := ball_detection_area.get_overlapping_bodies();
 	var filtered := bodies.filter(func(x): return x is Ball and not x == self)
 	if filtered.is_empty():

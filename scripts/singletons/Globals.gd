@@ -34,6 +34,7 @@ func start_or_extend_timer(t: Timer, set_val: float, max_val: float = set_val):
 func display_time(seconds_total: float) -> String:
 	var seconds_rounded = int(seconds_total);
 	var seconds_show = seconds_rounded % 60;
+	@warning_ignore("integer_division") # IT'S GONNA ALWAYS BE DIVISIBLE BY 60 YOU STUPID GOOBER
 	var minutes_show = (seconds_rounded - seconds_show) / 60;
 	return '%01d:%02d' % [minutes_show, seconds_show];
 

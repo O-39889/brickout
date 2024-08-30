@@ -15,7 +15,7 @@ func _ready():
 	EventBus.brick_destroyed.connect(_on_brick_destroyed);
 
 
-func _on_brick_destroyed(brick: Brick, by: Node2D):
+func _on_brick_destroyed(brick: Brick, _by: Node2D):
 	if brick is RegularBrick:
 		if randf() < 0.075\
 		and get_tree().get_nodes_in_group(&'balls').size() < level.BALL_LIMIT:

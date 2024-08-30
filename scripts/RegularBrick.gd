@@ -185,8 +185,8 @@ func set_armor_sprites():
 	pass
 
 
-func set_crack_sprite(new_durability: int, initial_durability: int):
-	if new_durability == initial_durability:
+func set_crack_sprite(new_durability: int, init_durability: int):
+	if new_durability == init_durability:
 		# not broken yet, just in case I accidentally call it somewhere else
 		return;
 	if crack_sprite:
@@ -196,7 +196,7 @@ func set_crack_sprite(new_durability: int, initial_durability: int):
 			[1, 3],		# 3		2 1
 			[1, 2, 3],	# 4		3 2 1
 			[0, 1, 2, 3]# 5		4 3 2 1
-		][initial_durability - 2][initial_durability - new_durability - 1];
+		][init_durability - 2][init_durability - new_durability - 1];
 		crack_sprite.region_rect.position.x = width * idx;
 
 

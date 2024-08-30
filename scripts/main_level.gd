@@ -186,7 +186,7 @@ func _physics_process(delta):
 	time_passed += delta;
 
 
-func _on_projectile_collided(_projectile: Projectile, with: CollisionObject2D):
+func _on_projectile_collided(_projectile: Projectile, _with: CollisionObject2D):
 	handle_life_lost();
 
 

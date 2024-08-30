@@ -40,7 +40,7 @@ func _ready():
 	
 
 
-func hit(by: Node2D, damage: int):
+func hit(by: Node2D, _damage: int):
 	EventBus.brick_hit.emit(self, by);
 
 

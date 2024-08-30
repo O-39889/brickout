@@ -30,7 +30,7 @@ var current_level_idx : int = 0;
 	set(value):
 		lives = maxi(value, 0);
 		EventBus.lives_changed.emit();
-
+@warning_ignore("integer_division")
 @onready var extra_lives_earned : int = score / EXTRA_LIFE_MULTIPLIER;
 
 

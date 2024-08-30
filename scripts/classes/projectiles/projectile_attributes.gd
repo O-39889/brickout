@@ -14,8 +14,7 @@ class_name ProjectileAttributes extends Resource;
 ## to a ball when colliding with it.
 @export var mass : float = 1.0;
 
-func _init(init_amount: int = 1, init_speed : float = 100.0,
-	init_acceleration : float = 0.0, init_mass : float = 1.0):
+func _init():
 	if not (amount >= 1):
 		amount = 1;
 	if not (is_finite(speed) and speed > 0.0):
