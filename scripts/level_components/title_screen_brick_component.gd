@@ -1,6 +1,9 @@
 class_name TitleScreenBrickComponent extends Node2D;
 
 
+# WHY IS IT DOING THIS
+# oh wait it's to spawn balls from already created stuff
+# then nvm haha
 const BALL_PACKED : PackedScene = preload('res://scenes/Ball.tscn');
 
 

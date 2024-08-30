@@ -13,6 +13,8 @@ font_size = 22
 font_color = Color(1, 1, 1, 0.752941)
 
 [node name="MainLevelGameplay" type="Node2D"]
+editor_description = "LMAO FORGOR TO MAKE THIS THING INHERIT THE LEVEL SCENE
+AH WELL WHATEVER"
 script = ExtResource("1_h5qrc")
 level_name = ""
 level_author = ""

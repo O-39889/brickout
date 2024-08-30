@@ -1,111 +1,131 @@
-[gd_scene load_steps=8 format=3 uid="uid://vq8mwjj8om13"]
+[gd_scene load_steps=5 format=3 uid="uid://kpb0yjvx3tuw"]
 
-[ext_resource type="PackedScene" uid="uid://cljyfysqemsgw" path="res://scenes/level.tscn" id="1_8xsji"]
 [ext_resource type="Script" path="res://scripts/title_screen.gd" id="2_j55pm"]
-[ext_resource type="PackedScene" uid="uid://doylk4sp6cg5q" path="res://scenes/Wall.tscn" id="3_jn3tt"]
-[ext_resource type="PackedScene" uid="uid://c0pvsntagt4y6" path="res://scenes/level_components/ball_component.tscn" id="4_kgr2b"]
-[ext_resource type="Script" path="res://scripts/level_components/title_screen_ball_component.gd" id="5_wptyq"]
+[ext_resource type="PackedScene" uid="uid://mr4v8wwan2w2" path="res://scenes/levels_new/title_screen_level.tscn" id="3_qb8li"]
+[ext_resource type="LabelSettings" uid="uid://bedtepc8kaaw5" path="res://resources/bigtext_label_settings.tres" id="4_715h7"]
+[ext_resource type="Theme" uid="uid://disr836qacj33" path="res://resources/gui_theme.tres" id="5_7cvny"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_3vi2w"]
-font_size = 81
-outline_size = 10
-outline_color = Color(0, 0, 0, 1)
-shadow_size = 15
-shadow_color = Color(0, 0, 0, 0.545098)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mbdus"]
-bg_color = Color(0.174985, 0.174985, 0.174985, 0.764706)
-
-[node name="TitleScreen" instance=ExtResource("1_8xsji")]
+[node name="TitleScreen" type="Node"]
 script = ExtResource("2_j55pm")
-layout_directory = "res://scenes/level_components/title_screen_layouts"
-BALL_LIMIT = 10
-add_paddle = false
-powerup_chance = 0.0
 
-[node name="WallBottom" parent="Walls" index="3" groups=["walls"] instance=ExtResource("3_jn3tt")]
-position = Vector2(0, 1000)
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="BallComponent" parent="." index="1" instance=ExtResource("4_kgr2b")]
-script = ExtResource("5_wptyq")
-play_collision_sound = false
+[node name="LeftThing" type="Panel" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="BallSpawnTimer" type="Timer" parent="." index="2"]
-wait_time = 0.25
+[node name="UglyWorkaroundElectricBoogaloo" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
 
-[node name="GUI" type="CanvasLayer" parent="." index="3"]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="HBoxContainer/UglyWorkaroundElectricBoogaloo"]
+layout_mode = 2
 
-[node name="Title" type="Label" parent="GUI" index="0"]
-anchors_preset = 8
+[node name="SubViewport" type="SubViewport" parent="HBoxContainer/UglyWorkaroundElectricBoogaloo/SubViewportContainer"]
+disable_3d = true
+handle_input_locally = false
+size = Vector2i(1440, 1080)
+render_target_update_mode = 4
+
+[node name="Level" parent="HBoxContainer/UglyWorkaroundElectricBoogaloo/SubViewportContainer/SubViewport" instance=ExtResource("3_qb8li")]
+
+[node name="GUIStuff" type="Control" parent="HBoxContainer/UglyWorkaroundElectricBoogaloo"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/UglyWorkaroundElectricBoogaloo/GUIStuff"]
+layout_mode = 1
+anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 0.333
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -36.5
-offset_top = -11.5
-offset_right = 36.5
-offset_bottom = 11.5
+anchor_bottom = 0.333
 grow_horizontal = 2
 grow_vertical = 2
 text = "BrickOut!"
-label_settings = SubResource("LabelSettings_3vi2w")
+label_settings = ExtResource("4_715h7")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Buttons" type="VBoxContainer" parent="GUI" index="1"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/UglyWorkaroundElectricBoogaloo/GUIStuff"]
+layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 0.55
 anchor_right = 0.5
-anchor_bottom = 1.0
+anchor_bottom = 0.55
 grow_horizontal = 2
-alignment = 1
-metadata/_edit_lock_ = true
+theme_override_constants/separation = 15
 
-[node name="NewGameBtn" type="Button" parent="GUI/Buttons" index="0"]
+[node name="NewGameBtn" type="Button" parent="HBoxContainer/UglyWorkaroundElectricBoogaloo/GUIStuff/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
-text = "New game"
+theme = ExtResource("5_7cvny")
+text = "New Game"
 
-[node name="ContinueBtn" type="Button" parent="GUI/Buttons" index="1"]
+[node name="ContinueBtn" type="Button" parent="HBoxContainer/UglyWorkaroundElectricBoogaloo/GUIStuff/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
+theme = ExtResource("5_7cvny")
 disabled = true
 text = "Continue"
 
-[node name="SettingsBtn" type="Button" parent="GUI/Buttons" index="2"]
+[node name="SettingsBtn" type="Button" parent="HBoxContainer/UglyWorkaroundElectricBoogaloo/GUIStuff/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
+theme = ExtResource("5_7cvny")
 text = "Settings"
 
-[node name="HelpBtn" type="Button" parent="GUI/Buttons" index="3"]
+[node name="HelpBtn" type="Button" parent="HBoxContainer/UglyWorkaroundElectricBoogaloo/GUIStuff/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
+theme = ExtResource("5_7cvny")
 text = "Help"
 
-[node name="StatsBtn" type="Button" parent="GUI/Buttons" index="4"]
+[node name="StatsBtn" type="Button" parent="HBoxContainer/UglyWorkaroundElectricBoogaloo/GUIStuff/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
+theme = ExtResource("5_7cvny")
 text = "Stats"
 
-[node name="QuitBtn" type="Button" parent="GUI/Buttons" index="5"]
+[node name="QuitBtn" type="Button" parent="HBoxContainer/UglyWorkaroundElectricBoogaloo/GUIStuff/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
+theme = ExtResource("5_7cvny")
 text = "Quit"
 
-[node name="PanelContainer" type="PanelContainer" parent="GUI" index="2"]
-anchors_preset = 3
+[node name="RightThing" type="Panel" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MeLbl" type="Label" parent="HBoxContainer/RightThing"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.784314)
+layout_mode = 1
+anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -10.0
-offset_bottom = -10.0
+offset_right = -12.0
+offset_bottom = -12.0
 grow_horizontal = 0
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_mbdus")
-metadata/_edit_lock_ = true
-
-[node name="MeLbl" type="Label" parent="GUI/PanelContainer" index="0"]
-layout_mode = 2
-text = "BrickOut
-Made by OLP Solutions
+text = "Made by OLP Solutions
 © "
 horizontal_alignment = 2
-metadata/_edit_lock_ = true
+vertical_alignment = 1
 
-[connection signal="pressed" from="GUI/Buttons/QuitBtn" to="." method="_on_quit_btn_pressed"]
+[connection signal="pressed" from="HBoxContainer/UglyWorkaroundElectricBoogaloo/GUIStuff/VBoxContainer/NewGameBtn" to="." method="_on_new_game_btn_pressed"]
+[connection signal="pressed" from="HBoxContainer/UglyWorkaroundElectricBoogaloo/GUIStuff/VBoxContainer/ContinueBtn" to="." method="_on_continue_btn_pressed"]
+[connection signal="pressed" from="HBoxContainer/UglyWorkaroundElectricBoogaloo/GUIStuff/VBoxContainer/SettingsBtn" to="." method="_on_settings_btn_pressed"]
+[connection signal="pressed" from="HBoxContainer/UglyWorkaroundElectricBoogaloo/GUIStuff/VBoxContainer/HelpBtn" to="." method="_on_help_btn_pressed"]
+[connection signal="pressed" from="HBoxContainer/UglyWorkaroundElectricBoogaloo/GUIStuff/VBoxContainer/StatsBtn" to="." method="_on_stats_btn_pressed"]
+[connection signal="pressed" from="HBoxContainer/UglyWorkaroundElectricBoogaloo/GUIStuff/VBoxContainer/QuitBtn" to="." method="_on_quit_btn_pressed"]

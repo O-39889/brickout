@@ -1,0 +1,699 @@
+[gd_scene load_steps=4 format=3 uid="uid://dmov102oeypg4"]
+
+[ext_resource type="Script" path="res://scripts/level_components/title_screen_brick_component.gd" id="1_pu7in"]
+[ext_resource type="PackedScene" uid="uid://blofikyc7x7vn" path="res://scenes/RegularBrick.tscn" id="2_tykip"]
+[ext_resource type="PackedScene" uid="uid://blefa03mpdv8b" path="res://scenes/unbreakable_brick.tscn" id="3_0fafr"]
+
+[node name="BrickComponent" type="Node2D"]
+script = ExtResource("1_pu7in")
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="."]
+process_mode = 1
+offset_left = 1870.0
+offset_top = 2440.0
+offset_right = 2049.0
+offset_bottom = 2463.0
+rotation = -1.5708
+text = "false advertising andy"
+
+[node name="ReferenceRect" type="ReferenceRect" parent="."]
+top_level = true
+offset_right = 1440.0
+offset_bottom = 1080.0
+border_color = Color(0.506281, 0.00272401, 0.81529, 1)
+border_width = 5.0
+metadata/_edit_lock_ = true
+
+[node name="Center" type="Control" parent="ReferenceRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="BallsComeFromHere" type="Marker2D" parent="ReferenceRect/Center"]
+gizmo_extents = 25.0
+metadata/_edit_lock_ = true
+
+[node name="Brick3" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1070, 840)
+rotation = -1.5708
+
+[node name="Brick4" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1070, 740)
+rotation = -1.5708
+
+[node name="Brick5" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1070, 640)
+rotation = -1.5708
+
+[node name="Brick6" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1070, 540)
+rotation = -1.5708
+
+[node name="Brick7" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1070, 440)
+rotation = -1.5708
+
+[node name="Brick8" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1070, 340)
+rotation = -1.5708
+
+[node name="Brick9" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1070, 240)
+rotation = -1.5708
+
+[node name="Brick12" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1120, 1090)
+rotation = -1.5708
+color = 2
+
+[node name="Brick13" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1120, 990)
+rotation = -1.5708
+color = 2
+
+[node name="Brick14" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1120, 890)
+rotation = -1.5708
+color = 2
+
+[node name="Brick15" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1120, 790)
+rotation = -1.5708
+color = 2
+
+[node name="Brick16" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1120, 690)
+rotation = -1.5708
+color = 2
+
+[node name="Brick17" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1120, 590)
+rotation = -1.5708
+color = 2
+
+[node name="Brick18" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1120, 490)
+rotation = -1.5708
+color = 2
+
+[node name="Brick19" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1120, 390)
+rotation = -1.5708
+color = 2
+
+[node name="Brick20" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1120, 290)
+rotation = -1.5708
+color = 2
+
+[node name="Brick21" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1120, 190)
+rotation = -1.5708
+color = 2
+
+[node name="Brick22" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1120, 90)
+rotation = -1.5708
+color = 2
+
+[node name="Brick23" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1120, -10)
+rotation = -1.5708
+color = 2
+
+[node name="Brick47" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1270, 1040)
+rotation = -1.5708
+color = 5
+
+[node name="Brick48" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1270, 940)
+rotation = -1.5708
+color = 5
+
+[node name="Brick49" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1270, 840)
+rotation = -1.5708
+color = 5
+
+[node name="Brick50" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1270, 740)
+rotation = -1.5708
+color = 5
+
+[node name="Brick51" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1270, 640)
+rotation = -1.5708
+color = 5
+
+[node name="Brick52" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1270, 540)
+rotation = -1.5708
+color = 5
+
+[node name="Brick53" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1270, 440)
+rotation = -1.5708
+color = 5
+
+[node name="Brick54" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1270, 340)
+rotation = -1.5708
+color = 5
+
+[node name="Brick55" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1270, 240)
+rotation = -1.5708
+color = 5
+
+[node name="Brick56" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1270, 140)
+rotation = -1.5708
+color = 5
+
+[node name="Brick57" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1270, 40)
+rotation = -1.5708
+color = 5
+
+[node name="Brick58" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1320, 1090)
+rotation = -1.5708
+color = 5
+
+[node name="Brick59" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1320, 990)
+rotation = -1.5708
+color = 5
+
+[node name="Brick60" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1320, 890)
+rotation = -1.5708
+color = 5
+
+[node name="Brick61" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1320, 790)
+rotation = -1.5708
+color = 5
+
+[node name="Brick62" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1320, 690)
+rotation = -1.5708
+color = 5
+
+[node name="Brick63" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1320, 590)
+rotation = -1.5708
+color = 5
+
+[node name="Brick64" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1320, 490)
+rotation = -1.5708
+color = 5
+
+[node name="Brick65" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1320, 390)
+rotation = -1.5708
+color = 5
+
+[node name="Brick66" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1320, 290)
+rotation = -1.5708
+color = 5
+
+[node name="Brick67" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1320, 190)
+rotation = -1.5708
+color = 5
+
+[node name="Brick68" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1320, 90)
+rotation = -1.5708
+color = 5
+
+[node name="Brick69" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1320, -10)
+rotation = -1.5708
+color = 5
+
+[node name="Brick24" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1170, 1040)
+rotation = -1.5708
+color = 3
+
+[node name="Brick25" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1170, 940)
+rotation = -1.5708
+color = 3
+
+[node name="Brick26" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1170, 840)
+rotation = -1.5708
+color = 3
+
+[node name="Brick27" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1170, 740)
+rotation = -1.5708
+color = 3
+
+[node name="Brick28" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1170, 640)
+rotation = -1.5708
+color = 3
+
+[node name="Brick29" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1170, 540)
+rotation = -1.5708
+color = 3
+
+[node name="Brick30" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1170, 440)
+rotation = -1.5708
+color = 3
+
+[node name="Brick31" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1170, 340)
+rotation = -1.5708
+color = 3
+
+[node name="Brick32" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1170, 240)
+rotation = -1.5708
+color = 3
+
+[node name="Brick33" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1170, 140)
+rotation = -1.5708
+color = 3
+
+[node name="Brick34" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1170, 40)
+rotation = -1.5708
+color = 3
+
+[node name="Brick35" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1220, 1090)
+rotation = -1.5708
+color = 4
+
+[node name="Brick36" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1220, 990)
+rotation = -1.5708
+color = 4
+
+[node name="Brick37" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1220, 890)
+rotation = -1.5708
+color = 4
+
+[node name="Brick43" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1220, 290)
+rotation = -1.5708
+color = 4
+
+[node name="Brick44" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1220, 190)
+rotation = -1.5708
+color = 4
+
+[node name="Brick45" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1220, 90)
+rotation = -1.5708
+color = 4
+
+[node name="Brick46" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(1220, -10)
+rotation = -1.5708
+color = 4
+
+[node name="Brick95" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(370, 840)
+rotation = -1.5708
+
+[node name="Brick96" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(370, 740)
+rotation = -1.5708
+
+[node name="Brick97" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(370, 640)
+rotation = -1.5708
+
+[node name="Brick98" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(370, 540)
+rotation = -1.5708
+
+[node name="Brick99" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(370, 440)
+rotation = -1.5708
+
+[node name="Brick100" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(370, 340)
+rotation = -1.5708
+
+[node name="Brick101" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(370, 240)
+rotation = -1.5708
+
+[node name="Brick127" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(320, 1090)
+rotation = -1.5708
+color = 2
+
+[node name="Brick128" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(320, 990)
+rotation = -1.5708
+color = 2
+
+[node name="Brick129" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(320, 890)
+rotation = -1.5708
+color = 2
+
+[node name="Brick130" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(320, 790)
+rotation = -1.5708
+color = 2
+
+[node name="Brick131" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(320, 690)
+rotation = -1.5708
+color = 2
+
+[node name="Brick132" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(320, 590)
+rotation = -1.5708
+color = 2
+
+[node name="Brick133" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(320, 490)
+rotation = -1.5708
+color = 2
+
+[node name="Brick134" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(320, 390)
+rotation = -1.5708
+color = 2
+
+[node name="Brick135" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(320, 290)
+rotation = -1.5708
+color = 2
+
+[node name="Brick136" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(320, 190)
+rotation = -1.5708
+color = 2
+
+[node name="Brick137" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(320, 90)
+rotation = -1.5708
+color = 2
+
+[node name="Brick138" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(320, -10)
+rotation = -1.5708
+color = 2
+
+[node name="Brick115" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(170, 1040)
+rotation = -1.5708
+color = 5
+
+[node name="Brick116" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(170, 940)
+rotation = -1.5708
+color = 5
+
+[node name="Brick117" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(170, 840)
+rotation = -1.5708
+color = 5
+
+[node name="Brick118" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(170, 740)
+rotation = -1.5708
+color = 5
+
+[node name="Brick119" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(170, 640)
+rotation = -1.5708
+color = 5
+
+[node name="Brick120" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(170, 540)
+rotation = -1.5708
+color = 5
+
+[node name="Brick121" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(170, 440)
+rotation = -1.5708
+color = 5
+
+[node name="Brick122" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(170, 340)
+rotation = -1.5708
+color = 5
+
+[node name="Brick123" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(170, 240)
+rotation = -1.5708
+color = 5
+
+[node name="Brick124" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(170, 140)
+rotation = -1.5708
+color = 5
+
+[node name="Brick125" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(170, 40)
+rotation = -1.5708
+color = 5
+
+[node name="Brick151" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(120, 1090)
+rotation = -1.5708
+color = 5
+
+[node name="Brick152" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(120, 990)
+rotation = -1.5708
+color = 5
+
+[node name="Brick153" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(120, 890)
+rotation = -1.5708
+color = 5
+
+[node name="Brick154" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(120, 790)
+rotation = -1.5708
+color = 5
+
+[node name="Brick155" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(120, 690)
+rotation = -1.5708
+color = 5
+
+[node name="Brick156" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(120, 590)
+rotation = -1.5708
+color = 5
+
+[node name="Brick157" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(120, 490)
+rotation = -1.5708
+color = 5
+
+[node name="Brick158" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(120, 390)
+rotation = -1.5708
+color = 5
+
+[node name="Brick159" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(120, 290)
+rotation = -1.5708
+color = 5
+
+[node name="Brick160" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(120, 190)
+rotation = -1.5708
+color = 5
+
+[node name="Brick161" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(120, 90)
+rotation = -1.5708
+color = 5
+
+[node name="Brick162" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(120, -10)
+rotation = -1.5708
+color = 5
+
+[node name="Brick104" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(270, 1040)
+rotation = -1.5708
+color = 3
+
+[node name="Brick105" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(270, 940)
+rotation = -1.5708
+color = 3
+
+[node name="Brick106" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(270, 840)
+rotation = -1.5708
+color = 3
+
+[node name="Brick107" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(270, 740)
+rotation = -1.5708
+color = 3
+
+[node name="Brick108" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(270, 640)
+rotation = -1.5708
+color = 3
+
+[node name="Brick109" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(270, 540)
+rotation = -1.5708
+color = 3
+
+[node name="Brick110" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(270, 440)
+rotation = -1.5708
+color = 3
+
+[node name="Brick111" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(270, 340)
+rotation = -1.5708
+color = 3
+
+[node name="Brick112" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(270, 240)
+rotation = -1.5708
+color = 3
+
+[node name="Brick113" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(270, 140)
+rotation = -1.5708
+color = 3
+
+[node name="Brick114" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(270, 40)
+rotation = -1.5708
+color = 3
+
+[node name="Brick139" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(220, 1090)
+rotation = -1.5708
+color = 4
+
+[node name="Brick140" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(220, 990)
+rotation = -1.5708
+color = 4
+
+[node name="Brick141" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(220, 890)
+rotation = -1.5708
+color = 4
+
+[node name="Brick147" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(220, 290)
+rotation = -1.5708
+color = 4
+
+[node name="Brick148" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(220, 190)
+rotation = -1.5708
+color = 4
+
+[node name="Brick149" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(220, 90)
+rotation = -1.5708
+color = 4
+
+[node name="Brick150" parent="." instance=ExtResource("2_tykip")]
+position = Vector2(220, -10)
+rotation = -1.5708
+color = 4
+
+[node name="UnbreakableBrick" parent="." instance=ExtResource("3_0fafr")]
+position = Vector2(1220, 390)
+rotation = -1.5708
+
+[node name="UnbreakableBrick2" parent="." instance=ExtResource("3_0fafr")]
+position = Vector2(1220, 490)
+rotation = -1.5708
+
+[node name="UnbreakableBrick3" parent="." instance=ExtResource("3_0fafr")]
+position = Vector2(1220, 590)
+rotation = -1.5708
+
+[node name="UnbreakableBrick4" parent="." instance=ExtResource("3_0fafr")]
+position = Vector2(1220, 690)
+rotation = -1.5708
+
+[node name="UnbreakableBrick5" parent="." instance=ExtResource("3_0fafr")]
+position = Vector2(1220, 790)
+rotation = -1.5708
+
+[node name="UnbreakableBrick6" parent="." instance=ExtResource("3_0fafr")]
+position = Vector2(220, 390)
+rotation = -1.5708
+
+[node name="UnbreakableBrick7" parent="." instance=ExtResource("3_0fafr")]
+position = Vector2(220, 490)
+rotation = -1.5708
+
+[node name="UnbreakableBrick11" parent="." instance=ExtResource("3_0fafr")]
+position = Vector2(370, 40)
+rotation = -1.5708
+
+[node name="UnbreakableBrick12" parent="." instance=ExtResource("3_0fafr")]
+position = Vector2(370, 140)
+rotation = -1.5708
+
+[node name="UnbreakableBrick13" parent="." instance=ExtResource("3_0fafr")]
+position = Vector2(1070, 40)
+rotation = -1.5708
+
+[node name="UnbreakableBrick14" parent="." instance=ExtResource("3_0fafr")]
+position = Vector2(1070, 140)
+rotation = -1.5708
+
+[node name="UnbreakableBrick15" parent="." instance=ExtResource("3_0fafr")]
+position = Vector2(1070, 940)
+rotation = -1.5708
+
+[node name="UnbreakableBrick16" parent="." instance=ExtResource("3_0fafr")]
+position = Vector2(1070, 1040)
+rotation = -1.5708
+
+[node name="UnbreakableBrick17" parent="." instance=ExtResource("3_0fafr")]
+position = Vector2(370, 940)
+rotation = -1.5708
+
+[node name="UnbreakableBrick18" parent="." instance=ExtResource("3_0fafr")]
+position = Vector2(370, 1040)
+rotation = -1.5708
+
+[node name="UnbreakableBrick8" parent="." instance=ExtResource("3_0fafr")]
+position = Vector2(220, 590)
+rotation = -1.5708
+
+[node name="UnbreakableBrick9" parent="." instance=ExtResource("3_0fafr")]
+position = Vector2(220, 690)
+rotation = -1.5708
+
+[node name="UnbreakableBrick10" parent="." instance=ExtResource("3_0fafr")]
+position = Vector2(220, 790)
+rotation = -1.5708

@@ -32,11 +32,11 @@ func _draw():
 	if 3 in sides or 0 in sides:
 		corners.append(3);
 		
-	var draw_rect := Rect2(); # prolly lol
-	draw_rect.position.x =  - brick.width / 2;
-	draw_rect.position.y =  - brick.height / 2;
-	draw_rect.size.x = brick.width;
-	draw_rect.size.y = brick.height;
+	var drawing_rect := Rect2(); # prolly lol
+	drawing_rect.position.x =  - brick.width / 2;
+	drawing_rect.position.y =  - brick.height / 2;
+	drawing_rect.size.x = brick.width;
+	drawing_rect.size.y = brick.height;
 	
 	for side_idx in sides:
 		var src_rect := Rect2();
@@ -44,7 +44,7 @@ func _draw():
 		src_rect.position.y = brick.height * side_idx;
 		src_rect.size.x = brick.width;
 		src_rect.size.y = brick.height;
-		draw_texture_rect_region(ARMOR_TEXTURE, draw_rect, src_rect);
+		draw_texture_rect_region(ARMOR_TEXTURE, drawing_rect, src_rect);
 	
 	for corner_idx in corners:
 		var src_rect := Rect2();
@@ -52,4 +52,4 @@ func _draw():
 		src_rect.position.y = brick.height * corner_idx;
 		src_rect.size.x = brick.width;
 		src_rect.size.y = brick.height;
-		draw_texture_rect_region(ARMOR_TEXTURE, draw_rect, src_rect);
+		draw_texture_rect_region(ARMOR_TEXTURE, drawing_rect, src_rect);

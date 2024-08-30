@@ -1,0 +1,110 @@
+[gd_scene load_steps=8 format=3 uid="uid://vq8mwjj8om13"]
+
+[ext_resource type="PackedScene" uid="uid://cljyfysqemsgw" path="res://scenes/level.tscn" id="1_hk75u"]
+[ext_resource type="Script" path="res://scripts/title_screen_old.gd" id="2_5adk3"]
+[ext_resource type="PackedScene" uid="uid://doylk4sp6cg5q" path="res://scenes/Wall.tscn" id="3_3b83e"]
+[ext_resource type="PackedScene" uid="uid://c0pvsntagt4y6" path="res://scenes/level_components/ball_component.tscn" id="4_sajid"]
+[ext_resource type="Script" path="res://scripts/level_components/title_screen_ball_component.gd" id="5_koyfw"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3vi2w"]
+font_size = 81
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 15
+shadow_color = Color(0, 0, 0, 0.545098)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mbdus"]
+bg_color = Color(0.174985, 0.174985, 0.174985, 0.764706)
+
+[node name="TitleScreen" instance=ExtResource("1_hk75u")]
+script = ExtResource("2_5adk3")
+layout_directory = "res://scenes/level_components/title_screen_layouts"
+BALL_LIMIT = 10
+powerup_chance = 0.0
+
+[node name="WallBottom" parent="Walls" index="3" groups=["walls"] instance=ExtResource("3_3b83e")]
+position = Vector2(0, 1000)
+
+[node name="BallComponent" parent="." index="1" instance=ExtResource("4_sajid")]
+script = ExtResource("5_koyfw")
+play_collision_sound = false
+
+[node name="BallSpawnTimer" type="Timer" parent="." index="2"]
+wait_time = 0.25
+
+[node name="GUI" type="CanvasLayer" parent="." index="3"]
+
+[node name="Title" type="Label" parent="GUI" index="0"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.5
+offset_top = -11.5
+offset_right = 36.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "BrickOut!"
+label_settings = SubResource("LabelSettings_3vi2w")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Buttons" type="VBoxContainer" parent="GUI" index="1"]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="NewGameBtn" type="Button" parent="GUI/Buttons" index="0"]
+layout_mode = 2
+text = "New game"
+
+[node name="ContinueBtn" type="Button" parent="GUI/Buttons" index="1"]
+layout_mode = 2
+disabled = true
+text = "Continue"
+
+[node name="SettingsBtn" type="Button" parent="GUI/Buttons" index="2"]
+layout_mode = 2
+text = "Settings"
+
+[node name="HelpBtn" type="Button" parent="GUI/Buttons" index="3"]
+layout_mode = 2
+text = "Help"
+
+[node name="StatsBtn" type="Button" parent="GUI/Buttons" index="4"]
+layout_mode = 2
+text = "Stats"
+
+[node name="QuitBtn" type="Button" parent="GUI/Buttons" index="5"]
+layout_mode = 2
+text = "Quit"
+
+[node name="PanelContainer" type="PanelContainer" parent="GUI" index="2"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_mbdus")
+metadata/_edit_lock_ = true
+
+[node name="MeLbl" type="Label" parent="GUI/PanelContainer" index="0"]
+layout_mode = 2
+text = "BrickOut
+Made by OLP Solutions
+© "
+horizontal_alignment = 2
+metadata/_edit_lock_ = true
+
+[connection signal="pressed" from="GUI/Buttons/QuitBtn" to="." method="_on_quit_btn_pressed"]

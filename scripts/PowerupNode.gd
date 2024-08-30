@@ -28,7 +28,7 @@ func _ready():
 
 
 func _physics_process(delta):
-	velocity.y += POWERUP_GRAVITY * delta * (0.50001 if level_cleared else 1);
+	velocity.y += POWERUP_GRAVITY * delta * (0.50001 if level_cleared else 1.0);
 	var collision := move_and_collide(velocity * delta);
 	if collision:
 		var collider := collision.get_collider();

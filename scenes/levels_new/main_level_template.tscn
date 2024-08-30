@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dlmov8h5im38b"]
+[gd_scene load_steps=6 format=3 uid="uid://dlmov8h5im38b"]
 
 [ext_resource type="Script" path="res://scripts/main_level_template.gd" id="1_h2xl7"]
 [ext_resource type="PackedScene" uid="uid://bu3y7vlu8g83f" path="res://scenes/levels_new/main_level_gameplay.tscn" id="1_n8d5k"]
+[ext_resource type="Script" path="res://scripts/fader.gd" id="2_o1f4u"]
 [ext_resource type="LabelSettings" uid="uid://dse1o7dk5j0oi" path="res://resources/stats_label_settings.tres" id="3_6kyua"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p2rb1"]
@@ -22,6 +23,10 @@ corner_detail = 16
 
 [node name="MainLevel" type="Node"]
 script = ExtResource("1_h2xl7")
+
+[node name="Fader" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_o1f4u")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchors_preset = 15

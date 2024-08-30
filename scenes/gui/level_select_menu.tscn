@@ -1,0 +1,91 @@
+[gd_scene load_steps=2 format=3 uid="uid://yokrfjsp6155"]
+
+[ext_resource type="LabelSettings" uid="uid://bedtepc8kaaw5" path="res://resources/bigtext_label_settings.tres" id="1_74roj"]
+
+[node name="LevelSelectMenu" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Select a Level"
+label_settings = ExtResource("1_74roj")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(1920, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="HFlowContainer" type="HFlowContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 25
+theme_override_constants/v_separation = 25
+
+[node name="LevelChooseBtn" type="Button" parent="PanelContainer/MarginContainer/HFlowContainer"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "1"
+
+[node name="LevelChooseBtn2" type="Button" parent="PanelContainer/MarginContainer/HFlowContainer"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "2"
+
+[node name="LevelChooseBtn3" type="Button" parent="PanelContainer/MarginContainer/HFlowContainer"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "3"
+
+[node name="LevelChooseBtn4" type="Button" parent="PanelContainer/MarginContainer/HFlowContainer"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "4"
+
+[node name="LevelChooseBtn5" type="Button" parent="PanelContainer/MarginContainer/HFlowContainer"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "5"
+
+[node name="LevelChooseBtn6" type="Button" parent="PanelContainer/MarginContainer/HFlowContainer"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "6"
+
+[node name="LevelChooseBtn7" type="Button" parent="PanelContainer/MarginContainer/HFlowContainer"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "7"
+
+[node name="LevelChooseBtn8" type="Button" parent="PanelContainer/MarginContainer/HFlowContainer"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "8"

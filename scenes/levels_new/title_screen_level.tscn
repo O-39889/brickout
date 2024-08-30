@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://mr4v8wwan2w2"]
+
+[ext_resource type="PackedScene" uid="uid://cljyfysqemsgw" path="res://scenes/level.tscn" id="1_epmn6"]
+[ext_resource type="Script" path="res://scripts/title_screen_level.gd" id="2_oelau"]
+[ext_resource type="Script" path="res://scripts/fader.gd" id="3_cdodx"]
+[ext_resource type="PackedScene" uid="uid://doylk4sp6cg5q" path="res://scenes/Wall.tscn" id="3_dr6e3"]
+[ext_resource type="PackedScene" uid="uid://c0pvsntagt4y6" path="res://scenes/level_components/ball_component.tscn" id="3_pytdp"]
+[ext_resource type="Script" path="res://scripts/level_components/title_screen_ball_component.gd" id="4_scqli"]
+
+[node name="TitleScreenLevel" instance=ExtResource("1_epmn6")]
+script = ExtResource("2_oelau")
+layout_directory = "res://scenes/level_components/title_screen_layouts"
+
+[node name="Fader" type="Node" parent="." index="0"]
+unique_name_in_owner = true
+script = ExtResource("3_cdodx")
+
+[node name="WallBottom" parent="Walls" index="3" groups=["walls"] instance=ExtResource("3_dr6e3")]
+metadata/_edit_lock_ = true
+
+[node name="Center" type="Control" parent="ReferenceRect" index="0"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BallsComeFromHere" type="Marker2D" parent="ReferenceRect/Center" index="0"]
+gizmo_extents = 25.0
+
+[node name="BallComponent" parent="." index="3" instance=ExtResource("3_pytdp")]
+script = ExtResource("4_scqli")
+play_collision_sound = false
+metadata/_edit_lock_ = true
