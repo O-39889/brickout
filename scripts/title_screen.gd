@@ -33,3 +33,8 @@ func _on_stats_btn_pressed() -> void:
 
 func _on_quit_btn_pressed() -> void:
 	get_tree().quit();
+
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		pass # IT WORKS HERE THOUGH!!!

@@ -59,7 +59,12 @@ static var target_speed_idx : BallSpeed = BallSpeed.BALL_SPEED_NORMAL:
 
 static var target_speed : float:
 	get:
+		if target_speed_override > 0.0:
+			return target_speed_override;
 		return BALL_SPEEDS[target_speed_idx];
+
+static var target_speed_override : float = -1.0;
+
 
 # TODO: make it also check that it doesn't collide with regular bricks before
 # starting the horizontal cooldown (and reset it each time it collides with
@@ -135,6 +140,7 @@ static func decrease_speed():
 
 static func reset_target_speed():
 	target_speed_idx = BallSpeed.BALL_SPEED_NORMAL;
+	target_speed_override = -1.0;
 
 
 ## Launch the ball in the specified direction with its target speed.
@@ -249,19 +255,8 @@ func _physics_process(delta):
 	else:
 		velocity_dir = velocity.normalized();
 	if not is_finish_state:
-		var speed_difference : float = target_speed - velocity.length();
-	# to snap to the needed velocity without oscillating constantly around it
-	# in small increments or something
-		if absf(speed_difference) <= delta * ACCELERATION:
-			velocity = velocity_dir * target_speed;
-	# current speed is smaller than the target speed
-		elif speed_difference > 0:
-		# we will need to accelerate
-			velocity += velocity_dir * ACCELERATION * delta;
-		# current speed is larger than the target speed
-		else:
-			# will need to decelerate
-			velocity -= velocity_dir * ACCELERATION * delta;
+		# hope it can work with only this lol
+		velocity = velocity.move_toward(velocity_dir * target_speed, ACCELERATION * delta);
 	elif is_finish_state:
 		if velocity.length() <= CONSTANT_DECELERATION * delta:
 			velocity = Vector2(0, 0);

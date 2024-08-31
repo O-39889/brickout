@@ -32,6 +32,8 @@ func reset_brick_layout() -> void:
 			b.queue_free();
 		brick_layout.queue_free();
 		brick_layout = null;
+	Ball.reset_target_speed();
+	Ball.target_speed_override = Ball.BALL_SPEEDS[Ball.BallSpeed.BALL_SPEED_NORMAL];
 	var to_choose : PackedStringArray = DirAccess.get_files_at(layout_directory);
 	if not last_layout_name.is_empty() and to_choose.size() > 1:
 		to_choose.remove_at(to_choose.find(last_layout_name));
@@ -77,3 +79,18 @@ func _input(event: InputEvent) -> void:
 		for b : Brick in get_tree().get_nodes_in_group(&"destructible_bricks"):
 			if randf() < 0.950001997:
 				b.destroy(get_tree().get_first_node_in_group(&'balls'));
+	elif event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed:
+			Ball.target_speed_override = clampi(
+				Ball.target_speed_override + 10,
+				Ball.BALL_SPEEDS[Ball.BallSpeed.BALL_SPEED_SLOW] - 50,
+				Ball.BALL_SPEEDS[Ball.BallSpeed.BALL_SPEED_FAST] + 100,
+			);
+			get_window().title = str(Ball.target_speed);
+		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN and event.pressed:
+			Ball.target_speed_override = clampi(
+				Ball.target_speed_override - 10,
+				Ball.BALL_SPEEDS[Ball.BallSpeed.BALL_SPEED_SLOW] - 50,
+				Ball.BALL_SPEEDS[Ball.BallSpeed.BALL_SPEED_FAST] + 100,
+			);
+			get_window().title = str(Ball.target_speed);
