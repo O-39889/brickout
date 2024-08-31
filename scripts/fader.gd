@@ -16,7 +16,9 @@ const FADE_DURATION := 0.2;
 func _ready() -> void:
 	if get_tree().current_scene != get_parent()\
 		or get_parent().get_child(0) != self:
-			print("Warning: the Fader node works best when used as the first child of a top-level node so that it can access all nodes in the scene tree properly. Printing it in here bc I don't know how else to push warnings lol");
+			pass
+			# just shut up
+			#print("Warning: the Fader node works best when used as the first child of a top-level node so that it can access all nodes in the scene tree properly. Printing it in here bc I don't know how else to push warnings lol");
 	if on_ready:
 		fade_in();
 

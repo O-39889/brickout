@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://yokrfjsp6155"]
+[gd_scene load_steps=4 format=3 uid="uid://yokrfjsp6155"]
 
 [ext_resource type="LabelSettings" uid="uid://bedtepc8kaaw5" path="res://resources/bigtext_label_settings.tres" id="1_74roj"]
+[ext_resource type="Script" path="res://scripts/level_select_menu.gd" id="1_hoi05"]
+[ext_resource type="Theme" uid="uid://disr836qacj33" path="res://resources/gui_theme.tres" id="3_ffxgf"]
 
 [node name="LevelSelectMenu" type="VBoxContainer"]
 anchors_preset = 15
@@ -10,20 +12,86 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_hoi05")
 
-[node name="Label" type="Label" parent="."]
+[node name="ChooseLevelLbl" type="Label" parent="."]
+unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Select a Level"
 label_settings = ExtResource("1_74roj")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
-visible = false
 custom_minimum_size = Vector2(1920, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="LevelList" type="GridContainer" parent="PanelContainer/ScrollContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(1800, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 30
+theme_override_constants/v_separation = 30
+columns = 6
+
+[node name="LevelChooseBtn" type="Button" parent="PanelContainer/ScrollContainer/LevelList"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "1"
+
+[node name="LevelChooseBtn2" type="Button" parent="PanelContainer/ScrollContainer/LevelList"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "2"
+
+[node name="LevelChooseBtn3" type="Button" parent="PanelContainer/ScrollContainer/LevelList"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "3"
+
+[node name="LevelChooseBtn4" type="Button" parent="PanelContainer/ScrollContainer/LevelList"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "4"
+
+[node name="LevelChooseBtn5" type="Button" parent="PanelContainer/ScrollContainer/LevelList"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "5"
+
+[node name="LevelChooseBtn6" type="Button" parent="PanelContainer/ScrollContainer/LevelList"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "6"
+
+[node name="LevelChooseBtn7" type="Button" parent="PanelContainer/ScrollContainer/LevelList"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "7"
+
+[node name="LevelChooseBtn8" type="Button" parent="PanelContainer/ScrollContainer/LevelList"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "8"
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
 layout_mode = 2
@@ -32,60 +100,17 @@ theme_override_constants/margin_top = 25
 theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 25
 
-[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-horizontal_scroll_mode = 0
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="HFlowContainer" type="HFlowContainer" parent="PanelContainer/MarginContainer"]
-layout_mode = 2
-theme_override_constants/h_separation = 25
-theme_override_constants/v_separation = 25
+[node name="ExitBtn" type="Button" parent="CanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_top = 20.0
+offset_right = -20.0
+grow_horizontal = 0
+theme = ExtResource("3_ffxgf")
+text = "Back to Title"
 
-[node name="LevelChooseBtn" type="Button" parent="PanelContainer/MarginContainer/HFlowContainer"]
-custom_minimum_size = Vector2(256, 256)
-layout_mode = 2
-theme_override_font_sizes/font_size = 128
-text = "1"
-
-[node name="LevelChooseBtn2" type="Button" parent="PanelContainer/MarginContainer/HFlowContainer"]
-custom_minimum_size = Vector2(256, 256)
-layout_mode = 2
-theme_override_font_sizes/font_size = 128
-text = "2"
-
-[node name="LevelChooseBtn3" type="Button" parent="PanelContainer/MarginContainer/HFlowContainer"]
-custom_minimum_size = Vector2(256, 256)
-layout_mode = 2
-theme_override_font_sizes/font_size = 128
-text = "3"
-
-[node name="LevelChooseBtn4" type="Button" parent="PanelContainer/MarginContainer/HFlowContainer"]
-custom_minimum_size = Vector2(256, 256)
-layout_mode = 2
-theme_override_font_sizes/font_size = 128
-text = "4"
-
-[node name="LevelChooseBtn5" type="Button" parent="PanelContainer/MarginContainer/HFlowContainer"]
-custom_minimum_size = Vector2(256, 256)
-layout_mode = 2
-theme_override_font_sizes/font_size = 128
-text = "5"
-
-[node name="LevelChooseBtn6" type="Button" parent="PanelContainer/MarginContainer/HFlowContainer"]
-custom_minimum_size = Vector2(256, 256)
-layout_mode = 2
-theme_override_font_sizes/font_size = 128
-text = "6"
-
-[node name="LevelChooseBtn7" type="Button" parent="PanelContainer/MarginContainer/HFlowContainer"]
-custom_minimum_size = Vector2(256, 256)
-layout_mode = 2
-theme_override_font_sizes/font_size = 128
-text = "7"
-
-[node name="LevelChooseBtn8" type="Button" parent="PanelContainer/MarginContainer/HFlowContainer"]
-custom_minimum_size = Vector2(256, 256)
-layout_mode = 2
-theme_override_font_sizes/font_size = 128
-text = "8"
+[connection signal="pressed" from="CanvasLayer/ExitBtn" to="." method="_on_exit_btn_pressed"]

@@ -16,6 +16,7 @@ const MIN_WINDOW_SIZE := Vector2i(1024, 576);
 
 
 var window_mode_saved : DisplayServer.WindowMode = DisplayServer.window_get_mode();
+var should_fade_level_select : bool = true;
 
 
 func _ready() -> void:

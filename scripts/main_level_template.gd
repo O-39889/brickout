@@ -48,7 +48,7 @@ func _ready() -> void:
 	EventBus.powerup_collected.connect(_on_powerup_collected);
 	EventBus.barrier_hit.connect(barrier_indicator.hide);
 
-	fader.fade_in();	
+	fader.fade_in();
 	update_score_counter();
 	update_lives_counter();
 

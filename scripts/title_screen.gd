@@ -1,18 +1,21 @@
-class_name TItleScreen extends Node;
+class_name TitleScreen extends Node;
 
 
-#const LEVEL_MENU_PACKED : PackedScene = ...
-#const SETTINGS_PACKED : PackedScene = ...
+
+const TITLE_PACKED : PackedScene = preload("res://scenes/title_screen.tscn");
+const LEVEL_SELECT_PACKED : PackedScene = preload("res://scenes/gui/level_select_menu.tscn");
+#const SETTINGS_PACKED : PackedScene = ...	
 #const HELP_PACKED : PackedScene = ...
 #const STATS_PACKED : PackedScene = ...
 
 
 func _ready() -> void:
 	%MeLbl.text += str(Time.get_datetime_dict_from_system()['year']);
+	%LevelEditorBtn.get_parent().remove_child(%LevelEditorBtn);
 
 
 func _on_new_game_btn_pressed() -> void:
-	pass # Replace with function body.
+	get_tree().change_scene_to_packed(LEVEL_SELECT_PACKED);
 
 
 func _on_continue_btn_pressed() -> void:
