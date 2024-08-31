@@ -20,7 +20,7 @@ boot_splash/minimum_display_time=1000
 
 Globals="*res://scripts/singletons/Globals.gd"
 EventBus="*res://scripts/singletons/event_bus.gd"
-GameProgression="*res://scripts/singletons/game_progression.gd"
+GameProgression="*res://scenes/singletons/game_progression.tscn"
 
 [debug]
 

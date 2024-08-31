@@ -6,11 +6,10 @@ extends Node;
 
 const EXTRA_LIFE_MULTIPLIER : int = 25000;
 
+
 # idk what to do with this lol bruh
 # ig just an array of level scene names or something
-var level_campaign : Array[String] = [];
-var current_level : MainLevel;
-var current_level_idx : int = 0;
+@export var level_campaign : Array[String];
 
 
 @onready var score : int = 0:

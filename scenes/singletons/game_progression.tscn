@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dr85eehk1i6hp"]
+
+[ext_resource type="Script" path="res://scripts/singletons/game_progression.gd" id="1_tj43e"]
+
+[node name="GameProgression" type="Node"]
+script = ExtResource("1_tj43e")
