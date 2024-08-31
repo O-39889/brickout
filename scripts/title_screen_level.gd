@@ -81,16 +81,16 @@ func _input(event: InputEvent) -> void:
 				b.destroy(get_tree().get_first_node_in_group(&'balls'));
 	elif event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed:
-			Ball.target_speed_override = clampi(
-				Ball.target_speed_override + 10,
+			Ball.target_speed_override = clamp(
+				Ball.target_speed_override + 5,
 				Ball.BALL_SPEEDS[Ball.BallSpeed.BALL_SPEED_SLOW] - 50,
 				Ball.BALL_SPEEDS[Ball.BallSpeed.BALL_SPEED_FAST] + 100,
 			);
-			get_window().title = str(Ball.target_speed);
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN and event.pressed:
-			Ball.target_speed_override = clampi(
-				Ball.target_speed_override - 10,
+			Ball.target_speed_override = clamp(
+				Ball.target_speed_override - 5,
 				Ball.BALL_SPEEDS[Ball.BallSpeed.BALL_SPEED_SLOW] - 50,
 				Ball.BALL_SPEEDS[Ball.BallSpeed.BALL_SPEED_FAST] + 100,
 			);
-			get_window().title = str(Ball.target_speed);
+		# the second easter egg (when right clicking on the screen),
+		# I don't think I'm gonna do it today though

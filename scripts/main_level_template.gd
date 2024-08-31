@@ -42,8 +42,6 @@ var timers : Dictionary = {
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	get_window().min_size = Vector2i(1024, 576);
-	
 	EventBus.score_changed.connect(func(_amount: int) -> void:
 		score_match = false);
 	EventBus.lives_changed.connect(update_lives_counter);

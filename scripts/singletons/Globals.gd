@@ -12,9 +12,14 @@ enum PowerupPoolType {
 const MOUSE_SENSITIVITY = 2.718281828459045;
 ## Vertical paddle offset from the bottom of the screen, in pixels.
 const PADDLE_OFFSET = 50;
+const MIN_WINDOW_SIZE := Vector2i(1024, 576);
 
 
 var window_mode_saved : DisplayServer.WindowMode = DisplayServer.window_get_mode();
+
+
+func _ready() -> void:
+	get_window().min_size = MIN_WINDOW_SIZE;
 
 
 # mostly used for power-up effects
