@@ -97,6 +97,7 @@ func reset_level():
 func restart():
 	state = LevelCompletionState.None;
 	create_paddle();
+	paddle.accept_input = true;
 
 
 func handle_game_over():
