@@ -3,7 +3,6 @@ class_name MainPowerupComponent extends Node2D;
 
 const POWERUP_PACKED = preload('res://scenes/Powerup.tscn');
 const BALL_PACKED = preload('res://scenes/Ball.tscn');
-
 var powerup_weights : Dictionary = get_default_weights();
 
 var y_sort_balls_asc : Callable = func(a: Ball, b: Ball):
@@ -123,8 +122,10 @@ func recalculate_weights(original_weights: Dictionary) -> Dictionary:
 			if new_weights.has(id):
 				new_weights[id] /= 3;
 	
-	if get_tree().get_nodes_in_group(&'destructible_bricks').size() <= 5:
-		new_weights[&'finish_level'] = 2.5; # idk just ballpark lol
+	if get_tree().get_nodes_in_group(
+		&'destructible_bricks').size() <= 5\
+		and level.allow_level_finish_powerup:
+		new_weights[&'finish_level'] = 2.25; # idk just ballpark lol
 	
 	var what : StringName = new_weights.keys().pick_random() as StringName;
 	var weight_sum : float = (func():
@@ -135,10 +136,6 @@ func recalculate_weights(original_weights: Dictionary) -> Dictionary:
 			return sum;
 	).call();
 	new_weights[what] -= 1 / (weight_sum * weight_sum); # idk why lmao
-	
-	#for k in new_weights:
-		#print("'", k, "': ", str(new_weights[k]));
-	#print();
 	
 	return new_weights;
 

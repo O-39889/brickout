@@ -8,6 +8,7 @@
 editor_description = "Why am I even doing this lmao I'm gonna change the size anyway"
 level_name = "Pretty in Pink"
 level_author = "Olepograd"
+allow_level_finish_powerup = false
 pool_type = 1
 
 [node name="Brick74" parent="BrickComponent" index="0" instance=ExtResource("2_i6bb6")]

@@ -14,6 +14,7 @@ font_color = Color(1, 1, 1, 0.752941)
 script = ExtResource("1_h5qrc")
 level_name = "New Level"
 level_author = "Someone"
+allow_level_finish_powerup = true
 
 [node name="BallComponent" parent="." index="2" instance=ExtResource("3_8ng45")]
 metadata/_edit_lock_ = true

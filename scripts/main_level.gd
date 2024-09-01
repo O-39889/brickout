@@ -6,6 +6,7 @@ const BARRIER_PACKED : PackedScene = preload("res://scenes/Barrier.tscn");
 
 @export var level_name : String = 'New Level';
 @export var level_author : String = 'Someone';
+@export var allow_level_finish_powerup : bool = true;
 
 var barrier : Barrier;
 var points_earned : int = 0;
