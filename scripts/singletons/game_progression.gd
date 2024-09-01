@@ -9,7 +9,7 @@ const EXTRA_LIFE_MULTIPLIER : int = 25000;
 
 # idk what to do with this lol bruh
 # ig just an array of level scene names or something
-@export var level_campaign : Array[String];
+@export var level_campaign : PackedStringArray;
 
 
 @onready var score : int = 0:

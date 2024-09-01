@@ -56,7 +56,6 @@ render_target_update_mode = 4
 
 [node name="MainLevelGameplay" parent="HBoxContainer/UglyWorkaround/GameContainer/GameVPort" instance=ExtResource("3_i1vwr")]
 unique_name_in_owner = true
-level_author = "Olepograd"
 
 [node name="StatsPanel" type="Panel" parent="HBoxContainer"]
 self_modulate = Color(1, 1, 1, 0)

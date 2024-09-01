@@ -4,3 +4,4 @@
 
 [node name="GameProgression" type="Node"]
 script = ExtResource("1_tj43e")
+level_campaign = PackedStringArray("first_levle", "shimmer_intro")
