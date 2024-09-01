@@ -211,7 +211,7 @@ position = Vector2(970, 290)
 position = Vector2(920, 190)
 
 [node name="SuperUnbreakableBrick52" parent="BrickComponent" index="51" instance=ExtResource("3_4thgn")]
-position = Vector2(920, 140)
+position = Vector2(1120, 140)
 
 [node name="SuperUnbreakableBrick60" parent="BrickComponent" index="52" instance=ExtResource("3_4thgn")]
 position = Vector2(1320, 240)
@@ -234,134 +234,140 @@ position = Vector2(1020, 240)
 [node name="SuperUnbreakableBrick53" parent="BrickComponent" index="58" instance=ExtResource("3_4thgn")]
 position = Vector2(1020, 140)
 
-[node name="SuperUnbreakableBrick13" parent="BrickComponent" index="59" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick56" parent="BrickComponent" index="59" instance=ExtResource("3_4thgn")]
+position = Vector2(1020, 190)
+
+[node name="SuperUnbreakableBrick13" parent="BrickComponent" index="60" instance=ExtResource("3_4thgn")]
 position = Vector2(520, 190)
 
-[node name="SuperUnbreakableBrick14" parent="BrickComponent" index="60" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick14" parent="BrickComponent" index="61" instance=ExtResource("3_4thgn")]
 position = Vector2(820, 190)
 
-[node name="SuperUnbreakableBrick15" parent="BrickComponent" index="61" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick15" parent="BrickComponent" index="62" instance=ExtResource("3_4thgn")]
 position = Vector2(620, 190)
 
-[node name="SuperUnbreakableBrick16" parent="BrickComponent" index="62" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick16" parent="BrickComponent" index="63" instance=ExtResource("3_4thgn")]
 position = Vector2(670, 40)
 
-[node name="SuperUnbreakableBrick21" parent="BrickComponent" index="63" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick21" parent="BrickComponent" index="64" instance=ExtResource("3_4thgn")]
 position = Vector2(570, 40)
 
-[node name="SuperUnbreakableBrick22" parent="BrickComponent" index="64" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick22" parent="BrickComponent" index="65" instance=ExtResource("3_4thgn")]
 position = Vector2(470, 40)
 
-[node name="SuperUnbreakableBrick23" parent="BrickComponent" index="65" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick23" parent="BrickComponent" index="66" instance=ExtResource("3_4thgn")]
 position = Vector2(420, 190)
 
-[node name="SuperUnbreakableBrick24" parent="BrickComponent" index="66" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick24" parent="BrickComponent" index="67" instance=ExtResource("3_4thgn")]
 position = Vector2(420, 140)
 
-[node name="SuperUnbreakableBrick25" parent="BrickComponent" index="67" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick25" parent="BrickComponent" index="68" instance=ExtResource("3_4thgn")]
 position = Vector2(320, 140)
 
-[node name="SuperUnbreakableBrick26" parent="BrickComponent" index="68" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick26" parent="BrickComponent" index="69" instance=ExtResource("3_4thgn")]
 position = Vector2(370, 40)
 
-[node name="SuperUnbreakableBrick27" parent="BrickComponent" index="69" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick27" parent="BrickComponent" index="70" instance=ExtResource("3_4thgn")]
 position = Vector2(270, 40)
 
-[node name="SuperUnbreakableBrick28" parent="BrickComponent" index="70" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick28" parent="BrickComponent" index="71" instance=ExtResource("3_4thgn")]
 position = Vector2(170, 40)
 
-[node name="SuperUnbreakableBrick29" parent="BrickComponent" index="71" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick29" parent="BrickComponent" index="72" instance=ExtResource("3_4thgn")]
 position = Vector2(120, 90)
 
-[node name="SuperUnbreakableBrick30" parent="BrickComponent" index="72" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick30" parent="BrickComponent" index="73" instance=ExtResource("3_4thgn")]
 position = Vector2(120, 140)
 
-[node name="SuperUnbreakableBrick31" parent="BrickComponent" index="73" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick31" parent="BrickComponent" index="74" instance=ExtResource("3_4thgn")]
 position = Vector2(120, 190)
 
-[node name="SuperUnbreakableBrick57" parent="BrickComponent" index="74" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick57" parent="BrickComponent" index="75" instance=ExtResource("3_4thgn")]
 position = Vector2(1320, 90)
 
-[node name="SuperUnbreakableBrick58" parent="BrickComponent" index="75" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick58" parent="BrickComponent" index="76" instance=ExtResource("3_4thgn")]
 position = Vector2(1320, 140)
 
-[node name="SuperUnbreakableBrick59" parent="BrickComponent" index="76" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick59" parent="BrickComponent" index="77" instance=ExtResource("3_4thgn")]
 position = Vector2(1320, 190)
 
-[node name="SuperUnbreakableBrick32" parent="BrickComponent" index="77" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick32" parent="BrickComponent" index="78" instance=ExtResource("3_4thgn")]
 position = Vector2(120, 240)
 
-[node name="SuperUnbreakableBrick33" parent="BrickComponent" index="78" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick33" parent="BrickComponent" index="79" instance=ExtResource("3_4thgn")]
 position = Vector2(220, 240)
 
-[node name="SuperUnbreakableBrick34" parent="BrickComponent" index="79" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick34" parent="BrickComponent" index="80" instance=ExtResource("3_4thgn")]
 position = Vector2(420, 240)
 
-[node name="SuperUnbreakableBrick35" parent="BrickComponent" index="80" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick35" parent="BrickComponent" index="81" instance=ExtResource("3_4thgn")]
 position = Vector2(370, 290)
 
-[node name="SuperUnbreakableBrick36" parent="BrickComponent" index="81" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick36" parent="BrickComponent" index="82" instance=ExtResource("3_4thgn")]
 position = Vector2(320, 340)
 
-[node name="SuperUnbreakableBrick37" parent="BrickComponent" index="82" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick37" parent="BrickComponent" index="83" instance=ExtResource("3_4thgn")]
 position = Vector2(220, 340)
 
-[node name="SuperUnbreakableBrick38" parent="BrickComponent" index="83" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick38" parent="BrickComponent" index="84" instance=ExtResource("3_4thgn")]
 position = Vector2(220, 390)
 
-[node name="SuperUnbreakableBrick39" parent="BrickComponent" index="84" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick39" parent="BrickComponent" index="85" instance=ExtResource("3_4thgn")]
 position = Vector2(70, 290)
 
-[node name="SuperUnbreakableBrick40" parent="BrickComponent" index="85" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick40" parent="BrickComponent" index="86" instance=ExtResource("3_4thgn")]
 position = Vector2(20, 340)
 
-[node name="SuperUnbreakableBrick41" parent="BrickComponent" index="86" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick41" parent="BrickComponent" index="87" instance=ExtResource("3_4thgn")]
 position = Vector2(220, 440)
 
-[node name="SuperUnbreakableBrick49" parent="BrickComponent" index="87" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick49" parent="BrickComponent" index="88" instance=ExtResource("3_4thgn")]
 position = Vector2(1220, 340)
 
-[node name="SuperUnbreakableBrick50" parent="BrickComponent" index="88" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick50" parent="BrickComponent" index="89" instance=ExtResource("3_4thgn")]
 position = Vector2(1220, 390)
 
-[node name="SuperUnbreakableBrick51" parent="BrickComponent" index="89" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick51" parent="BrickComponent" index="90" instance=ExtResource("3_4thgn")]
 position = Vector2(1220, 440)
 
-[node name="SuperUnbreakableBrick42" parent="BrickComponent" index="90" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick66" parent="BrickComponent" index="91" instance=ExtResource("3_4thgn")]
+position = Vector2(1120, 440)
+
+[node name="SuperUnbreakableBrick42" parent="BrickComponent" index="92" instance=ExtResource("3_4thgn")]
 position = Vector2(20, 390)
 
-[node name="SuperUnbreakableBrick43" parent="BrickComponent" index="91" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick43" parent="BrickComponent" index="93" instance=ExtResource("3_4thgn")]
 position = Vector2(20, 440)
 
-[node name="SuperUnbreakableBrick46" parent="BrickComponent" index="92" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick46" parent="BrickComponent" index="94" instance=ExtResource("3_4thgn")]
 position = Vector2(1420, 340)
 
-[node name="SuperUnbreakableBrick47" parent="BrickComponent" index="93" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick47" parent="BrickComponent" index="95" instance=ExtResource("3_4thgn")]
 position = Vector2(1420, 390)
 
-[node name="SuperUnbreakableBrick48" parent="BrickComponent" index="94" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick48" parent="BrickComponent" index="96" instance=ExtResource("3_4thgn")]
 position = Vector2(1420, 440)
 
-[node name="SuperUnbreakableBrick44" parent="BrickComponent" index="95" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick44" parent="BrickComponent" index="97" instance=ExtResource("3_4thgn")]
 position = Vector2(70, 490)
 
-[node name="SuperUnbreakableBrick45" parent="BrickComponent" index="96" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick45" parent="BrickComponent" index="98" instance=ExtResource("3_4thgn")]
 position = Vector2(320, 440)
 
-[node name="SuperUnbreakableBrick17" parent="BrickComponent" index="97" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick17" parent="BrickComponent" index="99" instance=ExtResource("3_4thgn")]
 position = Vector2(770, 40)
 
-[node name="SuperUnbreakableBrick18" parent="BrickComponent" index="98" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick18" parent="BrickComponent" index="100" instance=ExtResource("3_4thgn")]
 position = Vector2(870, 40)
 
-[node name="SuperUnbreakableBrick19" parent="BrickComponent" index="99" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick19" parent="BrickComponent" index="101" instance=ExtResource("3_4thgn")]
 position = Vector2(970, 40)
 
-[node name="SuperUnbreakableBrick20" parent="BrickComponent" index="100" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick20" parent="BrickComponent" index="102" instance=ExtResource("3_4thgn")]
 position = Vector2(1070, 40)
 
-[node name="SuperUnbreakableBrick54" parent="BrickComponent" index="101" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick54" parent="BrickComponent" index="103" instance=ExtResource("3_4thgn")]
 position = Vector2(1170, 40)
 
-[node name="SuperUnbreakableBrick55" parent="BrickComponent" index="102" instance=ExtResource("3_4thgn")]
+[node name="SuperUnbreakableBrick55" parent="BrickComponent" index="104" instance=ExtResource("3_4thgn")]
 position = Vector2(1270, 40)
