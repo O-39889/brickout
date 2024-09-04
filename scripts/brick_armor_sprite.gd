@@ -2,9 +2,9 @@
 extends Node2D;
 
 
-const ARMOR_TEXTURE := preload("res://assets/brick-edges-placeholder.png");
+const ARMOR_TEXTURE := preload("res://assets/brick-edges-new.png");
 
-
+# TODO: FIX SOMETHING BC FOR SOME REASON THE TOP RIGHT CORNER ALWAYS SHOWS LOL
 var brick : RegularBrick;
 
 

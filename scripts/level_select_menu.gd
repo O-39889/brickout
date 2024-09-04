@@ -20,10 +20,9 @@ func _ready() -> void:
 
 
 func _on_exit_btn_pressed() -> void:
-	# SCREW THIS ONE SCENE IN PARTICULAR
-	print(TitleScreen.TITLE_PACKED);
-	print(TitleScreen.TITLE_PACKED.can_instantiate());
-	print(TitleScreen.TITLE_PACKED.instantiate());
-	#get_tree().change_scene_to_packed(TitleScreen.TITLE_PACKED);
-	#return;
 	get_tree().change_scene_to_file("res://scenes/title_screen.tscn")
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		get_tree().change_scene_to_file("res://scenes/title_screen.tscn")

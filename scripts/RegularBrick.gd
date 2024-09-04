@@ -90,29 +90,7 @@ const ARMOR_TEXTURE := preload('res://assets/brick-edges-placeholder.png');
 
 func _ready():
 	if not Engine.is_editor_hint():
-		pass
-		#if is_shimmering:
-			#particles.amount_ratio = 0.0;
-			#particles.scale = Vector2(0, 0);
-			#to_tween.append({
-				#'object': particles,
-				#'property': 'amount_ratio',
-				#'final_val': 1.0,
-				#'duration': 0.1,
-			#});
-			#to_tween.append({
-				#'object': particles,
-				#'property': 'scale',
-				#'final_val': Vector2(1, 1),
-				#'duration': 0.1,
-			#});
-		#if is_reinforced:
-			#armor_sprite.scale = Vector2(0, 0);
-			#to_tween.append({
-					#'object': armor_sprite,
-					#'property': 'scale',
-					#'final_val': Vector2(1, 1),
-			#});
+		pass;
 	super();
 	if initial_durability == 1 and not Engine.is_editor_hint():
 		$CrackSprite.queue_free();
@@ -132,12 +110,6 @@ func _ready():
 	if Engine.is_editor_hint():
 		particles.amount = 5;
 		if is_reinforced:
-			#print(name)
-			#print('Armor sprite: ', armor_sprite);
-			#print("Armor sprite's brick before: ", armor_sprite.brick)
-			#print("Me: ", self);
-			#print("Armor sprite's brick after: ", armor_sprite.brick)
-			#print();
 			armor_sprite.queue_redraw();
 	elif not Engine.is_editor_hint():
 		if not is_shimmering:
@@ -188,12 +160,17 @@ func set_crack_sprite(new_durability: int, init_durability: int):
 		# just why lmao
 		var idx : int = [
 			[3],		# 2		1
-			[1, 3],		# 3		2 1
+			[2, 3],		# 3		2 1
 			[1, 2, 3],	# 4		3 2 1
 			[0, 1, 2, 3]# 5		4 3 2 1
 		][init_durability - 2][init_durability - new_durability - 1];
-		crack_sprite.region_rect.position.x = width * idx;
-
+		# also please be careful as I also flipped the crack sprite
+		# so that the most cracked is first
+		# funnily enough this looks much better and is
+		# much simpler than I thought it would be lmao
+		crack_sprite.region_rect.position.x = (
+			width * (new_durability - 1)
+		);
 
 # can't handle collisions using regular hit() method because there's just
 # not enough info so will have to do this instead ig

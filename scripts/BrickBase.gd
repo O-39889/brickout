@@ -11,40 +11,22 @@ class_name Brick extends StaticBody2D;
 
 @onready var width : float = collision_shape.shape.size.x;
 @onready var height : float = collision_shape.shape.size.y;
-@onready var to_tween := [
-	{
-		'object': $Sprite2D,
-		'property': 'scale',
-		'final_val': Vector2(1, 1),
-		'duration': 0.2
-	},
-];
 
 
-func _ready():
-	pass
-	#if not Engine.is_editor_hint():
-		#$Sprite2D.scale = Vect	or2(0, 0);
-		#get_tree().create_timer((global_position.x - width / 2
-		#+ global_position.y * (width / height) - height / 2) / 2220.2222)\
-		#.timeout.connect(func():
-			#var tween := create_tween();
-			#tween.set_parallel(true);
-			#for prop in to_tween:
-				#var dur = prop['duration'] if prop.has('duration') else 0.2;
-				#tween.tween_property(
-					#prop['object'], prop['property'],
-					#prop['final_val'], dur
-				#);
-			#);
-	
+func _ready() -> void:
+	# this is to counteract the godot grid snap limitation
+	# (23 instead of 22.5 lol)
+	if not Engine.is_editor_hint():
+		self.position.y -= 0.5;
 
 
-func hit(by: Node2D, _damage: int):
+func hit(by: Node2D, _damage: int) -> void:
 	EventBus.brick_hit.emit(self, by);
 
 
-func destroy(by: Node2D):
+func destroy(by: Node2D) -> void:
+	# wait why is it not calling queue free lol
+	# ah whatever the subclasses are gonna do that anyway ig
 	EventBus.brick_destroyed.emit(self, by);
 
 

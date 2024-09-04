@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://5p2y5riyrwvs" path="res://scenes/BrickBase.tscn" id="1_4x6ma"]
 [ext_resource type="Script" path="res://scripts/super_unbreakable_brick.gd" id="2_g4ytx"]
-[ext_resource type="Texture2D" uid="uid://bv217mfdwjr3c" path="res://assets/unbreakable-bricks-placeholder.png" id="3_7i42o"]
+[ext_resource type="Texture2D" uid="uid://dq5n8fv0xn0ut" path="res://assets/bricks-new.png" id="3_qc18i"]
 
 [node name="SuperUnbreakableBrick" instance=ExtResource("1_4x6ma")]
 script = ExtResource("2_g4ytx")
@@ -12,6 +12,6 @@ visible = false
 debug_color = Color(0.12, 0.12, 0.12, 0.419608)
 
 [node name="Sprite2D" parent="." index="1"]
-texture = ExtResource("3_7i42o")
+texture = ExtResource("3_qc18i")
 region_enabled = true
-region_rect = Rect2(0, 50, 100, 50)
+region_rect = Rect2(0, 405, 90, 45)

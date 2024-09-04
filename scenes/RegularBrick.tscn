@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://5p2y5riyrwvs" path="res://scenes/BrickBase.tscn" id="1_q32mh"]
 [ext_resource type="Script" path="res://scripts/RegularBrick.gd" id="2_oy74a"]
-[ext_resource type="Texture2D" uid="uid://hoh4st5a63fk" path="res://assets/bricks-placeholder.png" id="3_soec6"]
-[ext_resource type="Texture2D" uid="uid://x04nv5d3f8ll" path="res://assets/brick-cracks-placeholder.png" id="4_kqa0t"]
+[ext_resource type="Texture2D" uid="uid://dq5n8fv0xn0ut" path="res://assets/bricks-new.png" id="3_ryxux"]
+[ext_resource type="Texture2D" uid="uid://cptsherg6p4gm" path="res://assets/brick-cracks.png" id="4_jyuic"]
 [ext_resource type="Script" path="res://scripts/brick_armor_sprite.gd" id="5_36o2p"]
 [ext_resource type="Texture2D" uid="uid://lstywc00fqyo" path="res://assets/sparkle-placeholder.png" id="5_bt2ku"]
 
@@ -11,7 +11,7 @@
 resource_local_to_scene = true
 particle_flag_disable_z = true
 emission_shape = 3
-emission_box_extents = Vector3(50, 25, 1)
+emission_box_extents = Vector3(45, 22.5, 1)
 gravity = Vector3(0, 0, 0)
 radial_accel_min = 3.0
 radial_accel_max = 15.0
@@ -29,15 +29,15 @@ protected_sides = 0
 visible = false
 
 [node name="Sprite2D" parent="." index="1"]
-texture = ExtResource("3_soec6")
+texture = ExtResource("3_ryxux")
 region_enabled = true
-region_rect = Rect2(0, 0, 100, 50)
+region_rect = Rect2(0, 0, 90, 45)
 
 [node name="CrackSprite" type="Sprite2D" parent="." index="2" groups=["fadeable"]]
 visible = false
-texture = ExtResource("4_kqa0t")
+texture = ExtResource("4_jyuic")
 region_enabled = true
-region_rect = Rect2(0, 0, 100, 50)
+region_rect = Rect2(0, 0, 90, 45)
 
 [node name="ArmorSprites" type="Node2D" parent="." index="3" groups=["fadeable"]]
 script = ExtResource("5_36o2p")
