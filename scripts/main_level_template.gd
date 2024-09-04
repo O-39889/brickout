@@ -35,13 +35,20 @@ var timers : Dictionary = {
 @onready var main_container : MarginContainer = %UglyWorkaround;
 @onready var timers_container : Container = %PowerupTimersContainer;
 
-@onready var lvl : MainLevel = %MainLevelGameplay;
-
 @onready var fader : Fader = %Fader;
+
+@onready var game_viewport : SubViewport = %GameVPort;
+# GETS SET BEFORE READY
+# so you gotta first change the current level in the game progression
+# then load this and it will do everything itself
+@onready var lvl : MainLevel = GameProgression.current_level;
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	assert(is_instance_valid(lvl), "Level gameplay scene not provided by the GameProgression singleton");
+	game_viewport.add_child(lvl);
+	
 	EventBus.score_changed.connect(func(_amount: int) -> void:
 		score_match = false);
 	EventBus.lives_changed.connect(update_lives_counter);

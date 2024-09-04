@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dlmov8h5im38b"]
+[gd_scene load_steps=5 format=3 uid="uid://dlmov8h5im38b"]
 
 [ext_resource type="Script" path="res://scripts/main_level_template.gd" id="1_h2xl7"]
 [ext_resource type="Script" path="res://scripts/fader.gd" id="2_o1f4u"]
 [ext_resource type="LabelSettings" uid="uid://dse1o7dk5j0oi" path="res://resources/stats_label_settings.tres" id="3_6kyua"]
-[ext_resource type="PackedScene" uid="uid://cdqd7yfdukjv7" path="res://scenes/levels_new/main_level_gameplay.tscn" id="3_i1vwr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p2rb1"]
 content_margin_left = 10.0
@@ -49,13 +48,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="GameVPort" type="SubViewport" parent="HBoxContainer/UglyWorkaround/GameContainer"]
+unique_name_in_owner = true
 disable_3d = true
 handle_input_locally = false
 size = Vector2i(1440, 1080)
 render_target_update_mode = 4
-
-[node name="MainLevelGameplay" parent="HBoxContainer/UglyWorkaround/GameContainer/GameVPort" instance=ExtResource("3_i1vwr")]
-unique_name_in_owner = true
 
 [node name="StatsPanel" type="Panel" parent="HBoxContainer"]
 self_modulate = Color(1, 1, 1, 0)

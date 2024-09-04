@@ -4,4 +4,5 @@
 
 [node name="GameProgression" type="Node"]
 script = ExtResource("1_tj43e")
+main_campaign_dir = "res://scenes/levels_new/main_campaign"
 level_campaign = PackedStringArray("first_levle", "shimmer_intro")

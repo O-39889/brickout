@@ -12,6 +12,9 @@ func _ready() -> void:
 		for i in 50:
 			var btn : LevelChooseButton = LEVEL_BUTTON_PACKED.instantiate();
 			btn.num = i + 1;
+			btn.pressed.connect(GameProgression.new_game.bind(
+				mini(i, GameProgression.level_campaign.size() - 1)
+			));
 			level_list.add_child(btn);
 			pass # Holy stuff I can't do that in here obviously because of it being a container so I will actually have to override the container node itself
 			# sounds like a lot of pain so whatever
