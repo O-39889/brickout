@@ -157,17 +157,6 @@ func set_crack_sprite(new_durability: int, init_durability: int):
 		# not broken yet, just in case I accidentally call it somewhere else
 		return;
 	if crack_sprite:
-		# just why lmao
-		var idx : int = [
-			[3],		# 2		1
-			[2, 3],		# 3		2 1
-			[1, 2, 3],	# 4		3 2 1
-			[0, 1, 2, 3]# 5		4 3 2 1
-		][init_durability - 2][init_durability - new_durability - 1];
-		# also please be careful as I also flipped the crack sprite
-		# so that the most cracked is first
-		# funnily enough this looks much better and is
-		# much simpler than I thought it would be lmao
 		crack_sprite.region_rect.position.x = (
 			width * (new_durability - 1)
 		);
