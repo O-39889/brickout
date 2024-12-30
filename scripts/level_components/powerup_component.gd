@@ -252,6 +252,7 @@ func _on_powerup_collected(powerup: Powerup):
 			level.paddle.equip_gun(Projectile.GunType.Regular);
 		&'finish_level':
 			level.finish();
+		
 		# NEUTRAL
 		&'ball_speed_up':
 			Ball.increase_speed();
@@ -300,7 +301,7 @@ func _on_powerup_collected(powerup: Powerup):
 				level.murder_ball(b);
 		&'paddle_freeze':
 			level.activate_freeze_powerup();
-	GameProgression.score += Powerup.POWERUP_LIST[powerup.id][&'points'];
+	GameProgression.add_score(Powerup.POWERUP_LIST[powerup.id][&'points']);
 
 
 func _request_powerup(id: StringName, pos: Vector2):

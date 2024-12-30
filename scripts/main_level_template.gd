@@ -51,7 +51,8 @@ func _ready() -> void:
 	
 	EventBus.score_changed.connect(func(_amount: int) -> void:
 		score_match = false);
-	EventBus.lives_changed.connect(update_lives_counter);
+	# ???
+	#EventBus.lives_changed.connect(update_lives_counter);
 	EventBus.powerup_collected.connect(_on_powerup_collected);
 	EventBus.barrier_hit.connect(barrier_indicator.hide);
 

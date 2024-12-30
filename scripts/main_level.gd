@@ -89,7 +89,7 @@ func reset_level():
 	EventBus.life_lost.emit();
 	if GameProgression.lives == 0:
 		handle_game_over();
-	else:
+	else:	
 		# TODO: actually handle life lost thing later
 		await get_tree().create_timer(1.0).timeout;
 		restart();

@@ -1,7 +1,7 @@
 class_name TitleScreen extends Node;
 
 
-
+# bs !! this one doesn't work!!!
 const TITLE_PACKED : PackedScene = preload("res://scenes/title_screen.tscn");
 const LEVEL_SELECT_PACKED : PackedScene = preload("res://scenes/gui/level_select_menu.tscn");
 #const SETTINGS_PACKED : PackedScene = ...	
