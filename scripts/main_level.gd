@@ -89,7 +89,7 @@ func reset_level():
 	EventBus.life_lost.emit();
 	if GameProgression.lives == 0:
 		handle_game_over();
-	else:	
+	else:
 		# TODO: actually handle life lost thing later
 		await get_tree().create_timer(1.0).timeout;
 		restart();
@@ -166,6 +166,7 @@ func activate_freeze_powerup():
 		#gui.remove_timer(Powerup.TimedPowerup.GhostPaddle);
 
 
+# OVERRIDE FROM Level
 func finish():
 	if state != Level.LevelCompletionState.None:
 		return;
@@ -176,11 +177,21 @@ func finish():
 		#func(): get_window().title = 'Main menu!');
 	await get_tree().create_timer(1.0).timeout;
 	for ball : Ball in get_tree().get_nodes_in_group(&'balls'):
-		GameProgression.score += 1000;
-		await get_tree().create_timer(0.5).timeout;
+		GameProgression.add_score(1000);
+		# lmao
+		await get_tree().create_timer(1000.0 / 600.0).timeout;
 	await get_tree().create_timer(1.0).timeout;
+	# TODO: ADD LEVEL CLEAR MENU AND OTHER STUFF
+	# WAIT WHICH ONE I WAS SUPPOSED TO BE USING
+	#assert(false and false and false or false or false, 'Hi!');
+	# whatever, fur now I'll just make it forcibly go to the next level
+	# to test out the next level thing too
+	# maybe not even continue with the same points etc but just start
+	# the new game with the next levle
+	GameProgression.new_game(GameProgression.current_level_idx + 1);
+	return;
 	get_tree().physics_frame.connect(func():
-		if randf() < 0.0001:
+		if randf() < 0.0001: # ??? lmao idk lol let's see
 			get_tree().reload_current_scene());
 
 
@@ -224,5 +235,11 @@ func _input(event):
 			powerup_component._request_powerup('sticky_paddle',
 				paddle.position - Vector2(0, 69));
 		if event.is_action_pressed("debug_5"):
+			var briccs := get_tree().get_nodes_in_group(&'destructible_bricks');
+			var ninety_five := int(briccs.size() * 0.95);
+			briccs.shuffle();
+			for i in ninety_five:
+				briccs[i].queue_free();
+			return;
 			powerup_component._request_powerup('paddle_freeze',
 				paddle.position - Vector2(0, 69))

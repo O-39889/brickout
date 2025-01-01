@@ -2,6 +2,8 @@
 class_name MainLevelTemplate extends Node;
 
 
+# so it's apparently 10 per 1/60s frame which is 600 per second
+# which is 1.(6) seconds for 1000 points for a ball
 const SCORE_CHANGE_SPEED := 10; # framerate dependent i don't care lmao
 
 const TIMER_CONTAINER_PACKED := preload("res://scenes/gui/timer_container.tscn");
