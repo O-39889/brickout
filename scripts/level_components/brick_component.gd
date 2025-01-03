@@ -17,9 +17,7 @@ func _on_brick_destroyed(brick: Brick, by: Node2D):
 		# snippedi snappedi :DDDDDDDDDDDD
 		GameProgression.add_score(maxi(snappedi(brick.get_points() * 0.666667, 100), 100));
 	else:
-		# testing purposes: don't get points from bricks yet
-		#GameProgression.add_score(brick.get_points());
-		pass
+		GameProgression.add_score(brick.get_points());
 	
 	if brick.is_in_group(&'destructible_bricks'):
 		# I guess because the brick queue_frees itself so you gotta wait for it

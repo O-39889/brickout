@@ -7,6 +7,8 @@ class_name MainLevelTemplate extends Node;
 const SCORE_CHANGE_SPEED := 10; # framerate dependent i don't care lmao
 
 const TIMER_CONTAINER_PACKED := preload("res://scenes/gui/timer_container.tscn");
+const LEVEL_CLEAR_PACKED := preload("res://scenes/gui/level_clear_screen.tscn");
+const GAME_OVER_PACKED := preload("res://scenes/gui/game_over_screen.tscn");
 
 
 var display_score : int = GameProgression.score:
@@ -49,6 +51,7 @@ var timers : Dictionary = {
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	assert(is_instance_valid(lvl), "Level gameplay scene not provided by the GameProgression singleton");
+	lvl.template = self;
 	game_viewport.add_child(lvl);
 	
 	EventBus.score_changed.connect(func(_amount: int) -> void:
@@ -77,6 +80,16 @@ func show_game_over() -> void:
 
 func show_level_clear() -> void:
 	clear_timers();
+	var clear_node := LEVEL_CLEAR_PACKED.instantiate() as LevelClearScreen;
+	# also bind signals ofc
+	main_container.add_child(clear_node);
+	clear_node.continue_btn.pressed.connect(
+		GameProgression.new_game.bind(GameProgression.current_level_idx + 1));
+	clear_node.exit_btn.pressed.connect(get_tree().quit);
+	# TODO: score and time only for the current level
+	clear_node.set_score(lvl.points_earned);
+	clear_node.set_time(lvl.time_passed);
+
 
 
 func add_or_extend_timer(timer: Timer, what: Powerup.TimedPowerup) -> void:

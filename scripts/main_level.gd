@@ -2,6 +2,8 @@ class_name MainLevel extends Level;
 
 
 const BARRIER_PACKED : PackedScene = preload("res://scenes/Barrier.tscn");
+### Bonus points for each ball left in play when clearing the level.
+const BALL_BONUS := 1000;
 
 
 @export var level_name : String = 'New Level';
@@ -9,8 +11,14 @@ const BARRIER_PACKED : PackedScene = preload("res://scenes/Barrier.tscn");
 @export var allow_level_finish_powerup : bool = true;
 
 var barrier : Barrier;
+### Score earned in this particular level.
 var points_earned : int = 0;
+### Time passed in this particular level.
+### Counts up during gameplay, not when game is overed or after clearing
+### a level or (TODO) when the game is paused.
 var time_passed : float = 0.0;
+# set on init by the parent template scene
+var template : MainLevelTemplate;
 
 @onready var author_name_lbl : Label = %LevelAuthorName;
 
@@ -23,7 +31,10 @@ func _ready():
 	add_paddle = true;
 	EventBus.ball_lost.connect(handle_ball_lost);
 	EventBus.barrier_hit.connect(_on_barrier_hit);
-	EventBus.score_changed.connect(func(amount: int): 
+	EventBus.score_changed.connect(func(amount: int):
+		# NOTE: right now, it doesn't count the
+		# ball scores into the total either
+		# well, we could just do it ourselves instead
 		if state != Level.LevelCompletionState.Clear:
 			points_earned += amount);
 	# actually no, we'll need another signal on bullet collision just so that
@@ -177,26 +188,17 @@ func finish():
 		#func(): get_window().title = 'Main menu!');
 	await get_tree().create_timer(1.0).timeout;
 	for ball : Ball in get_tree().get_nodes_in_group(&'balls'):
-		GameProgression.add_score(1000);
+		GameProgression.add_score(BALL_BONUS);
+		points_earned += BALL_BONUS;
 		# lmao
-		await get_tree().create_timer(1000.0 / 600.0).timeout;
-	await get_tree().create_timer(1.0).timeout;
-	# TODO: ADD LEVEL CLEAR MENU AND OTHER STUFF
-	# WAIT WHICH ONE I WAS SUPPOSED TO BE USING
-	#assert(false and false and false or false or false, 'Hi!');
-	# whatever, fur now I'll just make it forcibly go to the next level
-	# to test out the next level thing too
-	# maybe not even continue with the same points etc but just start
-	# the new game with the next levle
-	GameProgression.new_game(GameProgression.current_level_idx + 1);
-	return;
-	get_tree().physics_frame.connect(func():
-		if randf() < 0.0001: # ??? lmao idk lol let's see
-			get_tree().reload_current_scene());
+		await get_tree().create_timer(BALL_BONUS / 600.0).timeout;
+	template.show_level_clear();
 
 
 func _physics_process(delta):
-	time_passed += delta;
+	if state == LevelCompletionState.None or\
+	state == LevelCompletionState.Lost:
+		time_passed += delta; # 🔥
 
 
 func _on_projectile_collided(_projectile: Projectile, _with: CollisionObject2D):
