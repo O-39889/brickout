@@ -1,9 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://d0yi04218uul2"]
+[gd_scene load_steps=6 format=3 uid="uid://d0yi04218uul2"]
 
 [ext_resource type="Script" path="res://scripts/level_clear_screen.gd" id="1_c3od4"]
 [ext_resource type="LabelSettings" uid="uid://bedtepc8kaaw5" path="res://resources/bigtext_label_settings.tres" id="2_xac6a"]
 [ext_resource type="LabelSettings" uid="uid://dse1o7dk5j0oi" path="res://resources/stats_label_settings.tres" id="3_l6o5l"]
 [ext_resource type="Theme" uid="uid://disr836qacj33" path="res://resources/gui_theme.tres" id="4_cayai"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7naag"]
+font_size = 20
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 6
+shadow_color = Color(0, 0, 0, 0.0980392)
+shadow_offset = Vector2(3, 3)
 
 [node name="LevelClearScreen" type="Control"]
 layout_mode = 3
@@ -55,14 +63,24 @@ label_settings = ExtResource("3_l6o5l")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Tip" type="Label" parent="Stuff"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "TIP: Eat more of these soft French buns and drink some tea."
+label_settings = SubResource("LabelSettings_7naag")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="ContinueBtn" type="Button" parent="Stuff"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 4
 theme = ExtResource("4_cayai")
 text = "Continue"
 
 [node name="ExitBtn" type="Button" parent="Stuff"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 4
 theme = ExtResource("4_cayai")
 text = "Main Menu"
