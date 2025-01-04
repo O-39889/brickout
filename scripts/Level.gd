@@ -139,4 +139,3 @@ func finish():
 		return;
 	state = Level.LevelCompletionState.Clear;
 	EventBus.level_cleared.emit();
-	print('Win');

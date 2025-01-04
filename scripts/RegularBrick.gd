@@ -58,7 +58,6 @@ const ARMOR_TEXTURE := preload('res://assets/brick-edges-placeholder.png');
 	get:
 		return protected_sides;
 	set(value):
-		#print('Setter activated for ', name);
 		protected_sides = value;
 		if armor_sprite:
 			armor_sprite.visible = protected_sides != 0;
@@ -66,7 +65,6 @@ const ARMOR_TEXTURE := preload('res://assets/brick-edges-placeholder.png');
 			if protected_sides == (Direction.Top | Direction.Right | Direction.Bottom | Direction.Left):
 				printerr('Warning: reinforced brick ' + str(self) + ' ' + str(self.global_position) + ' has all sides protected and won\'t be able to be broken with regular balls or projectiles.');
 			if armor_sprite:
-				#print(name, ' queueieuign ', armor_sprite, ' to redraw NOW!');
 				armor_sprite.queue_redraw();
 		elif not Engine.is_editor_hint():
 			if armor_sprite:
