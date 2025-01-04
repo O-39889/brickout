@@ -8,7 +8,7 @@ class_name LevelClearScreen extends Control;
 @onready var exit_btn : Button = %ExitBtn;
 
 
-# TODO: use this to prevent repeating tips
+# to prevent repeating tips
 # | 1024 for the rare ones
 static var last_tip_idx := -1;
 static var tip_dict := ResourceLoader.load("res://data/loading_screen_tips.json").data as Dictionary;
@@ -24,12 +24,24 @@ func _set_tip() -> void:
 	var tip_text : String;
 	if randf() < 0.01:
 		# use rare tip
-		#var rare_idx := int(randf() * tip_dict['rare'].size()) # nvm for now
-		tip_text = tip_dict['rare'].pick_random();
+		# idk how to make that work bruh
+		var rare_idx : int;
+		while true:
+			rare_idx = int(randf() * tip_dict['rare'].size());
+			if last_tip_idx == -1 or rare_idx | 1024 != last_tip_idx:
+				break;
+		last_tip_idx = rare_idx | 1024;
+		tip_text = tip_dict['rare'][rare_idx];
 	else:
 		# otherwise, use common tip
-		tip_text = tip_dict['common'].pick_random();
-		pass
+		var common_idx : int;
+		while true:
+			common_idx = int(randf() * tip_dict['common'].size());
+			if last_tip_idx == -1 or common_idx != last_tip_idx:
+				break;
+		last_tip_idx = common_idx;
+		tip_text = tip_dict['common'][common_idx];
+
 	tip_text = tip_text.replace('EXTRA_LIFE_MULTIPLIER',
 		str(GameProgression.EXTRA_LIFE_MULTIPLIER))\
 		.replace('WHEREVER_THE_HECK_ARE_THEY_DISPLAYED',
