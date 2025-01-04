@@ -1,8 +1,8 @@
 {
 	"common": [
 		"Try to break an opening towards the top of the level; that way, you can send a ball up there to clear a lot of upper bricks quickly",
-		"Power-ups with green borders provide beneficial effects such as giving extra points or making the gameplay easier",
-		"Power-ups with red borders hinder your gameplay by making the game more difficult; try to avoid them.",
+		"Power-ups with green borders provide beneficial effects such as giving extra points or making the gameplay easier.",
+		"Power-ups with red borders make your gameplay more difficult; try to avoid them.",
 		"Power-ups with yellow borders change the speed of the balls; they're neither bad nor good as they can both make the balls easier or harder to follow and make the gameplay more boring or exciting.",
 		"Earn EXTRA_LIFE_MULTIPLIER points to get an extra life!",
 		"If you missed all balls but still have a gun power-up, you still have a chance to recover by shooting bricks until you get an extra ball or clear the level.",

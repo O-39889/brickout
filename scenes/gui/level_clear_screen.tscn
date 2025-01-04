@@ -65,11 +65,13 @@ vertical_alignment = 1
 
 [node name="Tip" type="Label" parent="Stuff"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(750, 0)
 layout_mode = 2
 text = "TIP: Eat more of these soft French buns and drink some tea."
 label_settings = SubResource("LabelSettings_7naag")
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="ContinueBtn" type="Button" parent="Stuff"]
 unique_name_in_owner = true
