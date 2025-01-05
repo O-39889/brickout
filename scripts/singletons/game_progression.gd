@@ -3,6 +3,9 @@ extends Node;
 # TASK: maybe have the campaign switch not between the top-level
 # level scenes (the ones with the GUI and everything) but instead only
 # the gameplay ones in the subviewport?
+# ANSWER: no, it's probably gonna be a painful mess with disconnecting
+# and reconnecting everything so I'll just do the current method
+# of reloading the template scene each time
 
 const EXTRA_LIFE_MULTIPLIER : int = 25000;
 const INITIAL_LIVES : int = 3;
@@ -41,36 +44,7 @@ var last_level_lives : int = lives;
 var last_level_time_total : float = time_total;
 var last_level_extra_lives_earned : int = extra_lives_earned;
 
-# why is everything in here commented out?
-# oh wait I see they're already kind of defined above
-# and there they have two: for the current total (without prefix)
-# and for the result from the last level before the current one
-# (with the last_level prefix)
-### Total time spent in the levels playing.
-#var time_total : float = 0.0;
-## whatever lmao
-#var _score : int = 0;
-#var _lives : int = INITIAL_LIVES;
-#
-### Score when starting the recent level, gets stored and then overwrites
-### the current score value when exiting from the level to the main menu.
-#var last_level_score : int = _score;
-### The same as with last_level_score, but for lives.
-#var last_level_lives : int = _lives;
-### The same as with last_level_score, but for the time total stat,
-#var last_level_time_total : float = time_total;
 
-#@onready var score : int = _score:
-	#get:
-		#return _score;
-	#set(value):
-		#_set_score(value, false);
-#
-#@onready var lives : int = _lives:
-	#get:
-		#return _lives;
-	#set(value):
-		#_set_lives(value, false);
 # this stuff should be never reset to 0 in fact, I think
 # I mean, until we actually start working with save files
 # but for now nopesies
@@ -205,7 +179,8 @@ func exit_after_game_over() -> void:
 #endregion
 
 
-# TODO: OTHER STUFF AS WELL (like lives and whatever)
+# FIXED: now the extra_lives_earned variable is properly
+# incremented (in increment_lives() though)
 func set_score(value: int) -> void:
 	var old_val := score;
 	score = value;
@@ -218,14 +193,16 @@ func add_score(value: int) -> void:
 	set_score(score + value);
 
 
-# TODO: other stuff ?
 func set_lives(value: int) -> void:
 	lives = maxi(0, value);
+	# oh wait a sec so it already emits that
+	# whether we lose or gain a life
 	EventBus.lives_changed.emit();
 
 
 func increment_lives() -> void:
 	set_lives(lives + 1);
+	extra_lives_earned += 1; # !!!
 
 
 func decrement_lives() -> void:
@@ -233,7 +210,4 @@ func decrement_lives() -> void:
 
 
 func _on_life_lost() -> void:
-	lives -= 1; # should I emit the lives changed signal? idk lol
-	# actually gotta find out where does it even update the live counter lol
-	if lives == 0:
-		pass # gameover !! haha
+	decrement_lives();

@@ -18,9 +18,8 @@ signal powerup_collected(powerup: Powerup);
 # TODO: remove the score amount parameter?
 signal score_changed(amount: int);
 
+# not sure whether the former is actually required but whatever ig
 signal life_lost;
-
-# wait a sec this isn't even emitted anywhere lmao
 signal lives_changed;
 
 signal level_cleared;
