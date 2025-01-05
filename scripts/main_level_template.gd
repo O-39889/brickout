@@ -93,7 +93,7 @@ func show_level_clear() -> void:
 	# also bind signals ofc
 	main_container.add_child(clear_node);
 	clear_node.continue_btn.pressed.connect(
-		GameProgression.new_game.bind(GameProgression.current_level_idx + 1));
+		GameProgression.next_level);
 	clear_node.exit_btn.pressed.connect(get_tree().quit);
 	# TODO: score and time only for the current level
 	clear_node.set_score(lvl.points_earned);
