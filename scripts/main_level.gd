@@ -117,6 +117,7 @@ func handle_game_over():
 		return;
 	mouse_captured = false;
 	state = LevelCompletionState.GameOver;
+	template.show_game_over();
 
 
 func handle_powerup_activated(powerup: Powerup):

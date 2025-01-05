@@ -12,3 +12,14 @@ func _ready() -> void:
 			$"Label".text = "Game Joever";
 		else:
 			restart_btn.text = "Restaurant"
+
+
+func set_score(score: int) -> void:
+	score_lbl.text = 'Score: %d' % score;
+
+
+# NOTE: in the game overed screen, this should be the total time,
+# not just on a single level
+# FOR NOW NO TIME DISPLAY???
+#func set_time(time: float) -> void:
+	#time_lbl.text = 'Time: %s' % Globals.display_time(time);

@@ -76,6 +76,15 @@ func update_lives_counter() -> void:
 
 func show_game_over() -> void:
 	clear_timers();
+	var gover_node := GAME_OVER_PACKED.instantiate() as GameOverScreen;
+	main_container.add_child(gover_node);
+	gover_node.restart_btn.pressed.connect(
+		GameProgression.new_game.bind(
+			GameProgression.current_level_idx));
+	gover_node.exit_btn.pressed.connect(
+		GameProgression.exit_after_game_over);
+	gover_node.set_score(GameProgression.score);
+	
 
 
 func show_level_clear() -> void:
