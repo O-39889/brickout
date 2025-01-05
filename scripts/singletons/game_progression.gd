@@ -1,5 +1,8 @@
 extends Node;
 
+var debug_test_lbl : Label;
+var debug_test_thing := {};
+
 # TASK: maybe have the campaign switch not between the top-level
 # level scenes (the ones with the GUI and everything) but instead only
 # the gameplay ones in the subviewport?
@@ -66,6 +69,15 @@ func _ready() -> void:
 	last_level_time_total = time_total;
 	extra_lives_earned = score / EXTRA_LIFE_MULTIPLIER; # TODO: nah this is perfect
 	last_level_extra_lives_earned = extra_lives_earned;
+	# super useful little debug label thing innit bruv
+	debug_test_lbl = Label.new();
+	debug_test_lbl.position = Vector2(15, 15);
+	debug_test_lbl.top_level = true;
+	debug_test_lbl.z_index = 1997;
+	set_debug_test_lbl_thingy_amogus_228_olepa_bing_chilling_yes();
+	get_tree().process_frame.connect(set_debug_test_lbl_thingy_amogus_228_olepa_bing_chilling_yes)
+	await get_tree().process_frame;
+	add_child(debug_test_lbl);
 
 ## If idx = -1, then it just takes in the current index
 func set_current_level(idx: int = -1) -> void:
@@ -211,3 +223,25 @@ func decrement_lives() -> void:
 
 func _on_life_lost() -> void:
 	decrement_lives();
+
+
+func set_debug_test_lbl_thingy_amogus_228_olepa_bing_chilling_yes() -> void:
+	var dict := {
+		'score' : score,
+		'lives' : lives,
+		'time' : String.num(time_total, 1),
+		'current_level': current_level.level_name\
+			if is_instance_valid(current_level) else 'Nope',
+		'current_level_idx' : current_level_idx,
+		'has_progress':['Yep','Nope'][int(has_progress)],
+		'extra lives': extra_lives_earned,
+		'last level score' : last_level_score,
+		'last level lives' : last_level_lives,
+		'last level time' : String.num(last_level_time_total, 1),
+		'last level extra lives' : last_level_extra_lives_earned,
+		'max level reached' : max_level_reached,
+	};
+	var lal := '';
+	for k in dict.keys():
+		lal += '%s : %s\n' % [k, dict[k]];
+	debug_test_lbl.text = lal;

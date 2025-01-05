@@ -97,7 +97,7 @@ func show_level_clear() -> void:
 	clear_node.exit_btn.pressed.connect(get_tree().quit);
 	# TODO: score and time only for the current level
 	clear_node.set_score(lvl.points_earned);
-	clear_node.set_time(lvl.time_passed);
+	clear_node.set_time(lvl.time_elapsed);
 
 
 
@@ -146,4 +146,4 @@ func _on_powerup_collected(powerup: Powerup) -> void:
 func _process(delta: float) -> void:
 	if not score_match:
 		display_score = int(move_toward(display_score, GameProgression.score, SCORE_CHANGE_SPEED));
-	timer_lbl.text = "Time: " + Globals.display_time(lvl.time_passed);
+	timer_lbl.text = "Time: " + Globals.display_time(lvl.time_elapsed);

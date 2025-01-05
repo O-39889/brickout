@@ -16,7 +16,7 @@ var points_earned : int = 0;
 ### Time passed in this particular level.
 ### Counts up during gameplay, not when game is overed or after clearing
 ### a level or (TODO) when the game is paused.
-var time_passed : float = 0.0;
+var time_elapsed : float = 0.0;
 # set on init by the parent template scene
 var template : MainLevelTemplate;
 
@@ -115,6 +115,7 @@ func restart():
 func handle_game_over():
 	if state != LevelCompletionState.Lost and state != LevelCompletionState.None:
 		return;
+	GameProgression.time_total += time_elapsed;
 	mouse_captured = false;
 	state = LevelCompletionState.GameOver;
 	template.show_game_over();
@@ -183,6 +184,7 @@ func finish():
 	if state != Level.LevelCompletionState.None:
 		return;
 	state = Level.LevelCompletionState.Clear;
+	GameProgression.time_total += time_elapsed;
 	mouse_captured = false;
 	EventBus.level_cleared.emit();
 	#gui.show_level_clear(func(): get_window().title = 'Next level!',
@@ -199,7 +201,7 @@ func finish():
 func _physics_process(delta):
 	if state == LevelCompletionState.None or\
 	state == LevelCompletionState.Lost:
-		time_passed += delta; # 🔥
+		time_elapsed += delta; # 🔥
 
 
 func _on_projectile_collided(_projectile: Projectile, _with: CollisionObject2D):
