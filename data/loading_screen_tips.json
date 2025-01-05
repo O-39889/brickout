@@ -7,6 +7,7 @@
 		"Earn EXTRA_LIFE_MULTIPLIER points to get an extra life!",
 		"If you missed all balls but still have a gun power-up, you still have a chance to recover by shooting bricks until you get an extra ball or clear the level.",
 		"If you can choose the order, it's better to first pick up the power-ups that add more balls and only then the ones that change balls (fire or acid balls): that way you can change a lot of balls at once and clear the level much quicker.",
+		"You won't keep the extra balls when you clear the level; however, you get bonus points for every ball left in play (which eventually translate into extra lives!) so try to still keep them.",
 		],
 	"rare": [
 		"Increasing combat capabilities prevents the enemy from attacking.",

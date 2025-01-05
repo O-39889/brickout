@@ -22,9 +22,9 @@ func _ready() -> void:
 
 func _set_tip() -> void:
 	var tip_text : String;
-	if randf() < 0.01:
+	if randf() < 0.011111111111111111111:
 		# use rare tip
-		# idk how to make that work bruh
+		# idk how else to make that work bruh
 		var rare_idx : int;
 		while true:
 			rare_idx = int(randf() * tip_dict['rare'].size());
