@@ -41,7 +41,7 @@ func _ready():
 	# we can handle the cases where it just bonks into the top wall
 	EventBus.projectile_collided.connect(_on_projectile_collided);
 	EventBus.brick_destroyed.connect(_on_brick_destroyed);
-	var author_name_string : String = '[0]';
+	var author_name_string : String = '[%d]' % (GameProgression.current_level_idx + 1);
 	if not level_author.is_empty():
 		author_name_string += ' ' + level_author + ' —';
 	author_name_string += ' ' + 'New Level' if level_name.is_empty() else level_name;
