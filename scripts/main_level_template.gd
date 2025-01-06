@@ -148,9 +148,9 @@ func show_pause() -> void:
 			GameProgression.exit_to_menu(););
 	else:
 		main_container.add_child(pause_menu);
-	if randf() < 0.00696969696969\
+	if (randf() < 0.00696969696969\
 	or randf() < pow(0.00696969696969, 2)\
-	or randf() < pow(0.00696969696969, 6)\
+	or randf() < pow(0.00696969696969, 6))\
 	and data:
 		data = false;
 		pause_menu.pause_lbl.text = 'Paws';
