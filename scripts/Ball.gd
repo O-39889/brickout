@@ -25,7 +25,7 @@ enum HorizontalCooldown {
 };
 
 const BALL_SPEEDS = [
-	450,
+	500, # 450 was UNBEARABLE
 	600,
 	800,
 ];
