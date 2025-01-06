@@ -7,4 +7,6 @@ editor_description = "Why am I even doing this lmao I'm gonna change the size an
 level_name = "Pretty in Pink"
 level_author = "Olepograd"
 allow_level_finish_powerup = false
+BALL_LIMIT = 16
+powerup_chance = 0.111
 pool_type = 1

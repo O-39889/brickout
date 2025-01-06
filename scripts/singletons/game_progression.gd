@@ -15,7 +15,8 @@ const INITIAL_LIVES : int = 3;
 
 const LEVEL_TEMPLATE_PACKED : PackedScene = preload("res://scenes/levels_new/main_level_template.tscn");
 
-
+# why if I could just have another JSON file lmao
+# but whatever
 @export_dir var main_campaign_dir : String;
 # idk what to do with this lol bruh
 # ig just an array of level scene names or something
@@ -70,14 +71,15 @@ func _ready() -> void:
 	extra_lives_earned = score / EXTRA_LIFE_MULTIPLIER; # TODO: nah this is perfect
 	last_level_extra_lives_earned = extra_lives_earned;
 	# super useful little debug label thing innit bruv
-	debug_test_lbl = Label.new();
-	debug_test_lbl.position = Vector2(15, 15);
-	debug_test_lbl.top_level = true;
-	debug_test_lbl.z_index = 1997;
-	set_debug_test_lbl_thingy_amogus_228_olepa_bing_chilling_yes();
-	get_tree().process_frame.connect(set_debug_test_lbl_thingy_amogus_228_olepa_bing_chilling_yes)
-	await get_tree().process_frame;
-	add_child(debug_test_lbl);
+	if OS.is_debug_build():
+		debug_test_lbl = Label.new();
+		debug_test_lbl.position = Vector2(15, 15);
+		debug_test_lbl.top_level = true;
+		debug_test_lbl.z_index = 1997;
+		set_debug_test_lbl_thingy_amogus_228_olepa_bing_chilling_yes();
+		get_tree().process_frame.connect(set_debug_test_lbl_thingy_amogus_228_olepa_bing_chilling_yes)
+		await get_tree().process_frame;
+		add_child(debug_test_lbl);
 
 ## If idx = -1, then it just takes in the current index
 func set_current_level(idx: int = -1) -> void:

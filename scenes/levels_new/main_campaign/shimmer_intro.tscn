@@ -7,6 +7,7 @@
 [node name="MainLevelGameplay" instance=ExtResource("1_xawc7")]
 level_name = "Oohhh, shiny!"
 level_author = "Olepograd"
+powerup_chance = 0.09
 pool_type = 1
 
 [node name="Brick" parent="BrickComponent" index="0" instance=ExtResource("2_7ekcd")]
