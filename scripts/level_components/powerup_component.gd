@@ -68,6 +68,11 @@ func recalculate_weights(original_weights: Dictionary) -> Dictionary:
 	var ball_count : float = get_tree().get_nodes_in_group(&'balls').size();
 	var ball_limit : float = level.BALL_LIMIT;
 	
+	# "on request of the working people"
+	if level.barrier == null or is_instance_valid(level.barrier):
+		if new_weights.has(&'barrier'):
+			new_weights.erase(&'barrier');
+	
 	if Ball.target_speed_idx == Ball.BallSpeed.BALL_SPEED_FAST:
 		if new_weights.has(&'ball_speed_up'):
 			new_weights[&'ball_speed_up'] /= 8;
@@ -90,21 +95,24 @@ func recalculate_weights(original_weights: Dictionary) -> Dictionary:
 			new_weights.erase(&'pop_ball');	
 		new_weights.erase(&'pop_all_balls');
 	
-	if ball_count > level.BALL_LIMIT / 2:
+	if ball_count > ball_limit / 1.5:
 		if new_weights.has(&'add_ball'):
-			# starting at 1 at half the limit and tapering towards 0 at the limit
-			new_weights[&'add_ball'] *= (
-				-2 * ball_count / ball_limit + 2
+			# don't be a smartass
+			# hope that the square root function
+			# won't make it taper as quickly in the beginning
+			new_weights[&'add_ball'] *= sqrt(
+				1 - (ball_count / ball_limit)
 			);
-			new_weights[&'add_ball'] *= 1.0 + 1.0 / 65536.0;
 		if new_weights.has(&'triple_ball'):
-			# starting at 1 at half the limit and tapering to 0 at limit - 1
-			new_weights[&'triple_ball'] *= maxf(0.0,
-			ball_count / (1 - ball_limit / 2) + 1 - (ball_limit / (2 - ball_limit)));
+			# don't be a smartass 2: electric boogaloo
+			new_weights[&'triple_ball'] *= (
+				1 - (ball_count / ball_limit)
+			)
 		if new_weights.has(&'double_balls'):
 			# starting at 1.0 at half the limit and tapering to 0 at 3/4 of limit 
-			new_weights[&'double_balls'] *= maxf(0.0, 
-			-4 * ball_count / ball_limit + 3);
+			new_weights[&'double_balls'] *= pow(
+				1 - (ball_count / ball_limit), 2
+			)
 	
 	if (level.paddle.state == Paddle.PaddleState.Frozen or
 		level.paddle.state == Paddle.PaddleState.Ghost):
@@ -114,7 +122,7 @@ func recalculate_weights(original_weights: Dictionary) -> Dictionary:
 		if new_weights.has(&'fire_ball'):
 			new_weights[&'fire_ball'] *= 2;
 		if new_weights.has(&'acid_ball'):
-			new_weights[&'acid_ball'] *= 1.8;
+			new_weights[&'acid_ball'] *= 1.500042069;
 	
 	if level.paddle.has_gun:
 		var guns := [&'gun'];
@@ -127,6 +135,7 @@ func recalculate_weights(original_weights: Dictionary) -> Dictionary:
 		and level.allow_level_finish_powerup:
 		new_weights[&'finish_level'] = 2.25; # idk just ballpark lol
 	
+	# I don't remember what this shit does lol
 	var what : StringName = new_weights.keys().pick_random() as StringName;
 	var weight_sum : float = (func():
 			var sum := 0.0;
@@ -135,7 +144,7 @@ func recalculate_weights(original_weights: Dictionary) -> Dictionary:
 					sum += new_weights[k];
 			return sum;
 	).call();
-	new_weights[what] -= 1 / (weight_sum * weight_sum); # idk why lmao
+	new_weights[what] *= (1 - 1 / (weight_sum * weight_sum)); # idk why lmao
 	
 	return new_weights;
 
