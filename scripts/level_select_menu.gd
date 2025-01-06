@@ -9,7 +9,7 @@ func _ready() -> void:
 	if Globals.should_fade_level_select or true:
 		Globals.should_fade_level_select = false;
 		var level_list : Container = %LevelList;
-		for i in 50:
+		for i in GameProgression.level_campaign.size():
 			var btn : LevelChooseButton = LEVEL_BUTTON_PACKED.instantiate();
 			btn.num = i + 1;
 			btn.pressed.connect(GameProgression.new_game.bind(

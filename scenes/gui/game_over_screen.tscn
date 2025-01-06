@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://beqk5sg07uh84"]
 
 [ext_resource type="Script" path="res://scripts/game_over_screen.gd" id="1_d7y4q"]
-[ext_resource type="LabelSettings" uid="uid://bedtepc8kaaw5" path="res://resources/bigtext_label_settings.tres" id="1_m3iex"]
+[ext_resource type="LabelSettings" uid="uid://bcrv2dag3lese" path="res://resources/notsobigtest_label_settings.tres" id="2_22nbu"]
 [ext_resource type="Theme" uid="uid://disr836qacj33" path="res://resources/gui_theme.tres" id="2_udwcm"]
 [ext_resource type="LabelSettings" uid="uid://dse1o7dk5j0oi" path="res://resources/stats_label_settings.tres" id="3_8cawh"]
 
@@ -24,7 +24,7 @@ anchor_bottom = 0.4
 grow_horizontal = 2
 grow_vertical = 2
 text = "Game Over"
-label_settings = ExtResource("1_m3iex")
+label_settings = ExtResource("2_22nbu")
 horizontal_alignment = 1
 vertical_alignment = 1
 

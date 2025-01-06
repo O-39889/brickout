@@ -1,0 +1,94 @@
+[gd_scene load_steps=6 format=3 uid="uid://cp1ltyk1anejm"]
+
+[ext_resource type="Script" path="res://scripts/paws_menu.gd" id="1_8dsek"]
+[ext_resource type="LabelSettings" uid="uid://bcrv2dag3lese" path="res://resources/notsobigtest_label_settings.tres" id="1_dctfw"]
+[ext_resource type="LabelSettings" uid="uid://dse1o7dk5j0oi" path="res://resources/stats_label_settings.tres" id="3_akpov"]
+[ext_resource type="Theme" uid="uid://disr836qacj33" path="res://resources/gui_theme.tres" id="4_2rrce"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7naag"]
+font_size = 20
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 6
+shadow_color = Color(0, 0, 0, 0.0980392)
+shadow_offset = Vector2(3, 3)
+
+[node name="PauseMenu" type="Control"]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8dsek")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -375.0
+offset_top = -128.0
+offset_right = 375.0
+offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="PauseLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Pause"
+label_settings = ExtResource("1_dctfw")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Stuff" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="LevelNumberLbl" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Stuff"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Level 1"
+label_settings = ExtResource("3_akpov")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LevelNameLbl" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Stuff"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "The Beginning"
+label_settings = SubResource("LabelSettings_7naag")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="ContinueBtn" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Stuff"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("4_2rrce")
+text = "Continue"
+
+[node name="ExitBtn" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Stuff"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("4_2rrce")
+text = "Save and exit to menu"

@@ -102,7 +102,7 @@ func reset_level():
 		handle_game_over();
 	else:
 		# TODO: actually handle life lost thing later
-		await get_tree().create_timer(1.0).timeout;
+		await get_tree().create_timer(1.0, false).timeout;
 		restart();
 
 
@@ -219,8 +219,10 @@ func _input(event):
 			#if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
 				#mouse_captured = not mouse_captured;
 		if event.is_action_pressed("debug_exit"):
+			return;
 			get_tree().quit();
 		if event.is_action_pressed("debug_restart"):
+			return;
 			get_tree().reload_current_scene();
 		if event.is_action_pressed("debug_1"):
 			return;

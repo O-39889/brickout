@@ -230,7 +230,7 @@ func destroy(by: Node2D):
 		particles.reparent(get_parent());
 		(particles as GPUParticles2D).lifetime /= 2.0;
 		particles.emitting = false;
-		get_tree().create_timer(1).timeout.connect(func():
+		get_tree().create_timer(1, false).timeout.connect(func():
 			particles.queue_free()
 			particles = null);
 	queue_free();
