@@ -235,7 +235,7 @@ func set_debug_test_lbl_thingy_amogus_228_olepa_bing_chilling_yes() -> void:
 		'current_level': current_level.level_name\
 			if is_instance_valid(current_level) else 'Nope',
 		'current_level_idx' : current_level_idx,
-		'has_progress':['Yep','Nope'][int(has_progress)],
+		'has progress':['Nope','Yep'][int(has_progress)],
 		'extra lives': extra_lives_earned,
 		'last level score' : last_level_score,
 		'last level lives' : last_level_lives,
