@@ -160,7 +160,16 @@ func show_pause() -> void:
 	lvl.mouse_captured = false;
 	# also set the mouse position somewhere in the middle
 	# of the pause menu
+	# it doesn't work the first time though because
+	# we kinda haven't rendered that label yet lol
+	# maybe as a lazy workaround I could silently render it
+	# behind the scenes (invisible) then just remove it
+	# from the tree again lol (sounds like such a stupid thing really)
+	
 	get_tree().set_pause(true);
+	await get_tree().process_frame;
+	Input.warp_mouse(pause_menu.level_number_lbl.global_position\
+	+ pause_menu.level_number_lbl.size / 2);
 
 
 func hide_pause() -> void:
