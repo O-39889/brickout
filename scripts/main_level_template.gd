@@ -139,13 +139,16 @@ func clear_timers() -> void:
 func show_pause() -> void:
 	if pause_menu == null:
 		pause_menu = PAUSE_MENU_PACKED.instantiate();
+		pause_menu.dialog_pos_setter = func(d: ConfirmationDialog):
+			d.position = main_container.position\
+			+ main_container.size / 2\
+			- Vector2(d.size) / 2;
 		main_container.add_child(pause_menu);
 		pause_menu.level_number_lbl.text = 'Level ' + str(GameProgression.current_level_idx + 1);
-		pause_menu.level_name_lbl.text = lvl.level_name;
 		pause_menu.continue_btn.pressed.connect(hide_pause);
-		pause_menu.exit_btn.pressed.connect(func():
-			get_tree().set_pause(false);
-			GameProgression.exit_to_menu(););
+		#pause_menu.exit_btn.pressed.connect(func():
+			#get_tree().set_pause(false);
+			#GameProgression.exit_to_menu(););
 	else:
 		main_container.add_child(pause_menu);
 	if (randf() < 0.00696969696969\
@@ -156,6 +159,9 @@ func show_pause() -> void:
 		pause_menu.pause_lbl.text = 'Paws';
 	else:
 		pause_menu.pause_lbl.text = 'Pause';
+		
+	pause_menu.level_name_lbl.text = 'Score on this level: ' + str(lvl.points_earned);
+	
 	pause_menu.previous_mouse_captured = lvl.mouse_captured;
 	lvl.mouse_captured = false;
 	# also set the mouse position somewhere in the middle
@@ -167,9 +173,8 @@ func show_pause() -> void:
 	# from the tree again lol (sounds like such a stupid thing really)
 	
 	get_tree().set_pause(true);
-	await get_tree().process_frame;
-	Input.warp_mouse(pause_menu.level_number_lbl.global_position\
-	+ pause_menu.level_number_lbl.size / 2);
+	Input.warp_mouse(main_container.global_position +
+			main_container.size / 2);
 
 
 func hide_pause() -> void:

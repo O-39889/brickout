@@ -35,6 +35,10 @@ func _ready():
 		# NOTE: right now, it doesn't count the
 		# ball scores into the total either
 		# well, we could just do it ourselves instead
+		# actually probably still should add points
+		# even during the level clear state (for example,
+		# in case a ball breaks a leftover brick while
+		# stopping
 		if state != Level.LevelCompletionState.Clear:
 			points_earned += amount);
 	# actually no, we'll need another signal on bullet collision just so that
