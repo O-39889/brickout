@@ -12,6 +12,7 @@ const LEVEL_SELECT_PACKED : PackedScene = preload("res://scenes/gui/level_select
 func _ready() -> void:
 	%MeLbl.text += str(Time.get_datetime_dict_from_system()['year']);
 	%LevelEditorBtn.get_parent().remove_child(%LevelEditorBtn);
+	%ContinueBtn.disabled = !GameProgression.has_progress;
 
 
 func _on_new_game_btn_pressed() -> void:
@@ -36,8 +37,3 @@ func _on_stats_btn_pressed() -> void:
 
 func _on_quit_btn_pressed() -> void:
 	get_tree().quit();
-
-
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		pass # IT WORKS HERE THOUGH!!!
