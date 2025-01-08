@@ -58,7 +58,7 @@ const POWERUP_LIST = {
 	},
 	&'add_ball': {
 		&'name': 'Add Ball',
-		&'description': 'Adds another ball to play. The ball starts attached to a paddle and must be released by clicking .',
+		&'description': 'Adds another ball to play. The ball starts attached to a paddle and must be released by clicking.',
 		&'points': 150,
 	},
 	&'triple_ball': {
@@ -108,7 +108,7 @@ const POWERUP_LIST = {
 	},
 	&'finish_level': {
 		&'name': 'Level Finish',
-		&'description': 'Wins the level immediately. This power-up can drop when there are very few bricks left on-screen.', 
+		&'description': 'Finishes the level immediately. This power-up can drop when there are very few bricks left on-screen.', 
 		&'points': 100,
 	},
 	&'ball_speed_up': {
@@ -128,12 +128,12 @@ const POWERUP_LIST = {
 	},
 	&'pop_ball': {
 		&'name': 'Pop Ball',
-		&'description': 'Destroys one of your balls. Cannot destroy your last ball.',
+		&'description': 'Destroys one of the balls on the field. Cannot destroy your last ball.',
 		&'points': 50,
 	},
 	&'pop_all_balls': {
 		&'name': 'Pop All Balls',
-		&'description': 'Destroys all your balls but one. How unfortunate!',
+		&'description': 'Destroys all balls on the field but one. How unfortunate!',
 		&'points': 50,
 	},
 	&'ghost_paddle': {
@@ -143,7 +143,7 @@ const POWERUP_LIST = {
 	},
 	&'paddle_freeze': {
 		&'name': 'Freeze Paddle',
-		&'description': 'Freezes the paddle for a brief time. Frozen paddle cannot move, although it still can reflect balls hitting it.',
+		&'description': 'Freezes the paddle for a brief time. A frozen paddle cannot move, although it still can reflect balls hitting it.',
 		&'points': 50,
 	},
 }
