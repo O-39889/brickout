@@ -103,6 +103,9 @@ func _ready() -> void:
 		get_tree().process_frame.connect(set_debug_test_lbl_thingy_amogus_228_olepa_bing_chilling_yes)
 		await get_tree().process_frame;
 		add_child(debug_test_lbl);
+		
+		# also something else too lol
+		max_level_reached = 1997 * 1997;
 
 
 ## If idx = -1, then it just uses the current index
