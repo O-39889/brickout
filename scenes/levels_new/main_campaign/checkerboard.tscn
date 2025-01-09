@@ -7,7 +7,7 @@
 [node name="MainLevelGameplay" instance=ExtResource("1_67l31")]
 level_name = "Checkerboarded"
 level_author = "Olepograd"
-powerup_chance = 0.09
+powerup_chance = 0.12
 pool_type = 1
 
 [node name="Brick74" parent="BrickComponent" index="0" instance=ExtResource("2_b8e34")]
