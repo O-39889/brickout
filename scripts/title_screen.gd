@@ -20,7 +20,7 @@ func _on_new_game_btn_pressed() -> void:
 
 
 func _on_continue_btn_pressed() -> void:
-	pass # Replace with function body.
+	GameProgression.just_continue();
 
 
 func _on_settings_btn_pressed() -> void:

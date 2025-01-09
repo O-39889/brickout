@@ -15,9 +15,8 @@ func _ready() -> void:
 			btn.pressed.connect(GameProgression.new_game.bind(
 				mini(i, GameProgression.level_campaign.size() - 1)
 			));
+			btn.disabled = i > GameProgression.max_level_reached;
 			level_list.add_child(btn);
-			pass # Holy stuff I can't do that in here obviously because of it being a container so I will actually have to override the container node itself
-			# sounds like a lot of pain so whatever
 			
 	%ExitBtn.position.y = (%ChooseLevelLbl.size.y - %ExitBtn.size.y) / 2.0;
 
@@ -27,5 +26,5 @@ func _on_exit_btn_pressed() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
+	if event.is_action_pressed(&"ui_cancel"):
 		get_tree().change_scene_to_file("res://scenes/title_screen.tscn")

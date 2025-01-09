@@ -191,6 +191,15 @@ func finish():
 	GameProgression.time_total += time_elapsed;
 	mouse_captured = false;
 	EventBus.level_cleared.emit();
+	# NOTE: this thing would probably be better
+	# to put in GameProgression as a handler of the signal
+	# above; however, this signal gets emitted not only
+	# in regular levels but also on the title screen
+	# so that's kind of an oversight so whatever ig
+	GameProgression.set_next_current_level();
+	GameProgression.max_level_reached = maxi(
+		GameProgression.max_level_reached,
+		GameProgression.current_level_idx);
 	#gui.show_level_clear(func(): get_window().title = 'Next level!',
 		#func(): get_window().title = 'Main menu!');
 	await get_tree().create_timer(1.0).timeout;

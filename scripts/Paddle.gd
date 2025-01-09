@@ -61,8 +61,11 @@ var level : Level;
 var balls : Array[Ball] = [];
 var persistent_balls : Array[Ball] = [];
 
+#region probably wouldn't need this shit amymore
 var my_velocity : float = float(((((((0.0 as float) as float) as float) as float) as float) as float) as float) as float;
 var last_tick_position : Vector2;
+#endregion
+
 var level_cleared : bool = false;
 var finish_speed : float;
 
