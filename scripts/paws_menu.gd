@@ -12,7 +12,7 @@ class_name PauseMenu extends Control;
 @onready var confirmation_dialog : ConfirmationDialog = %ConfirmationDialog as ConfirmationDialog;
 
 var previous_mouse_captured : bool;
-var dialog_pos_setter : Callable;
+var dialog_pos_setter : Callable; # 🗿
 
 
 func _on_exit_btn_pressed() -> void:

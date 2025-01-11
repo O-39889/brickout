@@ -68,4 +68,22 @@ mouse_filter = 1
 theme = ExtResource("3_ffxgf")
 text = "Back to Title"
 
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+auto_translate_mode = 1
+transparent_bg = true
+title = ""
+initial_position = 2
+size = Vector2i(329, 132)
+unresizable = true
+borderless = true
+transparent = true
+popup_window = true
+ok_button_text = "Yes"
+dialog_text = "Are you sure you want to start a new game? Your current progress will be lost."
+dialog_autowrap = true
+cancel_button_text = "No"
+
 [connection signal="pressed" from="CanvasLayer/ExitBtn" to="." method="_on_exit_btn_pressed"]
+[connection signal="canceled" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_canceled"]
+[connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]
