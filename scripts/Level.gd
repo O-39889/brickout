@@ -71,12 +71,6 @@ func _enter_tree():
 	if ball_component:
 		ball_component.level = self;
 
-	# doesn't seem necessary since the paddle is dynamically
-	# instantiated in _ready() anyway?
-	#paddle = find_child('Paddle');
-	#if paddle:
-		#paddle.level = self;
-
 
 func create_paddle():
 	if paddle:

@@ -178,10 +178,7 @@ func exit_after_clear() -> void:
 	# again, don't need to do any of that bc
 	# the main level script already did that when
 	# the level is cleared
-	#current_level_idx += 1;
-	#max_level_reached = maxi(current_level_idx, max_level_reached);
 	# don't exactly need this either?
-	#current_level = load(level_campaign[current_level_idx]).instantiate();
 	get_tree().change_scene_to_packed(TITLE_PACKED);
 
 ## Called when exiting to main menu in the middle of a level.
@@ -191,10 +188,6 @@ func exit_after_clear() -> void:
 func exit_to_menu() -> void:
 	# NOTE: maybe instead ignore everything and just
 	# have it do this when presing the continue button?
-	#score = last_level_score;
-	#lives = last_level_lives;
-	#time_total = last_level_time_total;
-	#extra_lives_earned = last_level_extra_lives_earned;
 	get_tree().change_scene_to_packed(TITLE_PACKED);
 
 
@@ -260,16 +253,6 @@ func save_to_autosave() -> void:
 			lives
 		)
 	);
-	#var savedata := {
-		#'has_session': has_progress,
-		#'max_level_reached': max_level_reached + 1,
-		#'score': score,
-		#'lives': lives,
-		#'time': time_total,
-		#'started_at': session_started_idx + 1,
-		#'left_at': current_level_idx + 1,
-		#'version': 1,
-	#};
 	var code := SavefileManager.save_to_autosave(savedata);
 	assert(code == Error.OK, 'something happened');
 	if code == Error.OK:

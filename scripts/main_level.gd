@@ -169,17 +169,11 @@ func activate_stinky_powerup():
 func activate_acid_powerup():
 	if ball_component:
 		ball_component.enable_acid();
-		#gui.add_or_extend_timer(ball_component.acid_timer,
-			#Powerup.TimedPowerup.AcidBall);
 
 
 func activate_freeze_powerup():
 	if paddle:
 		paddle.state = Paddle.PaddleState.Frozen;
-		#gui.add_or_extend_timer(paddle.frozen_timer,
-			#Powerup.TimedPowerup.PaddleFreeze);
-		#gui.remove_timer(Powerup.TimedPowerup.StickyPaddle);
-		#gui.remove_timer(Powerup.TimedPowerup.GhostPaddle);
 
 
 # OVERRIDE FROM Level
@@ -203,8 +197,7 @@ func finish():
 	GameProgression.max_level_reached = maxi(
 		GameProgression.max_level_reached,
 		GameProgression.current_level_idx);
-	#gui.show_level_clear(func(): get_window().title = 'Next level!',
-		#func(): get_window().title = 'Main menu!');
+
 	await get_tree().create_timer(1.0).timeout;
 	
 	for ball : Ball in get_tree().get_nodes_in_group(&'balls'):
@@ -237,21 +230,12 @@ func _on_brick_destroyed(brick: Brick, by: Node2D):
 
 func _input(event):
 	if OS.is_debug_build():
-		#if event is InputEventMouseButton:
-			#if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
-				#mouse_captured = not mouse_captured;
 		if event.is_action_pressed("debug_exit"):
 			return;
-			get_tree().quit();
 		if event.is_action_pressed("debug_restart"):
 			return;
-			get_tree().reload_current_scene();
 		if event.is_action_pressed("debug_1"):
 			return;
-			Engine.time_scale = 1.0 if not is_equal_approx(Engine.time_scale, 1.0) else 0.05;
-			return;
-			finish();
-			return
 			powerup_component._request_powerup('finish_level',
 				paddle.position - Vector2(0, 69));
 		if event.is_action_pressed("debug_2"):
@@ -265,7 +249,7 @@ func _input(event):
 				paddle.position - Vector2(0, 69));
 		if event.is_action_pressed("debug_5"):
 			var briccs := get_tree().get_nodes_in_group(&'destructible_bricks');
-			var ninety_five := int(briccs.size() * 0.95);
+			var ninety_five := int(briccs.size() * 0.950001);
 			briccs.shuffle();
 			for i in ninety_five:
 				briccs[i].queue_free();
