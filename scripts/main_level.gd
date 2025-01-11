@@ -122,6 +122,7 @@ func handle_game_over():
 	GameProgression.time_total += time_elapsed;
 	mouse_captured = false;
 	state = LevelCompletionState.GameOver;
+	GameProgression.clear_autosave();
 	template.show_game_over();
 
 
@@ -161,10 +162,8 @@ func murder_ball(b: Ball):
 func activate_sticky_powerup():
 	if paddle:
 		paddle.state = Paddle.PaddleState.Sticky;
-		#gui.add_or_extend_timer(paddle.sticky_timer,
-			#Powerup.TimedPowerup.StickyPaddle);
-		#gui.remove_timer(Powerup.TimedPowerup.PaddleFreeze);
-		#gui.remove_timer(Powerup.TimedPowerup.GhostPaddle);
+func activate_stinky_powerup():
+	print('Eww, you stink!');
 
 
 func activate_acid_powerup():
@@ -191,6 +190,10 @@ func finish():
 	GameProgression.time_total += time_elapsed;
 	mouse_captured = false;
 	EventBus.level_cleared.emit();
+	if GameProgression.current_level_idx ==	GameProgression.level_campaign.size() - 1:
+		get_tree().change_scene_to_file("res://scenes/title_screen.tscn");
+		GameProgression.reset_current_data(0);
+		return;
 	# NOTE: this thing would probably be better
 	# to put in GameProgression as a handler of the signal
 	# above; however, this signal gets emitted not only
@@ -203,6 +206,10 @@ func finish():
 	#gui.show_level_clear(func(): get_window().title = 'Next level!',
 		#func(): get_window().title = 'Main menu!');
 	await get_tree().create_timer(1.0).timeout;
+	# how about we still have it update the last level data lol xd :DDDDDDDDDDDDDD
+	GameProgression.update_last_level_stats();
+	GameProgression.save_to_autosave();
+	
 	for ball : Ball in get_tree().get_nodes_in_group(&'balls'):
 		GameProgression.add_score(BALL_BONUS);
 		points_earned += BALL_BONUS;

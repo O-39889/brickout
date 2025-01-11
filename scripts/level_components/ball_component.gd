@@ -46,8 +46,6 @@ func _ready():
 				acid_timer.timeout.emit();
 	);
 	EventBus.level_cleared.connect(acid_timer.stop);
-	#EventBus.level_cleared.connect(func():
-		#acid_timer.timeout.disconnect(_on_acid_timer_timeout));
 
 
 func enable_acid():

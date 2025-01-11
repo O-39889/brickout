@@ -11,8 +11,10 @@ const LEVEL_SELECT_PACKED : PackedScene = preload("res://scenes/gui/level_select
 
 func _ready() -> void:
 	%MeLbl.text += str(Time.get_datetime_dict_from_system()['year']);
+	%MeLbl.text = '%s\n%s' % [VersionManager.VERSION, %MeLbl.text];
 	%LevelEditorBtn.get_parent().remove_child(%LevelEditorBtn);
 	%ContinueBtn.disabled = !GameProgression.has_progress;
+	%MeLbl.text = 'Version %s' % %MeLbl.text;
 
 
 func _on_new_game_btn_pressed() -> void:

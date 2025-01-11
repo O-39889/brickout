@@ -85,6 +85,7 @@ func reset_current_data(lvl_idx : int = 0) -> void:
 	session_started_idx = 0;
 
 
+# TODO: also make it load from autosave if there's one too
 func _ready() -> void:
 	EventBus.life_lost.connect(_on_life_lost);
 	for i in level_campaign.size():
@@ -93,6 +94,7 @@ func _ready() -> void:
 		);
 	max_level_reached = 0;
 	reset_current_data();
+	load_autosave();
 	# super useful little debug label thing innit bruv
 	if OS.is_debug_build():
 		debug_test_lbl = Label.new();
@@ -105,7 +107,7 @@ func _ready() -> void:
 		add_child(debug_test_lbl);
 		
 		# also something else too lol
-		max_level_reached = 1997 * 1997;
+		#max_level_reached = 1997 * 1997;
 
 
 ## If idx = -1, then it just uses the current index
@@ -144,8 +146,9 @@ func restore_to_last_level_stats() -> void:
 ## game over screen (but in this case, it would have the level index
 ## as the current one)
 func new_game(level_idx: int = 0) -> void:
-	session_started_idx = level_idx;
+	clear_autosave();
 	reset_current_data(level_idx);
+	session_started_idx = level_idx;
 	current_level = load(level_campaign[current_level_idx]).instantiate();
 	get_tree().change_scene_to_packed(LEVEL_TEMPLATE_PACKED);
 	has_progress = true;
@@ -236,6 +239,72 @@ func exit_after_game_over() -> void:
 #endregion
 
 
+func save_to_autosave() -> void:
+	# when you clear the level, this method is called
+	# already after we have updated all stuff from the current level idx
+	# but we could still use the current score and lives and time elapsed
+	# stats instead of last level anyway lol
+	var savedata := Savedata.new(
+		max_level_reached, # it has already been updated
+		Savedata.SessionData.new(
+			session_started_idx,
+			# the specifications say it's for the last
+			# cleared levle alas
+			# while this one has already been incremented
+			# so we'll have to decrement it back
+			current_level_idx - 1,
+			0.0,
+			Time.get_unix_time_from_system(),
+			time_total,
+			score,
+			lives
+		)
+	);
+	#var savedata := {
+		#'has_session': has_progress,
+		#'max_level_reached': max_level_reached + 1,
+		#'score': score,
+		#'lives': lives,
+		#'time': time_total,
+		#'started_at': session_started_idx + 1,
+		#'left_at': current_level_idx + 1,
+		#'version': 1,
+	#};
+	var code := SavefileManager.save_to_autosave(savedata);
+	assert(code == Error.OK, 'something happened');
+	if code == Error.OK:
+		print('Saved successfully!');
+
+
+# on game over or starting a new game
+func clear_autosave() -> void:
+	var savedata : Savedata = Savedata.new(
+		max_level_reached, null);
+	var code := SavefileManager.save_to_autosave(savedata);
+	assert(code == Error.OK, 'something happened');
+	if code == Error.OK:
+		print('Saved successfully!');
+
+
+func load_autosave() -> void:
+	var save := SavefileManager.load_from_autosave();
+	if save == null:
+		print('No save data or invalid save data, using default save data...');
+		return;
+	if save.has_session():
+		has_progress = true;
+		var s = save.session;
+		session_started_idx = s.session_started_idx;
+		# VERY IMPORTANT HAHAHAH 
+		set_current_level(s.highest_cleared_idx + 1);
+		last_level_time_total = s.time_elapsed;
+		last_level_score = s.score;
+		last_level_lives = s.lives;
+		last_level_extra_lives_earned = int(last_level_score / EXTRA_LIFE_MULTIPLIER);
+		restore_to_last_level_stats();
+	max_level_reached = save.max_level_reached;
+
+
 # FIXED: now the extra_lives_earned variable is properly
 # incremented (in increment_lives() though)
 func set_score(value: int) -> void:
@@ -278,6 +347,7 @@ func set_debug_test_lbl_thingy_amogus_228_olepa_bing_chilling_yes() -> void:
 		'current_level': current_level.level_name\
 			if is_instance_valid(current_level) else 'Nope',
 		'current_level_idx' : current_level_idx,
+		# lmao
 		'has progress':['Nope','Yep'][int(has_progress)],
 		'extra lives': extra_lives_earned,
 		'last level score' : last_level_score,

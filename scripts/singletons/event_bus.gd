@@ -26,7 +26,15 @@ signal level_cleared;
 signal game_overed;
 
 # some might probably be unused
+# TODO: WHAT THE HECK JUST MAKE THEM
+# FADER CLASS SIGNALS COME ON
 signal fade_start_started;
 signal fade_start_finished;
 signal fade_end_started;
 signal fade_end_finished;
+
+func _ready() -> void:
+	var arr = [
+		&'Amogus',
+		&'Pipis',
+	]

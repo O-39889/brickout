@@ -25,6 +25,7 @@ func _ready():
 		&'bad':
 			$CollisionShape2D.debug_color.h = 0.0;
 	$DebugLbl.text = powerup.id;
+	queue_redraw();
 
 
 func _physics_process(delta):
@@ -91,3 +92,15 @@ func compute_x(phi: float, t: float) -> float:
 	return INITIAL_SPEED * cos(phi) * t;
 
 # PAIN TERRITORY PASSED
+
+func _draw() -> void:
+	var outline_color : Color;
+	if powerup.id in powerup.POWERUP_POOL[&'good']:
+		outline_color = Color.LIGHT_GREEN;
+	elif powerup.id in powerup.POWERUP_POOL[&'neutral']:
+		outline_color = Color.GOLD;
+	else:
+		outline_color = Color.RED;
+	draw_circle(Vector2(), width / 2, Color('494949'));
+	draw_circle(Vector2(), width / 2, outline_color,
+	false, 5, true);
