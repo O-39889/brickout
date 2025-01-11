@@ -1,0 +1,472 @@
+[gd_scene load_steps=3 format=3 uid="uid://dc8o7o1l638gj"]
+
+[ext_resource type="PackedScene" uid="uid://cdqd7yfdukjv7" path="res://scenes/levels_new/main_level_gameplay.tscn" id="1_ods0g"]
+[ext_resource type="PackedScene" uid="uid://bsyghdoqjjawc" path="res://scenes/shimmering_brick.tscn" id="2_1qp62"]
+
+[node name="MainLevelGameplay" instance=ExtResource("1_ods0g")]
+level_name = "This levle is gonna be so unused LOL!"
+level_author = "Mysterious person!q"
+powerup_chance = 0.09
+pool_type = 1
+
+[node name="ShimmeringBrick" parent="BrickComponent" index="0" instance=ExtResource("2_1qp62")]
+position = Vector2(495, 68)
+
+[node name="ShimmeringBrick2" parent="BrickComponent" index="1" instance=ExtResource("2_1qp62")]
+position = Vector2(585, 68)
+
+[node name="ShimmeringBrick3" parent="BrickComponent" index="2" instance=ExtResource("2_1qp62")]
+position = Vector2(675, 68)
+
+[node name="ShimmeringBrick4" parent="BrickComponent" index="3" instance=ExtResource("2_1qp62")]
+position = Vector2(765, 68)
+
+[node name="ShimmeringBrick5" parent="BrickComponent" index="4" instance=ExtResource("2_1qp62")]
+position = Vector2(855, 68)
+
+[node name="ShimmeringBrick6" parent="BrickComponent" index="5" instance=ExtResource("2_1qp62")]
+position = Vector2(945, 68)
+
+[node name="ShimmeringBrick7" parent="BrickComponent" index="6" instance=ExtResource("2_1qp62")]
+position = Vector2(1035, 68)
+
+[node name="ShimmeringBrick8" parent="BrickComponent" index="7" instance=ExtResource("2_1qp62")]
+position = Vector2(1125, 68)
+
+[node name="ShimmeringBrick9" parent="BrickComponent" index="8" instance=ExtResource("2_1qp62")]
+position = Vector2(1215, 113)
+
+[node name="ShimmeringBrick10" parent="BrickComponent" index="9" instance=ExtResource("2_1qp62")]
+position = Vector2(1305, 113)
+
+[node name="ShimmeringBrick11" parent="BrickComponent" index="10" instance=ExtResource("2_1qp62")]
+position = Vector2(1395, 158)
+
+[node name="ShimmeringBrick12" parent="BrickComponent" index="11" instance=ExtResource("2_1qp62")]
+position = Vector2(1440, 203)
+
+[node name="ShimmeringBrick13" parent="BrickComponent" index="12" instance=ExtResource("2_1qp62")]
+position = Vector2(1485, 248)
+
+[node name="ShimmeringBrick14" parent="BrickComponent" index="13" instance=ExtResource("2_1qp62")]
+position = Vector2(1485, 293)
+
+[node name="ShimmeringBrick15" parent="BrickComponent" index="14" instance=ExtResource("2_1qp62")]
+position = Vector2(1530, 338)
+
+[node name="ShimmeringBrick16" parent="BrickComponent" index="15" instance=ExtResource("2_1qp62")]
+position = Vector2(1575, 383)
+
+[node name="ShimmeringBrick17" parent="BrickComponent" index="16" instance=ExtResource("2_1qp62")]
+position = Vector2(1575, 428)
+
+[node name="ShimmeringBrick18" parent="BrickComponent" index="17" instance=ExtResource("2_1qp62")]
+position = Vector2(1575, 473)
+
+[node name="ShimmeringBrick19" parent="BrickComponent" index="18" instance=ExtResource("2_1qp62")]
+position = Vector2(1597, 518)
+
+[node name="ShimmeringBrick20" parent="BrickComponent" index="19" instance=ExtResource("2_1qp62")]
+position = Vector2(1575, 563)
+
+[node name="ShimmeringBrick21" parent="BrickComponent" index="20" instance=ExtResource("2_1qp62")]
+position = Vector2(1575, 608)
+
+[node name="ShimmeringBrick22" parent="BrickComponent" index="21" instance=ExtResource("2_1qp62")]
+position = Vector2(1530, 653)
+
+[node name="ShimmeringBrick23" parent="BrickComponent" index="22" instance=ExtResource("2_1qp62")]
+position = Vector2(1530, 698)
+
+[node name="ShimmeringBrick24" parent="BrickComponent" index="23" instance=ExtResource("2_1qp62")]
+position = Vector2(1530, 743)
+
+[node name="ShimmeringBrick25" parent="BrickComponent" index="24" instance=ExtResource("2_1qp62")]
+position = Vector2(1530, 788)
+
+[node name="ShimmeringBrick26" parent="BrickComponent" index="25" instance=ExtResource("2_1qp62")]
+position = Vector2(1530, 833)
+
+[node name="ShimmeringBrick27" parent="BrickComponent" index="26" instance=ExtResource("2_1qp62")]
+position = Vector2(1530, 878)
+
+[node name="ShimmeringBrick28" parent="BrickComponent" index="27" instance=ExtResource("2_1qp62")]
+position = Vector2(1530, 923)
+
+[node name="ShimmeringBrick29" parent="BrickComponent" index="28" instance=ExtResource("2_1qp62")]
+position = Vector2(1530, 968)
+
+[node name="ShimmeringBrick30" parent="BrickComponent" index="29" instance=ExtResource("2_1qp62")]
+position = Vector2(1530, 1013)
+
+[node name="ShimmeringBrick31" parent="BrickComponent" index="30" instance=ExtResource("2_1qp62")]
+position = Vector2(1530, 1058)
+
+[node name="ShimmeringBrick32" parent="BrickComponent" index="31" instance=ExtResource("2_1qp62")]
+position = Vector2(1530, 1103)
+
+[node name="ShimmeringBrick33" parent="BrickComponent" index="32" instance=ExtResource("2_1qp62")]
+position = Vector2(1485, 1148)
+
+[node name="ShimmeringBrick34" parent="BrickComponent" index="33" instance=ExtResource("2_1qp62")]
+position = Vector2(1440, 1193)
+
+[node name="ShimmeringBrick35" parent="BrickComponent" index="34" instance=ExtResource("2_1qp62")]
+position = Vector2(1350, 1193)
+
+[node name="ShimmeringBrick36" parent="BrickComponent" index="35" instance=ExtResource("2_1qp62")]
+position = Vector2(1260, 1238)
+
+[node name="ShimmeringBrick37" parent="BrickComponent" index="36" instance=ExtResource("2_1qp62")]
+position = Vector2(1170, 1238)
+
+[node name="ShimmeringBrick38" parent="BrickComponent" index="37" instance=ExtResource("2_1qp62")]
+position = Vector2(1080, 1193)
+
+[node name="ShimmeringBrick39" parent="BrickComponent" index="38" instance=ExtResource("2_1qp62")]
+position = Vector2(990, 1193)
+
+[node name="ShimmeringBrick40" parent="BrickComponent" index="39" instance=ExtResource("2_1qp62")]
+position = Vector2(945, 1148)
+
+[node name="ShimmeringBrick41" parent="BrickComponent" index="40" instance=ExtResource("2_1qp62")]
+position = Vector2(855, 1148)
+
+[node name="ShimmeringBrick42" parent="BrickComponent" index="41" instance=ExtResource("2_1qp62")]
+position = Vector2(810, 1103)
+
+[node name="ShimmeringBrick43" parent="BrickComponent" index="42" instance=ExtResource("2_1qp62")]
+position = Vector2(720, 1058)
+
+[node name="ShimmeringBrick44" parent="BrickComponent" index="43" instance=ExtResource("2_1qp62")]
+position = Vector2(630, 1058)
+
+[node name="ShimmeringBrick45" parent="BrickComponent" index="44" instance=ExtResource("2_1qp62")]
+position = Vector2(585, 1013)
+
+[node name="ShimmeringBrick46" parent="BrickComponent" index="45" instance=ExtResource("2_1qp62")]
+position = Vector2(495, 968)
+
+[node name="ShimmeringBrick47" parent="BrickComponent" index="46" instance=ExtResource("2_1qp62")]
+position = Vector2(450, 923)
+
+[node name="ShimmeringBrick48" parent="BrickComponent" index="47" instance=ExtResource("2_1qp62")]
+position = Vector2(405, 878)
+
+[node name="ShimmeringBrick49" parent="BrickComponent" index="48" instance=ExtResource("2_1qp62")]
+position = Vector2(360, 833)
+
+[node name="ShimmeringBrick50" parent="BrickComponent" index="49" instance=ExtResource("2_1qp62")]
+position = Vector2(315, 788)
+
+[node name="ShimmeringBrick51" parent="BrickComponent" index="50" instance=ExtResource("2_1qp62")]
+position = Vector2(270, 743)
+
+[node name="ShimmeringBrick52" parent="BrickComponent" index="51" instance=ExtResource("2_1qp62")]
+position = Vector2(270, 698)
+
+[node name="ShimmeringBrick53" parent="BrickComponent" index="52" instance=ExtResource("2_1qp62")]
+position = Vector2(225, 653)
+
+[node name="ShimmeringBrick54" parent="BrickComponent" index="53" instance=ExtResource("2_1qp62")]
+position = Vector2(180, 608)
+
+[node name="ShimmeringBrick55" parent="BrickComponent" index="54" instance=ExtResource("2_1qp62")]
+position = Vector2(135, 563)
+
+[node name="ShimmeringBrick56" parent="BrickComponent" index="55" instance=ExtResource("2_1qp62")]
+position = Vector2(135, 518)
+
+[node name="ShimmeringBrick57" parent="BrickComponent" index="56" instance=ExtResource("2_1qp62")]
+position = Vector2(135, 473)
+
+[node name="ShimmeringBrick58" parent="BrickComponent" index="57" instance=ExtResource("2_1qp62")]
+position = Vector2(180, 428)
+
+[node name="ShimmeringBrick59" parent="BrickComponent" index="58" instance=ExtResource("2_1qp62")]
+position = Vector2(225, 383)
+
+[node name="ShimmeringBrick60" parent="BrickComponent" index="59" instance=ExtResource("2_1qp62")]
+position = Vector2(270, 338)
+
+[node name="ShimmeringBrick61" parent="BrickComponent" index="60" instance=ExtResource("2_1qp62")]
+position = Vector2(315, 293)
+
+[node name="ShimmeringBrick62" parent="BrickComponent" index="61" instance=ExtResource("2_1qp62")]
+position = Vector2(360, 248)
+
+[node name="ShimmeringBrick63" parent="BrickComponent" index="62" instance=ExtResource("2_1qp62")]
+position = Vector2(360, 203)
+
+[node name="ShimmeringBrick64" parent="BrickComponent" index="63" instance=ExtResource("2_1qp62")]
+position = Vector2(405, 158)
+
+[node name="ShimmeringBrick65" parent="BrickComponent" index="64" instance=ExtResource("2_1qp62")]
+position = Vector2(450, 113)
+
+[node name="ShimmeringBrick66" parent="BrickComponent" index="65" instance=ExtResource("2_1qp62")]
+position = Vector2(765, 293)
+
+[node name="ShimmeringBrick69" parent="BrickComponent" index="66" instance=ExtResource("2_1qp62")]
+position = Vector2(855, 338)
+
+[node name="ShimmeringBrick70" parent="BrickComponent" index="67" instance=ExtResource("2_1qp62")]
+position = Vector2(900, 383)
+
+[node name="ShimmeringBrick71" parent="BrickComponent" index="68" instance=ExtResource("2_1qp62")]
+position = Vector2(855, 428)
+
+[node name="ShimmeringBrick72" parent="BrickComponent" index="69" instance=ExtResource("2_1qp62")]
+position = Vector2(765, 383)
+
+[node name="ShimmeringBrick73" parent="BrickComponent" index="70" instance=ExtResource("2_1qp62")]
+position = Vector2(675, 383)
+
+[node name="ShimmeringBrick74" parent="BrickComponent" index="71" instance=ExtResource("2_1qp62")]
+position = Vector2(585, 383)
+
+[node name="ShimmeringBrick75" parent="BrickComponent" index="72" instance=ExtResource("2_1qp62")]
+position = Vector2(675, 338)
+
+[node name="ShimmeringBrick76" parent="BrickComponent" index="73" instance=ExtResource("2_1qp62")]
+position = Vector2(1080, 383)
+
+[node name="ShimmeringBrick77" parent="BrickComponent" index="74" instance=ExtResource("2_1qp62")]
+position = Vector2(1170, 338)
+
+[node name="ShimmeringBrick78" parent="BrickComponent" index="75" instance=ExtResource("2_1qp62")]
+position = Vector2(1260, 338)
+
+[node name="ShimmeringBrick79" parent="BrickComponent" index="76" instance=ExtResource("2_1qp62")]
+position = Vector2(1305, 383)
+
+[node name="ShimmeringBrick80" parent="BrickComponent" index="77" instance=ExtResource("2_1qp62")]
+position = Vector2(1215, 383)
+
+[node name="ShimmeringBrick81" parent="BrickComponent" index="78" instance=ExtResource("2_1qp62")]
+position = Vector2(1125, 428)
+
+[node name="ShimmeringBrick82" parent="BrickComponent" index="79" instance=ExtResource("2_1qp62")]
+position = Vector2(1080, 473)
+
+[node name="ShimmeringBrick83" parent="BrickComponent" index="80" instance=ExtResource("2_1qp62")]
+position = Vector2(1125, 518)
+
+[node name="ShimmeringBrick84" parent="BrickComponent" index="81" instance=ExtResource("2_1qp62")]
+position = Vector2(1170, 563)
+
+[node name="ShimmeringBrick85" parent="BrickComponent" index="82" instance=ExtResource("2_1qp62")]
+position = Vector2(1125, 608)
+
+[node name="ShimmeringBrick86" parent="BrickComponent" index="83" instance=ExtResource("2_1qp62")]
+position = Vector2(900, 518)
+
+[node name="ShimmeringBrick87" parent="BrickComponent" index="84" instance=ExtResource("2_1qp62")]
+position = Vector2(810, 518)
+
+[node name="ShimmeringBrick88" parent="BrickComponent" index="85" instance=ExtResource("2_1qp62")]
+position = Vector2(810, 563)
+
+[node name="ShimmeringBrick89" parent="BrickComponent" index="86" instance=ExtResource("2_1qp62")]
+position = Vector2(945, 608)
+
+[node name="ShimmeringBrick90" parent="BrickComponent" index="87" instance=ExtResource("2_1qp62")]
+position = Vector2(675, 428)
+
+[node name="ShimmeringBrick91" parent="BrickComponent" index="88" instance=ExtResource("2_1qp62")]
+position = Vector2(630, 473)
+
+[node name="ShimmeringBrick92" parent="BrickComponent" index="89" instance=ExtResource("2_1qp62")]
+position = Vector2(540, 473)
+
+[node name="ShimmeringBrick93" parent="BrickComponent" index="90" instance=ExtResource("2_1qp62")]
+position = Vector2(495, 428)
+
+[node name="ShimmeringBrick94" parent="BrickComponent" index="91" instance=ExtResource("2_1qp62")]
+position = Vector2(405, 428)
+
+[node name="ShimmeringBrick95" parent="BrickComponent" index="92" instance=ExtResource("2_1qp62")]
+position = Vector2(315, 428)
+
+[node name="ShimmeringBrick96" parent="BrickComponent" index="93" instance=ExtResource("2_1qp62")]
+position = Vector2(1395, 563)
+
+[node name="ShimmeringBrick97" parent="BrickComponent" index="94" instance=ExtResource("2_1qp62")]
+position = Vector2(1350, 608)
+
+[node name="ShimmeringBrick98" parent="BrickComponent" index="95" instance=ExtResource("2_1qp62")]
+position = Vector2(1260, 653)
+
+[node name="ShimmeringBrick99" parent="BrickComponent" index="96" instance=ExtResource("2_1qp62")]
+position = Vector2(1170, 653)
+
+[node name="ShimmeringBrick100" parent="BrickComponent" index="97" instance=ExtResource("2_1qp62")]
+position = Vector2(1080, 698)
+
+[node name="ShimmeringBrick101" parent="BrickComponent" index="98" instance=ExtResource("2_1qp62")]
+position = Vector2(990, 698)
+
+[node name="ShimmeringBrick102" parent="BrickComponent" index="99" instance=ExtResource("2_1qp62")]
+position = Vector2(900, 653)
+
+[node name="ShimmeringBrick103" parent="BrickComponent" index="100" instance=ExtResource("2_1qp62")]
+position = Vector2(810, 608)
+
+[node name="ShimmeringBrick104" parent="BrickComponent" index="101" instance=ExtResource("2_1qp62")]
+position = Vector2(720, 608)
+
+[node name="ShimmeringBrick105" parent="BrickComponent" index="102" instance=ExtResource("2_1qp62")]
+position = Vector2(630, 563)
+
+[node name="ShimmeringBrick106" parent="BrickComponent" index="103" instance=ExtResource("2_1qp62")]
+position = Vector2(540, 518)
+
+[node name="ShimmeringBrick107" parent="BrickComponent" index="104" instance=ExtResource("2_1qp62")]
+position = Vector2(450, 518)
+
+[node name="ShimmeringBrick108" parent="BrickComponent" index="105" instance=ExtResource("2_1qp62")]
+position = Vector2(360, 563)
+
+[node name="ShimmeringBrick109" parent="BrickComponent" index="106" instance=ExtResource("2_1qp62")]
+position = Vector2(405, 608)
+
+[node name="ShimmeringBrick110" parent="BrickComponent" index="107" instance=ExtResource("2_1qp62")]
+position = Vector2(450, 653)
+
+[node name="ShimmeringBrick111" parent="BrickComponent" index="108" instance=ExtResource("2_1qp62")]
+position = Vector2(495, 698)
+
+[node name="ShimmeringBrick112" parent="BrickComponent" index="109" instance=ExtResource("2_1qp62")]
+position = Vector2(540, 743)
+
+[node name="ShimmeringBrick113" parent="BrickComponent" index="110" instance=ExtResource("2_1qp62")]
+position = Vector2(585, 788)
+
+[node name="ShimmeringBrick114" parent="BrickComponent" index="111" instance=ExtResource("2_1qp62")]
+position = Vector2(630, 833)
+
+[node name="ShimmeringBrick115" parent="BrickComponent" index="112" instance=ExtResource("2_1qp62")]
+position = Vector2(675, 878)
+
+[node name="ShimmeringBrick116" parent="BrickComponent" index="113" instance=ExtResource("2_1qp62")]
+position = Vector2(765, 923)
+
+[node name="ShimmeringBrick117" parent="BrickComponent" index="114" instance=ExtResource("2_1qp62")]
+position = Vector2(855, 968)
+
+[node name="ShimmeringBrick118" parent="BrickComponent" index="115" instance=ExtResource("2_1qp62")]
+position = Vector2(945, 968)
+
+[node name="ShimmeringBrick119" parent="BrickComponent" index="116" instance=ExtResource("2_1qp62")]
+position = Vector2(1035, 968)
+
+[node name="ShimmeringBrick120" parent="BrickComponent" index="117" instance=ExtResource("2_1qp62")]
+position = Vector2(1125, 968)
+
+[node name="ShimmeringBrick121" parent="BrickComponent" index="118" instance=ExtResource("2_1qp62")]
+position = Vector2(1215, 968)
+
+[node name="ShimmeringBrick122" parent="BrickComponent" index="119" instance=ExtResource("2_1qp62")]
+position = Vector2(1305, 968)
+
+[node name="ShimmeringBrick123" parent="BrickComponent" index="120" instance=ExtResource("2_1qp62")]
+position = Vector2(1350, 923)
+
+[node name="ShimmeringBrick124" parent="BrickComponent" index="121" instance=ExtResource("2_1qp62")]
+position = Vector2(1395, 878)
+
+[node name="ShimmeringBrick125" parent="BrickComponent" index="122" instance=ExtResource("2_1qp62")]
+position = Vector2(1395, 833)
+
+[node name="ShimmeringBrick126" parent="BrickComponent" index="123" instance=ExtResource("2_1qp62")]
+position = Vector2(1395, 788)
+
+[node name="ShimmeringBrick127" parent="BrickComponent" index="124" instance=ExtResource("2_1qp62")]
+position = Vector2(1395, 743)
+
+[node name="ShimmeringBrick128" parent="BrickComponent" index="125" instance=ExtResource("2_1qp62")]
+position = Vector2(1395, 698)
+
+[node name="ShimmeringBrick129" parent="BrickComponent" index="126" instance=ExtResource("2_1qp62")]
+position = Vector2(1395, 653)
+
+[node name="ShimmeringBrick130" parent="BrickComponent" index="127" instance=ExtResource("2_1qp62")]
+position = Vector2(1305, 743)
+
+[node name="ShimmeringBrick131" parent="BrickComponent" index="128" instance=ExtResource("2_1qp62")]
+position = Vector2(1215, 743)
+
+[node name="ShimmeringBrick132" parent="BrickComponent" index="129" instance=ExtResource("2_1qp62")]
+position = Vector2(1215, 698)
+
+[node name="ShimmeringBrick133" parent="BrickComponent" index="130" instance=ExtResource("2_1qp62")]
+position = Vector2(1125, 788)
+
+[node name="ShimmeringBrick134" parent="BrickComponent" index="131" instance=ExtResource("2_1qp62")]
+position = Vector2(1035, 788)
+
+[node name="ShimmeringBrick135" parent="BrickComponent" index="132" instance=ExtResource("2_1qp62")]
+position = Vector2(945, 743)
+
+[node name="ShimmeringBrick136" parent="BrickComponent" index="133" instance=ExtResource("2_1qp62")]
+position = Vector2(855, 788)
+
+[node name="ShimmeringBrick137" parent="BrickComponent" index="134" instance=ExtResource("2_1qp62")]
+position = Vector2(765, 743)
+
+[node name="ShimmeringBrick138" parent="BrickComponent" index="135" instance=ExtResource("2_1qp62")]
+position = Vector2(765, 698)
+
+[node name="ShimmeringBrick139" parent="BrickComponent" index="136" instance=ExtResource("2_1qp62")]
+position = Vector2(810, 653)
+
+[node name="ShimmeringBrick140" parent="BrickComponent" index="137" instance=ExtResource("2_1qp62")]
+position = Vector2(675, 698)
+
+[node name="ShimmeringBrick141" parent="BrickComponent" index="138" instance=ExtResource("2_1qp62")]
+position = Vector2(630, 653)
+
+[node name="ShimmeringBrick142" parent="BrickComponent" index="139" instance=ExtResource("2_1qp62")]
+position = Vector2(540, 608)
+
+[node name="ShimmeringBrick143" parent="BrickComponent" index="140" instance=ExtResource("2_1qp62")]
+position = Vector2(675, 743)
+
+[node name="ShimmeringBrick144" parent="BrickComponent" index="141" instance=ExtResource("2_1qp62")]
+position = Vector2(765, 788)
+
+[node name="ShimmeringBrick145" parent="BrickComponent" index="142" instance=ExtResource("2_1qp62")]
+position = Vector2(855, 833)
+
+[node name="ShimmeringBrick146" parent="BrickComponent" index="143" instance=ExtResource("2_1qp62")]
+position = Vector2(855, 878)
+
+[node name="ShimmeringBrick147" parent="BrickComponent" index="144" instance=ExtResource("2_1qp62")]
+position = Vector2(855, 923)
+
+[node name="ShimmeringBrick148" parent="BrickComponent" index="145" instance=ExtResource("2_1qp62")]
+position = Vector2(945, 833)
+
+[node name="ShimmeringBrick149" parent="BrickComponent" index="146" instance=ExtResource("2_1qp62")]
+position = Vector2(1035, 878)
+
+[node name="ShimmeringBrick150" parent="BrickComponent" index="147" instance=ExtResource("2_1qp62")]
+position = Vector2(1035, 923)
+
+[node name="ShimmeringBrick151" parent="BrickComponent" index="148" instance=ExtResource("2_1qp62")]
+position = Vector2(1125, 833)
+
+[node name="ShimmeringBrick152" parent="BrickComponent" index="149" instance=ExtResource("2_1qp62")]
+position = Vector2(1215, 833)
+
+[node name="ShimmeringBrick153" parent="BrickComponent" index="150" instance=ExtResource("2_1qp62")]
+position = Vector2(1260, 878)
+
+[node name="ShimmeringBrick154" parent="BrickComponent" index="151" instance=ExtResource("2_1qp62")]
+position = Vector2(1305, 788)
+
+[node name="ShimmeringBrick67" parent="BrickComponent" index="152" instance=ExtResource("2_1qp62")]
+position = Vector2(675, 293)
+
+[node name="ShimmeringBrick68" parent="BrickComponent" index="153" instance=ExtResource("2_1qp62")]
+position = Vector2(585, 338)

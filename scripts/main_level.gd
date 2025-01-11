@@ -206,15 +206,17 @@ func finish():
 	#gui.show_level_clear(func(): get_window().title = 'Next level!',
 		#func(): get_window().title = 'Main menu!');
 	await get_tree().create_timer(1.0).timeout;
-	# how about we still have it update the last level data lol xd :DDDDDDDDDDDDDD
-	GameProgression.update_last_level_stats();
-	GameProgression.save_to_autosave();
 	
 	for ball : Ball in get_tree().get_nodes_in_group(&'balls'):
 		GameProgression.add_score(BALL_BONUS);
 		points_earned += BALL_BONUS;
 		# lmao
 		await get_tree().create_timer(BALL_BONUS / 600.0).timeout;
+	
+	# how about we still have it update the last level data lol xd :DDDDDDDDDDDDDD
+	GameProgression.update_last_level_stats();
+	# oops! indeed, should have done it in here lol xd
+	GameProgression.save_to_autosave();
 	template.show_level_clear();
 
 
