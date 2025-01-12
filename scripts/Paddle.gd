@@ -273,8 +273,6 @@ func handle_ball_collision(b: Ball, collision: KinematicCollision2D) -> void:
 		PaddleState.Sticky:
 			# don't think I'll need any of that since I'll just do that
 			# when we release it lol
-			#var ball_dir := _bounce_ball_dir_controlled(collision.get_position());
-			#b.change_direction(ball_dir);
 			# if we hold down le left mouse button then it should just
 			# bounce them off instantly
 			if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
@@ -332,7 +330,7 @@ func _change_size(should_enlarge: bool):
 	set_width(width_idx);
 	for b in balls:
 		# "stretch" or "shrink" the balls' positions across the paddle
-		# when its size changes 
+		# when its size changes
 		b.position.x = remap(b.position.x, -old_width / 2, old_width / 2,
 		-width / 2, width / 2);
 	set_gun_positions();
@@ -366,14 +364,6 @@ func _input(event: InputEvent):
 						if ammo_left == 0:
 							reset_gun();
 		PaddleState.Frozen:
-			## TODO: IDEA!!!
-			# MAKE IT SO THAT WHEN YOU FLICK THE MOUSE CURSOR REALLY FAST IT WILL
-			# SLOWLY INCH TOWARD THAT DIRECTION BUT NOT CONSTANTLY BUT JUST
-			# IMPULSE-LIKE IDK
-			# basically the paddle is still not fully stopped but it moves, like,
-			# really really really slowly, and you can also flick le mouse
-			# really fast to make it move a little bit faster
-			# but that all is fur later
 			pass
 
 
@@ -386,10 +376,13 @@ func _on_frozen_timer_timeout():
 
 
 func _on_ball_manual_release_timer_timeout():
-	pass # Replace with function body.
+	pass # I will NEVER replace this with a function body!!!!
 
 
 func _on_ball_auto_release_timer_timeout():
+	# you can keep them
+	if level_cleared:
+		return;
 	release_ephemeral_ball();
 	# we look only at ephemeral (non-persistent) balls
 	# so here we remove persistent balls and see if there's no ephemeral balls left
