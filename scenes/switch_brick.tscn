@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwfk8olb226xl"]
+
+[ext_resource type="PackedScene" uid="uid://5p2y5riyrwvs" path="res://scenes/BrickBase.tscn" id="1_djs2d"]
+[ext_resource type="Script" path="res://scripts/switch_brick.gd" id="2_mpqw1"]
+
+[node name="SwitchBrick" groups=["switch_bricks"] instance=ExtResource("1_djs2d")]
+script = ExtResource("2_mpqw1")
+state = 2
+points = 50

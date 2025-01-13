@@ -235,6 +235,7 @@ func handle_collision(collision: KinematicCollision2D):
 
 func explode_stuff():
 	var explosion : Explosion = EXPLOSION_PACKED.instantiate() as Explosion;
+	# actually this does maybe not make sense since we reparent it to the component anyway xd	
 	explosion.exclude_parent = true;
 	explosion.add_exception(self);
 	explosion.global_position = self.global_position;
@@ -248,7 +249,6 @@ func explode_stuff():
 
 
 func _physics_process(delta):
-	# TODO: MOVE TOWARD FUNCTION !!!!!!! MOVE_TOWARD!!!!
 	var velocity_dir : Vector2;
 	if velocity.is_zero_approx():
 		velocity_dir = last_direction;
