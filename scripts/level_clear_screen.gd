@@ -49,6 +49,8 @@ func _set_tip() -> void:
 		.replace('OS_NAME', OS.get_name())\
 		.replace('OS_JUDGEMENTAL_TEXT',
 		"I've yet to come up with customized judgemental messages for every supported OS though")\
+		.replace('ABABA',
+		'fewer' if randf() < 0.5 else 'less')\
 		.replace('№',
 		(func() -> String:
 			var counter := 0;
