@@ -40,8 +40,8 @@ const MAX_BOUNCE_ANGLES = [
 	75.17411852982168,
 ];
 
-const STICKY_TIME: float = 20;
-const STICKY_TIME_MAX: float = 35;
+const STICKY_TIME: float = 30;
+const STICKY_TIME_MAX: float = 40.42;
 const FROZEN_TIME : float = 5.0;
 const PADDLE_HEIGHT : float = 40;
 const BALL_RELEASE_COOLDOWN_MAX : float = 0.15;
