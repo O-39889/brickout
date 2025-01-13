@@ -17,6 +17,7 @@ script = ExtResource("2_fbo6k")
 level_name = "Thankfully, I finally ran out of ideas"
 level_author = "Olepograd"
 allow_level_finish_powerup = true
+powerup_chance = 0.111
 
 [node name="BallComponent" parent="." index="2" instance=ExtResource("3_087fp")]
 metadata/_edit_lock_ = true
