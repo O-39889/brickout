@@ -406,11 +406,15 @@ color = 2
 
 [node name="Brick34" parent="." instance=ExtResource("2_yk7wq")]
 position = Vector2(360, 293)
-color = 2
+color = 3
 
 [node name="Brick35" parent="." instance=ExtResource("2_yk7wq")]
 position = Vector2(990, 293)
 color = 2
+
+[node name="Brick43" parent="." instance=ExtResource("2_yk7wq")]
+position = Vector2(1080, 293)
+color = 3
 
 [node name="Brick36" parent="." instance=ExtResource("2_yk7wq")]
 position = Vector2(1080, 338)
@@ -422,7 +426,7 @@ color = 2
 
 [node name="Brick38" parent="." instance=ExtResource("2_yk7wq")]
 position = Vector2(1080, 788)
-color = 2
+color = 3
 
 [node name="Brick39" parent="." instance=ExtResource("2_yk7wq")]
 position = Vector2(1080, 743)
@@ -431,6 +435,10 @@ color = 2
 [node name="Brick40" parent="." instance=ExtResource("2_yk7wq")]
 position = Vector2(450, 788)
 color = 2
+
+[node name="Brick42" parent="." instance=ExtResource("2_yk7wq")]
+position = Vector2(360, 788)
+color = 3
 
 [node name="Brick41" parent="." instance=ExtResource("2_yk7wq")]
 position = Vector2(360, 743)
