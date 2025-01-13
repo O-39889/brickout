@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://dvu5qfbgsbgbx"]
+
+[ext_resource type="PackedScene" uid="uid://cljyfysqemsgw" path="res://scenes/level.tscn" id="1_ox4qi"]
+[ext_resource type="Script" path="res://scripts/main_level.gd" id="2_4mmp4"]
+[ext_resource type="PackedScene" uid="uid://c0pvsntagt4y6" path="res://scenes/level_components/ball_component.tscn" id="3_mma0u"]
+[ext_resource type="PackedScene" uid="uid://coqsjdil7pruh" path="res://scenes/level_components/brick_component.tscn" id="4_daehn"]
+[ext_resource type="PackedScene" uid="uid://jeo4t2v7ja84" path="res://scenes/level_components/powerup_component.tscn" id="6_6arp6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_kwewi"]
+font_size = 22
+font_color = Color(1, 1, 1, 0.752941)
+
+[node name="MainLevelGameplay" instance=ExtResource("1_ox4qi")]
+script = ExtResource("2_4mmp4")
+level_name = "Testudo"
+level_author = "Olepograd"
+allow_level_finish_powerup = true
+powerup_chance = 0.111
+
+[node name="BallComponent" parent="." index="2" instance=ExtResource("3_mma0u")]
+metadata/_edit_lock_ = true
+
+[node name="BrickComponent" parent="." index="3" instance=ExtResource("4_daehn")]
+metadata/_edit_lock_ = true
+
+[node name="PowerupComponent" parent="." index="4" instance=ExtResource("6_6arp6")]
+metadata/_edit_lock_ = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="5"]
+
+[node name="LevelAuthorName" type="Label" parent="CanvasLayer" index="0"]
+unique_name_in_owner = true
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = 12.0
+grow_horizontal = 2
+text = "Author Name — Level Name"
+label_settings = SubResource("LabelSettings_kwewi")
+horizontal_alignment = 1
+metadata/_edit_lock_ = true
