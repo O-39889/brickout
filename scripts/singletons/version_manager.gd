@@ -2,4 +2,4 @@
 class_name VersionManager extends Object;
 
 
-const VERSION = '0.1.1 pre-alpha';
+const VERSION = '0.1.2 pre-alpha';

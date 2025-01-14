@@ -20,6 +20,14 @@ func _ready() -> void:
 		self.position.y -= 0.5;
 
 
+# TODO: maybe functions for adjacent bricks? sounds useful
+# (potentially):
+# 1) for frail bricks, just so that I don't have to always do
+# the type checking
+# 2) for reinforced bricks: for example, it could allow us
+# to add lone corner pieces for the armor pattern continuity
+
+
 func hit(by: Node2D, _damage: int) -> void:
 	EventBus.brick_hit.emit(self, by);
 
