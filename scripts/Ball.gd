@@ -27,7 +27,7 @@ enum HorizontalCooldown {
 const BALL_SPEEDS = [
 	500, # 450 was UNBEARABLE
 	600,
-	800,
+	760,
 ];
 
 const SPEED_CAP = BALL_SPEEDS[BallSpeed.BALL_SPEED_FAST] * 1.5;
