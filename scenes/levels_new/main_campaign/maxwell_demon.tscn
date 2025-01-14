@@ -9,7 +9,6 @@
 level_name = "Maxwell's Demon"
 level_author = "Olepograd"
 powerup_chance = 0.12
-pool_type = 1
 
 [node name="SuperUnbreakableBrick" parent="BrickComponent" index="0" instance=ExtResource("2_4pkmw")]
 position = Vector2(45, 23)

@@ -9,7 +9,6 @@
 level_name = "Hey hey wait wait wait wait wait what the—"
 level_author = "Olepograd"
 powerup_chance = 0.111
-pool_type = 1
 
 [node name="UnbreakableBrick" parent="BrickComponent" index="0" instance=ExtResource("2_hckrt")]
 position = Vector2(315, 563)
