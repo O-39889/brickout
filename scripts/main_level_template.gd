@@ -55,7 +55,7 @@ var data : bool = true;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	assert(is_instance_valid(lvl), "Level gameplay scene not provided by the GameProgression singleton");
+	assert(is_instance_valid(lvl), "Level gameplay scene not provided by the GameProgression singleton!!!");
 	lvl.template = self;
 	game_viewport.add_child(lvl);
 	
@@ -66,10 +66,11 @@ func _ready() -> void:
 	EventBus.powerup_collected.connect(_on_powerup_collected);
 	EventBus.barrier_hit.connect(barrier_indicator.hide);
 
+	fader.fade_in_started.connect(lvl.paddle._on_fade_in_start);
+	fader.fade_in_finished.connect(lvl.paddle._on_fade_in_end);
+	fader.fade_in_finished.connect(func():
+		fader_finished = true);
 	fader.fade_in();
-	# why am I even using the event bus for this?
-	EventBus.fade_start_finished.connect(func():
-		fader_finished = true;)
 	update_score_counter();
 	update_lives_counter();
 

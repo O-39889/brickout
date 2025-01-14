@@ -22,7 +22,7 @@ func _ready() -> void:
 func reset_brick_layout() -> void:
 	if is_instance_valid(brick_layout):
 		fader.fade_out();
-		await EventBus.fade_end_finished;
+		await fader.fade_out_finished;
 		for b : Ball in get_tree().get_nodes_in_group(&"balls"):
 			# I think I added this line in the old code
 			# so that the balls wouldn't collide with
@@ -60,7 +60,7 @@ func reset_brick_layout() -> void:
 	fader.fade_in();
 	# kinda sucks, maybe should have made this a signal
 	# for the fader node instead of putting that on le event bus
-	await EventBus.fade_start_finished;
+	await fader.fade_in_finished;
 	
 	await get_tree().create_timer(2.0).timeout;
 	spawned_balls_amount = randi_range(2, 3);

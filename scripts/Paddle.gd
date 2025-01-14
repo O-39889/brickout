@@ -128,14 +128,23 @@ var size_callable : Callable = (func():
 
 
 func _ready():
-	EventBus.fade_start_started.connect(func():
-		%NinePatchRect.scale = Vector2(0, 0);
-		get_tree().process_frame.connect(size_callable);
-		);
-	EventBus.fade_start_finished.connect(func():
-		accept_input = true;
-		get_tree().process_frame.disconnect(size_callable);
-		);
+	# idk why should this be in the paddle code
+	# I mean, that's fine
+	# idk lol
+	# let's just do this instead:
+	# so, the LEVEL tells the paddle that it should be SCALED DOWN
+	# TINY!! AHAHAH
+	# and then it hooks up the paddle to the fader itself
+	# and everything is super duper schmuper fine
+	
+	#EventBus.fade_start_started.connect(func():
+		#%NinePatchRect.scale = Vector2(0, 0);
+		#get_tree().process_frame.connect(size_callable);
+		#);
+	#EventBus.fade_start_finished.connect(func():
+		#accept_input = true;
+		#get_tree().process_frame.disconnect(size_callable);
+		#);
 	
 	ball_manual_timer.wait_time = BALL_RELEASE_COOLDOWN_MAX;
 	ball_auto_timer.wait_time = BALL_AUTO_RELEASE_INTERVAL;
@@ -160,7 +169,7 @@ func _ready():
 	last_tick_position = position;
 
 
-func add_bawl(b: Ball, persistent: bool):
+func add_bawl(b: Ball, persistent: bool) -> void:
 	b.stuck = true;
 	if b.get_parent() == null:
 		add_child(b);
@@ -174,7 +183,7 @@ func add_bawl(b: Ball, persistent: bool):
 
 #region Width
 
-func set_width(idx: PaddleSize):
+func set_width(idx: PaddleSize) -> void:
 	width = PADDLE_SIZES[idx];
 	hitbox.size.x = width;
 	# NOTICE: PLACEHOLDER ONLY
@@ -300,10 +309,21 @@ func _physics_process(delta):
 	if not level_cleared:
 		my_velocity = (position.x - last_tick_position.x) / delta;
 	last_tick_position = position;
-	$DebugLbl.text = String.num(ammo_left, 9);
-	$DebugLbl.global_position.x = 810;
+	#$DebugLbl.text = String.num(ammo_left, 9);
+	#$DebugLbl.global_position.x = 810;
 	
 	position.x = clamp(position.x, width / 2, get_viewport_rect().size.x - width / 2);
+
+
+func _on_fade_in_start() -> void:
+	accept_input = false;
+	%NinePatchRect.scale = Vector2(0, 0);
+	get_tree().process_frame.connect(size_callable);
+
+
+func _on_fade_in_end() -> void:
+	accept_input = true;
+	get_tree().process_frame.disconnect(size_callable);
 
 
 func _bounce_ball_dir_controlled(collision_position: Vector2) -> Vector2:
