@@ -87,13 +87,18 @@ func show_game_over() -> void:
 	clear_timers();
 	var gover_node := GAME_OVER_PACKED.instantiate() as GameOverScreen;
 	main_container.add_child(gover_node);
-	gover_node.restart_btn.pressed.connect(
-		GameProgression.new_game.bind(
-			GameProgression.current_level_idx));
-	gover_node.exit_btn.pressed.connect(
-		GameProgression.exit_after_game_over);
+	gover_node.restart_btn.pressed.connect(func():
+		fader.fade_out_finished.connect(
+			GameProgression.new_game.bind(
+				GameProgression.current_level_idx));
+		fader.fade_out();
+	);
+	gover_node.exit_btn.pressed.connect(func():
+		fader.fade_out_finished.connect(
+			GameProgression.exit_after_game_over);
+		fader.fade_out();
+	);
 	gover_node.set_score(GameProgression.score);
-	
 
 
 func show_level_clear() -> void:
@@ -101,9 +106,14 @@ func show_level_clear() -> void:
 	var clear_node := LEVEL_CLEAR_PACKED.instantiate() as LevelClearScreen;
 	# also bind signals ofc
 	main_container.add_child(clear_node);
-	clear_node.continue_btn.pressed.connect(
-		GameProgression.next_level);
-	clear_node.exit_btn.pressed.connect(GameProgression.exit_after_clear);
+	clear_node.continue_btn.pressed.connect(func():
+		fader.fade_out_finished.connect(GameProgression.next_level);
+		fader.fade_out();
+	);
+	clear_node.exit_btn.pressed.connect(func():
+		fader.fade_out_finished.connect(GameProgression.exit_after_clear);
+		fader.fade_out();
+	);
 	# TODO: score and time only for the current level
 	clear_node.set_score(lvl.points_earned);
 	clear_node.set_time(lvl.time_elapsed);
