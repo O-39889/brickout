@@ -235,10 +235,7 @@ func _input(event):
 		if event.is_action_pressed("debug_restart"):
 			return;
 		if event.is_action_pressed("debug_1"):
-			powerup_component._request_powerup('barrier',
-				paddle.position - Vector2(0, 69));
-			return;
-			powerup_component._request_powerup('finish_level',
+			powerup_component._request_powerup('add_ball',
 				paddle.position - Vector2(0, 69));
 		if event.is_action_pressed("debug_2"):
 			powerup_component._request_powerup('acid_ball',

@@ -17,7 +17,6 @@ static var tip_dict := ResourceLoader.load("res://data/loading_screen_tips.json"
 func _ready() -> void:
 	_set_tip();
 	return;
-	tip_lbl.queue_free();
 
 
 func _set_tip() -> void:
