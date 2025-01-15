@@ -181,6 +181,9 @@ position = Vector2(1395, 203)
 [node name="Brick61" parent="Cyan" instance=ExtResource("2_uudh5")]
 position = Vector2(1125, 203)
 
+[node name="Brick91" parent="Cyan" instance=ExtResource("2_uudh5")]
+position = Vector2(225, 338)
+
 [node name="Brick62" parent="Cyan" instance=ExtResource("2_uudh5")]
 position = Vector2(1125, 248)
 
@@ -434,7 +437,7 @@ position = Vector2(315, 473)
 position = Vector2(315, 518)
 
 [node name="Brick13" parent="Cyan" instance=ExtResource("2_uudh5")]
-position = Vector2(225, 338)
+position = Vector2(405, 338)
 
 [node name="Brick14" parent="Cyan" instance=ExtResource("2_uudh5")]
 position = Vector2(225, 383)
@@ -781,15 +784,11 @@ position = Vector2(1168.15, 369.425)
 color = 3
 
 [node name="Brick14" parent="Pink" instance=ExtResource("2_uudh5")]
-position = Vector2(-1.85138, 414.425)
-color = 3
-
-[node name="Brick27" parent="Pink" instance=ExtResource("2_uudh5")]
 position = Vector2(-1.85138, 369.425)
 color = 3
 
 [node name="Brick15" parent="Pink" instance=ExtResource("2_uudh5")]
-position = Vector2(88.1486, 414.425)
+position = Vector2(-1.85138, 414.425)
 color = 3
 
 [node name="Brick16" parent="Pink" instance=ExtResource("2_uudh5")]
@@ -797,27 +796,23 @@ position = Vector2(88.1486, 459.425)
 color = 3
 
 [node name="Brick17" parent="Pink" instance=ExtResource("2_uudh5")]
-position = Vector2(178.149, 504.425)
-color = 7
-
-[node name="Brick18" parent="Pink" instance=ExtResource("2_uudh5")]
-position = Vector2(178.149, 459.425)
-color = 7
-
-[node name="Brick23" parent="Pink" instance=ExtResource("2_uudh5")]
-position = Vector2(268.149, 549.425)
-color = 7
-
-[node name="Brick24" parent="Pink" instance=ExtResource("2_uudh5")]
-position = Vector2(268.149, 504.425)
-color = 7
-
-[node name="Brick28" parent="Pink" instance=ExtResource("2_uudh5")]
-position = Vector2(178.149, 504.425)
+position = Vector2(88.1486, 414.425)
 color = 3
 
-[node name="Brick29" parent="Pink" instance=ExtResource("2_uudh5")]
-position = Vector2(178.149, 459.425)
+[node name="Brick18" parent="Pink" instance=ExtResource("2_uudh5")]
+position = Vector2(178.15, 504.425)
+color = 3
+
+[node name="Brick19" parent="Pink" instance=ExtResource("2_uudh5")]
+position = Vector2(178.15, 459.425)
+color = 3
+
+[node name="Brick20" parent="Pink" instance=ExtResource("2_uudh5")]
+position = Vector2(268.15, 549.425)
+color = 3
+
+[node name="Brick21" parent="Pink" instance=ExtResource("2_uudh5")]
+position = Vector2(268.15, 504.425)
 color = 3
 
 [node name="Brick48" parent="Pink" instance=ExtResource("2_uudh5")]
@@ -882,18 +877,6 @@ color = 3
 
 [node name="Brick63" parent="Pink" instance=ExtResource("2_uudh5")]
 position = Vector2(268.149, 1089.43)
-color = 3
-
-[node name="Brick34" parent="Pink" instance=ExtResource("2_uudh5")]
-position = Vector2(268.149, 549.425)
-color = 3
-
-[node name="Brick35" parent="Pink" instance=ExtResource("2_uudh5")]
-position = Vector2(268.149, 504.425)
-color = 3
-
-[node name="Brick37" parent="Pink" instance=ExtResource("2_uudh5")]
-position = Vector2(358.149, 549.425)
 color = 3
 
 [node name="ReferenceRect" type="ReferenceRect" parent="."]
