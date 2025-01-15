@@ -3,12 +3,20 @@ extends Node;
 var debug_test_lbl : Label;
 var debug_test_thing := {};
 
+
+
 # TASK: maybe have the campaign switch not between the top-level
 # level scenes (the ones with the GUI and everything) but instead only
 # the gameplay ones in the subviewport?
 # ANSWER: no, it's probably gonna be a painful mess with disconnecting
 # and reconnecting everything so I'll just do the current method
 # of reloading the template scene each time
+# ACTUALLY: maybe that could be implemented reasonably idk
+# the thing is, it might actually even solve the flicker issue
+
+# ANOTHER TODO: REWORK THIS FROM A HORRIBLE HORRIBLE MESS
+# AND MAYBE EVEN USE SESSION OBJECTS AND THINGS LIKE THAT
+# INSTEAD OF THIS CURRENT MESS
 
 const EXTRA_LIFE_MULTIPLIER : int = 25000;
 const INITIAL_LIVES : int = 3;
@@ -66,6 +74,8 @@ var max_level_reached : int = 0;
 
 ## The index of a level where the game session started.
 var session_started_idx : int = 0;
+## Time (UNIX timestamp) when the current play session started.
+var session_started_time : float = 0.0;
 
 
 func reset_current_data(lvl_idx : int = 0) -> void:
@@ -150,6 +160,7 @@ func new_game(level_idx: int = 0) -> void:
 	reset_current_data(level_idx);
 	session_started_idx = level_idx;
 	current_level = load(level_campaign[current_level_idx]).instantiate();
+	session_started_time = Time.get_unix_time_from_system();
 	get_tree().change_scene_to_packed(LEVEL_TEMPLATE_PACKED);
 	has_progress = true;
 
@@ -246,7 +257,7 @@ func save_to_autosave() -> void:
 			# while this one has already been incremented
 			# so we'll have to decrement it back
 			current_level_idx - 1,
-			0.0,
+			session_started_time,
 			Time.get_unix_time_from_system(),
 			time_total,
 			score,

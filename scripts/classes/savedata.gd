@@ -1,7 +1,7 @@
 class_name Savedata extends RefCounted;
 
 
-const CURRENT_VERSION : int = 2;
+const CURRENT_VERSION : int = 3;
 
 ## A separate class for holding the session data
 ## (if a session was started)
