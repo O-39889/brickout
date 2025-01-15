@@ -51,6 +51,7 @@ size_flags_horizontal = 3
 unique_name_in_owner = true
 disable_3d = true
 handle_input_locally = false
+audio_listener_enable_2d = true
 size = Vector2i(1440, 1080)
 render_target_update_mode = 4
 

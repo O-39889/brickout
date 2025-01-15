@@ -76,6 +76,7 @@ func handle_collision(b1: Ball, b2: Ball):
 	# and NOT to the previous page from where you were before (the one
 	# with the sound I wanted to download)
 	# scandalous!
+	# I think the issue might be with them being in a nested viewport
 	if play_collision_sound:
 		var player : AudioStreamPlayer2D = audio_players.pick_random();
 		#print(player);
