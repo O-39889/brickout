@@ -1,0 +1,223 @@
+[gd_scene load_steps=9 format=3 uid="uid://0ky2px4bb7c"]
+
+[ext_resource type="PackedScene" uid="uid://cljyfysqemsgw" path="res://scenes/level.tscn" id="1_yeeid"]
+[ext_resource type="Script" path="res://scripts/main_level.gd" id="2_3xhva"]
+[ext_resource type="PackedScene" uid="uid://c0pvsntagt4y6" path="res://scenes/level_components/ball_component.tscn" id="3_p5ug2"]
+[ext_resource type="PackedScene" uid="uid://coqsjdil7pruh" path="res://scenes/level_components/brick_component.tscn" id="4_cmcdf"]
+[ext_resource type="PackedScene" uid="uid://blofikyc7x7vn" path="res://scenes/RegularBrick.tscn" id="5_o2ae7"]
+[ext_resource type="PackedScene" uid="uid://jeo4t2v7ja84" path="res://scenes/level_components/powerup_component.tscn" id="6_rjvwb"]
+[ext_resource type="PackedScene" uid="uid://blefa03mpdv8b" path="res://scenes/unbreakable_brick.tscn" id="6_tssuh"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_kwewi"]
+font_size = 22
+font_color = Color(1, 1, 1, 0.752941)
+
+[node name="MainLevelGameplay" instance=ExtResource("1_yeeid")]
+script = ExtResource("2_3xhva")
+level_name = "Locked away"
+level_author = "Olepograd"
+allow_level_finish_powerup = true
+powerup_chance = 0.11
+
+[node name="BallComponent" parent="." index="2" instance=ExtResource("3_p5ug2")]
+metadata/_edit_lock_ = true
+
+[node name="BrickComponent" parent="." index="3" instance=ExtResource("4_cmcdf")]
+metadata/_edit_lock_ = true
+
+[node name="Brick70" parent="BrickComponent" index="0" instance=ExtResource("5_o2ae7")]
+position = Vector2(1125, 68)
+is_shimmering = true
+color = 4
+protected_sides = 11
+
+[node name="Brick71" parent="BrickComponent" index="1" instance=ExtResource("5_o2ae7")]
+position = Vector2(1125, 203)
+is_shimmering = true
+color = 4
+protected_sides = 10
+
+[node name="Brick72" parent="BrickComponent" index="2" instance=ExtResource("5_o2ae7")]
+position = Vector2(540, 203)
+color = 6
+
+[node name="Brick73" parent="BrickComponent" index="3" instance=ExtResource("5_o2ae7")]
+position = Vector2(450, 248)
+color = 6
+
+[node name="Brick74" parent="BrickComponent" index="4" instance=ExtResource("5_o2ae7")]
+position = Vector2(360, 293)
+color = 6
+
+[node name="Brick75" parent="BrickComponent" index="5" instance=ExtResource("5_o2ae7")]
+position = Vector2(270, 338)
+color = 6
+
+[node name="Brick76" parent="BrickComponent" index="6" instance=ExtResource("5_o2ae7")]
+position = Vector2(360, 383)
+color = 6
+
+[node name="Brick77" parent="BrickComponent" index="7" instance=ExtResource("5_o2ae7")]
+position = Vector2(450, 428)
+color = 6
+
+[node name="Brick78" parent="BrickComponent" index="8" instance=ExtResource("5_o2ae7")]
+position = Vector2(540, 473)
+color = 6
+
+[node name="Brick79" parent="BrickComponent" index="9" instance=ExtResource("5_o2ae7")]
+position = Vector2(630, 428)
+color = 6
+
+[node name="Brick80" parent="BrickComponent" index="10" instance=ExtResource("5_o2ae7")]
+position = Vector2(720, 383)
+color = 6
+
+[node name="Brick81" parent="BrickComponent" index="11" instance=ExtResource("5_o2ae7")]
+position = Vector2(810, 338)
+color = 6
+
+[node name="Brick82" parent="BrickComponent" index="12" instance=ExtResource("5_o2ae7")]
+position = Vector2(720, 293)
+color = 6
+
+[node name="Brick83" parent="BrickComponent" index="13" instance=ExtResource("5_o2ae7")]
+position = Vector2(630, 248)
+color = 6
+
+[node name="Brick84" parent="BrickComponent" index="14" instance=ExtResource("5_o2ae7")]
+position = Vector2(540, 248)
+
+[node name="Brick85" parent="BrickComponent" index="15" instance=ExtResource("5_o2ae7")]
+position = Vector2(450, 293)
+
+[node name="Brick86" parent="BrickComponent" index="16" instance=ExtResource("5_o2ae7")]
+position = Vector2(630, 293)
+
+[node name="Brick87" parent="BrickComponent" index="17" instance=ExtResource("5_o2ae7")]
+position = Vector2(720, 338)
+
+[node name="Brick88" parent="BrickComponent" index="18" instance=ExtResource("5_o2ae7")]
+position = Vector2(630, 383)
+
+[node name="Brick89" parent="BrickComponent" index="19" instance=ExtResource("5_o2ae7")]
+position = Vector2(540, 428)
+
+[node name="Brick90" parent="BrickComponent" index="20" instance=ExtResource("5_o2ae7")]
+position = Vector2(450, 383)
+
+[node name="Brick96" parent="BrickComponent" index="21" instance=ExtResource("5_o2ae7")]
+position = Vector2(540, 338)
+is_shimmering = true
+color = 3
+
+[node name="Brick91" parent="BrickComponent" index="22" instance=ExtResource("5_o2ae7")]
+position = Vector2(360, 338)
+
+[node name="Brick92" parent="BrickComponent" index="23" instance=ExtResource("5_o2ae7")]
+position = Vector2(450, 338)
+color = 6
+
+[node name="Brick93" parent="BrickComponent" index="24" instance=ExtResource("5_o2ae7")]
+position = Vector2(540, 293)
+color = 6
+
+[node name="Brick94" parent="BrickComponent" index="25" instance=ExtResource("5_o2ae7")]
+position = Vector2(630, 338)
+color = 6
+
+[node name="Brick95" parent="BrickComponent" index="26" instance=ExtResource("5_o2ae7")]
+position = Vector2(540, 383)
+color = 6
+
+[node name="UnbreakableBrick" parent="BrickComponent" index="27" instance=ExtResource("6_tssuh")]
+position = Vector2(1125, 248)
+
+[node name="UnbreakableBrick2" parent="BrickComponent" index="28" instance=ExtResource("6_tssuh")]
+position = Vector2(1125, 293)
+
+[node name="UnbreakableBrick3" parent="BrickComponent" index="29" instance=ExtResource("6_tssuh")]
+position = Vector2(1125, 338)
+
+[node name="UnbreakableBrick13" parent="BrickComponent" index="30" instance=ExtResource("6_tssuh")]
+position = Vector2(1125, 23)
+
+[node name="UnbreakableBrick4" parent="BrickComponent" index="31" instance=ExtResource("6_tssuh")]
+position = Vector2(1125, 383)
+
+[node name="UnbreakableBrick5" parent="BrickComponent" index="32" instance=ExtResource("6_tssuh")]
+position = Vector2(1125, 428)
+
+[node name="UnbreakableBrick6" parent="BrickComponent" index="33" instance=ExtResource("6_tssuh")]
+position = Vector2(1125, 473)
+
+[node name="UnbreakableBrick7" parent="BrickComponent" index="34" instance=ExtResource("6_tssuh")]
+position = Vector2(1125, 518)
+
+[node name="UnbreakableBrick8" parent="BrickComponent" index="35" instance=ExtResource("6_tssuh")]
+position = Vector2(1125, 563)
+
+[node name="UnbreakableBrick9" parent="BrickComponent" index="36" instance=ExtResource("6_tssuh")]
+position = Vector2(1125, 608)
+
+[node name="UnbreakableBrick10" parent="BrickComponent" index="37" instance=ExtResource("6_tssuh")]
+position = Vector2(1125, 653)
+
+[node name="UnbreakableBrick11" parent="BrickComponent" index="38" instance=ExtResource("6_tssuh")]
+position = Vector2(1125, 698)
+
+[node name="UnbreakableBrick12" parent="BrickComponent" index="39" instance=ExtResource("6_tssuh")]
+position = Vector2(1125, 743)
+
+[node name="UnbreakableBrick14" parent="BrickComponent" index="40" instance=ExtResource("6_tssuh")]
+position = Vector2(45, 743)
+
+[node name="UnbreakableBrick15" parent="BrickComponent" index="41" instance=ExtResource("6_tssuh")]
+position = Vector2(135, 743)
+
+[node name="UnbreakableBrick16" parent="BrickComponent" index="42" instance=ExtResource("6_tssuh")]
+position = Vector2(225, 743)
+
+[node name="UnbreakableBrick17" parent="BrickComponent" index="43" instance=ExtResource("6_tssuh")]
+position = Vector2(315, 743)
+
+[node name="UnbreakableBrick18" parent="BrickComponent" index="44" instance=ExtResource("6_tssuh")]
+position = Vector2(405, 743)
+
+[node name="UnbreakableBrick19" parent="BrickComponent" index="45" instance=ExtResource("6_tssuh")]
+position = Vector2(495, 743)
+
+[node name="UnbreakableBrick20" parent="BrickComponent" index="46" instance=ExtResource("6_tssuh")]
+position = Vector2(585, 743)
+
+[node name="UnbreakableBrick21" parent="BrickComponent" index="47" instance=ExtResource("6_tssuh")]
+position = Vector2(675, 743)
+
+[node name="UnbreakableBrick22" parent="BrickComponent" index="48" instance=ExtResource("6_tssuh")]
+position = Vector2(765, 743)
+
+[node name="UnbreakableBrick23" parent="BrickComponent" index="49" instance=ExtResource("6_tssuh")]
+position = Vector2(855, 743)
+
+[node name="UnbreakableBrick24" parent="BrickComponent" index="50" instance=ExtResource("6_tssuh")]
+position = Vector2(945, 743)
+
+[node name="UnbreakableBrick25" parent="BrickComponent" index="51" instance=ExtResource("6_tssuh")]
+position = Vector2(1035, 743)
+
+[node name="PowerupComponent" parent="." index="4" instance=ExtResource("6_rjvwb")]
+metadata/_edit_lock_ = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="5"]
+
+[node name="LevelAuthorName" type="Label" parent="CanvasLayer" index="0"]
+unique_name_in_owner = true
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = 12.0
+grow_horizontal = 2
+text = "Author Name — Level Name"
+label_settings = SubResource("LabelSettings_kwewi")
+horizontal_alignment = 1
+metadata/_edit_lock_ = true
