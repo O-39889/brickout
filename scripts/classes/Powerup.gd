@@ -45,6 +45,19 @@ const POWERUP_POOL = {
 	],
 };
 
+## Pool of power-ups that would randomly appear in case the game is deemed
+## "stuck" (for example, relatively few bricks left and the ball hasn't
+## broken a brick in a long time), and it could try to summon one
+## of these power-ups in order to help the player
+const SALVAGE_POOL := {
+	&'add_ball': 1.0,
+	&'gun': 1.0,
+	&'triple_ball': 0.333333,
+	&'finish_level': 0.09999999999,
+	&'fire_ball': 0.075,
+	&'acid_ball': 0.075,
+};
+
 const POWERUP_LIST = {
 	&'double_balls': {
 		&'name': 'Double Balls',
