@@ -72,7 +72,7 @@ func _enter_tree():
 		ball_component.level = self;
 
 
-func create_paddle():
+func create_paddle() -> void:
 	if paddle:
 		return;
 	paddle = PADDLE_PACKED.instantiate();

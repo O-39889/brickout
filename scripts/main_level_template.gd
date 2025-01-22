@@ -10,6 +10,7 @@ const TIMER_CONTAINER_PACKED := preload("res://scenes/gui/timer_container.tscn")
 const LEVEL_CLEAR_PACKED := preload("res://scenes/gui/level_clear_screen.tscn");
 const GAME_OVER_PACKED := preload("res://scenes/gui/game_over_screen.tscn");
 const PAUSE_MENU_PACKED := preload("res://scenes/gui/paws_menu.tscn");
+const AMMO_COUNTER_PACKED := preload("res://scenes/gui/ammo_counter.tscn");
 
 
 var display_score : int = GameProgression.score:
@@ -43,6 +44,9 @@ var data : bool = true;
 
 @onready var main_container : MarginContainer = %UglyWorkaround;
 @onready var timers_container : Container = %PowerupTimersContainer;
+@onready var ammo_container : Container = %AmmoContainer;
+
+@onready var current_ammo_counter : AmmoCounter;
 
 @onready var fader : Fader = %Fader;
 
@@ -55,6 +59,8 @@ var data : bool = true;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	print(Projectile.ATTR_DICT);
+	var ccccc = Projectile.ATTR_DICT;
 	assert(is_instance_valid(lvl), "Level gameplay scene not provided by the GameProgression singleton!!!");
 	lvl.template = self;
 	game_viewport.add_child(lvl);
@@ -119,7 +125,6 @@ func show_level_clear() -> void:
 	clear_node.set_time(lvl.time_elapsed);
 
 
-
 func add_or_extend_timer(timer: Timer, what: Powerup.TimedPowerup) -> void:
 	if timers[what] == null:
 		timers[what] = TIMER_CONTAINER_PACKED.instantiate() as TimerContainer;
@@ -147,6 +152,30 @@ func clear_timers() -> void:
 		remove_timer(Powerup.TimedPowerup[id]);
 
 
+## When showing a new ammo counter (when picking up a new power-up)
+func show_ammo_counter(kind: Projectile.GunType) -> void:
+	if current_ammo_counter != null:
+		remove_ammo_counter();
+	var ammo_counter := AMMO_COUNTER_PACKED.instantiate() as AmmoCounter;
+	ammo_counter.attributes = Projectile.ATTR_DICT[kind];
+	ammo_counter.set_ammo_count(ammo_counter.attributes.amount);
+	current_ammo_counter = ammo_counter;
+	ammo_container.add_child(current_ammo_counter);	
+
+func update_ammo_counter() -> void:
+	if current_ammo_counter == null:
+		return;
+	if lvl.paddle.ammo_left != 0:
+		current_ammo_counter.set_ammo_count(lvl.paddle.ammo_left);
+	else:
+		remove_ammo_counter();
+
+
+func remove_ammo_counter() -> void:
+	current_ammo_counter.queue_free();
+	current_ammo_counter = null;
+
+
 func show_pause() -> void:
 	if pause_menu == null:
 		pause_menu = PAUSE_MENU_PACKED.instantiate();
@@ -157,9 +186,6 @@ func show_pause() -> void:
 		main_container.add_child(pause_menu);
 		pause_menu.level_number_lbl.text = 'Level ' + str(GameProgression.current_level_idx + 1);
 		pause_menu.continue_btn.pressed.connect(hide_pause);
-		#pause_menu.exit_btn.pressed.connect(func():
-			#get_tree().set_pause(false);
-			#GameProgression.exit_to_menu(););
 	else:
 		main_container.add_child(pause_menu);
 	if (randf() < 0.00696969696969\
@@ -207,6 +233,19 @@ func _on_powerup_collected(powerup: Powerup) -> void:
 				Powerup.TimedPowerup.PaddleFreeze);
 		&'barrier':
 			barrier_indicator.show();
+		&'gun':
+			show_ammo_counter(Projectile.GunType.Regular);
+
+
+func _on_paddle_projectile_shot(p: Projectile, kind: Projectile.GunType) -> void:
+	update_ammo_counter();
+
+
+func _on_life_lost() -> void:
+	# wait a sec this one also doesn't make sense
+	# as we don't lose lives until the last bullets are shot
+	remove_ammo_counter();
+	clear_timers(); # probably unnecessary rn but whatever
 
 
 func _process(delta: float) -> void:

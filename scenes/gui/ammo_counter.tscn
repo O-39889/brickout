@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://dbuqmwjdfajfd"]
+
+[ext_resource type="Script" path="res://scripts/ammo_counter.gd" id="1_f1u70"]
+[ext_resource type="Texture2D" uid="uid://cffnlue8pxf6p" path="res://icon.svg" id="2_0fcjf"]
+[ext_resource type="LabelSettings" uid="uid://dse1o7dk5j0oi" path="res://resources/stats_label_settings.tres" id="3_liejp"]
+
+[node name="TimerContainer" type="HBoxContainer"]
+offset_right = 110.0
+offset_bottom = 50.0
+theme_override_constants/separation = 5
+script = ExtResource("1_f1u70")
+
+[node name="Icon" type="TextureRect" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("2_0fcjf")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+label_settings = ExtResource("3_liejp")
+horizontal_alignment = 2

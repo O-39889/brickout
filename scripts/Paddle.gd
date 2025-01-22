@@ -6,6 +6,10 @@ class_name Paddle extends StaticBody2D
 # but not when moving away from it
 # would probably be impossible to actually implement lmao
 
+
+signal projectile_shot(p: Projectile, kind: Projectile.GunType);
+
+
 # I gave up on the BS all caps names
 enum PaddleState {
 	Normal,
@@ -61,13 +65,7 @@ var level : Level;
 var balls : Array[Ball] = [];
 var persistent_balls : Array[Ball] = [];
 
-#region probably wouldn't need this shit amymore
-var my_velocity : float = float(((((((0.0 as float) as float) as float) as float) as float) as float) as float) as float;
-var last_tick_position : Vector2;
-#endregion
-
 var level_cleared : bool = false;
-var finish_speed : float;
 
 var accept_input : bool = false;
 
@@ -128,24 +126,6 @@ var size_callable : Callable = (func():
 
 
 func _ready():
-	# idk why should this be in the paddle code
-	# I mean, that's fine
-	# idk lol
-	# let's just do this instead:
-	# so, the LEVEL tells the paddle that it should be SCALED DOWN
-	# TINY!! AHAHAH
-	# and then it hooks up the paddle to the fader itself
-	# and everything is super duper schmuper fine
-	
-	#EventBus.fade_start_started.connect(func():
-		#%NinePatchRect.scale = Vector2(0, 0);
-		#get_tree().process_frame.connect(size_callable);
-		#);
-	#EventBus.fade_start_finished.connect(func():
-		#accept_input = true;
-		#get_tree().process_frame.disconnect(size_callable);
-		#);
-	
 	ball_manual_timer.wait_time = BALL_RELEASE_COOLDOWN_MAX;
 	ball_auto_timer.wait_time = BALL_AUTO_RELEASE_INTERVAL;
 	assert(level != null, 'Level node not defined');
@@ -166,7 +146,6 @@ func _ready():
 	# it will always spawn with a ball, just for convenience
 	var b : Ball = load("res://scenes/Ball.tscn").instantiate();
 	add_bawl(b, true);
-	last_tick_position = position;
 
 
 func add_bawl(b: Ball, persistent: bool) -> void:
@@ -207,12 +186,14 @@ func equip_gun(gun_type: Projectile.GunType):
 	has_gun = true;
 	match gun_type:
 		Projectile.GunType.Regular:
-			gun_equipped = load("res://resources/projectiles/bullet.tres");
+			var oooo = Projectile.ATTR_DICT[Projectile.GunType.Regular];
+			gun_equipped = oooo;
 			ammo_left = gun_equipped.amount;
 			left_gun = CollisionShape2D.new();
 			left_gun.disabled = true;
 			right_gun = CollisionShape2D.new();
 			right_gun.disabled = true;
+			# ???	
 			var rect := RectangleShape2D.new();
 			rect.size = Vector2(15, 40);
 			left_gun.debug_color = Color.BISQUE;
@@ -221,9 +202,10 @@ func equip_gun(gun_type: Projectile.GunType):
 			right_gun.shape = rect;
 			add_child(left_gun);
 			add_child(right_gun);
-		Projectile.GunType.Rocket:
+		Projectile.GunType.Missile:
 			pass
 	set_gun_positions();
+	queue_redraw();
 
 
 func set_gun_positions():
@@ -249,6 +231,7 @@ func reset_gun():
 		right_gun.queue_free();
 		right_gun = null;
 	left_right_toggle = false;
+	queue_redraw();
 
 
 func release_ball(ball: Ball):
@@ -299,19 +282,14 @@ func handle_ball_collision(b: Ball, collision: KinematicCollision2D) -> void:
 
 func trigger_finish():
 	level_cleared = true;
-	finish_speed = absf(my_velocity);
 	await get_tree().physics_frame;
 	create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)\
 	.tween_property(self, 'finish_speed', 0.0, 0.5);
 
 
 func _physics_process(delta):
-	if not level_cleared:
-		my_velocity = (position.x - last_tick_position.x) / delta;
-	last_tick_position = position;
-	#$DebugLbl.text = String.num(ammo_left, 9);
-	#$DebugLbl.global_position.x = 810;
-	
+	$DebugLbl.text = str(ammo_left);
+	$DebugLbl.global_position.x = 810;
 	position.x = clamp(position.x, width / 2, get_viewport_rect().size.x - width / 2);
 
 
@@ -367,6 +345,10 @@ func _input(event: InputEvent):
 					position.x = clamp(position.x, width / 2,
 						get_viewport_rect().size.x - width / 2);
 				if event is InputEventMouseButton:
+					# TODO: when teh sticky paddle is activated,
+					# release ephemeral balls first so that
+					# any "free" balls are guaranteed to stay
+					# on the paddle until the very end
 					if (event.button_index == MOUSE_BUTTON_LEFT
 					and event.pressed and balls.size() > 0
 					and ball_manual_timer.is_stopped()):
@@ -374,6 +356,9 @@ func _input(event: InputEvent):
 						ball_manual_timer.start(BALL_RELEASE_COOLDOWN_MAX);
 					elif event.button_index == MOUSE_BUTTON_RIGHT\
 					and event.pressed and has_gun:
+						# TODO: REFACTOR THIS MESS
+						# CURRENTLY IT'S ONLY WORKING FOR ONE (1) GUN TYPE
+						# AT LEAST JUST MAKE IT AS A SEPARATE METHOD FOR GOODNESS GRACIOUS
 						var bullet = load('res://scenes/bullet.tscn').instantiate();
 						bullet.position.x = global_position.x - width / 2\
 						+ width * (1 - GUN_POS if left_right_toggle else GUN_POS);
@@ -381,6 +366,7 @@ func _input(event: InputEvent):
 						left_right_toggle = not left_right_toggle;
 						level.add_child(bullet);
 						ammo_left -= 1;
+						projectile_shot.emit(bullet, Projectile.GunType.Regular);
 						if ammo_left == 0:
 							reset_gun();
 		PaddleState.Frozen:
@@ -412,4 +398,19 @@ func _on_ball_auto_release_timer_timeout():
 	# otherwise just restart le timer
 	else:
 		ball_auto_timer.start(BALL_AUTO_RELEASE_INTERVAL);
-	
+
+
+func _draw() -> void:
+	if not has_gun:
+		return;
+	var rect_size := Vector2(15, 40);
+	var left_pos := Vector2(
+		-width / 2 + width * GUN_POS,
+		-PADDLE_HEIGHT + 8
+	);
+	var right_pos := Vector2(
+		-width / 2 + width * (1 - GUN_POS),
+		-PADDLE_HEIGHT + 8
+	);
+	draw_rect(Rect2(left_pos - rect_size / 2, rect_size), Color.TURQUOISE);
+	draw_rect(Rect2(right_pos - rect_size / 2, rect_size), Color.TOMATO);

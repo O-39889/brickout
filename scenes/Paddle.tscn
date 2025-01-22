@@ -20,6 +20,7 @@ one_way_collision = true
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 unique_name_in_owner = true
+show_behind_parent = true
 offset_right = 134.0
 offset_bottom = 40.0
 texture = ExtResource("3_2rkat")
@@ -32,6 +33,7 @@ patch_margin_bottom = 20
 [node name="Sprite2D" type="Sprite2D" parent="." groups=["fadeable"]]
 unique_name_in_owner = true
 visible = false
+show_behind_parent = true
 texture = SubResource("PlaceholderTexture2D_j1pfi")
 
 [node name="Area2D" type="StaticBody2D" parent="."]

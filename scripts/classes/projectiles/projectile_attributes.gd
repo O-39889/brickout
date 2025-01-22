@@ -1,4 +1,9 @@
-class_name ProjectileAttributes extends Resource;
+# IT EXTENDS RESOURCE YOU FREAKING IDIOT
+# DUMBASS EDITOR DUMBASS ENGINE
+# $#&* YOU JUAN
+# AND $#&* the ketchup kids
+extends Resource
+class_name ProjectileAttributes;
 
 
 ## The amount of projectiles in a single round (given by a single power-up).
@@ -14,12 +19,12 @@ class_name ProjectileAttributes extends Resource;
 ## to a ball when colliding with it.
 @export var mass : float = 1.0;
 
-func _init():
-	if not (amount >= 1):
-		amount = 1;
-	if not (is_finite(speed) and speed > 0.0):
-		speed = 100.0;
-	if not (is_finite(acceleration) and acceleration > 0.0):
-		acceleration = 0.0;
-	if not (is_finite(mass) and mass > 0.0):
-		mass = 1.0;
+#func _init():
+	#if not (amount >= 1):
+		#amount = 1;
+	#if not (is_finite(speed) and speed > 0.0):
+		#speed = 100.0;
+	#if not (is_finite(acceleration) and acceleration > 0.0):
+		#acceleration = 0.0;
+	#if not (is_finite(mass) and mass > 0.0):
+		#mass = 1.0;

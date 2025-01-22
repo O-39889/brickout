@@ -68,8 +68,8 @@ func recalculate_weights(original_weights: Dictionary) -> Dictionary:
 	var ball_count : float = get_tree().get_nodes_in_group(&'balls').size();
 	var ball_limit : float = level.BALL_LIMIT;
 	
-	if VersionManager.VERSION.containsn('pre-alpha'):
-		for żyldyrbyl in [&'gun', &'ghost_paddle']:
+	if VersionManager.VERSION.containsn('alpha'):
+		for żyldyrbyl in [&'ghost_paddle']:
 			# those power-ups are not done yet lol
 			# probably gonna remove the ghost paddle one
 			# altogether lol

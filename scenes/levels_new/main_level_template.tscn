@@ -107,6 +107,15 @@ label_settings = ExtResource("3_6kyua")
 unique_name_in_owner = true
 layout_mode = 2
 
+[node name="AmmoContainer" type="MarginContainer" parent="HBoxContainer/StatsPanel/Stats/PowerupTimers"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 5
+
 [node name="OtherStuffIdk" type="PanelContainer" parent="HBoxContainer/StatsPanel/Stats"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2

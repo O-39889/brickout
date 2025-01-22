@@ -53,6 +53,11 @@ func _ready():
 	super();
 
 
+func create_paddle() -> void:
+	super();
+	paddle.projectile_shot.connect(template._on_paddle_projectile_shot);
+
+
 func add_barrier():
 	if barrier:
 		return;
@@ -235,7 +240,7 @@ func _input(event):
 		if event.is_action_pressed("debug_restart"):
 			return;
 		if event.is_action_pressed("debug_1"):
-			powerup_component._request_powerup('add_ball',
+			powerup_component._request_powerup('gun',
 				paddle.position - Vector2(0, 69));
 		if event.is_action_pressed("debug_2"):
 			powerup_component._request_powerup('acid_ball',

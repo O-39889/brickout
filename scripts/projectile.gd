@@ -3,7 +3,12 @@ class_name Projectile extends CharacterBody2D;
 
 enum GunType {
 	Regular,
-	Rocket
+	Missile
+};
+
+const ATTR_DICT := {
+	GunType.Regular : preload("res://resources/projectiles/bullet.tres"),
+	GunType.Missile : null
 };
 
 
@@ -25,6 +30,7 @@ func _enter_tree():
 func _ready():
 	velocity = Vector2.ZERO if not is_zero_approx(acceleration)\
 		else Vector2.UP * speed;
+	queue_redraw();
 
 
 func handle_collision(collision: KinematicCollision2D):

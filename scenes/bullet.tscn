@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://d1bskf75ppebd" path="res://scenes/projectile.tscn" id="1_53pid"]
 [ext_resource type="Script" path="res://scripts/bullet.gd" id="2_dxnuw"]
-[ext_resource type="Resource" uid="uid://brldhlmn1q474" path="res://resources/projectiles/bullet.tres" id="3_kn38l"]
+[ext_resource type="Resource" uid="uid://hou0ni53f0wn" path="res://resources/projectiles/bullet.tres" id="3_kn38l"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cty2o"]
 radius = 5.0
@@ -12,5 +12,9 @@ script = ExtResource("2_dxnuw")
 attributes = ExtResource("3_kn38l")
 
 [node name="CollisionShape2D" parent="." index="0"]
+visible = false
 shape = SubResource("CircleShape2D_cty2o")
 debug_color = Color(1, 1, 0.847059, 1)
+
+[node name="Sprite2D" parent="." index="1"]
+visible = false
