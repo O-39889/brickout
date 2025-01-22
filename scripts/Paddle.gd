@@ -37,11 +37,11 @@ const PADDLE_SIZES = [
 ];
 
 const MAX_BOUNCE_ANGLES = [
-	55.0,
-	60.0,
-	69.69696969,
-	72.00001,
-	75.17411852982168,
+	40.75,
+	41.0,
+	42.0,
+	42.069,
+	44.9375,
 ];
 
 const STICKY_TIME: float = 30;
