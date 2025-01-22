@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://vmrccf7ghuu3"]
+[gd_scene load_steps=5 format=3 uid="uid://vmrccf7ghuu3"]
 
 [ext_resource type="Script" path="res://scripts/Paddle.gd" id="1_bkcyp"]
 [ext_resource type="Shape2D" uid="uid://uqmgpf1suy2l" path="res://resources/paddle_collision_shape.tres" id="2_ap7b8"]
@@ -6,9 +6,6 @@
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_j1pfi"]
 size = Vector2(20, 20)
-
-[sub_resource type="LabelSettings" id="LabelSettings_tdqog"]
-font_size = 20
 
 [node name="Paddle" type="StaticBody2D"]
 collision_layer = 2
@@ -56,12 +53,6 @@ one_shot = true
 
 [node name="BallAutoReleaseTimer" type="Timer" parent="."]
 one_shot = true
-
-[node name="DebugLbl" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
-text = "0"
-label_settings = SubResource("LabelSettings_tdqog")
 
 [connection signal="timeout" from="StickyTimer" to="." method="_on_sticky_timer_timeout"]
 [connection signal="timeout" from="FrozenTimer" to="." method="_on_frozen_timer_timeout"]

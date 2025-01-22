@@ -119,6 +119,7 @@ var left_right_toggle : bool = false;
 var width_idx := PaddleSize.PADDLE_SIZE_NORMAL;
 var width : float = PADDLE_SIZES[width_idx];
 
+# 🗿
 var size_callable : Callable = (func():
 	%NinePatchRect.pivot_offset = %NinePatchRect.size / 2;
 	%NinePatchRect.scale = sprite.scale;
@@ -209,13 +210,7 @@ func equip_gun(gun_type: Projectile.GunType):
 
 
 func set_gun_positions():
-	if left_gun:
-		left_gun.position.x = -width / 2 + width * GUN_POS;
-		left_gun.position.y = -PADDLE_HEIGHT + 8;
-	if right_gun:
-		right_gun.position.x = -width / 2 + width * (1 - GUN_POS);
-		right_gun.position.y = -PADDLE_HEIGHT + 8;
-		right_gun.modulate = Color.BLACK;
+	return; # NOTICE: NOTHING FOR NOW UNTIL I ADD, LIKE, ACTUAL SPRITES
 
 
 func reset_gun():
@@ -283,13 +278,9 @@ func handle_ball_collision(b: Ball, collision: KinematicCollision2D) -> void:
 func trigger_finish():
 	level_cleared = true;
 	await get_tree().physics_frame;
-	create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)\
-	.tween_property(self, 'finish_speed', 0.0, 0.5);
 
 
 func _physics_process(delta):
-	$DebugLbl.text = str(ammo_left);
-	$DebugLbl.global_position.x = 810;
 	position.x = clamp(position.x, width / 2, get_viewport_rect().size.x - width / 2);
 
 
