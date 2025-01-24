@@ -243,15 +243,21 @@ func _input(event):
 			powerup_component._request_powerup('gun',
 				paddle.position - Vector2(0, 69));
 		if event.is_action_pressed("debug_2"):
-			powerup_component._request_powerup('acid_ball',
+			powerup_component._request_powerup('add_ball',
 				paddle.position - Vector2(0, 69));
 		if event.is_action_pressed('debug_3'):
-			powerup_component._request_powerup('fire_ball',
+			powerup_component._request_powerup('double_balls',
 				paddle.position - Vector2(0, 69));
 		if event.is_action_pressed('debug_4'):
-			powerup_component._request_powerup('sticky_paddle',
+			powerup_component._request_powerup('triple_ball',
 				paddle.position - Vector2(0, 69));
-		if event.is_action_pressed("debug_5"):
+		if event.is_action_pressed('debug_5'):
+			powerup_component._request_powerup('pop_ball',
+				paddle.position - Vector2(0, 69));
+		if event.is_action_pressed('debug_6'):
+			powerup_component._request_powerup('pop_all_balls',
+				paddle.position - Vector2(0, 69));
+		if event.is_action_pressed("debug_7"):
 			var briccs := get_tree().get_nodes_in_group(&'destructible_bricks');
 			var ninety_five := int(briccs.size() * 0.950001);
 			briccs.shuffle();

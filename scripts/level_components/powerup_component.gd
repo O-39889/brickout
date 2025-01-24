@@ -236,19 +236,20 @@ func _on_powerup_collected(powerup: Powerup):
 			new_ball.position.x = 0;
 			level.add_ball_to_paddle(new_ball, true);
 		&'triple_ball':
-			var ball_selection : Array[Ball];
-			# have a lower chance of picking a stuck ball
-			for b in get_tree().get_nodes_in_group(&'balls'):
-				if b.stuck:
-					if randf() < 0.3:
+			if get_tree().get_node_count_in_group(&'balls') != 0:
+				var ball_selection : Array[Ball];
+				# have a lower chance of picking a stuck ball
+				for b in get_tree().get_nodes_in_group(&'balls'):
+					if b.stuck:
+						if randf() < 0.3:
+							ball_selection.append(b);
+					# only check the free bawls above the paddle
+					elif b.position.y <= level.paddle.position.y:
 						ball_selection.append(b);
-				# only check the free bawls above the paddle
-				elif b.position.y <= level.paddle.position.y:
-					ball_selection.append(b);
-			# fallback (just get the first bawl available)
-			if ball_selection.is_empty():
-				ball_selection = [get_tree().get_first_node_in_group(&'balls')];
-			level.clone_balls(ball_selection.pick_random(), 2);
+				# fallback (just get the first bawl available)
+				if ball_selection.is_empty():
+					ball_selection = [get_tree().get_first_node_in_group(&'balls')];
+				level.clone_balls(ball_selection.pick_random(), 2);
 		&'double_balls':
 			for b in get_tree().get_nodes_in_group(&'balls'):
 				level.clone_balls(b, 1);
@@ -280,7 +281,7 @@ func _on_powerup_collected(powerup: Powerup):
 		&'pop_ball':
 			var balls_arr : Array[Ball];
 			# can't pop the only remaining bawl
-			if get_tree().get_nodes_in_group(&'balls').size() == 1:
+			if get_tree().get_nodes_in_group(&'balls').size() <= 1:
 				return;
 			# we form a list of potential targets
 			for b in get_tree().get_nodes_in_group(&'balls'):
@@ -300,7 +301,7 @@ func _on_powerup_collected(powerup: Powerup):
 		&'pop_all_balls':
 			var balls_arr : Array = get_tree().get_nodes_in_group(&'balls');
 			# can't pop the only remaining ball
-			if balls_arr.size() == 1:
+			if balls_arr.size() <= 1:
 				return;
 			# the ball that won't be popped
 			var safe_ball : Ball = null;
