@@ -59,8 +59,6 @@ var data : bool = true;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	print(Projectile.ATTR_DICT);
-	var ccccc = Projectile.ATTR_DICT;
 	assert(is_instance_valid(lvl), "Level gameplay scene not provided by the GameProgression singleton!!!");
 	lvl.template = self;
 	game_viewport.add_child(lvl);

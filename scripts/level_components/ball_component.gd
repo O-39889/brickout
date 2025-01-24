@@ -79,7 +79,6 @@ func handle_collision(b1: Ball, b2: Ball):
 	# I think the issue might be with them being in a nested viewport
 	if play_collision_sound:
 		var player : AudioStreamPlayer2D = audio_players.pick_random();
-		#print(player);
 		player.play();
 	
 	collisions[id] = 2;
