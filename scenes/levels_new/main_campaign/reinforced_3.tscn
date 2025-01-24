@@ -35,7 +35,7 @@ protected_sides = 11
 position = Vector2(1125, 203)
 is_shimmering = true
 color = 4
-protected_sides = 10
+protected_sides = 14
 
 [node name="Brick72" parent="BrickComponent" index="2" instance=ExtResource("5_o2ae7")]
 position = Vector2(540, 203)
