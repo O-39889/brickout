@@ -1,21 +1,22 @@
 {
 	"common": [
-		"Try to break an opening towards the top of the level; that way, you can send a ball up there to clear a lot of upper bricks quickly!",
+		"Try to break an opening towards the top of the level; that way, you can send a ball up there to clear a lot of bricks quickly!",
 		"Power-ups with green borders provide beneficial effects such as giving extra points or making the gameplay easier.",
 		"Power-ups with red borders make your gameplay more difficult; try to avoid them.",
-		"Power-ups with yellow borders change the speed of the balls; they're neither bad nor good as they can both make the balls easier or harder to follow and make the gameplay more boring or exciting.",
+		"Power-ups with yellow borders change the speed of the balls; they're neither bad nor good as they can both make the balls easier or harder to follow and make the gameplay more boring or dynamic.",
 		"Earn EXTRA_LIFE_MULTIPLIER points to get an extra life!",
 		"If you missed all balls but still have a gun power-up, you still have a chance to recover by shooting bricks until you get an extra ball or clear the level.",
-		"You won't keep the extra balls when you clear the level; however, you get bonus points for every ball left in play (which eventually translate into extra lives!) so try to still keep them.",
-		"The add ball power-up gives you an extra ball but you don't have to launch it right away! You can keep it on your paddle in case you lose other balls so that you don't lose a life.",
+		"You won't keep the extra balls when you clear the level but you get bonus points for every ball left in play: that will eventually give you extra lives, so try to still keep them.",
+		"You don't have to launch the ball you get with an add ball power-up right away! You can keep it on your paddle in case you lose other balls so that you don't lose a life.",
 		"With the acid ball power-up, you actually earn ABABA points than usual, so think twice before picking it if you're short on points and extra lives!",
 		],
 	"rare": [
 		"Increasing combat capabilities prevents the enemy from attacking.",
 		"Fun fact: in code, these are actually called \"loading screen tips\" despite being displayed on WHEREVER_THE_HECK_ARE_THEY_DISPLAYED",
-		"News: Survey shows 99% of people prefer other desserts over ice cream; 1 respondent undecided and says \"someone must have mixed up the games\".",
+		"News: Survey shows 99% of people prefer ice cream over other sweets; 1 respondent undecided and says \"someone must have mixed up the games\".",
 		"Fun fact: the word \"ball(s)\" is used exactly № times in all these tips (including this one).",
 		"Fun fact: you're playing this on OS_NAME. OS_JUDGEMENTAL_TEXT",
+		"A perfect plan tomorrow is better than a good plan today.",
 		"A perfect plan tomorrow is better than a good plan today.",
 	]
 }
