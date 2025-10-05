@@ -27,7 +27,7 @@ func _set_tip() -> void:
 		var rare_idx : int;
 		while true:
 			rare_idx = int(randf() * tip_dict['rare'].size());
-			if last_tip_idx == -1 or rare_idx | 1024 != last_tip_idx:
+			if last_tip_idx == -1 or rare_idx | 1024 != last_tip_idx: # is this for preventing the tips from repeating back-to-back?
 				break;
 		last_tip_idx = rare_idx | 1024;
 		tip_text = tip_dict['rare'][rare_idx];
@@ -48,8 +48,8 @@ func _set_tip() -> void:
 		.replace('OS_NAME', OS.get_name())\
 		.replace('OS_JUDGEMENTAL_TEXT',
 		"I've yet to come up with customized judgemental messages for every supported OS though")\
-		.replace('ABABA',
-		'fewer' if randf() < 0.5 else 'less')\
+		.replace('FEWERLESS',
+		'fewer' if randf() > 0.5 else 'less')\
 		.replace('№',
 		(func() -> String:
 			var counter := 0;
@@ -60,10 +60,11 @@ func _set_tip() -> void:
 			return str(counter);
 			).call());
 	if not(tip_text.begins_with('Fun fact')
-	or tip_text.begins_with('News')):
+	or tip_text.begins_with('News')): # there are three categories of tips: tips, fun facts, and news. contrary to a popular belief though, "fun facts" may not always be actual "facts".
 		tip_text = 'Tip: ' + tip_text;
 	tip_lbl.text = tip_text;
 
+# NOTE from future me: what the heck did I mean by this?
 # NOTE: in the level clear screen, time should be the score in the current level,
 # not the total score
 func set_score(score: int) -> void:
