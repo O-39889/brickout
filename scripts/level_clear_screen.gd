@@ -64,8 +64,8 @@ func _set_tip() -> void:
 		tip_text = 'Tip: ' + tip_text;
 	tip_lbl.text = tip_text;
 
-# NOTE from future me: what the heck did I mean by this?
-# NOTE: in the level clear screen, time should be the score in the current level,
+
+# NOTE: in the level clear screen, score should be the score in the current level,
 # not the total score
 func set_score(score: int) -> void:
 	score_lbl.text = 'Score: %d' % score;
